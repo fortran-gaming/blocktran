@@ -35,7 +35,10 @@ Play
 Controls
 --------
 
-W       Rotate piece
-A/D     Left and right respectively
-S       Move down faster
-Q       Exit the game
+=== ======
+Key Effect
+=== ======
+W   Rotate piece
+A/D Left and right respectively
+S   Move down faster
+Q   Exit the game
