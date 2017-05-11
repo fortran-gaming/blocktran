@@ -1,0 +1,22 @@
+language: c
+
+dist: trusty
+
+os:
+  - linux
+
+notifications:
+  email: false
+
+git:
+  depth: 3
+
+addons:
+  apt:
+    packages:
+      - gfortran
+
+install:
+    - make
+
+
