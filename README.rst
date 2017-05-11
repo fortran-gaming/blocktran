@@ -6,12 +6,13 @@ Basic tetris-style game written in Modern Fortran.
 
 Building
 ========
+Tetran works on Mac, Linux, Cygwin and Windows Subsystem for Linux.
 
-Installing gfortran
--------------------
+Prereq
+------
 ::
 
-    sudo apt install gfortran
+    sudo apt install gfortran libncurses-dev
 
 
 Compile
