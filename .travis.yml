@@ -24,7 +24,7 @@ before_install:
 
     - export FC=gfortran
 
-install:
+script:
     - make
 
 
