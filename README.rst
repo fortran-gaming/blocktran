@@ -25,13 +25,15 @@ For example, to use the Intel Fortran compiler::
 
     FC=ifort make
 
-## Play
+Play
+====
 ::
 
     ./main
 
 
-### Controls
+Controls
+--------
 
 W       Rotate piece
 A/D     Left and right respectively
