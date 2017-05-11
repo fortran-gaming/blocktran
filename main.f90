@@ -95,7 +95,7 @@ program add
 
         subroutine draw_score()
             character(len=16) :: score_msg = ""
-            write (score_msg, "(I10)"), score
+            write (score_msg, "(I10)") score
 
             call mvprintw(20, 0, score_msg)
         end subroutine draw_score
