@@ -13,8 +13,8 @@ git:
 
 addons:
   apt:
-    sources: ['ubuntu-toolchain-r-test']
-    packages: ['gfortran-6']
+    packages:
+      - gfortran
 
 before_install:
     - if [[ $TRAVIS_OS_NAME == osx ]]; then
@@ -22,7 +22,7 @@ before_install:
         brew install gcc;
       fi
 
-    - gfortran -dumpversion
+    - export FC=gfortran
 
 install:
     - make
