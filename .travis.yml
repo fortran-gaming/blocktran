@@ -1,0 +1,31 @@
+language: c
+
+dist: trusty
+
+os:
+  - linux
+  - osx
+
+notifications:
+  email: false
+
+git:
+  depth: 3
+
+addons:
+  apt:
+    packages:
+      - gfortran
+
+before_install:
+    - if [[ $TRAVIS_OS_NAME == osx ]]; then
+        brew update;
+        brew install gcc;
+      fi
+
+    - export FC=gfortran
+
+script:
+    - make
+
+
