@@ -2,6 +2,9 @@
 Tetran
 ======
 
+.. image:: https://travis-ci.org/lewisjb/tetran.svg?branch=master
+   :target: https://travis-ci.org/lewisjb/tetran
+
 Basic tetris-style game written in Modern Fortran.
 
 Building
