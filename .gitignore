@@ -1,3 +1,4 @@
+*.log
 main
 *.mod
 *.o
