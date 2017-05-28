@@ -1,4 +1,7 @@
-language: c
+language: python
+
+python:
+  - 3.6
 
 dist: trusty
 
@@ -20,12 +23,16 @@ addons:
 before_install:
     - if [[ $TRAVIS_OS_NAME == osx ]]; then
         brew update;
-        brew install gcc;
+        brew install gcc ncurses;
       fi
 
+install: 
     - export FC=gfortran
+    - cd bin
+    - cmake ..
+    - make
+    - cd ..
 
 script:
-    - make
-
+    - python tests/test.py
 
