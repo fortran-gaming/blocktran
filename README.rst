@@ -46,8 +46,15 @@ For example, to use the Intel Fortran compiler::
 Play
 ====
 ::
-
     ./tetran
+
+The difficulty level may be set (rate of falling blocks higher) by::
+
+    ./tetran 10
+
+The first number sets the difficulty level (higher number more difficult; positive integers only.
+This integer number is used to divide the wait time period by
+
 
 
 Controls
