@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.12)
 project(tetran Fortran)
 
-add_compile_options(-mtune=native -Werror=array-bounds -fexceptions
+add_compile_options(-std=f2008ts -mtune=native -Werror=array-bounds -fexceptions
                     -Wall -Wextra -Wpedantic -fbacktrace -g)
 # -fstack-protector-all  # not for Cygwin
 
