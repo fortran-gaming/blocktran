@@ -365,7 +365,7 @@ contains
         do i = 1, H
             if (lines_to_clear(i)) then
                 screen(i,:) = 0 ! wipe away cleared lines
-                screen(1:i, :) = cshift(screen(1:i, :), shift=-1, dim=1)
+                screen(:i, :) = cshift(screen(:i, :), shift=-1, dim=1)
             endif
             ! Bring everything down
         end do
