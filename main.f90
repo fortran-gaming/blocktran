@@ -33,11 +33,12 @@ program add
     integer, parameter :: Ntypes = 7
 
     ! Microseconds between each automatic downward move
-    integer, parameter :: move_time = 500000 ! 0.5 sec.
+    integer :: move_time = 500000 ! 0.5 sec. http://www.colinfahey.com/tetris/tetris.html
     integer, parameter :: sleep_incr = 10000 ! 10 ms
     integer :: tcount = 0
 
-    integer :: u
+    integer :: u, argc, difficulty_factor=1
+    character(16) :: arg
 
     blockseq(:) = "" ! otherwise it has random characters.
 
@@ -47,8 +48,18 @@ program add
         open(newunit=u,file='tetran.log',action='Write', &
                     form='formatted',status='unknown',position='append') 
     endif
-    
+!------- argv
+    argc = command_argument_count()
+    if (argc>0) then
+        call get_command_argument(1,arg); read(arg,*) difficulty_factor
+        if ((difficulty_factor>1).or.(difficulty_factor<100)) then
+            move_time = move_time / difficulty_factor
+        endif
+    endif
 
+
+    print *,'piece update time (ms)', move_time/1000
+!------- initialize
     call initscr()
     call noecho()
     call cbreak()
@@ -59,7 +70,7 @@ program add
 
     call generate_next_type()
     call spawn_block()
-
+!--------- main loop
     do
         call clear()
         call draw_screen()

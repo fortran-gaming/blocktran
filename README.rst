@@ -5,7 +5,15 @@
 Tetran
 ======
 
+:author: Lewis Bobbermen, Michael Hirsch Ph.D.
+
 Basic tetris-style game written in Modern Fortran.
+
+* Currently only one level, play until pieces overflow
+* Fortran 2008 syntax
+* play details given at game over and logged to ``tetran.log``
+* Ncurses used for display, called directly from Fortran code.
+
 
 Building
 ========
@@ -53,3 +61,9 @@ A/D Left and right respectively
 S   Move down faster
 Q   Exit the game
 === ======
+
+
+References
+==========
+
+`Standard Tetris Specifications <http://www.colinfahey.com/tetris/tetris.html>`_
