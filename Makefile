@@ -4,4 +4,4 @@ all:
 	$(FC) main.f90 cinter.o blocks.o -o tetran -lncurses
 
 clean:
-	rm cinter.mod cinter.o blocks.mod blocks.o main
+	$(RM) *.o *.mod tetran

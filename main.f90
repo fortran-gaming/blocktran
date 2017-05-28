@@ -4,8 +4,7 @@ program add
     use iso_fortran_env, only : error_unit
     implicit none
 
-
-    logical, parameter :: debug=.true.
+    logical :: debug=.false.
     integer, parameter :: Tmax = 10000 ! maximum number of pieces to log
 
     integer, parameter :: H=20, W=10
@@ -37,34 +36,21 @@ program add
     integer, parameter :: sleep_incr = 10000 ! 10 ms
     integer :: tcount = 0
 
-    integer :: u, argc, difficulty_factor=1
-    character(16) :: arg
-
-    blockseq(:) = "" ! otherwise it has random characters.
+    integer :: u
+    integer :: difficulty_factor=1
 
 
-!------- debug
-    if (debug) then
-        open(newunit=u,file='tetran.log',action='Write', &
-                    form='formatted',status='unknown',position='append') 
-    endif
-!------- argv
-    argc = command_argument_count()
-    if (argc>0) then
-        call get_command_argument(1,arg); read(arg,*) difficulty_factor
-        if ((difficulty_factor>1).or.(difficulty_factor<100)) then
-            move_time = move_time / difficulty_factor
-        endif
-    endif
-
-
+    call cmd_parse()
+    
     print *,'piece update time (ms)', move_time/1000
 !------- initialize
     call initscr()
     call noecho()
     call cbreak()
     call timeout(0)
-    call init_screen_array()
+
+    screen(:,:) = 0
+    blockseq(:) = "" 
     
     call init_random_seed()
 
@@ -93,8 +79,43 @@ program add
 
 contains
 
-    subroutine init_random_seed()
+    subroutine cmd_parse()
+        integer :: i,argc
+        character(*),parameter :: logfn='tetran.log'
+        character(16) :: arg
+        character(8)  :: date
+        character(10) :: time
+        character(5)  :: zone
 
+    !------- argv positional
+        argc = command_argument_count()
+        if (argc>0) then
+            call get_command_argument(1,arg)
+            read(arg,*, err=9) difficulty_factor
+            if ((difficulty_factor>1).or.(difficulty_factor<100)) then
+                move_time = move_time / difficulty_factor
+            endif
+        endif
+9       continue  ! was a flag instead of value
+    !-------- argv flags
+        do i = 1,argc
+            call get_command_argument(i,arg)
+            select case (arg)
+                case ('-d','--debug','-v','--verbose')
+                    debug=.true.
+                    print *,'debug enabled, writing to', logfn
+                    open(newunit=u,file=logfn, action='Write', &
+                             form='formatted',status='unknown',position='append')
+
+                    call date_and_time(date,time,zone) 
+                    write(u,*) '--------------------------------------------'
+                    write(u,*) 'start:', date,'T',time,zone              
+            end select  
+        enddo
+
+    end subroutine cmd_parse
+
+    subroutine init_random_seed()
         integer :: i, n, clock
         integer, allocatable :: seed(:)
 
@@ -117,7 +138,7 @@ contains
         character(len=*),intent(in) :: msg
         call endwin()
         write(error_unit,*) msg
-        error stop
+        error stop 'abnormal TETRAN termination'
     end subroutine err
 
     subroutine game_over()
@@ -132,11 +153,6 @@ contains
 
     end subroutine game_over
 
-    ! Sets all the values in the screen array to 0
-    subroutine init_screen_array()
-        screen(:,:) = 0
-    end subroutine init_screen_array
-
     subroutine draw_screen()
         integer :: i, j
 
@@ -145,7 +161,7 @@ contains
                 if (screen(i, j) == 1) then
                     call addch('@')
                 else
-                    call addch('.')
+                    call addch('.')  ! background selection  (some like '.')
                 end if
             end do
             call addch(NEW_LINE(' '))
