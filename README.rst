@@ -33,6 +33,7 @@ Mac::
 Compile
 -------
 ::
+
     cd bin
     cmake ..
     make
@@ -46,6 +47,7 @@ For example, to use the Intel Fortran compiler::
 Play
 ====
 ::
+
     ./tetran
 
 The difficulty level may be set (rate of falling blocks higher) by::
