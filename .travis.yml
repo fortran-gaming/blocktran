@@ -1,13 +1,15 @@
 language: python
 
 python:
-  - 3.6
+  - 3.5  
+# py35 for old Mac Travis image
 
 dist: trusty
 
 os:
   - linux
-#  - osx
+  - osx
+
 
 notifications:
   email: false

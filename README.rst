@@ -14,24 +14,26 @@ Basic tetris-style game written in Modern Fortran.
 * play details given at game over and logged to ``tetran.log``
 * Ncurses used for display, called directly from Fortran code.
 
+.. contents::
 
-Building
-========
+Tetran Prereq
+=============
 Tetran works on Mac, Linux, Cygwin and Windows Subsystem for Linux.
 
-Prereq
-------
-Linux::
+
+Linux 
+------------
 
     sudo apt install gfortran libncurses-dev
 
-Mac::
+Mac
+----------
 
     brew install gcc ncurses
 
 
-Compile
--------
+Compile Tetran
+==============
 ::
 
     cd bin
