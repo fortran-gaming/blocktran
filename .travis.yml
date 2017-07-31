@@ -7,10 +7,9 @@ dist: trusty
 
 os:
   - linux
-  - osx
+#  - osx
 
-osx_image: xcode9
-
+# remember OS X still doesn't have Python at all on Travis!
 
 notifications:
   email: false
