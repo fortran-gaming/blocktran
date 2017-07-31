@@ -1,14 +1,15 @@
 language: python
 
 python:
-  - 3.5  
-# py35 for old Mac Travis image
+  - 3.6
 
 dist: trusty
 
 os:
   - linux
   - osx
+
+osx_image: xcode9
 
 
 notifications:

@@ -21,7 +21,7 @@ Tetran Prereq
 Tetran works on Mac, Linux, Cygwin and Windows Subsystem for Linux.
 
 
-Linux 
+Linux / WSL
 ------------
 
     sudo apt install gfortran libncurses-dev
@@ -30,6 +30,11 @@ Mac
 ----------
 
     brew install gcc ncurses
+
+Cygwin
+------
+
+    setup-x86_64.exe -P libncurses-devel cmake make gcc-gfortran
 
 
 Compile Tetran
