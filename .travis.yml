@@ -9,6 +9,8 @@ os:
   - linux
 #  - osx
 
+# remember OS X still doesn't have Python at all on Travis!
+
 notifications:
   email: false
 
