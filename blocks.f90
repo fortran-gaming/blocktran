@@ -11,6 +11,7 @@ module blocks
          1, 1, 1, 1, &
          0, 0, 0, 0, &
          0, 0, 0, 0, &
+
          0, 0, 1, 0, &
          0, 0, 1, 0, &
          0, 0, 1, 0, &
@@ -23,14 +24,17 @@ module blocks
          1, 1, 1, 0, &
          0, 1, 0, 0, &
          0, 0, 0, 0, &
+
          0, 1, 0, 0, &
          1, 1, 0, 0, &
          0, 1, 0, 0, &
          0, 0, 0, 0, &
+
          0, 1, 0, 0, &
          1, 1, 1, 0, &
          0, 0, 0, 0, &
          0, 0, 0, 0, &
+
          0, 1, 0, 0, &
          0, 1, 1, 0, &
          0, 1, 0, 0, &
@@ -43,14 +47,17 @@ module blocks
          1, 1, 1, 0, &
          1, 0, 0, 0, &
          0, 0, 0, 0, &
+
          1, 1, 0, 0, &
          0, 1, 0, 0, &
          0, 1, 0, 0, &
          0, 0, 0, 0, &
+
          0, 0, 0, 0, &
          0, 0, 1, 0, &
          1, 1, 1, 0, &
          0, 0, 0, 0, &
+
          0, 1, 0, 0, &
          0, 1, 0, 0, &
          0, 1, 1, 0, &
@@ -63,14 +70,17 @@ module blocks
          1, 1, 1, 0, &
          0, 0, 1, 0, &
          0, 0, 0, 0, &
+
          0, 1, 0, 0, &
          0, 1, 0, 0, &
          1, 1, 0, 0, &
          0, 0, 0, 0, &
+
          0, 0, 0, 0, &
          1, 0, 0, 0, &
          1, 1, 1, 0, &
          0, 0, 0, 0, &
+
          0, 1, 1, 0, &
          0, 1, 0, 0, &
          0, 1, 0, 0, &
@@ -83,6 +93,7 @@ module blocks
          0, 1, 1, 0, &
          1, 1, 0, 0, &
          0, 0, 0, 0, &
+
          1, 0, 0, 0, &
          1, 1, 0, 0, &
          0, 1, 0, 0, &
@@ -95,6 +106,7 @@ module blocks
          1, 1, 0, 0, &
          0, 1, 1, 0, &
          0, 0, 0, 0, &
+
          0, 0, 1, 0, &
          0, 1, 1, 0, &
          0, 1, 0, 0, &
@@ -109,42 +121,42 @@ module blocks
          0, 0, 0, 0 /), &
          shape(square))
 
-  contains
+contains
 
-    ! Mutates rotation
-    subroutine get_shape(block_type, rotation, bshape)
+  ! Mutates rotation
+  subroutine get_shape(block_type, rotation, bshape)
 
-      integer, intent(out) :: bshape(4,4)
-      integer, intent(inout) :: rotation
-      integer, intent(in) :: block_type
+    integer, intent(out) :: bshape(4,4)
+    integer, intent(inout) :: rotation
+    integer, intent(in) :: block_type
 
 
-      select case (block_type)
-        case (0)
-          bshape = line(:,:,rotation+1)
-          rotation = modulo(rotation, 2) ! pass by reference (intent(inout)) is convenient
-        case (1)
-          bshape = tee(:,:,rotation+1)
-          rotation = modulo(rotation, 4)
-        case (2)
-          bshape = ell(:,:,rotation+1)
-          rotation = modulo(rotation, 4)
-        case (3)
-          bshape = jay(:,:,rotation+1)
-          rotation = modulo(rotation, 4)
-        case (4)
-          bshape = ess(:,:,rotation+1)
-          rotation = modulo(rotation, 2)
-        case (5)
-          bshape = zee(:,:,rotation+1)
-          rotation = modulo(rotation, 2)
-        case (6)
-          bshape = square
-          rotation = 0
-        case default
-          write(error_unit,*) 'unknown shape index: ',block_type
-          error stop
-      end select
-    end subroutine get_shape
+    select case (block_type)
+      case (0)
+        bshape = line(:,:,rotation+1)
+        rotation = modulo(rotation, 2)
+      case (1)
+        bshape = tee(:,:,rotation+1)
+        rotation = modulo(rotation, 4)
+      case (2)
+        bshape = ell(:,:,rotation+1)
+        rotation = modulo(rotation, 4)
+      case (3)
+        bshape = jay(:,:,rotation+1)
+        rotation = modulo(rotation, 4)
+      case (4)
+        bshape = ess(:,:,rotation+1)
+        rotation = modulo(rotation, 2)
+      case (5)
+        bshape = zee(:,:,rotation+1)
+        rotation = modulo(rotation, 2)
+      case (6)
+        bshape = square
+        rotation = 0
+      case default
+        write(error_unit,*) 'unknown shape index: ',block_type
+        error stop
+    end select
+  end subroutine get_shape
 
 end module blocks
