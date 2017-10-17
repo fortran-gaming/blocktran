@@ -1,4 +1,5 @@
 module blocks
+  use, intrinsic:: iso_fortran_env, only: error_unit
   implicit none
   public
   ! Stores the shape of the blocks at each of their rotations
@@ -112,7 +113,7 @@ module blocks
 
     ! Mutates rotation
     subroutine get_shape(block_type, rotation, bshape)
-       
+
       integer, intent(out) :: bshape(4,4)
       integer, intent(inout) :: rotation
       integer, intent(in) :: block_type
@@ -141,7 +142,8 @@ module blocks
           bshape = square
           rotation = 0
         case default
-          call err('unknown shape called')
+          write(error_unit,*) 'unknown shape index: ',block_type
+          error stop
       end select
     end subroutine get_shape
 

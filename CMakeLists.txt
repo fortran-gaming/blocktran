@@ -8,7 +8,7 @@ if (NOT ${CYGWIN})
 endif()
 
 if(${CMAKE_Fortran_COMPILER_ID} MATCHES "GNU")
-  add_compile_options(-std=f2008ts -Wall -Wextra -Wpedantic -fexceptions -Werror=array-bounds -fexceptions -fbacktrace 
+  add_compile_options(-std=f2008ts -Wall -Wextra -Wpedantic -fexceptions -Werror=array-bounds -fexceptions -fbacktrace
   -fcheck=all -ffpe-trap=invalid,zero,overflow -finit-real=nan
   -fall-intrinsics
   -Warray-temporaries -Wconversion -fimplicit-none)
@@ -20,10 +20,11 @@ endif()
 
 #---- libraries
 add_library(cinter cinter.f90)  # Ncurses interface
+target_link_libraries(cinter PRIVATE ncurses)
 
 #---- executables
 add_executable(tetran blocks.f90 main.f90)
-target_link_libraries(tetran cinter ncurses)
+target_link_libraries(tetran cinter)
 
 add_executable(keys test_key.f90)
-target_link_libraries(keys cinter ncurses)
+target_link_libraries(keys cinter)
