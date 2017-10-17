@@ -111,36 +111,36 @@ module blocks
     contains
 
         ! Mutates rotation
-        function get_shape(block_type, rotation)
+        subroutine get_shape(block_type, rotation, bshape)
            
-            integer :: get_shape(4,4)
+            integer, intent(out) :: bshape(4,4)
             integer, intent(inout) :: rotation
             integer, intent(in) :: block_type
 
 
             select case (block_type)
                 case (0)
-                    get_shape = line(:,:,rotation+1)
+                    bshape = line(:,:,rotation+1)
                     rotation = modulo(rotation, 2) ! pass by reference (intent(inout)) is convenient
                 case (1)
-                    get_shape = tee(:,:,rotation+1)
+                    bshape = tee(:,:,rotation+1)
                     rotation = modulo(rotation, 4)
                 case (2)
-                    get_shape = ell(:,:,rotation+1)
+                    bshape = ell(:,:,rotation+1)
                     rotation = modulo(rotation, 4)
                 case (3)
-                    get_shape = jay(:,:,rotation+1)
+                    bshape = jay(:,:,rotation+1)
                     rotation = modulo(rotation, 4)
                 case (4)
-                    get_shape = ess(:,:,rotation+1)
+                    bshape = ess(:,:,rotation+1)
                     rotation = modulo(rotation, 2)
                 case (5)
-                    get_shape = zee(:,:,rotation+1)
+                    bshape = zee(:,:,rotation+1)
                     rotation = modulo(rotation, 2)
                 case (6)
-                    get_shape = square
+                    bshape = square
                     rotation = 0
             end select
-        end function get_shape
+        end subroutine get_shape
 
 end module blocks

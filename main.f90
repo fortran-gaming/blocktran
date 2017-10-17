@@ -22,7 +22,7 @@ program add
     integer :: cur_rotation = 0
 
     ! Current score
-    integer :: score = 0, Nblock=-1 ! first go around draws two blocks
+    integer :: score = 0, Nblock=0 ! first go around draws two blocks
     character(1) :: blockseq(Tmax)  ! record of blocks player experienced
     ! NOTE: uses eoshift to avoid indexing beyond array, discarding earliest turns
 
@@ -56,6 +56,7 @@ program add
 
     call generate_next_type()
     call spawn_block()
+    Nblock = Nblock-1   ! offset creation of first block
 !--------- main loop
     do
         call clear()
@@ -95,21 +96,21 @@ contains
             if ((difficulty_factor>1).or.(difficulty_factor<100)) then
                 move_time = move_time / difficulty_factor
             endif
-        endif
-9       continue  ! was a flag instead of value
+9        endif  ! flag instead of value
     !-------- argv flags
         do i = 1,argc
             call get_command_argument(i,arg)
             select case (arg)
                 case ('-d','--debug','-v','--verbose')
                     debug=.true.
-                    print *,'debug enabled, writing to', logfn
+                    print *,'debug enabled, writing to ', logfn
                     open(newunit=u,file=logfn, action='Write', &
-                             form='formatted',status='unknown',position='append')
+                         form='formatted', status='unknown',   & 
+                         position='append')
 
                     call date_and_time(date,time,zone) 
                     write(u,*) '--------------------------------------------'
-                    write(u,*) 'start:', date,'T',time,zone              
+                    write(u,*) 'start: ', date,'T', time, zone              
             end select  
         enddo
 
@@ -129,27 +130,38 @@ contains
 
         call random_seed(put=seed)
 
-        call random_seed(get=seed)
-
-        if (debug) write(u,*) 'seed:',seed
+        if (debug) then
+          call random_seed(get=seed)
+          write(u,*) 'seed:',seed
+          write(u,*) 'Lines to clear                                 Counter'
+        endif
     end subroutine
 
     subroutine err(msg)
         character(len=*),intent(in) :: msg
         call endwin()
         write(error_unit,*) msg
+        if (debug) then
+          write(u,*) msg
+          close(u)
+        endif
+        
         error stop 'abnormal TETRAN termination'
     end subroutine err
 
     subroutine game_over()
         call endwin()
+        
         Print *, 'Score:', score
         print *, 'Number of Blocks:',Nblock
-        print *, 'Block Sequence:',blockseq(:Nblock)
+        print *, 'Block Sequence: ',blockseq(:Nblock)
 
-        if (debug) close(u)
+        if (debug) then
+          write(u,*) 'Block Sequence: ',blockseq(:Nblock) 
+          close(u)
+        endif
 
-        stop
+        stop 'Goodbye from Tetran'
 
     end subroutine game_over
 
@@ -243,7 +255,7 @@ contains
         integer :: i, j, jx, iy
 
         collided = .false.
-        block = get_shape(cur_type, rotation)
+        call get_shape(cur_type, rotation, block)
 
         iloop: do i = 1, 4
             iy = i + y - 2
@@ -275,20 +287,20 @@ contains
     end function check_collision
     
     subroutine draw_piece(offset_x, offset_y, piece_type, piece_rotation)
-        integer, intent(in) :: offset_x, offset_y, piece_type
-        integer, intent(inout) :: piece_rotation
-        integer :: block(4,4)
-        integer :: i, j, x, y
+      integer, intent(in) :: offset_x, offset_y, piece_type
+      integer, intent(inout) :: piece_rotation
+      integer :: block(4,4)
+      integer :: i, j, x, y
 
-        block = get_shape(piece_type, piece_rotation)
+      call get_shape(piece_type, piece_rotation, block)
 
-        do i = 1, 4
-            y = i + offset_y - 2
-            do j = 1, 4
-                x = j + offset_x - 2
-                if (y >= 0 .and. block(i, j) == 1) call mvaddch(y, x, '#')
-            end do
+      do i = 1, 4
+        y = i + offset_y - 2
+        do j = 1, 4
+          x = j + offset_x - 2
+          if (y >= 0 .and. block(i, j) == 1) call mvaddch(y, x, '#')
         end do
+      end do
     end subroutine draw_piece
 
     ! Called when a piece has hit another and is solidifying
@@ -296,7 +308,7 @@ contains
         integer :: block(4,4)
         integer :: i, j, x, y
 
-        block = get_shape(cur_type, cur_rotation)
+        call get_shape(cur_type, cur_rotation, block)
 
         do i = 1, 4
             y = i + cur_y - 1
@@ -326,10 +338,10 @@ contains
         cur_y = -1
         cur_type = next_type
         cur_rotation = 0
-
+     ! ----- logging ---------
         if (Nblock>Tmax) then
             ib = Tmax
-            blockseq = eoshift(blockseq,1)
+            blockseq = eoshift(blockseq,1)  !OK array-temp
         else
             ib = Nblock
         endif
@@ -352,6 +364,7 @@ contains
           case default  
             call err('impossible block type')
         end select
+      ! ------ end logging
 
         call generate_next_type()
     end subroutine spawn_block
