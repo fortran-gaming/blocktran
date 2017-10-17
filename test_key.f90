@@ -1,22 +1,20 @@
 program test_key
 
-    use cinter, only: initscr,getch, usleep
+  use cinter, only: initscr,getch, usleep
 
-    implicit none
+  implicit none
 
-    integer :: ic
+  integer :: ic
 
-    call initscr()
+  call initscr()
 
-    print *,'Ctrl-c to stop program, which prints keys pressed and their code'
-    call usleep(2000000)
+  print *,'Ctrl-c to stop program, which prints keys pressed and their code'
+  call usleep(2000000)
 
-    do 
-        ic = getch()
-        print *,ic
-        call usleep(100000)
-    end do
-    
-
+  do 
+	ic = getch()
+	print *,ic
+	call usleep(100000)
+  end do
 
 end program
