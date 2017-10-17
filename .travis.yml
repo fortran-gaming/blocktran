@@ -1,15 +1,10 @@
-language: python
-
-python:
-  - 3.6
-
-dist: trusty
+language: generic
 
 os:
   - linux
-#  - osx
-
-# remember OS X still doesn't have Python at all on Travis!
+  - osx
+  
+env: TRAVIS_PYTHON_VERSION=3.6  FC=gfortran
 
 notifications:
   email: false
@@ -26,10 +21,22 @@ before_install:
     - if [[ $TRAVIS_OS_NAME == osx ]]; then
         brew update;
         brew install gcc ncurses;
+        wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh -O miniconda.sh;
+      else
+        wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
       fi
 
+    - bash miniconda.sh -b -p $HOME/miniconda
+    - export PATH=$HOME/miniconda/bin:$PATH
+    - hash -r
+
+    - conda config --set always_yes yes --set changeps1 no
+    - conda update -q conda
+    - conda create -n test python=$TRAVIS_PYTHON_VERSION
+    - source activate test
+    - pip -q install coveralls
+
 install: 
-    - export FC=gfortran
     - cd bin
     - cmake ..
     - make
