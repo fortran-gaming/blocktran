@@ -182,6 +182,9 @@ contains
   end subroutine draw_screen
 
   subroutine draw_score()
+    ! prints on line under bottom of playfield:
+    !  score
+    !  count of blocks played in this game
     character(len=16) :: msg = ""
 
     write (msg, "(I10)") score
