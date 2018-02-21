@@ -1,55 +1,48 @@
-.. image:: https://travis-ci.org/lewisjb/tetran.svg?branch=master
-    :target: https://travis-ci.org/lewisjb/tetran
+.. image:: https://travis-ci.org/scivision/tetran.svg?branch=master
+    :target: https://travis-ci.org/scivision/tetran
 
 ======
 Tetran
 ======
 
-:author: Lewis Bobbermen, Michael Hirsch Ph.D.
+:current author/maintainer:  `Michael Hirsch Ph.D. <https://www.scivision.co/blog>`_
+:original author: `Lewis Bobbermen <https://github.com/lewisjb>`_
 
-Basic tetris-style game written in Modern Fortran.
+Text/console Tetris-style game written in Modern Fortran. 
+It has diverged and been enhanced considerably from L. Bobberman's original demo.
 
-* Currently only one level, play until pieces overflow
-* Fortran 2008 syntax
-* play details given at game over and logged to ``tetran.log``
-* Ncurses used for display, called directly from Fortran code.
+* Play until pieces overflow
+* Logs pieces played to ``tetran.log`` so you can recreate memorable games.
+* True random game piece generation.
+* clean, modern Fortran 2008 syntax
+* Ncurses used for display, called directly from Fortran code (this is a blocker for native Windows).
 
 .. contents::
 
-Tetran Prereq
-=============
+Prereq
+======
 Tetran works on Mac, Linux, Cygwin and Windows Subsystem for Linux.
 
 
-Linux / WSL
-------------
-
-    sudo apt install gfortran libncurses-dev
-
-Mac
-----------
-
-    brew install gcc ncurses
-
-Cygwin
-------
-
-    setup-x86_64.exe -P libncurses-devel cmake make gcc-gfortran
+* Linux / WSL: ``sudo apt install gfortran libncurses-dev``
+* Mac: ``brew install gcc ncurses``
+* Cygwin: ``setup-x86_64.exe -P libncurses-devel cmake make gcc-gfortran``
 
 
-Compile Tetran
-==============
+Build
+=====
 ::
 
     cd bin
     cmake ..
     make
 
-You can optionally specify a compiler by setting ``FC=``. 
+Optional: specify a compiler by setting ``FC=``. 
 For example, to use the Intel Fortran compiler::
 
     FC=ifort cmake ..
     make
+
 
 Play
 ====
@@ -57,13 +50,12 @@ Play
 
     ./tetran
 
-The difficulty level may be set (rate of falling blocks higher) by::
+Adjust difficulty level: (rate of falling blocks) by::
 
     ./tetran 10
 
 The first number sets the difficulty level (higher number more difficult; positive integers only.
 This integer number is used to divide the wait time period by
-
 
 
 Controls
