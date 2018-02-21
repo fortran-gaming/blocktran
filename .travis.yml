@@ -31,5 +31,5 @@ install:
 
 
 script:
-    - timeout 30 ./tetran
+    - timeout 30 ./tetran 100
 
