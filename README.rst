@@ -16,6 +16,7 @@ It has diverged and been enhanced considerably from L. Bobberman's original demo
 * True random game piece generation.
 * clean, modern Fortran 2008 syntax
 * Ncurses used for display, called directly from Fortran code (this is a blocker for native Windows).
+* TODO: object-oriented
 
 .. contents::
 
