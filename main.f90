@@ -195,18 +195,19 @@ contains
     inp_chr = getch()
 
     select case (inp_chr)
+    ! yes this handles upper and lower case, for clever clogs.
       
-      case (97)  ! A - left
+      case (97,65)  ! A - left
         call move_left()
-      case (115) ! S - down
+      case (115,83) ! S - down
         call move_down()
-      case (100) ! D - right
+      case (100,68) ! D - right
         call move_right()
-      case (119) ! W - rotate
+      case (119,87) ! W - rotate
         call rotate_piece()
-      case (113,27) ! Q, Esc - quit
+      case (113,81,27) ! Q, Esc - quit
         call game_over()
-      case (116) ! CHEAT   T - reset current piece position y to top, preserving x position
+      case (116,84) ! CHEAT   T - reset current piece position y to top, preserving x position
         cur_y = 0
       case default ! do nothing
         

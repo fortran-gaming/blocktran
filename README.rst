@@ -23,9 +23,10 @@ It has diverged and been enhanced considerably from L. Bobberman's original demo
 Prereq
 ======
 Tetran works on Mac, Linux, Cygwin and Windows Subsystem for Linux.
+Any reasonably Fortran 2008 compliant compiler should work.
 
 
-* Linux / WSL: ``sudo apt install gfortran libncurses-dev``
+* Linux / WSL: ``apt install gfortran libncurses-dev``
 * Mac: ``brew install gcc ncurses``
 * Cygwin: ``setup-x86_64.exe -P libncurses-devel cmake make gcc-gfortran``
 
@@ -62,19 +63,22 @@ This integer number is used to divide the wait time period by
 Controls
 --------
 
-=== ======
-Key Effect
-=== ======
-W   Rotate piece
-A/D Left and right respectively
-S   Move down faster
-Q   Exit the game
-=== ======
+Other "secret" cheat keys exist!
+
+========= ======
+Key       Effect
+========= ======
+W         Rotate piece
+A/D       Left and right respectively
+S         Move down faster
+Q or Esc  Exit the game
+========= ======
 
 
 Notes
 =====
 
+FIXME: Gfortran 5-8 only (didn't try gfortran-4) (ifort OK): commit a8c654445ae5bc7ed7ee68cfb33b5ba8b9d744e6 is where the ^A started to appear at the bottom right.
 
 References
 ----------
