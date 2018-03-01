@@ -1,5 +1,6 @@
 module cinter
-  use iso_c_binding, only: c_int, c_char
+  use, intrinsic:: iso_c_binding, only: c_int, c_char
+  use, intrinsic:: iso_fortran_env, only: error_unit
   
   interface
     subroutine initscr() bind(C)
@@ -52,4 +53,15 @@ module cinter
       integer(c_int), value :: time
     end subroutine usleep
   end interface
+  
+  contains
+  
+  subroutine err(msg)
+    character(*),intent(in) :: msg
+    
+    call endwin()
+    
+    write(error_unit,*) msg
+    error stop 'abnormal TETRAN termination'
+  end subroutine err
 end module cinter

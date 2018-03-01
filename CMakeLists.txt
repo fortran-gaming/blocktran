@@ -12,7 +12,7 @@ if(${CMAKE_Fortran_COMPILER_ID} MATCHES "GNU")
   -fexceptions -Werror=array-bounds  -fbacktrace
   -fcheck=all -ffpe-trap=invalid,zero,overflow -finit-real=nan
   -fall-intrinsics
-  -Warray-temporaries -Wconversion -fimplicit-none)
+  -Wconversion -fimplicit-none) #-Warray-temporaries 
 elseif(${CMAKE_Fortran_COMPILER_ID} MATCHES "Intel")
   add_compile_options(-warn -fpe0 -traceback -debug extended -check all)
 elseif(${CMAKE_Fortran_COMPILER_ID} MATCHES "PGI")  # Flang
