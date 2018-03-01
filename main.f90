@@ -16,7 +16,7 @@ program tetran
 
   ! Type of falling piece
   ! 0: Line, 1: Square, 2: T, 3: S, 4: Z, 5: J, 6: L
-  integer :: cur_type, next_type
+  character :: cur_type, next_type
 
   ! Rotation of falling piece
   integer :: cur_rotation = 0
@@ -161,6 +161,7 @@ contains
   subroutine draw_screen()
     integer :: i, j
 
+! not concurrent since "addch" has memory of position
     do i = 1, H
       do j = 1, W
         if (screen(i, j) == 1) then
@@ -203,8 +204,10 @@ contains
         call move_right()
       case (119) ! W - rotate
         call rotate_piece()
-      case (113) ! Q - quit
+      case (113,27) ! Q, Esc - quit
         call game_over()
+      case (116) ! CHEAT   T - reset current piece position y to top, preserving x position
+        cur_y = 0
       case default ! do nothing
         
     end select
@@ -253,6 +256,7 @@ contains
     collided = .false.
     call get_shape(cur_type, rotation, block)
 
+! neither do loop is "concurrent" because of "exit" statements
     iloop: do i = 1, Ny
       iy = i + y - 2
       do j = 1, Nx
@@ -284,13 +288,15 @@ contains
   
 
   subroutine draw_piece(offset_x, offset_y, piece_type, piece_rotation)
-    integer, intent(in) :: offset_x, offset_y, piece_type
+    integer, intent(in) :: offset_x, offset_y
+    character, intent(in) :: piece_type
     integer, intent(inout) :: piece_rotation
     integer :: block(Ny,Nx)
     integer :: i, j, x, y
 
     call get_shape(piece_type, piece_rotation, block)
 
+! not concurrent since "mvaddch" remembers its position
     do i = 1, Ny
       y = i + offset_y - 2
       do j = 1, Nx
@@ -308,6 +314,7 @@ contains
 
     call get_shape(cur_type, cur_rotation, block)
 
+! not concurrent due to impure "game_over"
     do i = 1, Ny
       y = i + cur_y - 1
       do j = 1, Nx
@@ -326,9 +333,12 @@ contains
 
   subroutine generate_next_type()
     real :: r
-    Nblock = Nblock + 1
+    
+    Nblock = Nblock + 1  ! for game stats
+
     call random_number(r)
-    next_type = floor(r * Ntypes)  ! set this line constant for debug shapes
+
+    next_type = int2block(floor(r * Ntypes))  ! set this line constant to debug shapes
   end subroutine generate_next_type
   
 
@@ -346,7 +356,7 @@ contains
       ib = Nblock
     endif
 
-    blockseq(ib) = int2block(cur_type)
+    blockseq(ib) = cur_type
   ! ------ end logging
 
     call generate_next_type()
@@ -377,7 +387,6 @@ contains
   
   end function int2block
   
-  
 
   subroutine handle_clearing_lines()
     logical :: lines_to_clear(H)
@@ -388,7 +397,7 @@ contains
     if (debug) write(u,*) lines_to_clear, counter
 
     score = score + bonus(counter)
-
+! not concurrent since it could clear lines above shifted by other concurrent iterations
     do i = 1, H
       if (lines_to_clear(i)) then
         screen(i,:) = 0 ! wipe away cleared lines
@@ -397,4 +406,5 @@ contains
       ! Bring everything down
     end do
   end subroutine handle_clearing_lines
+  
 end program 
