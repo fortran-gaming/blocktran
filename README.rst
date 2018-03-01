@@ -72,7 +72,11 @@ Q   Exit the game
 === ======
 
 
+Notes
+=====
+
+
 References
-==========
+----------
 
 `Standard Tetris Specifications <http://www.colinfahey.com/tetris/tetris.html>`_

@@ -1,4 +1,6 @@
 module cinter
+  use iso_c_binding, only: c_int, c_char
+  
   interface
     subroutine initscr() bind(C)
     end subroutine initscr
@@ -8,22 +10,22 @@ module cinter
     end subroutine endwin
 
     function getch() result (ch) bind(C)
-      use iso_c_binding, only: c_int
+      import c_int
       integer(c_int) :: ch
     end function getch
 
     subroutine timeout(delay) bind (C)
-      use iso_c_binding, only: c_int
+      import c_int
       integer(c_int), value :: delay
     end subroutine timeout
 
     subroutine addch(ch) bind (C)
-      use iso_c_binding, only: c_char
+      import c_char
       character(c_char), intent(in), value :: ch
     end subroutine addch
 
     subroutine mvaddch(y, x, ch) bind (C)
-      use iso_c_binding, only: c_int, c_char
+      import c_int, c_char
       integer(c_int), intent(in), value :: y, x
       character(c_char), intent(in), value :: ch
     end subroutine mvaddch
@@ -40,13 +42,13 @@ module cinter
     end subroutine cbreak
 
     subroutine mvprintw(y, x, str) bind (C)
-      use iso_c_binding, only: c_int, c_char
+      import c_int, c_char
       integer(c_int), intent(in), value :: y, x
       character(c_char),intent(in) :: str
     end subroutine mvprintw
 
     subroutine usleep(time) bind (C)
-      use iso_c_binding, only: c_int
+      import c_int
       integer(c_int), value :: time
     end subroutine usleep
   end interface
