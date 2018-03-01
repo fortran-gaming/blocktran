@@ -8,7 +8,8 @@ if (NOT ${CYGWIN})
 endif()
 
 if(${CMAKE_Fortran_COMPILER_ID} MATCHES "GNU")
-  add_compile_options(-std=f2008ts -Wall -Wextra -Wpedantic -fexceptions -Werror=array-bounds -fexceptions -fbacktrace
+  add_compile_options(-std=f2008ts -Wall -Wextra -Wpedantic 
+  -fexceptions  -fbacktrace
   -fcheck=all -ffpe-trap=invalid,zero,overflow -finit-real=nan
   -fall-intrinsics
   -Warray-temporaries -Wconversion -fimplicit-none)
