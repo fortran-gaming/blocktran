@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.12)
 project(tetran Fortran)
 
 #----- options
-add_compile_options(-O3 -mtune=native -g)
+add_compile_options(-mtune=native -g)
 if (NOT ${CYGWIN})
   add_compile_options(-fstack-protector-all)
 endif()

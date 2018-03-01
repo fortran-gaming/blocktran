@@ -78,7 +78,11 @@ Q or Esc  Exit the game
 Notes
 =====
 
-FIXME: Gfortran 5-8 only (didn't try gfortran-4) (ifort OK): commit a8c654445ae5bc7ed7ee68cfb33b5ba8b9d744e6 is where the ^A started to appear at the bottom right.
+FIXME: commit a8c654445ae5bc7ed7ee68cfb33b5ba8b9d744e6 is where the ^A started to appear at the bottom right.
+Symptions:  
+
+  * OK on ifort
+  * Gfortran 5-8, appears for -O1,-O2,-O3, but not for -O0
 
 References
 ----------
