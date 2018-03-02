@@ -26,7 +26,8 @@ program tetran
   character(1) :: blockseq(Tmax) = "" ! record of blocks player experienced
   ! NOTE: uses eoshift to avoid indexing beyond array, discarding earliest turns
 
-  integer, parameter :: next_disp_x = 15, next_disp_y = 5
+  integer :: next_disp_x
+  integer, parameter :: next_disp_y = 5
   integer :: next_disp_rotation = 0
 
   integer, parameter :: Ntypes = 7
@@ -61,6 +62,7 @@ program tetran
 
   allocate(screen(H,W))
   screen = 0
+  next_disp_x = W + 5
 
 !------- initialize
   call initscr()
