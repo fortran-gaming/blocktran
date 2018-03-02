@@ -4,7 +4,6 @@ module blocks
   implicit none
   public
   ! Stores the shape of the blocks at each of their rotations
-  ! http://tetris.wikia.com/wiki/ORS
 
   ! LINE BLOCK
   integer, parameter :: line(4,4,0:1) = reshape( &

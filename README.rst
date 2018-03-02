@@ -8,18 +8,17 @@ Tetran
 :current author/maintainer:  `Michael Hirsch Ph.D. <https://www.scivision.co/blog>`_
 :original author: `Lewis Bobbermen <https://github.com/lewisjb>`_
 
-Text/console Tetris-style game written in Modern Fortran. 
+Text/console falling-block tetromino game written in Modern Fortran.
 It has diverged and been enhanced considerably from L. Bobberman's original demo.
 
 .. image:: tests/tetran.gif
    :alt: Tetran gameplay demo
 
-* Play until pieces overflow
+* user-configurable playfield size
 * Logs pieces played to ``tetran.log`` so you can recreate memorable games.
-* True random game piece generation.
+* uniform random game piece generation.
 * clean, modern Fortran 2008 syntax
 * Ncurses used for display, called directly from Fortran code (this is a blocker for native Windows).
-* TODO: object-oriented
 
 .. contents::
 
@@ -42,7 +41,7 @@ Build
     cmake ..
     make
 
-Optional: specify a compiler by setting ``FC=``. 
+Optional: specify a compiler by setting ``FC=``.
 For example, to use the Intel Fortran compiler::
 
     FC=ifort cmake ..
@@ -82,12 +81,14 @@ Notes
 =====
 
 FIXME: commit a8c654445ae5bc7ed7ee68cfb33b5ba8b9d744e6 is where the ^A started to appear at the bottom right.
-Symptions:  
+Symptoms:
 
   * OK on ifort
   * Gfortran 5-8, appears for -O1,-O2,-O3, but not for -O0
 
+=> May have been just because that's where optimization was first turned on!?
+
 References
 ----------
 
-`Standard Tetris Specifications <http://www.colinfahey.com/tetris/tetris.html>`_
+`Control codes <https://en.wikipedia.org/wiki/C0_and_C1_control_codes>`_
