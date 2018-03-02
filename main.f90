@@ -377,7 +377,10 @@ contains
 
   subroutine spawn_block()
     integer :: ib
-    cur_x = 4
+    real :: r
+
+    call random_number(r)
+    cur_x = nint(r*(W-Nx) + Nx/2)
     cur_y = -1
     cur_type = next_type
     cur_rotation = 0
