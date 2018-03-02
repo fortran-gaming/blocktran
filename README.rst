@@ -11,6 +11,9 @@ Tetran
 Text/console Tetris-style game written in Modern Fortran. 
 It has diverged and been enhanced considerably from L. Bobberman's original demo.
 
+.. image:: tests/tetran.gif
+   :alt: Tetran gameplay demo
+
 * Play until pieces overflow
 * Logs pieces played to ``tetran.log`` so you can recreate memorable games.
 * True random game piece generation.

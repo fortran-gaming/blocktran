@@ -27,5 +27,5 @@ target_link_libraries(cinter PRIVATE ncurses)
 add_executable(tetran blocks.f90 main.f90)
 target_link_libraries(tetran cinter)
 
-add_executable(keys test_key.f90)
+add_executable(keys keytest.f90)
 target_link_libraries(keys cinter)
