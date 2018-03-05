@@ -31,5 +31,5 @@ install:
 
 
 script:
-    - ./tetran 1000
+    - ./tetran 10 < ../tests/test_dims.txt
 

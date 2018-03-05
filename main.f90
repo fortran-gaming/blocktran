@@ -109,10 +109,12 @@ contains
   ! NOTE: Fortran 2018 default is recursive functions
   recursive integer function get_height() result(H)
   
+    integer :: ios
+  
     print *,'Playfield height?'
-    read(input_unit,'(I2)') H
+    read(input_unit,'(I2)',iostat=ios) H
      
-    if (H<4) then
+    if (H<4.or.ios > 0) then
       write(error_unit,*) 'Height must be at least 4'
       H = get_height()
     endif
@@ -122,9 +124,12 @@ contains
 
   recursive integer function get_width() result(W)
   
+    integer :: ios
+  
     print *,'Playfield width?'
-    read(input_unit,'(I2)') W
-    if (W<4) then
+    read(input_unit,'(I2)',iostat=ios) W
+    
+    if (W<4.or.ios > 0) then
       write(error_unit,*) 'Width must be at least 4'
       W = get_width()
     endif
@@ -133,7 +138,7 @@ contains
   
 
   subroutine cmd_parse()
-    integer :: i,argc
+    integer :: i,j,argc,ios
     character(*),parameter :: logfn='tetran.log'
     character(16) :: arg
     character(8)  :: date
@@ -142,13 +147,23 @@ contains
 
 !------- argv positional
     argc = command_argument_count()
-    if (argc>0) then
+    if (argc > 0) then
       call get_command_argument(1,arg)
-      read(arg,*, err=9) difficulty_factor
+      read(arg,'(F3.0)', iostat=ios) difficulty_factor
+    else
+      return
+    endif  ! flag instead of value
+    
+    if (ios <= 0) then
       if (difficulty_factor<=0) error stop 'difficulty must be positive'
-9   endif  ! flag instead of value
+      j=2
+    else
+      j=1  
+    endif
+    
 !-------- argv flags
-    do i = 1,argc
+    do i = j,argc
+      print *,i,j
       call get_command_argument(i,arg)
       select case (arg)
         case ('-d','--debug','-v','--verbose')
