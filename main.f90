@@ -54,11 +54,9 @@ program tetran
 
   print *,'Initial piece update time (ms)', move_time/1000
 
-  print *,'Playfield height?'
-  read(input_unit,'(I2)') H
-
-  print *,'Playfield width?'
-  read(input_unit,'(I2)') W
+  H = get_height()
+  W = get_width()
+ 
 
   allocate(screen(H,W))
   screen = 0
@@ -106,6 +104,33 @@ program tetran
   end do
 
 contains
+
+
+  ! NOTE: Fortran 2018 default is recursive functions
+  recursive integer function get_height() result(H)
+  
+    print *,'Playfield height?'
+    read(input_unit,'(I2)') H
+     
+    if (H<4) then
+      write(error_unit,*) 'Height must be at least 4'
+      H = get_height()
+    endif
+  
+  end function get_height
+  
+
+  recursive integer function get_width() result(W)
+  
+    print *,'Playfield width?'
+    read(input_unit,'(I2)') W
+    if (W<4) then
+      write(error_unit,*) 'Width must be at least 4'
+      W = get_width()
+    endif
+    
+  end function get_width
+  
 
   subroutine cmd_parse()
     integer :: i,argc
