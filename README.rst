@@ -35,14 +35,18 @@ Any reasonably Fortran 2008 compliant compiler should work.
 
 Build
 =====
-::
+
+.. code:: bash
 
     cd bin
     cmake ..
     make
+    make test
 
 Optional: specify a compiler by setting ``FC=``.
-For example, to use the Intel Fortran compiler::
+For example, to use the Intel Fortran compiler
+
+.. code:: bash
 
     FC=ifort cmake ..
     make
@@ -50,11 +54,14 @@ For example, to use the Intel Fortran compiler::
 
 Play
 ====
-::
+
+.. code:: bash
 
     ./tetran
 
-Adjust difficulty level: (rate of falling blocks) by::
+Adjust difficulty level: (rate of falling blocks) by
+
+.. code:: bash
 
     ./tetran 10
 
