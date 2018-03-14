@@ -25,11 +25,14 @@ before_install:
       fi
 
 install: 
-    - cd bin
-    - cmake ..
-    - make
+  - cd bin
+  - cmake ..
+  - make
 
 
 script:
-    - ./tetran 10 < ../tests/test_dims.txt
+  - make test
+    
+after_failure:
+  - ctest -V
 
