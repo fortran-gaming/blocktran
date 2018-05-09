@@ -3,7 +3,8 @@ fast_finish: true
 
 os:
   - linux
-  - osx
+#  - osx
+# FIXME not sure why travis-ci gives osx segfault.
   
 env: FC=gfortran
 
