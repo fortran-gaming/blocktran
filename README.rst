@@ -25,7 +25,7 @@ It has diverged and been enhanced considerably from L. Bobberman's original demo
 Prereq
 ======
 Tetran works on Mac, Linux, Cygwin and Windows Subsystem for Linux.
-Any reasonably Fortran 2008 compliant compiler (including Flang with CMake >= 3.10) should work.
+Any modern Fortran compiler (including Flang with CMake >= 3.10) should work.
 
 
 * Linux / WSL: ``apt install gfortran libncurses-dev``
@@ -43,13 +43,13 @@ Build
     make
     make test
 
+
 Optional: specify a compiler by setting ``FC=``.
-For example, to use the Intel Fortran compiler
 
-.. code:: bash
+* Intel: ``FC=ifort cmake ..``
+* Flang: ``FC=flang cmake ..``
+* PGI: ``FC=pgf95 cmake ..``
 
-    FC=ifort cmake ..
-    make
 
 
 Play

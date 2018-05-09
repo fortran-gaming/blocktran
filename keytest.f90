@@ -12,7 +12,7 @@ program test_key
 
   print *,'Ctrl-c to exit. Prints keys pressed and their code'
   print *,'Special keys like arrows need nested "select case".'
-  call sleep(2)
+  call usleep(2000000)
   
   call initscr()
   
@@ -20,7 +20,8 @@ program test_key
   do
     ic = getch()  ! 4-byte integer, automatically prints character!
   ! read(stdin,*) ic !Nope
-    write(stdout,'(I4,A1)',advance='no') ic,char(13)
+    write(stdout,'(I4,A1)',advance='no') ic,achar(13)
+    flush(stdout)
     
     call usleep(200000)
   end do

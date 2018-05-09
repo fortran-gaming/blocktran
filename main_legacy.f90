@@ -155,7 +155,7 @@ contains
     endif  ! flag instead of value
     
     if (ios <= 0) then
-      if (difficulty_factor<=0) error stop 'difficulty must be positive'
+      if (difficulty_factor<=0) stop 'difficulty must be positive'
       j=2
     else
       j=1  
@@ -193,7 +193,7 @@ contains
     
     open(newunit=u, file="/dev/urandom", access="stream", &
                  form="unformatted", action="read", status="old", iostat=ios)
-    if (ios/=0) error stop 'failed to read /dev/urandom'
+    if (ios/=0) stop 'failed to read /dev/urandom'
     
     read(u) seed
     close(u)
