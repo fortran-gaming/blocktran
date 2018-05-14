@@ -2,7 +2,7 @@ program tetran
   use cinter
   use blocks
   use, intrinsic:: iso_c_binding, only: c_int
-  use, intrinsic:: iso_fortran_env, only: error_unit, input_unit, int32
+  use, intrinsic:: iso_fortran_env, only: error_unit, input_unit
   implicit none
 
   logical :: debug=.false.
@@ -37,7 +37,7 @@ program tetran
   real :: move_time = 0.5 ! seconds
   integer(c_int), parameter :: sleep_incr = 5e4 !  keyboard polling and screen refresh interval (microseconds).  
   ! 1e6 microsec: mushy controls. 1e5 microsec a little laggy. 5e4 about right. 1e4 microsec screen flicker.
-  integer(int32) :: toc, tic,trate  ! elapsed time
+  integer :: toc, tic,trate  ! elapsed time
 
   integer :: udbg
 
@@ -45,7 +45,7 @@ program tetran
   integer, parameter :: lines_per_level = 10 ! how many lines to clear to advance to next level
   real, parameter :: difficulty_increase = 1.2 ! factor by which level jumps difficulty
   integer :: Ncleared = 0 ! total number of lines cleared
-  logical :: newhit = .false.
+  logical :: newhit = .false., moved=.false.
   real :: difficulty_factor=1.
   character(:), allocatable :: randfn
 
@@ -79,9 +79,42 @@ program tetran
   call spawn_block()
   Nblock = Nblock-1   ! offset creation of first block
 
+  call redraw()
   call system_clock(count=tic, count_rate=trate)
   !--------- main loop
   do
+
+    call handle_input()  ! was a key pressed?
+    if (moved) call redraw()
+    
+    call system_clock(count=toc)
+    
+    if(debug) print *,toc-tic, toc, tic  ! in lower right corder of screen
+    
+
+    
+    if ( (toc-tic) / real(trate) > move_time) then ! time's up, move piece one step down. real(trate) is necessary for float time comparison!
+      call move_down()
+      call redraw()
+      
+
+      if (newhit.and.modulo(Ncleared,lines_per_level)==0) then ! advance level
+        newhit=.false.
+        level = level + 1
+        difficulty_factor = difficulty_factor*difficulty_increase
+        move_time = move_time / difficulty_factor
+      endif
+      
+      call system_clock(count=tic)
+    endif
+    
+    call usleep(sleep_incr)
+  end do
+
+contains
+
+  subroutine redraw()
+  
     call clear()
     call draw_screen()
     ! Draw the falling block
@@ -90,29 +123,8 @@ program tetran
     call draw_piece(next_disp_x, next_disp_y, next_type, next_disp_rotation)
 
     call draw_score()
-    call handle_input()
-
-    call system_clock(count=toc)
-    
-    if(debug) print *,toc-tic, toc, tic  ! in lower right corder of screen
-    
-    if ( (toc-tic) / real(trate) > move_time) then ! time's up, move piece one step down. real(trate) is necessary for float time comparison!
-      call move_down()
-      call system_clock(count=tic)
-
-      if (newhit.and.modulo(Ncleared,lines_per_level)==0) then ! advance level
-        newhit=.false.
-        level = level + 1
-        difficulty_factor = difficulty_factor*difficulty_increase
-        move_time = move_time / difficulty_factor
-      endif
-    endif
-    
-    call usleep(sleep_incr)
-  end do
-
-contains
-
+  
+  end subroutine redraw
 
   ! NOTE: Fortran 2018 default is recursive functions
   recursive integer function get_height() result(H)
@@ -292,9 +304,9 @@ contains
 
     inp_chr = getch()
 
+    moved=.true. ! rather than typing it for each case
     select case (inp_chr)
     ! yes this handles upper and lower case, for clever clogs.
-
       case (97,65)  ! A - left
         call move_left()
       case (115,83) ! S - down
@@ -308,7 +320,7 @@ contains
       case (116,84) ! CHEAT   T - reset current piece position y to top, preserving x position
         cur_y = 0
       case default ! do nothing
-
+        moved = .false.
     end select
     
     call flushinp()  ! clear repeating keys from stdin buffer
