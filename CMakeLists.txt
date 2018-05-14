@@ -43,7 +43,11 @@ endif()
 target_link_libraries(cinter PRIVATE ${CURSES_LIBRARIES} ${FFLAGS})
 
 #---- executables
-add_executable(tetran blocks.f90 main.f90)
+if(${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU AND ${CMAKE_Fortran_COMPILER_VERSION} VERSION_GREATER_EQUAL 10)
+  add_executable(tetran blocks.f90 main_future.f90)
+else() 
+  add_executable(tetran blocks.f90 main.f90)
+endif()
 target_link_libraries(tetran PRIVATE cinter)
 
 add_executable(keys keytest.f90)

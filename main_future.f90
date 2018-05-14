@@ -45,8 +45,7 @@ program tetran
   integer :: Ncleared = 0 ! total number of lines cleared
   logical :: newhit = .false.
   real :: difficulty_factor=1.
-  character(:), allocatable :: randfn
-
+  
   integer, parameter :: bonus(0:4) = [0,40,100,300,1200]
 
 
@@ -71,7 +70,7 @@ program tetran
 
 
 
-  call init_random_seed()
+  call random_init()
 
   call generate_next_type()
   call spawn_block()
@@ -171,12 +170,8 @@ contains
           call date_and_time(date,time,zone)
           write(udbg,*) '--------------------------------------------'
           write(udbg,*) 'start: ', date,'T', time, zone
-          
-        case ('-r')  ! specify random number generator source file
-          call get_command_argument(i+1,arg)
-          randfn = trim(arg)
-          lastok=.true.
-          
+          write(udbg,*) 'Lines to clear                                 Counter'
+
         case default
           if(lastok) then
             lastok=.false.
@@ -187,37 +182,7 @@ contains
       end select
     enddo
     
-    if(.not.(allocated(randfn))) randfn = "/dev/urandom"
-    
   end subroutine cmd_parse
-
-
-  subroutine init_random_seed()
-    ! NOTE: this subroutine is replaced by "call random_init()" in Fortran 2018
-    integer :: n, u,ios
-    integer, allocatable :: seed(:)
-
-    call random_seed(size=n)
-    allocate(seed(n))
-    
-    open(newunit=u, file=randfn, access="stream", &
-                 form="unformatted", action="read", status="old", iostat=ios)
-    if (ios/=0) call err('failed to open random source generator file: '//randfn)
-    
-    read(u,iostat=ios) seed
-    if (ios/=0) call err('failed to read random source generator file: '//randfn)
-    
-    close(u)
-    
-    call random_seed(put=seed)
-
-    if (debug) then
-      call random_seed(get=seed)
-      write(udbg,*) 'seed:',seed
-      write(udbg,*) 'Lines to clear                                 Counter'
-    endif
-  end subroutine
-
 
   subroutine game_over()
       call endwin()
