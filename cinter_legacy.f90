@@ -14,6 +14,9 @@ module cinter
       import c_int
       integer(c_int) :: ch
     end function getch
+    
+    subroutine flushinp() bind (c)
+    end subroutine flushinp
 
     subroutine timeout(delay) bind (C)
       import c_int

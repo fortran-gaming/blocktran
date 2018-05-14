@@ -1,6 +1,7 @@
 program tetran
   use cinter
   use blocks
+  use, intrinsic:: iso_c_binding, only: c_int
   use, intrinsic:: iso_fortran_env, only: error_unit, input_unit, int32
   implicit none
 
@@ -33,10 +34,10 @@ program tetran
   integer, parameter :: Ntypes = 7
 
   ! Microseconds between each automatic downward move
-  integer :: move_time = 500 ! milliseconds
-  integer, parameter :: sleep_incr = 5e4 !  keyboard polling and screen refresh interval (microseconds).  
+  real :: move_time = 0.5 ! seconds
+  integer(c_int), parameter :: sleep_incr = 5e4 !  keyboard polling and screen refresh interval (microseconds).  
   ! 1e6 microsec: mushy controls. 1e5 microsec a little laggy. 5e4 about right. 1e4 microsec screen flicker.
-  integer(int32) :: toc, tic  ! elapsed time (milliseconds if storage_size==32)
+  integer(int32) :: toc, tic,trate  ! elapsed time
 
   integer :: udbg
 
@@ -52,9 +53,9 @@ program tetran
 
 
   call cmd_parse()
-  move_time = int(move_time / difficulty_factor)
+  move_time = move_time / difficulty_factor
 
-  print *,'Initial piece update time (milliseconds)', move_time
+  print *,'Initial piece update time (seconds)', move_time
 
   H = get_height()
   W = get_width()
@@ -78,7 +79,7 @@ program tetran
   call spawn_block()
   Nblock = Nblock-1   ! offset creation of first block
 
-  call system_clock(count=tic)
+  call system_clock(count=tic, count_rate=trate)
   !--------- main loop
   do
     call clear()
@@ -95,7 +96,7 @@ program tetran
     
     if(debug) print *,toc-tic, toc, tic  ! in lower right corder of screen
     
-    if (toc-tic > move_time) then ! time's up, move piece one step down
+    if ( (toc-tic) / real(trate) > move_time) then ! time's up, move piece one step down. real(trate) is necessary for float time comparison!
       call move_down()
       call system_clock(count=tic)
 
@@ -103,7 +104,7 @@ program tetran
         newhit=.false.
         level = level + 1
         difficulty_factor = difficulty_factor*difficulty_increase
-        move_time = int(move_time / difficulty_factor)
+        move_time = move_time / difficulty_factor
       endif
     endif
     
