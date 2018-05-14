@@ -1,7 +1,7 @@
 program tetran
   use cinter
   use blocks
-  use, intrinsic:: iso_fortran_env, only: error_unit, input_unit
+  use, intrinsic:: iso_fortran_env, only: error_unit, input_unit, int32
   implicit none
 
   logical :: debug=.false.
@@ -33,9 +33,10 @@ program tetran
   integer, parameter :: Ntypes = 7
 
   ! Microseconds between each automatic downward move
-  integer :: move_time = 500000
-  integer, parameter :: sleep_incr = 10000 ! 10 ms
-  integer :: tcount = 0
+  integer :: move_time = 500 ! milliseconds
+  integer, parameter :: sleep_incr = 5e4 !  keyboard polling and screen refresh interval (microseconds).  
+  ! 1e6 microsec: mushy controls. 1e5 microsec a little laggy. 5e4 about right. 1e4 microsec screen flicker.
+  integer(int32) :: toc, tic  ! elapsed time (milliseconds if storage_size==32)
 
   integer :: udbg
 
@@ -53,17 +54,17 @@ program tetran
   call cmd_parse()
   move_time = int(move_time / difficulty_factor)
 
-  print *,'Initial piece update time (ms)', move_time/1000
+  print *,'Initial piece update time (milliseconds)', move_time
 
   H = get_height()
   W = get_width()
- 
+
 
   allocate(screen(H,W))
   screen = 0
   next_disp_x = W + 5
 
-!------- initialize
+  !------- initialize
   call initscr()
   call noecho()
   call cbreak()
@@ -76,7 +77,9 @@ program tetran
   call generate_next_type()
   call spawn_block()
   Nblock = Nblock-1   ! offset creation of first block
-!--------- main loop
+
+  call system_clock(count=tic)
+  !--------- main loop
   do
     call clear()
     call draw_screen()
@@ -88,20 +91,23 @@ program tetran
     call draw_score()
     call handle_input()
 
-    if (tcount > move_time) then
+    call system_clock(count=toc)
+    
+    if(debug) print *,toc-tic, toc, tic  ! in lower right corder of screen
+    
+    if (toc-tic > move_time) then ! time's up, move piece one step down
       call move_down()
-      tcount = 0
-    end if
+      call system_clock(count=tic)
 
-    if (newhit.and.modulo(Ncleared,lines_per_level)==0) then
-      newhit=.false.
-      level = level + 1
-      difficulty_factor = difficulty_factor*difficulty_increase
-      move_time = int(move_time / difficulty_factor)
+      if (newhit.and.modulo(Ncleared,lines_per_level)==0) then ! advance level
+        newhit=.false.
+        level = level + 1
+        difficulty_factor = difficulty_factor*difficulty_increase
+        move_time = int(move_time / difficulty_factor)
+      endif
     endif
-
+    
     call usleep(sleep_incr)
-    tcount = tcount + sleep_incr
   end do
 
 contains
@@ -298,6 +304,9 @@ contains
       case default ! do nothing
 
     end select
+    
+    call flushinp()  ! clear repeating keys from stdin buffer
+    
   end subroutine handle_input
 
 
