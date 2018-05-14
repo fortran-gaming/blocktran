@@ -37,7 +37,7 @@ program tetran
   integer, parameter :: sleep_incr = 10000 ! 10 ms
   integer :: tcount = 0
 
-  integer :: u
+  integer :: udbg
 
   integer :: level=1  ! game level, increases difficulty over time
   integer, parameter :: lines_per_level = 10 ! how many lines to clear to advance to next level
@@ -45,6 +45,7 @@ program tetran
   integer :: Ncleared = 0 ! total number of lines cleared
   logical :: newhit = .false.
   real :: difficulty_factor=1.
+  character(:), allocatable :: randfn
 
   integer, parameter :: bonus(0:4) = [0,40,100,300,1200]
 
@@ -138,48 +139,56 @@ contains
   
 
   subroutine cmd_parse()
-    integer :: i,j,argc,ios
+    ! reads flag command line arguments
+    integer :: i,argc
     character(*),parameter :: logfn='tetran.log'
-    character(16) :: arg
+    character(256) :: arg
     character(8)  :: date
     character(10) :: time
     character(5)  :: zone
+    logical :: lastok
 
-!------- argv positional
     argc = command_argument_count()
-    if (argc > 0) then
-      call get_command_argument(1,arg)
-      read(arg,'(F3.0)', iostat=ios) difficulty_factor
-    else
-      return
-    endif  ! flag instead of value
-    
-    if (ios <= 0) then
-      if (difficulty_factor<=0) error stop 'difficulty must be positive'
-      j=2
-    else
-      j=1  
-    endif
-    
-!-------- argv flags
-    do i = j,argc
-      print *,i,j
+       
+    lastok=.false.
+    do i = 1,argc
       call get_command_argument(i,arg)
       select case (arg)
-        case ('-d','--debug','-v','--verbose')
+      
+        case ('-d','--difficulty')
+          call get_command_argument(i+1,arg)
+          read(arg,'(F4.1)') difficulty_factor
+          if (difficulty_factor<=0) call err('difficulty must be positive')
+          lastok=.true.
+          
+        case ('--debug','-v','--verbose')
           debug=.true.
           print *,'debug enabled, writing to ', logfn
-          open(newunit=u,file=logfn, action='Write', &
+          open(newunit=udbg,file=logfn, action='Write', &
                form='formatted', status='unknown',   &
                position='append')
 
           call date_and_time(date,time,zone)
-          write(u,*) '--------------------------------------------'
-          write(u,*) 'start: ', date,'T', time, zone
+          write(udbg,*) '--------------------------------------------'
+          write(udbg,*) 'start: ', date,'T', time, zone
+          
+        case ('-r')  ! specify random number generator source file
+          call get_command_argument(i+1,arg)
+          randfn = trim(arg)
+          lastok=.true.
+          
         case default
+          if(lastok) then
+            lastok=.false.
+            cycle
+          endif
+          
           write(error_unit,*) 'unknown command line option: ',arg
       end select
     enddo
+    
+    if(.not.(allocated(randfn))) randfn = "/dev/urandom"
+    
   end subroutine cmd_parse
 
 
@@ -191,19 +200,21 @@ contains
     call random_seed(size=n)
     allocate(seed(n))
     
-    open(newunit=u, file="/dev/urandom", access="stream", &
+    open(newunit=u, file=randfn, access="stream", &
                  form="unformatted", action="read", status="old", iostat=ios)
-    if (ios/=0) error stop 'failed to read /dev/urandom'
+    if (ios/=0) call err('failed to open random source generator file: '//randfn)
     
-    read(u) seed
+    read(u,iostat=ios) seed
+    if (ios/=0) call err('failed to read random source generator file: '//randfn)
+    
     close(u)
     
     call random_seed(put=seed)
 
     if (debug) then
       call random_seed(get=seed)
-      write(u,*) 'seed:',seed
-      write(u,*) 'Lines to clear                                 Counter'
+      write(udbg,*) 'seed:',seed
+      write(udbg,*) 'Lines to clear                                 Counter'
     endif
   end subroutine
 
@@ -217,8 +228,8 @@ contains
       print *, 'Block Sequence: ',blockseq(:Nblock)
 
       if (debug) then
-        write(u,*) 'Block Sequence: ',blockseq(:Nblock)
-        close(u)
+        write(udbg,*) 'Block Sequence: ',blockseq(:Nblock)
+        close(udbg)
       endif
 
       stop 'Goodbye from Tetran'
@@ -247,7 +258,7 @@ contains
     ! prints on line under bottom of playfield:
     !  score
     !  count of blocks played in this game
-    character(16) :: msg=""
+    character(16), save :: msg=""
     ! this save variable is necessary to prevent garbage on screen
 
     write (msg, "(I10)") score
@@ -476,7 +487,7 @@ contains
     if (counter == 0) return
 
     Ncleared = Ncleared + counter
-    if (debug) write(u,*) lines_to_clear, counter
+    if (debug) write(udbg,*) lines_to_clear, counter
 
     score = score + bonus(counter)
 ! not concurrent since it could clear lines above shifted by other concurrent iterations

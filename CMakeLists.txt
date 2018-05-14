@@ -43,11 +43,7 @@ endif()
 target_link_libraries(cinter PRIVATE ${CURSES_LIBRARIES} ${FFLAGS})
 
 #---- executables
-if(CMAKE_Fortran_COMPILER_ID IN_LIST okcomp)
-  add_executable(tetran blocks.f90 main.f90)
-else()
-  add_executable(tetran blocks.f90 main_legacy.f90)
-endif()
+add_executable(tetran blocks.f90 main.f90)
 target_link_libraries(tetran PRIVATE cinter)
 
 add_executable(keys keytest.f90)

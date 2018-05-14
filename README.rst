@@ -59,14 +59,35 @@ Play
 
     ./tetran
 
-Adjust difficulty level: (rate of falling blocks) by
+
+difficulty level
+----------------
+adjust cadence of falling blocks with ``-d`` option, including decimal point:
 
 .. code:: bash
 
-    ./tetran 10
+    ./tetran -d 1.2
 
-The first number sets the difficulty level (higher number more difficult; positive integers only.
-This integer number is used to divide the wait time period by
+Higher number => more difficult. 
+Must include decimal point.
+
+random source file
+------------------
+On Windows with non-Fortran 2018 compliant compilers, the randomness file MUST be specified as
+
+.. code:: bash
+
+    ./tetran -r file:/dev/urandom
+    
+    
+debug mode
+----------
+Debug logging is enabled by:
+
+.. code:: bash
+
+    ./tetran --debug
+
 
 
 Controls
