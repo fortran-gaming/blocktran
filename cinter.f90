@@ -1,6 +1,6 @@
 module cinter
   use, intrinsic:: iso_c_binding, only: c_int, c_char
-  use, intrinsic:: iso_fortran_env, only: error_unit
+  use, intrinsic:: iso_fortran_env, only: error_unit,compiler_version, compiler_options
   
   interface
     subroutine initscr() bind(C)
@@ -67,4 +67,15 @@ module cinter
     write(error_unit,*) msg
     error stop 'abnormal TETRAN termination'
   end subroutine err
+
+  
+  subroutine printopts()
+
+    print *,compiler_version()
+    print *, compiler_options()
+
+  end subroutine printopts
+
+  
+  
 end module cinter

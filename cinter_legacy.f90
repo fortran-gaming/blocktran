@@ -67,4 +67,12 @@ module cinter
     write(error_unit,*) msg
     stop 'abnormal TETRAN termination'
   end subroutine err
+
+  
+  subroutine printopts()
+
+  end subroutine printopts
+
+  
+  
 end module cinter

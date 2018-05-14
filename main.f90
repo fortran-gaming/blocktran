@@ -228,7 +228,10 @@ contains
 
   subroutine game_over()
       call endwin()
+      
+      call printopts()
 
+      print *,''
       print *, 'Level:', level
       Print *, 'Score:', score
       print *, 'Number of Blocks:',Nblock
@@ -238,6 +241,8 @@ contains
         write(udbg,*) 'Block Sequence: ',blockseq(:Nblock)
         close(udbg)
       endif
+      
+
 
       stop 'Goodbye from Tetran'
 
