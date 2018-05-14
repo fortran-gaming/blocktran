@@ -51,7 +51,8 @@ target_link_libraries(keys PRIVATE cinter)
 
 #---- tests
 if (NOT WIN32)
-  add_test(NAME ShortGame COMMAND sh -c "./tetran 10 < ../tests/test_dims.txt")
+  add_test(NAME ShortGame COMMAND sh -c "./tetran -d 10. < ../tests/test_dims.txt")
+  set_tests_properties(ShortGame PROPERTIES TIMEOUT 10) 
 else()
   # someday if CursesW is implemented...
 endif()
