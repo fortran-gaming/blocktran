@@ -308,11 +308,12 @@ contains
     ! esc is first part of three part arrow key sequence
     if (inp_chr == 27) then
         inp_chr = getch()
-    endif
-    if (inp_chr == 91) then
-     inp_chr = getch()
-     if (inp_chr==65) inp_chr = 87
-     if (inp_chr==68) inp_chr = 65
+
+        if (inp_chr == 91) then
+         inp_chr = getch()
+         if (inp_chr==65) inp_chr = 87
+         if (inp_chr==68) inp_chr = 65
+        endif
     endif
 
     moved=.true. ! rather than typing it for each case
