@@ -247,6 +247,7 @@ contains
       print *, 'Level:', level
       Print *, 'Score:', score
       print *, 'Number of Blocks:',Nblock
+      print *, 'Number of Lines Cleared:',Ncleared
       print *, 'Block Sequence: ',blockseq(:Nblock)
 
       if (debug) then
@@ -304,18 +305,28 @@ contains
 
     inp_chr = getch()
 
+    ! esc is first part of three part arrow key sequence
+    if (inp_chr == 27) then
+        inp_chr = getch()
+    endif
+    if (inp_chr == 91) then
+     inp_chr = getch()
+     if (inp_chr==65) inp_chr = 87
+     if (inp_chr==68) inp_chr = 65
+    endif
+
     moved=.true. ! rather than typing it for each case
     select case (inp_chr)
     ! yes this handles upper and lower case, for clever clogs.
       case (97,65)  ! A - left
         call move_left()
-      case (115,83) ! S - down
+      case (115,83,66) ! S - down
         call move_down()
-      case (100,68) ! D - right
+      case (100,68,67) ! D - right
         call move_right()
       case (119,87) ! W - rotate
         call rotate_piece()
-      case (113,81,27) ! Q, Esc - quit
+      case (113,81) ! Q - quit
         call game_over()
       case (116,84) ! CHEAT   T - reset current piece position y to top, preserving x position
         cur_y = 0
