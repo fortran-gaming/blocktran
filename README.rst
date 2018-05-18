@@ -94,6 +94,7 @@ Controls
 --------
 
 Other "secret" cheat keys exist!
+You can also use arrow keys.
 
 ========= ======
 Key       Effect
