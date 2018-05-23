@@ -6,12 +6,10 @@ program test_key
 
   implicit none
 
-  integer(c_int) :: ic,x,y
+  integer(c_int) :: ic
   logical :: lastEsc=.false.
 
-  call getmaxyx(y,x)
-  print *,'terminal width x height:',x,y
-  
+
   print *,'press Esc twice to exit. Prints keys pressed and their code'
   call usleep(2000000)
   

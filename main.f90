@@ -57,8 +57,7 @@ program tetran
 
   print *,'Initial piece update time (seconds)', move_time
 
-  H = get_height()
-  W = get_width()
+  call get_dim(H,W)
 
 
   allocate(screen(H,W))
@@ -126,36 +125,18 @@ contains
   
   end subroutine redraw
 
-  ! NOTE: Fortran 2018 default is recursive functions
-  recursive integer function get_height() result(H)
+  subroutine get_dim(H,W)
   
+    integer, intent(out) :: H,W
     integer :: ios
   
-    print *,'Playfield height?'
-    read(input_unit,'(I2)',iostat=ios) H
+    print *,'Playfield height, width?'
+    read(input_unit,*,iostat=ios) H,W
      
-    if (H<4.or.ios > 0) then
-      write(error_unit,*) 'Height must be at least 4'
-      H = get_height()
-    endif
+    if (H<4.or.W<4.or.ios > 0) stop 'Height and width must each be at least 4'
   
-  end function get_height
-  
-
-  recursive integer function get_width() result(W)
-  
-    integer :: ios
-  
-    print *,'Playfield width?'
-    read(input_unit,'(I2)',iostat=ios) W
-    
-    if (W<4.or.ios > 0) then
-      write(error_unit,*) 'Width must be at least 4'
-      W = get_width()
-    endif
-    
-  end function get_width
-  
+  end subroutine get_dim 
+ 
 
   subroutine cmd_parse()
     ! reads flag command line arguments
