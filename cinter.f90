@@ -55,6 +55,7 @@ module cinter
       import c_int
       integer(c_int), value :: time
     end subroutine usleep
+
   end interface
   
   contains
