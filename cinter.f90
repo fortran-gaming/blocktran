@@ -1,10 +1,27 @@
 module cinter
-  use, intrinsic:: iso_c_binding, only: c_int, c_char
-  use, intrinsic:: iso_fortran_env, only: error_unit,compiler_version, compiler_options
-  
-  interface
-    subroutine initscr() bind(C)
-    end subroutine initscr
+use, intrinsic:: iso_c_binding, only: c_int, c_char, c_ptr
+use, intrinsic:: iso_fortran_env, only: error_unit,compiler_version, compiler_options
+implicit none
+
+integer(C_INT)  :: LINES,COLS
+type(C_PTR) :: stdscr,curscr
+
+interface
+
+! http://www.urbanjost.altervista.org/LIBRARY/libscreen/ncurses/pdsrc/ncurses_from_Fortran.html
+function f_initscr() result (initscr__OUT) bind(C, name='initscr')
+   import c_ptr
+   type(C_PTR):: initscr__OUT         ! WINDOW *initscr
+end function f_initscr
+
+subroutine getmaxyx(win,y,x) bind(C, name='macro_getmaxyx')
+  import c_ptr,c_int
+  type (C_PTR), value :: win
+  integer(C_INT) :: y,x
+end subroutine getmaxyx
+
+
+!-----------
 
     subroutine endwin() bind(C)
     ! ncurses restares previous terminal contents (before program was run)
@@ -56,9 +73,19 @@ module cinter
       integer(c_int), value :: time
     end subroutine usleep
 
-  end interface
+end interface
   
-  contains
+contains
+
+  function initscr() result (stdscr__OUT) ! call initscr() but set global variables too
+  ! http://www.urbanjost.altervista.org/LIBRARY/libscreen/ncurses/pdsrc/ncurses_from_Fortran.html
+    type(C_PTR)           :: stdscr__OUT
+    stdscr=f_initscr()
+    !stdscr=returnstd()
+    !curscr=returncur()
+    stdscr__OUT=stdscr
+    call getmaxyx(stdscr,LINES,COLS)
+  end function initscr
   
   subroutine err(msg)
     character(*),intent(in) :: msg

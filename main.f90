@@ -1,7 +1,9 @@
 program tetran
-  use cinter
+  use cinter, only:  initscr,getch,noecho,flushinp,mvprintw,addch,printopts, &
+    mvaddch,endwin, clear,timeout,usleep,cbreak, &
+    maxH=>LINES, maxW=>COLS
   use blocks
-  use, intrinsic:: iso_c_binding, only: c_int
+  use, intrinsic:: iso_c_binding, only: c_int,c_ptr
   use, intrinsic:: iso_fortran_env, only: error_unit, input_unit
   implicit none
 
@@ -11,6 +13,7 @@ program tetran
   integer :: H,W  ! playfield height, width
   ! 0 for blank, 1 for block
   integer, allocatable :: screen(:,:)
+  type(c_ptr) :: stdscr
 
   ! Current x/y of the falling piece
   integer :: cur_x, cur_y
@@ -64,8 +67,14 @@ program tetran
   screen = 0
   next_disp_x = W + 5
 
-  !------- initialize
-  call initscr()
+!------- initialize
+  stdscr = initscr()
+
+! too big -- FIXME generate new window for game
+  if (H+3 > maxH) call err('playfield height too tall for terminal window')
+  if (W+10 > maxW) call err('playfield width too wide for terminal window')
+
+
   call noecho()
   call cbreak()
   call timeout(0)
@@ -91,11 +100,11 @@ program tetran
     if(debug) print *,toc-tic, toc, tic  ! in lower right corder of screen
     
 
-    
+
     if ( (toc-tic) / real(trate) > move_time) then ! time's up, move piece one step down. real(trate) is necessary for float time comparison!
       call move_down()
       call redraw()
-      
+
 
       if (newhit.and.modulo(Ncleared,lines_per_level)==0) then ! advance level
         newhit=.false.
@@ -106,7 +115,7 @@ program tetran
       
       call system_clock(count=tic)
     endif
-    
+
     call usleep(sleep_incr)
   end do
 
@@ -126,13 +135,14 @@ contains
   end subroutine redraw
 
   subroutine get_dim(H,W)
-  
+    
     integer, intent(out) :: H,W
     integer :: ios
-  
+
     print *,'Playfield height, width?'
     read(input_unit,*,iostat=ios) H,W
      
+    ! too small
     if (H<4.or.W<4.or.ios > 0) stop 'Height and width must each be at least 4'
   
   end subroutine get_dim 
@@ -171,7 +181,8 @@ contains
           call date_and_time(date,time,zone)
           write(udbg,*) '--------------------------------------------'
           write(udbg,*) 'start: ', date,'T', time, zone
-          
+          write(udbg,*) 'Lines to clear                                 Counter'
+
         case ('-r')  ! specify random number generator source file
           call get_command_argument(i+1,arg)
           randfn = trim(arg)
@@ -236,7 +247,6 @@ contains
         close(udbg)
       endif
       
-
 
       stop 'Goodbye from Tetran'
 

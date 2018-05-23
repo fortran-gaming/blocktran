@@ -2,10 +2,11 @@ program test_key
 
   use cinter, only: initscr,getch, usleep,endwin
   use, intrinsic:: iso_fortran_env, only: stdout=>output_unit, stdin=>input_unit
-  use, intrinsic:: iso_c_binding, only: c_int
+  use, intrinsic:: iso_c_binding, only: c_int,c_ptr
 
   implicit none
 
+  type(c_ptr) :: stdscr
   integer(c_int) :: ic
   logical :: lastEsc=.false.
 
@@ -13,7 +14,7 @@ program test_key
   print *,'press Esc twice to exit. Prints keys pressed and their code'
   call usleep(2000000)
   
-  call initscr()
+  stdscr = initscr()
   
   do
     ic = getch()  ! 4-byte integer, automatically prints character!
