@@ -36,9 +36,15 @@ set(okcomp GNU Intel)
 #---- libraries
 find_package(Curses REQUIRED)
 
+add_library(shapes block_init.f90)
+
 add_library(blocks blocks.f90)
 target_compile_options(blocks PRIVATE ${FFLAGS})
-target_link_libraries(blocks PRIVATE cinter)
+target_link_libraries(blocks PRIVATE cinter shapes)
+
+add_library(keys keys.f90)
+target_compile_options(keys PRIVATE ${FFLAGS})
+target_link_libraries(keys PRIVATE cinter blocks)
 
 add_library(cinterc cinter.c)
 target_compile_options(cinterc PRIVATE ${CFLAGS})
@@ -55,21 +61,25 @@ target_link_libraries(cinter PRIVATE cinterc ${CURSES_LIBRARIES} ${FLIBS})
 #---- executables
 add_executable(tetran main.f90)
 target_compile_options(tetran PRIVATE ${FFLAGS})
-target_link_libraries(tetran PRIVATE cinter blocks)
-
-add_executable(keys tests/keytest.f90)
-target_compile_options(keys PRIVATE ${FFLAGS})
-target_link_libraries(keys PRIVATE cinter) 
-
-add_executable(blockrand tests/randtest.f90)
-target_compile_options(blockrand PRIVATE ${FFLAGS})
-target_link_libraries(blockrand PRIVATE cinter blocks)
-add_test(NAME RandomBlocks COMMAND blockrand)
-
-#---- tests
+target_link_libraries(tetran PRIVATE cinter blocks keys)
 if (NOT WIN32)
   add_test(NAME ShortGame COMMAND sh -c "./tetran -d 10. < ../tests/test_dims.txt")
   set_tests_properties(ShortGame PROPERTIES TIMEOUT 10) 
 else()
   # someday if CursesW is implemented...
 endif()
+
+add_executable(testkeys tests/keytest.f90)
+target_compile_options(testkeys PRIVATE ${FFLAGS})
+target_link_libraries(testkeys PRIVATE cinter) 
+
+add_executable(blockrand tests/randtest.f90)
+target_compile_options(blockrand PRIVATE ${FFLAGS})
+target_link_libraries(blockrand PRIVATE cinter blocks)
+add_test(NAME RandomBlocks COMMAND blockrand)
+
+add_executable(shapetest tests/test_shapes.f90 block_init.f90)
+target_compile_options(shapetest PRIVATE ${FFLAGS})
+target_link_libraries(shapetest PRIVATE cinter)
+add_test(NAME BlockShapes COMMAND shapetest)
+

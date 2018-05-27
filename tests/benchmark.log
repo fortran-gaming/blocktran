@@ -1,0 +1,30 @@
+Tested with:
+
+* Intel Haswell laptop CPU
+* Flang 5.0
+* Gfortran 7.3
+* Intel Fortran 2019
+* PGI 2018
+
+times in seconds
+
+-O3
+
+Gfortran 3.27 3.07 3.06 3.284
+1.42 1.44 1.41
+
+ifort 15.22 15.62
+11.59 11.94 
+
+PGI 4.03 4.12 4.12
+2.56 2.67 2.75
+
+Flang 3.42 3.84 3.56s
+2.68 2.70 2.71
+
+-O0
+
+Gfortran  5.41 5.63 5.23
+Ifort 19.43 19.37
+PGI 6.02 6.12 6.06
+Flang 6.82 6.98 6.46

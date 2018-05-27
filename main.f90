@@ -1,34 +1,14 @@
 program tetran
-  use cinter, only:  initscr,getch,noecho,flushinp,mvprintw,addch,printopts, &
-    mvaddch,endwin, clear,timeout,usleep,cbreak, &
+  use cinter, only:  initscr,getch,noecho,flushinp,mvprintw,addch, &
+    mvaddch,clear,timeout,usleep,cbreak, &
     maxH=>LINES, maxW=>COLS
   use blocks
+  use keys, only: handle_input
   use, intrinsic:: iso_c_binding, only: c_int,c_ptr
   use, intrinsic:: iso_fortran_env, only: error_unit, input_unit
   implicit none
 
-  logical :: debug=.false.
-  integer, parameter :: Tmax = 10000 ! maximum number of pieces to log
-
-  integer :: H,W  ! playfield height, width
-  ! 0 for blank, 1 for block
-  integer, allocatable :: screen(:,:)
   type(c_ptr) :: stdscr
-
-  ! Current x/y of the falling piece
-  integer :: cur_x, cur_y
-
-  ! Type of falling piece
-  ! 0/I: Line, 1/B: Square, 2: T, 3: S, 4: Z, 5: J, 6: L
-  character :: cur_type, next_type
-
-  ! Rotation of falling piece
-  integer :: cur_rotation = 0
-
-  ! Current score
-  integer :: score = 0, Nblock=0 ! first go around draws two blocks
-  character(1) :: blockseq(Tmax) = "" ! record of blocks player experienced
-  ! NOTE: uses eoshift to avoid indexing beyond array, discarding earliest turns
 
   integer :: next_disp_x
   integer, parameter :: next_disp_y = 5
@@ -40,16 +20,11 @@ program tetran
   ! 1e6 microsec: mushy controls. 1e5 microsec a little laggy. 5e4 about right. 1e4 microsec screen flicker.
   integer :: toc, tic,trate  ! elapsed time
 
-  integer :: udbg
-
-  integer :: level=1  ! game level, increases difficulty over time
   integer, parameter :: lines_per_level = 10 ! how many lines to clear to advance to next level
   real, parameter :: difficulty_increase = 1.2 ! factor by which level jumps difficulty
-  integer :: Ncleared = 0 ! total number of lines cleared
-  logical :: newhit = .false., moved=.false.
-  real :: difficulty_factor=1.
 
-  integer, parameter :: bonus(0:4) = [0,40,100,300,1200]
+  logical :: moved=.false., landed=.false.
+  real :: difficulty_factor=1.
 
 
   call cmd_parse()
@@ -88,7 +63,8 @@ program tetran
   !--------- main loop
   do
 
-    call handle_input()  ! was a key pressed?
+    call handle_input(moved,landed,cur_y,next_type)  ! was a key pressed?
+    if (landed) call piece_hit()
     if (moved) call redraw()
     
     call system_clock(count=toc)
@@ -98,7 +74,7 @@ program tetran
 
 
     if ( (toc-tic) / real(trate) > move_time) then ! time's up, move piece one step down. real(trate) is necessary for float time comparison!
-      call move_down()
+      if(move_down()) call piece_hit()
       call redraw()
 
 
@@ -192,28 +168,6 @@ contains
   end subroutine cmd_parse
 
 
-  subroutine game_over()
-      call endwin()
-      
-      call printopts()
-
-      print *,''
-      print *, 'Level:', level
-      Print *, 'Score:', score
-      print *, 'Number of Blocks:',Nblock
-      print *, 'Number of Lines Cleared:',Ncleared
-      print *, 'Block Sequence: ',blockseq(:Nblock)
-
-      if (debug) then
-        write(udbg,*) 'Block Sequence: ',blockseq(:Nblock)
-        close(udbg)
-      endif
-      
-
-      stop 'Goodbye from Tetran'
-
-  end subroutine game_over
-
 
   subroutine draw_screen()
     integer :: i, j
@@ -253,120 +207,6 @@ contains
   end subroutine draw_score
 
 
-  subroutine handle_input()
-    integer :: inp_chr
-
-    inp_chr = getch()
-
-    ! esc is first part of three part arrow key sequence
-    if (inp_chr == 27) then
-        inp_chr = getch()
-
-        if (inp_chr == 91) then
-         inp_chr = getch()
-         if (inp_chr==65) inp_chr = 87
-         if (inp_chr==68) inp_chr = 65
-        endif
-    endif
-
-    moved=.true. ! rather than typing it for each case
-    select case (inp_chr)
-    ! yes this handles upper and lower case, for clever clogs.
-      case (97,65)  ! A - left
-        call move_left()
-      case (115,83,66) ! S - down
-        call move_down()
-      case (100,68,67) ! D - right
-        call move_right()
-      case (119,87) ! W - rotate
-        call rotate_piece()
-      case (113,81) ! Q - quit
-        call game_over()
-      case (116,84) ! CHEAT   T - reset current piece position y to top, preserving x position
-        cur_y = 0
-      case default ! do nothing
-        moved = .false.
-    end select
-    
-    call flushinp()  ! clear repeating keys from stdin buffer
-    
-  end subroutine handle_input
-
-
-  subroutine move_left()
-    integer :: x
-    x = cur_x - 1
-    if (.not. check_collision(x, cur_y, cur_rotation)) cur_x = cur_x - 1
-  end subroutine move_left
-
-
-  subroutine move_right()
-    integer :: x
-    x = cur_x + 1
-    if (.not. check_collision(x, cur_y, cur_rotation)) cur_x = cur_x + 1
-  end subroutine move_right
-
-
-  subroutine move_down()
-    integer :: y
-    y = cur_y + 1
-    if (.not. check_collision(cur_x, y, cur_rotation)) then
-      cur_y = cur_y + 1
-    else
-      call piece_hit()
-    end if
-  end subroutine move_down
-
-
-  subroutine rotate_piece()
-    integer :: r
-    r = cur_rotation + 1
-    if (.not. check_collision(cur_x, cur_y, r)) cur_rotation = cur_rotation + 1
-  end subroutine rotate_piece
-
-
-  logical function check_collision(x, y, rotation) result (collided)
-    integer, intent(in) :: x, y
-    integer, intent(inout) :: rotation
-
-    integer :: block(Ny, Nx)
-    integer :: i, j, jx, iy
-
-    collided = .false.
-    call get_shape(cur_type, rotation, block)
-
-! neither do loop is "concurrent" because of "exit" statements
-    iloop: do i = 1, Ny
-      iy = i + y - 2
-      
-      if (any(block(i,:) == 1) .and. iy >= H) then
-      ! piece hit the floor
-        collided = .true.
-        return
-      end if
-      
-      do j = 1, Nx
-        jx = j + x - 2
-        if (block(i, j) == 1) then
-          ! Handling left/right boundaries
-          if (jx < 0 .or. jx >= W) then
-            collided = .true.
-            return
-          end if
-
-          ! Other blocks
-          if (iy > 0 .and. iy < H) then
-            if (screen(iy + 1, jx + 1) == 1) then
-              collided = .true.
-              return
-            end if
-          end if
-        end if
-      end do
-    end do iloop
-  end function check_collision
-
-
   subroutine draw_piece(offset_x, offset_y, piece_type, piece_rotation)
     integer, intent(in) :: offset_x, offset_y
     character, intent(in) :: piece_type
@@ -385,78 +225,6 @@ contains
       end do
     end do
   end subroutine draw_piece
-
-
-  subroutine piece_hit()
-  ! Called when a piece has hit another and is solidifying
-    integer :: block(Ny,Nx)
-    integer :: i, j, x, y
-
-    call get_shape(cur_type, cur_rotation, block)
-
-! not concurrent due to impure "game_over"
-    do i = 1, Ny
-      y = i + cur_y - 1
-      do j = 1, Nx
-        x = j + cur_x - 1
-        if (block(i, j) == 1) then
-          if (y <= 1)  call game_over()
-          screen(y, x) = 1
-        end if
-      end do
-    end do
-
-    call handle_clearing_lines()
-    call spawn_block()
-  end subroutine piece_hit
-
-
-  subroutine spawn_block()
-    integer :: ib
-    real :: r
-
-    call random_number(r)
-    cur_x = nint(r*(W-Nx) + Nx/2)
-    cur_y = -1
-    cur_type = next_type
-    cur_rotation = 0
- ! ----- logging ---------
-    if (Nblock>Tmax) then
-      ib = Tmax
-      blockseq = eoshift(blockseq,1)  !OK array-temp
-    else
-      ib = Nblock
-    endif
-
-    blockseq(ib) = cur_type
-  ! ------ end logging
-
-    call generate_next_type(next_type, Nblock)
-  end subroutine spawn_block
-
-
-  subroutine handle_clearing_lines()
-    logical :: lines_to_clear(H)
-    integer :: i, counter
-
-    lines_to_clear = all(screen==1,2) ! mask of lines that need clearing
-    counter = count(lines_to_clear)   ! how many lines are cleared
-    if (counter == 0) return
-
-    Ncleared = Ncleared + counter
-    if (debug) write(udbg,*) lines_to_clear, counter
-
-    score = score + bonus(counter)
-! not concurrent since it could clear lines above shifted by other concurrent iterations
-! i.e. in some cases, it would check an OK line that turns bad after clearing by another elemental iteration.
-! also note non-adjacent lines can be cleared at once.
-    do i = 1, H
-      if (.not.lines_to_clear(i)) cycle
-      newhit = .true.
-      screen(i,:) = 0 ! wipe away cleared lines
-      screen(:i, :) = cshift(screen(:i, :), shift=-1, dim=1)
-      ! Bring everything down
-    end do
-  end subroutine handle_clearing_lines
+  
 
 end program
