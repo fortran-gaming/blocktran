@@ -338,17 +338,18 @@ contains
 ! neither do loop is "concurrent" because of "exit" statements
     iloop: do i = 1, Ny
       iy = i + y - 2
+      
+      if (any(block(i,:) == 1) .and. iy >= H) then
+      ! piece hit the floor
+        collided = .true.
+        return
+      end if
+      
       do j = 1, Nx
         jx = j + x - 2
         if (block(i, j) == 1) then
           ! Handling left/right boundaries
           if (jx < 0 .or. jx >= W) then
-            collided = .true.
-            return
-          end if
-
-          ! Floor
-          if (iy >= H) then
             collided = .true.
             return
           end if
