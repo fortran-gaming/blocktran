@@ -117,7 +117,7 @@ unlike some games, block distribution is uniformly random as confirmed by::
   
 Normalized benchmarks
 ~~~~~~~~~~~~~~~~~~~~~
-using ``time ./blockrand 100000000`` on a Haswell CPU, *relative normalized* execution times were:
+using ``time ./blockrand 100000000`` *relative normalized* execution times were:
 
 ``-O0``::
 
@@ -132,6 +132,14 @@ using ``time ./blockrand 100000000`` on a Haswell CPU, *relative normalized* exe
   pgf 1.07
   gnu 1.26
   ifort 4.59
+  
+Tested with:
+
+* Intel Haswell laptop CPU
+* Flang 5.0
+* Gfortran 7.3
+* Intel Fortran 2019
+* PGI 2018
   
 So Intel Fortran takes 3-5 times longer than PGI or Flang at this simple single-thread benchmark, getting worse with ``-O3`` 
 
