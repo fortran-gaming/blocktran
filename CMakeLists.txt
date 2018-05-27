@@ -62,7 +62,7 @@ target_compile_options(keys PRIVATE ${FFLAGS})
 target_link_libraries(keys PRIVATE cinter) 
 
 add_executable(blockrand tests/randtest.f90)
-target_compile_options(blockrand PRIVATE ${FFLAGS})
+target_compile_options(blockrand PRIVATE ${FFLAGS} -O3)
 target_link_libraries(blockrand PRIVATE cinter blocks)
 add_test(NAME RandomBlocks COMMAND blockrand)
 
