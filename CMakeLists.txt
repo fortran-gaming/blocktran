@@ -23,7 +23,8 @@ if(${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU)
     list(APPEND FFLAGS -std=f2008ts)
   endif()
 elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL Intel)
-  list(APPEND FFLAGS -warn -fpe0 -traceback -debug extended -check all)
+  list(APPEND FFLAGS -warn -fpe0 -traceback -debug extended -check all
+       -parallel)
 elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL Flang)  # https://github.com/flang-compiler/flang/wiki/Fortran-2008
   list(APPEND FFLAGS -Mallocatable=03)
   list(APPEND FLIBS -static-flang-libs)
@@ -62,7 +63,8 @@ target_link_libraries(keys PRIVATE cinter)
 
 add_executable(blockrand tests/randtest.f90)
 target_compile_options(blockrand PRIVATE ${FFLAGS})
-target_link_libraries(blockrand PRIVATE blocks)
+target_link_libraries(blockrand PRIVATE cinter blocks)
+add_test(NAME RandomBlocks COMMAND blockrand)
 
 #---- tests
 if (NOT WIN32)
