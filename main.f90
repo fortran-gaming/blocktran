@@ -34,8 +34,6 @@ program tetran
   integer, parameter :: next_disp_y = 5
   integer :: next_disp_rotation = 0
 
-  integer, parameter :: Ntypes = 7
-
   ! Microseconds between each automatic downward move
   real :: move_time = 0.5 ! seconds
   integer(c_int), parameter :: sleep_incr = 5e4 !  keyboard polling and screen refresh interval (microseconds).  
@@ -50,7 +48,6 @@ program tetran
   integer :: Ncleared = 0 ! total number of lines cleared
   logical :: newhit = .false., moved=.false.
   real :: difficulty_factor=1.
-  character(:), allocatable :: randfn
 
   integer, parameter :: bonus(0:4) = [0,40,100,300,1200]
 
@@ -79,11 +76,10 @@ program tetran
   call cbreak()
   call timeout(0)
 
+  call init_random_seed(debug)
+  if(debug) write(udbg,*) 'Lines to clear                                 Counter'
 
-
-  call init_random_seed()
-
-  call generate_next_type()
+  call generate_next_type(next_type, Nblock)
   call spawn_block()
   Nblock = Nblock-1   ! offset creation of first block
 
@@ -182,12 +178,7 @@ contains
           write(udbg,*) '--------------------------------------------'
           write(udbg,*) 'start: ', date,'T', time, zone
           write(udbg,*) 'Lines to clear                                 Counter'
-
-        case ('-r')  ! specify random number generator source file
-          call get_command_argument(i+1,arg)
-          randfn = trim(arg)
-          lastok=.true.
-          
+         
         case default
           if(lastok) then
             lastok=.false.
@@ -198,36 +189,7 @@ contains
       end select
     enddo
     
-    if(.not.(allocated(randfn))) randfn = "/dev/urandom"
-    
   end subroutine cmd_parse
-
-
-  subroutine init_random_seed()
-    ! NOTE: this subroutine is replaced by "call random_init()" in Fortran 2018
-    integer :: n, u,ios
-    integer, allocatable :: seed(:)
-
-    call random_seed(size=n)
-    allocate(seed(n))
-    
-    open(newunit=u, file=randfn, access="stream", &
-                 form="unformatted", action="read", status="old", iostat=ios)
-    if (ios/=0) call err('failed to open random source generator file: '//randfn)
-    
-    read(u,iostat=ios) seed
-    if (ios/=0) call err('failed to read random source generator file: '//randfn)
-    
-    close(u)
-    
-    call random_seed(put=seed)
-
-    if (debug) then
-      call random_seed(get=seed)
-      write(udbg,*) 'seed:',seed
-      write(udbg,*) 'Lines to clear                                 Counter'
-    endif
-  end subroutine
 
 
   subroutine game_over()
@@ -448,17 +410,6 @@ contains
   end subroutine piece_hit
 
 
-  subroutine generate_next_type()
-    real :: r
-
-    Nblock = Nblock + 1  ! for game stats
-
-    call random_number(r)
-
-    next_type = int2block(floor(r * Ntypes))  ! set this line constant to debug shapes
-  end subroutine generate_next_type
-
-
   subroutine spawn_block()
     integer :: ib
     real :: r
@@ -479,33 +430,8 @@ contains
     blockseq(ib) = cur_type
   ! ------ end logging
 
-    call generate_next_type()
+    call generate_next_type(next_type, Nblock)
   end subroutine spawn_block
-
-
-  impure elemental character function int2block(i) result(b)
-    integer, intent(in) :: i
-
-    select case (i)
-      case (0)
-        b = "I"
-      case(1)
-        b = "T"
-      case(2)
-        b = "L"
-      case(3)
-        b = "J"
-      case(4)
-        b = "S"
-      case(5)
-       b = "Z"
-      case(6)
-       b = "B"
-      case default
-        call err('impossible block type')
-    end select
-
-  end function int2block
 
 
   subroutine handle_clearing_lines()

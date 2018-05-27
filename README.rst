@@ -71,14 +71,6 @@ adjust cadence of falling blocks with ``-d`` option, including decimal point:
 Higher number => more difficult. 
 Must include decimal point.
 
-random source file
-------------------
-On Windows with non-Fortran 2018 compliant compilers, the randomness file MUST be specified as
-
-.. code:: bash
-
-    ./tetran -r file:/dev/urandom
-    
     
 debug mode
 ----------
@@ -116,6 +108,21 @@ Symptoms:
   * Gfortran 5-8, appears for -O1,-O2,-O3, but not for -O0
 
 => May have been just because that's where optimization was first turned on!?
+
+Block Randomness
+----------------
+unlike some games, block distribution is uniformly random as confirmed by::
+
+  ./blockrand
+  
+Normalized benchmarks
+~~~~~~~~~~~~~~~~~~~~~
+using ``./blockrand 100000000`` on a Haswell CPU (single core execution), *relative normalized* ``-O3`` execution times were::
+
+  flang 1.19
+  gnu 1.31
+  ifort 2.88
+  pgf90: 1.0  (fastest normalized)
 
 References
 ----------
