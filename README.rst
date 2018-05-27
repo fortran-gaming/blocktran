@@ -101,14 +101,6 @@ Q or Esc  Exit the game
 Notes
 =====
 
-FIXME: commit a8c654445ae5bc7ed7ee68cfb33b5ba8b9d744e6 is where the ^A started to appear at the bottom right.
-Symptoms:
-
-  * OK on ifort
-  * Gfortran 5-8, appears for -O1,-O2,-O3, but not for -O0
-
-=> May have been just because that's where optimization was first turned on!?
-
 Block Randomness
 ----------------
 unlike some games, block distribution is uniformly random as confirmed by::
@@ -121,17 +113,17 @@ using ``time ./blockrand 100000000`` *relative normalized* execution times were:
 
 ``-O0``::
 
-  flang 1.19
-  pgf90: 1.0  (fastest normalized)
-  gnu 1.31
-  ifort 2.88
+  GNU   1.00 (fastest normalized)
+  Flang 1.12
+  PGI:  1.32 
+  ifort 4.97
 
 ``-O3``::
 
-  flang 1.0 (fastest normalized)
-  pgf 1.07
-  gnu 1.26
-  ifort 4.59
+  GNU   1.0 (fastest normalized)
+  Flang 1.23
+  PGI   1.16
+  ifort 3.70
   
 Tested with:
 
@@ -141,7 +133,7 @@ Tested with:
 * Intel Fortran 2019
 * PGI 2018
   
-So Intel Fortran takes 3-5 times longer than PGI or Flang at this simple single-thread benchmark, getting worse with ``-O3`` 
+So Intel Fortran takes 3-5 times longer than Gfortran at this simple single-thread benchmark.
 
 
 References

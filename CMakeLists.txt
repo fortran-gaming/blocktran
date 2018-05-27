@@ -6,7 +6,7 @@ enable_testing()
 if(CMAKE_BUILD_TYPE STREQUAL Debug)
   add_compile_options(-g -O0)
 else()
-  add_compile_options(-O0)
+  add_compile_options(-O3)
 endif()
 
 if(${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU)
@@ -62,7 +62,7 @@ target_compile_options(keys PRIVATE ${FFLAGS})
 target_link_libraries(keys PRIVATE cinter) 
 
 add_executable(blockrand tests/randtest.f90)
-target_compile_options(blockrand PRIVATE ${FFLAGS} -O3)
+target_compile_options(blockrand PRIVATE ${FFLAGS})
 target_link_libraries(blockrand PRIVATE cinter blocks)
 add_test(NAME RandomBlocks COMMAND blockrand)
 
