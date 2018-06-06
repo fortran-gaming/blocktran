@@ -1,6 +1,5 @@
 module cinter
 use, intrinsic:: iso_c_binding, only: c_int, c_char, c_ptr
-use, intrinsic:: iso_fortran_env, only: error_unit,compiler_version, compiler_options
 implicit none
 
 integer(C_INT)  :: LINES,COLS
@@ -27,11 +26,10 @@ end subroutine getmaxyx
     ! ncurses restares previous terminal contents (before program was run)
     end subroutine endwin
 
-    function getch() result (ch) bind(C)
+    integer(c_int) function getch() result (ch) bind(C)
       import c_int
-      integer(c_int) :: ch
     end function getch
-    
+
     subroutine flushinp() bind (c)
     end subroutine flushinp
 
@@ -74,7 +72,7 @@ end subroutine getmaxyx
     end subroutine usleep
 
 end interface
-  
+
 contains
 
   function initscr() result (stdscr__OUT) ! call initscr() but set global variables too
@@ -86,24 +84,5 @@ contains
     stdscr__OUT=stdscr
     call getmaxyx(stdscr,LINES,COLS)
   end function initscr
-  
-  subroutine err(msg)
-    character(*),intent(in) :: msg
-    
-    call endwin()
-    
-    write(error_unit,*) msg
-    error stop 'abnormal TETRAN termination'
-  end subroutine err
 
-  
-  subroutine printopts()
-
-    print *,compiler_version()
-    print *, compiler_options()
-
-  end subroutine printopts
-
-  
-  
 end module cinter

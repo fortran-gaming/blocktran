@@ -1,7 +1,7 @@
 program randblock
 ! confirms random distribution of block types
 use blocks, only: generate_next_type, init_random_seed
-use cinter, only: err
+use errs, only: err
 implicit none
 
 character(*), parameter :: types = 'ITLJSZB'

@@ -71,6 +71,13 @@ adjust cadence of falling blocks with ``-d`` option, including decimal point:
 Higher number => more difficult. 
 Must include decimal point.
 
+Playfield size
+--------------
+specify width and height of the playfield with ``-s`` option:
+
+.. code:: bash
+
+    ./tetran -s 20 15
     
 debug mode
 ----------
