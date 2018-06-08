@@ -1,6 +1,5 @@
 module shapes
-use, intrinsic:: iso_fortran_env, only: stdout=>output_unit
-use errs, only: err
+use, intrinsic:: iso_fortran_env, only: stdout=>output_unit, stderr=>error_unit
 
 implicit none
 private
@@ -264,7 +263,7 @@ logical function check_collision(self, x, y, screen) result (collided)
   integer, intent(in) :: x, y, screen(:,:)
 
   integer :: block(self%Ny, self%Nx)
-  integer :: i, j, ix
+  integer :: i, ix, ixs
 
 
   block = self%val()
@@ -295,11 +294,12 @@ logical function check_collision(self, x, y, screen) result (collided)
 
 ! other block collision
   ix = max(1,x)
+  ixs = min(self%W, ix + self%Nx - (ix-x) - 1)
   do i = 1, self%Ny 
-    if (y + (i-1) < 1) cycle
-    if (all(block(i,:) == 0)) cycle
+    if (y + (i-1) < 1) cycle        ! this block row above playfield
+    if (all(block(i,:) == 0)) cycle ! no part of block in this block row
     
-    collided = any(screen(y + (i-1), ix:ix+self%Nx-(ix-x)-1) + block(i,ix-x+1:) == 2)
+    collided = any(screen(y + (i-1), ix:ixs) + block(i,ix-x+1:ixs-x+1) == 2)
     if (collided) then
       write(self%why,'(A20,I3,A4,I3)')  'block hit, x=',x,' y=',y
       return
@@ -338,6 +338,13 @@ subroutine tell_why(self, msg)
 end subroutine tell_why
 
 
+subroutine err(msg)
+  character(*),intent(in) :: msg
 
+  write(stderr,*) msg
+  
+  stop -1
+  
+end subroutine err
 
 end module shapes

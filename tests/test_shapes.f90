@@ -1,7 +1,7 @@
 program testshapes
 
+use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 use shapes
-use errs, only: err
 
 implicit none
 
@@ -73,4 +73,16 @@ if(.not.all(shape(sqr%val())==[Ny, Nx])) call err('B val')
 
 
 print *,'OK shapes'
+
+contains
+
+subroutine err(msg)
+  character(*),intent(in) :: msg
+
+  write(stderr,*) msg
+  
+  stop -1
+  
+end subroutine err
+
 end program

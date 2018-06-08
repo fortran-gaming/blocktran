@@ -1,9 +1,16 @@
 module errs
 
 use, intrinsic:: iso_fortran_env, only: error_unit,compiler_version, compiler_options
-use cinter, only: endwin
 
 implicit none
+
+interface
+
+subroutine endwin() bind(C)
+! ncurses restares previous terminal contents (before program was run)
+end subroutine endwin
+
+end interface
 
 contains
 
@@ -13,7 +20,9 @@ subroutine err(msg)
   call endwin()
 
   write(error_unit,*) msg
-  stop 'abnormal TETRAN termination'
+  write(error_unit,*) 'abnormal TETRAN termination'
+  
+  stop -1
 end subroutine err
 
 

@@ -1,8 +1,8 @@
 program motiontest
 ! -------- shape horiz. movement & rotation
 ! FIXME: Each shape should be tested.
+use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 use shapes, only: piece
-use errs, only: err
 
 implicit none
 
@@ -10,7 +10,7 @@ type(piece) :: line!,tee,ell,jay,ess,zee,sqr
 
 integer, parameter :: W=8,H=10
 
-call collision(line)
+call initial(line)
 call test_floor(line)
 call left_wall(line)
 call right_wall(line)
@@ -20,8 +20,10 @@ print *,'OK motion'
 
 contains
 
-subroutine collision(P)
+subroutine initial(P)
   class(piece), intent(inout) :: P
+  
+  print *,'intiial position test...'
   
   call P%init("I",W,H,W/2)
   P%debug=.false.
@@ -29,12 +31,14 @@ subroutine collision(P)
   if(.not.(P%rot==0)) call err('initial rotation')
   if(P%landed) call err('initial landed')
   call print_piece(line)
-end subroutine collision
+end subroutine initial
 
 subroutine test_floor(P)
   class(piece), intent(inout) :: P
   integer :: screen(H,W)  ! playfield`
   integer :: y ! test positions
+  
+  print *, 'floor hit test...'
 
   screen = 0
 
@@ -86,6 +90,8 @@ subroutine left_wall(P)
   integer :: screen(H,W)  ! playfield`
   integer :: x ! test positions
 
+  print *,'left wall test...'
+  
   screen = 0
   ! -- Left wall
   call P%init("I", W, H, W/2)
@@ -115,8 +121,11 @@ subroutine right_wall(P)
   class(piece), intent(inout) :: P
   integer :: screen(H,W)  ! playfield`
   integer :: x ! test positions
+  
+  print *,'right wall test...'
 
   screen = 0
+  
   call P%init("I",W,H, W/2)
   if(.not.(P%rot==0)) call err('initial rotation')
   P%debug=.false.
@@ -134,6 +143,8 @@ subroutine right_wall(P)
   call P%move_right(screen) ! at right wall
   call P%move_right(screen) ! pushing on right wall
   if (P%x/=W-1) call err('(after rotate) I move right collision detection')
+  
+  print *,'OK right bolock test.'
 end subroutine right_wall
 
 
@@ -141,8 +152,11 @@ subroutine block_hit(P)
   class(piece), intent(inout) :: P
   integer :: screen(H,W)  ! playfield`
   integer :: y ! test positions
+  
+  print *,'block hit test...'
 
   screen = 0
+  
   !-- single pixel object in center bottom of floor
   screen(H-2,W/2) = 1
   !call print_block(screen)
@@ -188,5 +202,15 @@ subroutine print_block(B)
     print '(8I1)', B(i,:)
   enddo
 end subroutine print_block
+
+
+subroutine err(msg)
+  character(*),intent(in) :: msg
+
+  write(stderr,*) msg
+  
+  stop -1
+  
+end subroutine err
 
 end program

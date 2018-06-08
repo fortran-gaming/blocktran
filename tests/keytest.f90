@@ -1,37 +1,39 @@
 program test_key
 
-  use cinter, only: initscr,getch, usleep,endwin
-  use, intrinsic:: iso_fortran_env, only: stdout=>output_unit, stdin=>input_unit
-  use, intrinsic:: iso_c_binding, only: c_int,c_ptr
+use, intrinsic:: iso_fortran_env, only: stdout=>output_unit, stdin=>input_unit
+use, intrinsic:: iso_c_binding, only: c_int,c_ptr
 
-  implicit none
+use cinter, only: initscr,getch, usleep
+use errs, only: endwin
 
-  type(c_ptr) :: stdscr
-  integer(c_int) :: ic
-  logical :: lastEsc=.false.
+implicit none
+
+type(c_ptr) :: stdscr
+integer(c_int) :: ic
+logical :: lastEsc=.false.
 
 
-  print *,'press Esc twice to exit. Prints keys pressed and their code'
-  call usleep(2000000)
+print *,'press Esc twice to exit. Prints keys pressed and their code'
+call usleep(2000000)
+
+stdscr = initscr()
+
+do
+  ic = getch()  ! 4-byte integer, automatically prints character!
+! read(stdin,*) ic !Nope
+  write(stdout,'(I4,A1,A1)',advance='no') ic,' ',achar(13)
+  flush(stdout)
   
-  stdscr = initscr()
+  if(lastEsc) then
+    if(ic==27) exit
+    lastEsc=.false.
+  else
+    if(ic==27) lastEsc=.true.
+  endif
   
-  do
-    ic = getch()  ! 4-byte integer, automatically prints character!
-  ! read(stdin,*) ic !Nope
-    write(stdout,'(I4,A1,A1)',advance='no') ic,' ',achar(13)
-    flush(stdout)
-    
-    if(lastEsc) then
-      if(ic==27) exit
-      lastEsc=.false.
-    else
-      if(ic==27) lastEsc=.true.
-    endif
-    
-    call usleep(200000)
-  end do
-  
-  call endwin()
+  call usleep(200000)
+end do
+
+call endwin()
 
 end program
