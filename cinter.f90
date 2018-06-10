@@ -13,12 +13,12 @@ interface
 
 ! http://www.urbanjost.altervista.org/LIBRARY/libscreen/ncurses/pdsrc/ncurses_from_Fortran.html
 function f_initscr() result (initscr__OUT) bind(C, name='initscr')
-  import c_ptr
+  import
   type(c_ptr):: initscr__OUT         ! WINDOW *initscr
 end function f_initscr
 
 subroutine getmaxyx(win,y,x) bind(C, name='macro_getmaxyx')
-  import c_ptr,c_int
+  import
   type (c_ptr), value :: win
   integer(c_int) :: y,x
 end subroutine getmaxyx
@@ -27,35 +27,33 @@ end subroutine getmaxyx
 
 
 integer(c_int) function getch() result (ch) bind(C)
-  import c_int
+  import
 end function getch
 
 subroutine flushinp() bind (c)
 end subroutine flushinp
 
 subroutine timeout(delay) bind (C)
-  import c_int
+  import
   integer(c_int), value :: delay
 end subroutine timeout
 
 
 integer(c_int) function f_addch(ch) result (addch__OUT) bind(c, name='addch')
-  import c_int, c_char
+  import
   character(c_char) , value, intent(in):: ch
 end function f_addch
 
 
 subroutine mvaddch(y, x, ch) bind (C, name='mvaddch')
-  import c_int, c_char
+  import
   integer(c_int), intent(in), value :: y, x
   character(c_char), intent(in), value :: ch
 end subroutine mvaddch
 
 
-function refresh() result (refresh__OUT) bind(C, name='refresh')
-  import c_int
-  INTEGER(C_INT) :: refresh__OUT 
-end function refresh
+subroutine refresh() bind(C, name='refresh')
+end subroutine refresh
 
 
 subroutine clear() bind (C)
@@ -70,13 +68,13 @@ subroutine cbreak() bind (C)
 end subroutine cbreak
 
 subroutine mvprintw(y, x, str) bind (C)
-  import c_int, c_char
+  import
   integer(c_int), intent(in), value :: y, x
   character(c_char),intent(in) :: str
 end subroutine mvprintw
 
 subroutine usleep(time) bind (C)
-  import c_int
+  import
   integer(c_int), value :: time
 end subroutine usleep
 

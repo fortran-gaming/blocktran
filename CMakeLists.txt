@@ -51,13 +51,12 @@ if(CURSES_FOUND)
   add_library(cinter cinter.f90)
   target_compile_options(cinter PRIVATE ${FFLAGS})
   target_link_libraries(cinter PRIVATE cinterc ${CURSES_LIBRARIES} ${FLIBS})
-
-  add_executable(tetran main.f90)
-  target_compile_options(tetran PRIVATE ${FFLAGS})
-  target_link_libraries(tetran PRIVATE cinter blocks keys errs)
-  add_test(NAME ShortGame COMMAND tetran -d 100 -s 4 4)
-  set_tests_properties(ShortGame PROPERTIES TIMEOUT 10)
   
+  add_library(menu menu.f90)
+  target_compile_options(menu PRIVATE ${FFLAGS})
+  target_link_libraries(menu PRIVATE cinter)
+
+ 
   add_library(blocks blocks.f90)
   target_compile_options(blocks PRIVATE ${FFLAGS})
   target_link_libraries(blocks PRIVATE errs cinter shapes)
@@ -68,6 +67,12 @@ if(CURSES_FOUND)
 
 #  executables
 
+  add_executable(tetran main.f90)
+  target_compile_options(tetran PRIVATE ${FFLAGS})
+  target_link_libraries(tetran PRIVATE cinter blocks keys errs)
+  add_test(NAME ShortGame COMMAND tetran -d 100 -s 4 4)
+  set_tests_properties(ShortGame PROPERTIES TIMEOUT 10)
+
   add_executable(testkeys tests/keytest.f90)
   target_compile_options(testkeys PRIVATE ${FFLAGS})
   target_link_libraries(testkeys PRIVATE errs cinter)
@@ -76,6 +81,11 @@ if(CURSES_FOUND)
   target_compile_options(blockrand PRIVATE ${FFLAGS})
   target_link_libraries(blockrand PRIVATE errs blocks)
   add_test(NAME RandomBlocks COMMAND blockrand)
+  
+  add_executable(testmenu tests/test_menu.f90)
+  target_compile_options(testmenu PRIVATE ${FFLAGS})
+  target_link_libraries(testmenu PRIVATE errs cinter menu)
+  add_test(NAME Menu COMMAND testmenu)
 endif()
 
 add_library(shapes block_init.f90)
