@@ -2,6 +2,8 @@
 # boilerplate to test with popular Fortran compilers, helping check for quirks
 cmd="./tetran -s 10 10"
 
+set -e
+
 # --- colors https://stackoverflow.com/a/20983251
 red=`tput setaf 1`
 reset=`tput sgr0`
@@ -30,9 +32,16 @@ fi
 
 rm -r ../bin/*
 cd ../bin
+
 FC=$comp cmake ..
+
 make -j -l 2
+make test
+
 $cmd
 )
   
 done
+
+cd "${0%/*}"  # change to directory of this script
+rm -r ../bin/*

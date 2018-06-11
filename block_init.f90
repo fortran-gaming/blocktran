@@ -1,4 +1,5 @@
 module shapes
+use, intrinsic:: iso_c_binding, only: c_int, c_char
 use, intrinsic:: iso_fortran_env, only: stdout=>output_unit, stderr=>error_unit
 
 implicit none
@@ -7,6 +8,7 @@ private
 type,public :: Piece
  character :: btype
  character(80) :: why
+ character(c_char) :: ch(12)
  integer :: rot ! current rotation
  integer :: Nx,Ny ! dims of current realization of piece
  integer :: W,H   ! dims of playfield piece exists in
@@ -23,6 +25,7 @@ contains
  procedure, public :: move_left
  procedure, public:: rotate
  procedure, public :: move_down
+ procedure, public :: dissolve
  procedure, private :: randomx
  procedure, private :: tell_why
 end type
@@ -37,10 +40,16 @@ subroutine init(self,btype,W,H,x,y, debug)
   integer, intent(in), optional :: x,y
   logical, intent(in), optional :: debug
 
-  integer, parameter :: Ny=4,Nx=4
-
+  integer :: i,j
+  integer, parameter :: Nl = 10
+  
+  ! Flang / PGF chokes on backslash, so do achar(92).
+  ! also FLang / PGF wants defined length.
+  character(kind=c_char), parameter :: ch(12) = ["#","$","@","%","&","^","-","/","|", achar(92), "*", "."]
+  
+  
 ! LINE BLOCK
-integer, parameter :: line(Ny,Nx,0:1) = reshape( &
+integer, parameter :: line(4, 4, 0:1) = reshape( &
     [0, 0, 0, 0, &
      1, 1, 1, 1, &
      0, 0, 0, 0, &
@@ -53,7 +62,7 @@ integer, parameter :: line(Ny,Nx,0:1) = reshape( &
      shape(line))
 
 ! T BLOCK
-integer, parameter :: tee(Ny,Nx,0:3) = reshape( &
+integer, parameter :: tee(4, 4, 0:3) = reshape( &
     [0, 0, 0, 0, &
      1, 1, 1, 0, &
      0, 1, 0, 0, &
@@ -76,7 +85,7 @@ integer, parameter :: tee(Ny,Nx,0:3) = reshape( &
      shape(tee))
 
 ! L BLOCK
-integer, parameter :: ell(Ny,Nx,0:3) = reshape( &
+integer, parameter :: ell(4, 4, 0:3) = reshape( &
     [0, 0, 0, 0, &
      1, 1, 1, 0, &
      1, 0, 0, 0, &
@@ -99,7 +108,7 @@ integer, parameter :: ell(Ny,Nx,0:3) = reshape( &
      shape(ell))
 
 ! J BLOCK
-integer, parameter :: jay(Ny,Nx,0:3) = reshape( &
+integer, parameter :: jay(4, 4, 0:3) = reshape( &
     [0, 0, 0, 0, &
      1, 1, 1, 0, &
      0, 0, 1, 0, &
@@ -122,7 +131,7 @@ integer, parameter :: jay(Ny,Nx,0:3) = reshape( &
      shape(jay))
 
 ! S BLOCK
-integer, parameter :: ess(Ny,Nx,0:1) = reshape( &
+integer, parameter :: ess(4, 4, 0:1) = reshape( &
     [0, 0, 0, 0, &
      0, 1, 1, 0, &
      1, 1, 0, 0, &
@@ -135,7 +144,7 @@ integer, parameter :: ess(Ny,Nx,0:1) = reshape( &
      shape(ess))
 
 ! Z BLOCK
-integer, parameter :: zee(Ny,Nx,0:1) = reshape( &
+integer, parameter :: zee(4, 4, 0:1) = reshape( &
     [0, 0, 0, 0, &
      1, 1, 0, 0, &
      0, 1, 1, 0, &
@@ -148,31 +157,64 @@ integer, parameter :: zee(Ny,Nx,0:1) = reshape( &
      shape(zee))
 
 ! SQUARE BLOCK
-integer, parameter :: sqr(Ny,Nx,0:0) = reshape( &
+integer, parameter :: sqr(4, 4, 0:0) = reshape( &
     [0, 1, 1, 0, &
      0, 1, 1, 0, &
      0, 0, 0, 0, &
      0, 0, 0, 0], &
      shape(sqr))
+     
+! dynamic generated shapes
+     
+integer :: Lt(Nl, Nl, 0:0) = 0
+integer :: Le(Nl, Nl, 0:0) = 0
+integer :: Lr(Nl, Nl, 0:0) = 0
+integer :: La(Nl, Nl, 0:0) = 0
+integer :: Ln(Nl, Nl, 0:0) = 0
+!-----
+Lt(1,:,0) = 1
+Lt(:, Nl/2, 0) = 1
+
+Le(::Nl/2,:,0) = 1
+Le(Nl,:,0) = 1
+Le(:,1,0) = 1
+
+
+Lr(::Nl/2,:,0) = 1
+Lr(:,1,0) = 1
+Lr(1:Nl/2, Nl, 0) = 1
+j = Nl/2
+do i = Nl/2+1,Nl
+  j = j+1
+  Lr(i,j,0) = 1 
+enddo
+
+La(:,1,0) = 1
+La(:,Nl,0) = 1
+La(:Nl-1:Nl/2,:,0) = 1
+
+Ln(:,1,0) = 1
+Ln(:,Nl,0) = 1
+j = 0
+do i =1,Nl
+  j = j+1
+  Ln(i,j,0) = 1 
+enddo
 !===============================================================================
   self%landed = .false.
   self%movereq = .false.
-
-  self%Ny = Ny
-  self%Nx = Nx
 
   self%H = H
   self%W = W
 
   self%y = -1
   if(present(y)) self%y = y
-
-  self%x = self%randomx()
-  if(present(x)) self%x = x
-  
+ 
   self%rot = 0
 
   self%btype = btype
+  
+  self%ch = ch
 
   ! Fortran 2003+ allocate-on-assign
   select case (self%btype)
@@ -190,13 +232,45 @@ integer, parameter :: sqr(Ny,Nx,0:0) = reshape( &
       self%values = zee
     case ("B")
       self%values = sqr
+    case ("t")
+      self%values = Lt
+    case ("e")
+      self%values = Le
+    case ("r")
+      self%values = Lr
+    case ("a")
+      self%values = La
+    case ("n")
+      self%values = Ln
     case ('default')
       call err('unknown shape '//self%btype)
   end select
   
+  self%Ny = size(self%values, 1)
+  self%Nx = size(self%values, 2)
+  
+  !-------- must come after self%Nx assigned!
+  self%x = self%randomx()
+  if(present(x)) self%x = x
+  !--------
+  
   if(present(debug)) self%debug = debug
+  
+  if(self%debug) then
+    print *,'shape ',self%btype,': Ny,Nx ',self%Ny,self%Nx
+  endif
 
 end subroutine init
+
+
+subroutine dissolve(self)
+  class(Piece), intent(inout) :: self
+
+  where (self%values /= 0) 
+     self%values = modulo(self%values + 1, size(self%ch)+1)
+  endwhere
+
+end subroutine dissolve
 
 
 pure integer function val(self)
@@ -310,11 +384,17 @@ end function check_collision
 
 
 integer function randomx(self)
+! NOTE: even if elemental, because it's part of a class, have to %init() then %randomx() each time, if using externally (which would be unusual)
   class(Piece), intent(in) :: self
   real :: r
+  
+  if (.not.allocated(self%values) .or. self%Nx <1 .or. self%Nx >= self%W) then
+    call err('piece not properly initialized before generating initial x position')
+  endif
 
   call random_number(r)
   randomx = floor(r*(self%W-self%Nx)) + 1   ! 1 to screen width, minus block width
+
 end function randomx
 
 

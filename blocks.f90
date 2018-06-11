@@ -1,4 +1,5 @@
 module blocks
+use, intrinsic:: iso_c_binding, only: c_char
 use, intrinsic:: iso_fortran_env, only: error_unit
 
 use errs, only: err, endwin, printopts
@@ -36,21 +37,23 @@ logical :: newhit = .false.
 
 contains
 
-subroutine draw_piece(Hpiece)
+subroutine draw_piece(P)
+  class(piece), intent(in) :: P
 
-  class(piece), intent(in) :: Hpiece
-
-  integer :: block(Hpiece%Ny, Hpiece%Ny)
+  integer :: B(P%Ny, P%Ny)
   integer :: i, j, x, y
 
-  block = Hpiece%val()
+  B = P%val()
 
 ! not concurrent since "mvaddch" remembers its position
-  do i = 1, Hpiece%Ny
-    y = i + Hpiece%y - 2
-    do j = 1, Hpiece%Nx
-      x = j + Hpiece%x - 2
-      if (y >= 0 .and. block(i, j) == 1) call mvaddch(y, x, '#')
+  do i = 1, P%Ny
+    y = i + P%y - P%Ny/2
+    do j = 1, P%Nx
+      x = j + P%x - P%Nx/2
+      
+      if (y >= 0 .and. B(i, j) /= 0) then
+        call mvaddch(y, x, P%ch(B(i, j)))
+      endif
     end do
   end do
 end subroutine draw_piece
@@ -196,36 +199,5 @@ subroutine game_over(cur_piece, msg)
 end subroutine game_over
 
 
-subroutine init_random_seed(debug)
-  ! NOTE: this subroutine is replaced by "call random_init()" in Fortran 2018
-  logical, intent(in), optional :: debug
-  integer :: n, u,ios
-  integer, allocatable :: seed(:)
-  logical :: dbg
-
-  character(*), parameter :: randfn = '/dev/urandom'
-
-  dbg = .false.
-  if (present(debug)) dbg=debug
-
-  call random_seed(size=n)
-  allocate(seed(n))
-
-  open(newunit=u, file=randfn, access="stream", &
-               form="unformatted", action="read", status="old", iostat=ios)
-  if (ios/=0) call err('failed to open random source generator file: '//randfn)
-
-  read(u,iostat=ios) seed
-  if (ios/=0) call err('failed to read random source generator file: '//randfn)
-
-  close(u)
-
-  call random_seed(put=seed)
-
-  if (dbg) then
-    call random_seed(get=seed)
-    print *, 'seed:',seed
-  endif
-end subroutine
 
 end module blocks

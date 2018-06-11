@@ -54,7 +54,7 @@ if(CURSES_FOUND)
   
   add_library(menu menu.f90)
   target_compile_options(menu PRIVATE ${FFLAGS})
-  target_link_libraries(menu PRIVATE cinter)
+  target_link_libraries(menu PRIVATE cinter shapes blocks)
 
  
   add_library(blocks blocks.f90)
@@ -69,8 +69,8 @@ if(CURSES_FOUND)
 
   add_executable(tetran main.f90)
   target_compile_options(tetran PRIVATE ${FFLAGS})
-  target_link_libraries(tetran PRIVATE cinter blocks keys errs)
-  add_test(NAME ShortGame COMMAND tetran -d 100 -s 4 4)
+  target_link_libraries(tetran PRIVATE rand cinter menu blocks keys errs)
+  add_test(NAME ShortGame COMMAND tetran -d 100 -s 6 4)
   set_tests_properties(ShortGame PROPERTIES TIMEOUT 10)
 
   add_executable(testkeys tests/keytest.f90)
@@ -79,24 +79,27 @@ if(CURSES_FOUND)
   
   add_executable(blockrand tests/randtest.f90)
   target_compile_options(blockrand PRIVATE ${FFLAGS})
-  target_link_libraries(blockrand PRIVATE errs blocks)
+  target_link_libraries(blockrand PRIVATE rand errs blocks)
   add_test(NAME RandomBlocks COMMAND blockrand)
   
-  add_executable(testmenu tests/test_menu.f90)
-  target_compile_options(testmenu PRIVATE ${FFLAGS})
-  target_link_libraries(testmenu PRIVATE errs cinter menu)
-  add_test(NAME Menu COMMAND testmenu)
+  add_executable(menu_test tests/test_menu.f90)
+  target_compile_options(menu_test PRIVATE ${FFLAGS})
+  target_link_libraries(menu_test PRIVATE errs cinter menu)
+  add_test(NAME Menu COMMAND menu_test)
 endif()
+
+add_library(rand rand.f90)
+target_compile_options(rand PRIVATE ${FFLAGS})
 
 add_library(shapes block_init.f90)
 target_compile_options(shapes PRIVATE ${FFLAGS})
 
 add_executable(shapetest tests/test_shapes.f90)
 target_compile_options(shapetest PRIVATE ${FFLAGS})
-target_link_libraries(shapetest PRIVATE shapes)
+target_link_libraries(shapetest PRIVATE rand shapes ${FLIBS})
 add_test(NAME BlockShapes COMMAND shapetest)
 
 add_executable(motiontest tests/test_motion.f90)
 target_compile_options(motiontest PRIVATE ${FFLAGS})
-target_link_libraries(motiontest PRIVATE shapes)
+target_link_libraries(motiontest PRIVATE shapes ${FLIBS})
 add_test(NAME BlockMotion COMMAND motiontest)

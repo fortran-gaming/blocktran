@@ -12,13 +12,6 @@ stdscr = initscr()
 
 call title()
 
-call refresh()
-
-call usleep(2000000)
-
-
 call endwin()
-
-
 
 end program

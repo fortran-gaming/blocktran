@@ -1,138 +1,75 @@
 module menu
 use, intrinsic:: iso_c_binding, only: c_int
-use cinter, only: mvaddch
+use cinter, only: mvaddch, usleep, refresh, clear
+use shapes, only: Piece
+use blocks, only: draw_piece
 implicit none
+
+integer(c_int), parameter:: y0 = 5, L = 10, H=60, W=80
+integer(c_int) :: screen(H, W) = 0
 
 contains
 
-subroutine title
+subroutine title()
 
-integer(c_int), parameter:: y0 = 2, L = 10
+integer(c_int) :: x, i
+type(piece) :: T0, E, T1, R, A, N
 
-call drawT(y0, 2, L)
-call drawE(y0, 15, L)
-call drawT(y0, 28, L)
-call drawR(y0, 41, L)
-call drawA(y0, 54, L)
-call drawN(y0, 67, L)
+x=5
+T0 =  makeLetter(y0, x,  "t")
+E = makeLetter(y0, x+(L+1), "e")
+T1 = makeLetter(y0, x+2*(L+1), "t")
+R = makeLetter(y0, x+3*(L+1), "r")
+A = makeLetter(y0, x+4*(L+1), "a")
+N = makeLetter(y0, x+5*(L+1), "n")
+
+call refresh()
+call usleep(250000)
+do i = 1,size(T0%ch)
+  call clear()
+  
+  call dissolve(T0)
+  call dissolve(E)
+  call dissolve(T1)
+  call dissolve(R)
+  call dissolve(A)
+  call dissolve(N)
+  
+  call refresh()
+  call usleep(150000)
+enddo
 
 end subroutine title
 
 
-subroutine drawT(y0, x0, L)
-integer(c_int), intent(in) :: y0, x0, L
-integer(c_int) :: y,x
+type(piece) function makeLetter(y0, x0, letter) result(S)
+integer(c_int), intent(in) :: y0, x0
+character, intent(in) :: letter
 
-y = y0
-do x = x0,x0+L
-  call mvaddch(y, x, '#')
+
+call S%init(letter, W=W, H=H, x=x0, y=y0)
+
+call draw_piece(S)
+end function makeLetter
+
+
+subroutine dissolve(P)
+type(piece), intent(inout) :: P
+real :: r
+integer :: i
+
+call P%dissolve()
+
+call random_number(r)
+do i = 1, floor(r*H/12)
+  call P%move_down(screen)
 enddo
-x = x0 + L/2
-do y = y0,y0+L
-  call mvaddch(y, x, '#')
-enddo
-
-end subroutine
+call draw_piece(P)
 
 
-subroutine drawE(y0, x0, L)
-integer(c_int), intent(in) :: y0, x0, L
-integer(c_int) :: y,x
-
-do y = y0,y0+L,5
-  do x = x0,x0+L
-    call mvaddch(y, x, '#')
-  enddo
-enddo
-
-x = x0
-do y = y0,y0+L
-  call mvaddch(y, x, '#')
-enddo
-
-end subroutine drawE
-
-
-subroutine drawR(y0, x0, L)
-integer(c_int), intent(in) :: y0, x0, L
-integer(c_int) :: y,x
-real :: yf
-
-y=y0
-do x = x0,x0+L
-  call mvaddch(y, x, '#')
-enddo
-y = y0 + L/2
-do x = x0,x0+L
-  call mvaddch(y, x, '#')
-enddo
-x = x0+L
-do y = y0, y0 + L/2
-  call mvaddch(y, x, '#')
-enddo
-yf = y
-do x = x0,x0+L
-  call mvaddch(y, x, '\')
-  yf = yf + 0.45
-  y = floor(yf) 
-enddo
-
-x = x0
-do y = y0,y0+L
-  call mvaddch(y, x, '#')
-enddo
-
-end subroutine drawR
-
-
-subroutine drawA(y0, x0, L)
-integer(c_int), intent(in) :: y0, x0, L
-integer(c_int) :: y,x
-
-x=x0
-do y = y0, y0+L
-  call mvaddch(y, x, '#')
-enddo
-x=x0+L
-do y = y0, y0+L
-  call mvaddch(y, x, '#')
-enddo
-y=y0
-do x = x0, x0+L
-  call mvaddch(y, x, '#')
-enddo
-y=y0+L/2
-do x = x0, x0+L
-  call mvaddch(y, x, '#')
-enddo
-
-end subroutine drawA
-
-
-subroutine drawN(y0, x0, L)
-integer(c_int), intent(in) :: y0, x0, L
-integer(c_int) :: y,x
-real :: yf
-
-x=x0
-do y = y0, y0+L
-  call mvaddch(y, x, '#')
-enddo
-x=x0+L
-do y = y0, y0+L
-  call mvaddch(y, x, '#')
-enddo
-
-
-y = y0
-yf = y
-do x = x0,x0+L
-  call mvaddch(y, x, '\')
-  yf = yf + 1
-  y = floor(yf) 
-enddo
-
-end subroutine drawN
-
+end subroutine dissolve
 
 end module
+
+
+

@@ -41,14 +41,14 @@ end subroutine timeout
 
 integer(c_int) function f_addch(ch) result (addch__OUT) bind(c, name='addch')
   import
-  character(c_char) , value, intent(in):: ch
+  character(kind=c_char) , value, intent(in):: ch
 end function f_addch
 
 
 subroutine mvaddch(y, x, ch) bind (C, name='mvaddch')
   import
   integer(c_int), intent(in), value :: y, x
-  character(c_char), intent(in), value :: ch
+  character(kind=c_char), intent(in), value :: ch
 end subroutine mvaddch
 
 
@@ -70,7 +70,7 @@ end subroutine cbreak
 subroutine mvprintw(y, x, str) bind (C)
   import
   integer(c_int), intent(in), value :: y, x
-  character(c_char),intent(in) :: str
+  character(kind=c_char),intent(in) :: str
 end subroutine mvprintw
 
 subroutine usleep(time) bind (C)
@@ -94,7 +94,7 @@ end function initscr
 
 
 subroutine addch(ch)
-  character(c_char) , value, intent(in):: ch                   ! const chtype ch
+  character(kind=c_char), value, intent(in):: ch                   ! const chtype ch
   integer(c_int) :: addch__OUT
   
   addch__OUT = f_addch(ch) 

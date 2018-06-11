@@ -2,6 +2,7 @@ program testshapes
 
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 use shapes
+use rand, only: init_random_seed
 
 implicit none
 
@@ -11,15 +12,26 @@ integer, parameter :: Ny=4, Nx=4, W=6,H=10
 integer, parameter :: Ntest = 100 ! arbitrary
 integer :: i
 integer :: xarr(Ntest) ! test for randomness etc.
+
+call init_random_seed()
+
 !------- shape essentials
+
+! -- initial x position
 do i=1,Ntest
-  call S%init("I",W,H)
+  call S%init("I",W=W,H=H)
   xarr(i) = S%x
 enddo
-if(.not.(minval(xarr) >= 1 .and. maxval(xarr) <= W-1)) call err('shape initial X position out of playfield')
-if(all(xarr==xarr(1))) call err('non-random shape initial x-position')
-if(.not.S%y==-1) call err('shape initial y-position not at top of playfield')
+call check_x(xarr)
 
+! -- random shape types
+if(all(xarr==xarr(1))) call err('non-random shape initial x-position')
+
+! -- initial y position
+if(.not.S%y==-1) then
+  write(stderr,'(A,I3)') 'initial y position ', S%y
+  call err('shape initial y-position not at top of playfield (-1)')
+endif
 ! ----------- construct shapes
 call line%init("I",W,H)
 if(.not.line%btype=='I') call err('I type')
@@ -75,6 +87,24 @@ if(.not.all(shape(sqr%val())==[Ny, Nx])) call err('B val')
 print *,'OK shapes'
 
 contains
+
+
+subroutine check_x(x)
+
+integer, intent(in) :: x(:)
+
+if(.not.(minval(x) >= 1 .and. maxval(x) <= W-Nx)) then
+  write(stderr,'(A,I3,A,I3)') 'min(x) ',minval(x),' max(x) ',maxval(x)
+  call err('shape initial X position out of playfield')
+endif
+
+if(all(x==x(1))) then
+  write(stderr,'(A,I1)') 'all X are identically ',x(1)
+  call err('non random x')
+endif
+
+end subroutine check_x
+
 
 subroutine err(msg)
   character(*),intent(in) :: msg

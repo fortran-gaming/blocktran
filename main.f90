@@ -1,11 +1,13 @@
 program tetran
+use menu, only: title
 use cinter, only:  initscr,getch,noecho,flushinp,mvprintw,addch, &
   clear,timeout,usleep,cbreak, &
   maxH=>LINES, maxW=>COLS
 use errs, only: err
 use blocks, only: Piece, spawn_block, freeze, screen,debug, H,W, &
        level, Nblock, Ncleared, newhit, udbg, score, generate_next_type, &
-       draw_piece, init_random_seed
+       draw_piece
+use rand, only: init_random_seed
 use keys, only: handle_input
 use, intrinsic:: iso_c_binding, only: c_int,c_ptr
 use, intrinsic:: iso_fortran_env, only: error_unit, input_unit
@@ -39,8 +41,7 @@ print *,'Initial piece update time (seconds)', move_time
 allocate(screen(H,W))
 screen(:,:) = 0
 
-
-!------- initialize
+!--- initialize Curses
 stdscr = initscr()
 
 ! too big -- FIXME generate new window for game
@@ -53,6 +54,10 @@ call cbreak()
 call timeout(0)
 
 call init_random_seed()
+
+!--- show title screen
+call title()
+
 if(debug) write(udbg,*) 'Lines to clear                                 Counter'
 
 call generate_next_type(next_type)
@@ -156,11 +161,14 @@ subroutine draw_screen()
 ! not concurrent (and not where() ) since "addch" has memory of position
   do i = 1, H
     do j = 1, W
-      if (screen(i, j) == 1) then
-        call addch('@')
-      else
-        call addch('.')  ! background selection  (some like '.')
-      end if
+      select case (screen(i, j))
+        case (1)
+          call addch('@')  ! frozen piece
+        case (0)
+          call addch('.')  ! background 
+        case default
+          call err('unknown screen state')
+      end select
     end do
     call addch(new_line(' '))
   end do

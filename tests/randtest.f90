@@ -1,6 +1,7 @@
 program randblock
 ! confirms random distribution of block types
-use blocks, only: generate_next_type, init_random_seed
+use blocks, only: generate_next_type
+use rand, only: init_random_seed
 use errs, only: err
 implicit none
 
