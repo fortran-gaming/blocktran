@@ -5,7 +5,7 @@
 
 Text/console falling-block tetromino game written in Modern Fortran.
 
-![Tetran gameplay demo](tests/tetran.gif)
+![Tetran gameplay demo](doc/tetran.gif)
 
 -   user-configurable playfield size
 -   Logs pieces played to `tetran.log` so you can recreate memorable games.
