@@ -30,10 +30,11 @@ else
   continue
 fi
 
-rm -r ../bin/*
-cd ../bin
+touch bin/junk
+rm -r bin/*
+cd bin
 
-FC=$comp cmake ..
+FC=$comp cmake ../src
 
 make -j -l 2
 make test
@@ -44,4 +45,4 @@ $cmd
 done
 
 cd "${0%/*}"  # change to directory of this script
-rm -r ../bin/*
+rm -r bin/*

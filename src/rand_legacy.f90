@@ -5,23 +5,18 @@ implicit none
 
 contains
 
-subroutine init_random_seed(debug)
+subroutine random_init()
 ! NOTE: this subroutine is replaced by "call random_init()" in Fortran 2018
-logical, intent(in), optional :: debug
 integer :: n, u,ios
 integer, allocatable :: seed(:)
-logical :: dbg
 
 character(*), parameter :: randfn = '/dev/urandom'
-
-dbg = .false.
-if (present(debug)) dbg=debug
 
 call random_seed(size=n)
 allocate(seed(n))
 
-open(newunit=u, file=randfn, access="stream", &
-             form="unformatted", action="read", status="old", iostat=ios)
+
+open(newunit=u, file=randfn, access="stream", form="unformatted", action="read", status="old", iostat=ios)
 if (ios/=0) call err('failed to open random source generator file: '//randfn)
 
 read(u,iostat=ios) seed
@@ -31,10 +26,6 @@ close(u)
 
 call random_seed(put=seed)
 
-if (dbg) then
-  call random_seed(get=seed)
-  print *, 'seed:',seed
-endif
 end subroutine
 
 

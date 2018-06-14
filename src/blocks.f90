@@ -1,5 +1,4 @@
 module blocks
-use, intrinsic:: iso_c_binding, only: c_char
 use, intrinsic:: iso_fortran_env, only: error_unit
 
 use errs, only: err, endwin, printopts
@@ -181,7 +180,7 @@ subroutine game_over(cur_piece, msg)
   if(present(msg)) print *, msg
   
 
-  print *,''
+  print *,' '
   print *, 'Level:', level
   Print *, 'Score:', score
   print *, 'Number of Blocks:',Nblock

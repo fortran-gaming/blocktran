@@ -1,5 +1,5 @@
 module shapes
-use, intrinsic:: iso_c_binding, only: c_int, c_char
+use, intrinsic:: iso_c_binding, only: c_int
 use, intrinsic:: iso_fortran_env, only: stdout=>output_unit, stderr=>error_unit
 
 implicit none
@@ -8,7 +8,7 @@ private
 type,public :: Piece
  character :: btype
  character(80) :: why
- character(c_char) :: ch(12)
+ character :: ch(12)
  integer :: rot ! current rotation
  integer :: Nx,Ny ! dims of current realization of piece
  integer :: W,H   ! dims of playfield piece exists in
@@ -45,7 +45,7 @@ subroutine init(self,btype,W,H,x,y, debug)
   
   ! Flang / PGF chokes on backslash, so do achar(92).
   ! also FLang / PGF wants defined length.
-  character(kind=c_char), parameter :: ch(12) = ["#","$","@","%","&","^","-","/","|", achar(92), "*", "."]
+  character, parameter :: ch(12) = ["#","$","@","%","&","^","-","/","|", achar(92), "*", "."]
   
   
 ! LINE BLOCK

@@ -2,7 +2,7 @@ program testshapes
 
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 use shapes
-use rand, only: init_random_seed
+use rand, only: random_init
 
 implicit none
 
@@ -13,7 +13,7 @@ integer, parameter :: Ntest = 100 ! arbitrary
 integer :: i
 integer :: xarr(Ntest) ! test for randomness etc.
 
-call init_random_seed()
+call random_init()
 
 !------- shape essentials
 

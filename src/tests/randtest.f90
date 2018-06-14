@@ -1,7 +1,7 @@
 program randblock
 ! confirms random distribution of block types
 use blocks, only: generate_next_type
-use rand, only: init_random_seed
+use rand, only: random_init
 use errs, only: err
 implicit none
 
@@ -14,6 +14,8 @@ real, allocatable :: e(:)
 integer :: i,n, c(Ntypes)
 character(32) :: buf
 
+call random_init()
+
 N=1000000
 call get_command_argument(1,buf,status=i)
 if (i==0) read(buf,*) N
@@ -21,8 +23,6 @@ if (i==0) read(buf,*) N
 ideal = N/Ntypes
 
 allocate(b(N), e(N))
-
-call init_random_seed()
 
 call generate_next_type(b)
 

@@ -7,7 +7,7 @@ use errs, only: err
 use blocks, only: Piece, spawn_block, freeze, screen,debug, H,W, &
        level, Nblock, Ncleared, newhit, udbg, score, generate_next_type, &
        draw_piece
-use rand, only: init_random_seed
+use rand, only: random_init
 use keys, only: handle_input
 use, intrinsic:: iso_c_binding, only: c_int,c_ptr
 use, intrinsic:: iso_fortran_env, only: error_unit, input_unit
@@ -29,6 +29,8 @@ real :: difficulty_factor=1.
 character :: next_type
 
 type(piece) :: cur_piece, next_piece
+
+call random_init()
 !===============================================================================
 ! Defaults
 W = 25; H = 20
@@ -52,8 +54,6 @@ if (W+10 > maxW) call err('playfield width too wide for terminal window')
 call noecho()
 call cbreak()
 call timeout(0)
-
-call init_random_seed()
 
 !--- show title screen
 call title()
