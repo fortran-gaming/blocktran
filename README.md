@@ -1,4 +1,4 @@
-[![image](https://travis-ci.org/scivision/tetran.svg?branch=master)](https://travis-ci.org/scivision/tetran)
+[![Build Status](https://travis-ci.com/fortran-gaming/tetran.svg?branch=master)](https://travis-ci.com/fortran-gaming/tetran)
 
 # Tetran
 
@@ -17,6 +17,8 @@ Text/console falling-block tetromino game written in Modern Fortran.
 
 Tetran works on Mac, Linux, Cygwin and Windows Subsystem for Linux. 
 Any modern Fortran compiler (including Flang with CMake &gt;= 3.10) should work.
+
+Note: Gfortran 8.1 has a bug with Ncurses that yields immediate segfaults, on Linux and Mac. Any other version of Gfortran from 4.8 onward workds.
 
 -   Linux / WSL: `apt install gfortran libncurses-dev`
 -   Mac: `brew install gcc ncurses`
