@@ -28,7 +28,6 @@ subroutine initial(P)
   call P%init("I",W,H,W/2)
   P%debug=.false.
   if(.not.(P%y==-1)) call err('initial Y position')
-  if(.not.(P%rot==0)) call err('initial rotation')
   if(P%landed) call err('initial landed')
   call print_piece(line)
 end subroutine initial
@@ -56,10 +55,12 @@ subroutine test_floor(P)
   call P%move_down(screen) ! y=7 next to bottom (allow sliding along floor before final freeze)
   if(P%landed) then
     ! print *,'x,y', P%x, P%y
-    call err('(before rotation) failing to slide along floor')
+    call err('(floor before rotation) failing to slide along floor')
   endif
   call P%move_down(screen) ! y=7 landed (frozen) on bottom
-  if(.not.P%landed) call err('(before rotation)  failed to land')
+      call P%move_down(screen) ! y=7 landed (frozen) on bottom
+      call P%move_down(screen) ! y=7 landed (frozen) on bottom
+  if(.not.P%landed) call err('(floor before rotation)  failed to land')
   y = P%y
   call P%move_down(screen) ! y=7 pressing on bottom
   if(.not.(y==P%y)) call err('passed through floor!')
@@ -67,11 +68,10 @@ subroutine test_floor(P)
 
   P%y=P%y-1; P%landed = .false. ! y=5 manually unfreeze
   call P%rotate(screen)
-  if(.not.(P%rot==1)) call err('failed to rotate after vertical reset')
   if(P%landed) call err('(after rotation) early landing')
   !call print_piece(line)
   call P%move_down(screen) ! y=6
-  call P%move_down(screen) ! y=7 next to bottom (allow sliding along floor before final freeze)
+
   if(P%landed) then
     ! print *,'x,y', P%x, P%y
     call err('(after rotation and movedown) failing to slide along floor')
@@ -95,26 +95,25 @@ subroutine left_wall(P)
   screen = 0
   ! -- Left wall
   call P%init("I", W, H, W/2)
-  if(.not.(P%rot==0)) call err('left wall: initial rotation')
   P%debug=.false.
   x = P%x
   call P%move_left(screen) ! x=3
   if (P%x /= x-1) call err('I move left')
   call P%move_left(screen) ! x=2
   call P%move_left(screen) ! x=1 at left wall
-  call P%move_left(screen) ! x=1 pushing on left wall
-  if (P%x /= 0) call err('passing through left wall!')
+  if (P%x /= 1) call err('passing through left wall!')
   x=P%x
   !call print_piece(line)
   ! -- rotate left wall
   call P%rotate(screen)
   !call print_piece(line)
-  if(.not.P%rot==0) call err('(left wall) I should not be able to rotate')
   call P%move_left(screen) ! x=0 at left wall
-  if (P%x /= x) call err('I move left after rotate')
+
+  if (P%x /= 0) call err('I move left after rotate')
   call P%move_left(screen) ! at left wall
   call P%move_left(screen) ! pushing on left wall
-  if (P%x /= 0) call err('I move left collision detection')
+  
+  if (P%x /= -1) call err('I move left collision detection')
 end subroutine left_wall
 
 subroutine right_wall(P)
@@ -127,7 +126,6 @@ subroutine right_wall(P)
   screen = 0
   
   call P%init("I",W,H, W/2)
-  if(.not.(P%rot==0)) call err('initial rotation')
   P%debug=.false.
   x = P%x
   !call print_piece(line)
@@ -137,12 +135,11 @@ subroutine right_wall(P)
   call P%move_right(screen) ! x=6
   call P%move_right(screen) ! x=7 at right wall
   call P%move_right(screen) ! x=7 pushing on right wall
-  if (P%x /= W-1) call err('(before rotate) I move right collision detection')
+  if (P%x /= W-3) call err('(before rotate) I move right collision detection')
   call P%rotate(screen)
-  if(.not.P%rot==0) call err('(left wall) I should not be able to rotate')
   call P%move_right(screen) ! at right wall
   call P%move_right(screen) ! pushing on right wall
-  if (P%x/=W-1) call err('(after rotate) I move right collision detection')
+  if (P%x/=W-2) call err('(after rotate) I move right collision detection')
   
   print *,'OK right bolock test.'
 end subroutine right_wall
@@ -177,6 +174,8 @@ subroutine block_hit(P)
     call err('(obj before rotation) failing to slide along object')
   endif
   call P%move_down(screen) ! y=5 landed (frozen) on bottom
+    call P%move_down(screen) ! y=5 landed (frozen) on bottom
+      call P%move_down(screen) ! y=5 landed (frozen) on bottom
   if(.not.P%landed) call err('(obj before rotation)  failed to land')
   y = P%y
   call P%move_down(screen) ! y=5 pressing on bottom
@@ -186,11 +185,8 @@ end subroutine block_hit
 
 subroutine print_piece(P)
   class(piece), intent(in) :: P
-  integer :: B(P%Ny,P%Nx)
 
-  B = P%val()
-
-  call print_block(B)
+  call print_block(P%values)
 end subroutine print_piece
 
 

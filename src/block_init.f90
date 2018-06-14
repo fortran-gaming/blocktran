@@ -1,7 +1,7 @@
 module shapes
 use, intrinsic:: iso_c_binding, only: c_int
 use, intrinsic:: iso_fortran_env, only: stdout=>output_unit, stderr=>error_unit
-
+use rotflip, only: rot90
 implicit none
 private
 
@@ -9,17 +9,15 @@ type,public :: Piece
  character :: btype
  character(80) :: why
  character :: ch(12)
- integer :: rot ! current rotation
  integer :: Nx,Ny ! dims of current realization of piece
  integer :: W,H   ! dims of playfield piece exists in
  integer :: x,y   ! location of piece in playfield
- integer, allocatable :: values(:,:,:) ! pixels of piece (third dim is rotation)
+ integer, allocatable :: values(:,:) ! pixels of piece (third dim is rotation)
  logical :: landed ! this piece cannot move anymore
  logical :: movereq ! piece has requested to move in any direction, need to evaluate if collision first.
  logical :: debug=.false.
 contains
  procedure, public :: init
- procedure, public :: val
  procedure, public :: check_collision
  procedure, public :: move_right
  procedure, public :: move_left
@@ -49,156 +47,89 @@ subroutine init(self,btype,W,H,x,y, debug)
   
   
 ! LINE BLOCK
-integer, parameter :: line(4, 4, 0:1) = reshape( &
+integer, parameter :: line(4, 4) = reshape( &
     [0, 0, 0, 0, &
      1, 1, 1, 1, &
      0, 0, 0, 0, &
-     0, 0, 0, 0, &
-
-     0, 0, 1, 0, &
-     0, 0, 1, 0, &
-     0, 0, 1, 0, &
-     0, 0, 1, 0], &
-     shape(line))
+     0, 0, 0, 0],  shape(line), order=[2,1])
 
 ! T BLOCK
-integer, parameter :: tee(4, 4, 0:3) = reshape( &
+integer, parameter :: tee(4, 4) = reshape( &
     [0, 0, 0, 0, &
      1, 1, 1, 0, &
      0, 1, 0, 0, &
-     0, 0, 0, 0, &
-
-     0, 1, 0, 0, &
-     1, 1, 0, 0, &
-     0, 1, 0, 0, &
-     0, 0, 0, 0, &
-
-     0, 1, 0, 0, &
-     1, 1, 1, 0, &
-     0, 0, 0, 0, &
-     0, 0, 0, 0, &
-
-     0, 1, 0, 0, &
-     0, 1, 1, 0, &
-     0, 1, 0, 0, &
-     0, 0, 0, 0], &
-     shape(tee))
+     0, 0, 0, 0],  shape(tee), order=[2,1])
 
 ! L BLOCK
-integer, parameter :: ell(4, 4, 0:3) = reshape( &
+integer, parameter :: ell(4, 4) = reshape( &
     [0, 0, 0, 0, &
      1, 1, 1, 0, &
      1, 0, 0, 0, &
-     0, 0, 0, 0, &
-
-     1, 1, 0, 0, &
-     0, 1, 0, 0, &
-     0, 1, 0, 0, &
-     0, 0, 0, 0, &
-
-     0, 0, 0, 0, &
-     0, 0, 1, 0, &
-     1, 1, 1, 0, &
-     0, 0, 0, 0, &
-
-     0, 1, 0, 0, &
-     0, 1, 0, 0, &
-     0, 1, 1, 0, &
-     0, 0, 0, 0], &
-     shape(ell))
+     0, 0, 0, 0],  shape(ell), order=[2,1])
 
 ! J BLOCK
-integer, parameter :: jay(4, 4, 0:3) = reshape( &
+integer, parameter :: jay(4, 4) = reshape( &
     [0, 0, 0, 0, &
      1, 1, 1, 0, &
      0, 0, 1, 0, &
-     0, 0, 0, 0, &
-
-     0, 1, 0, 0, &
-     0, 1, 0, 0, &
-     1, 1, 0, 0, &
-     0, 0, 0, 0, &
-
-     0, 0, 0, 0, &
-     1, 0, 0, 0, &
-     1, 1, 1, 0, &
-     0, 0, 0, 0, &
-
-     0, 1, 1, 0, &
-     0, 1, 0, 0, &
-     0, 1, 0, 0, &
-     0, 0, 0, 0], &
-     shape(jay))
+     0, 0, 0, 0],  shape(jay), order=[2,1])
 
 ! S BLOCK
-integer, parameter :: ess(4, 4, 0:1) = reshape( &
+integer, parameter :: ess(4, 4) = reshape( &
     [0, 0, 0, 0, &
      0, 1, 1, 0, &
      1, 1, 0, 0, &
-     0, 0, 0, 0, &
-
-     1, 0, 0, 0, &
-     1, 1, 0, 0, &
-     0, 1, 0, 0, &
-     0, 0, 0, 0], &
-     shape(ess))
+     0, 0, 0, 0],  shape(ess), order=[2,1])
 
 ! Z BLOCK
-integer, parameter :: zee(4, 4, 0:1) = reshape( &
+integer, parameter :: zee(4, 4) = reshape( &
     [0, 0, 0, 0, &
      1, 1, 0, 0, &
      0, 1, 1, 0, &
-     0, 0, 0, 0, &
-
-     0, 0, 1, 0, &
-     0, 1, 1, 0, &
-     0, 1, 0, 0, &
-     0, 0, 0, 0], &
-     shape(zee))
+     0, 0, 0, 0],  shape(zee), order=[2,1])
 
 ! SQUARE BLOCK
-integer, parameter :: sqr(4, 4, 0:0) = reshape( &
+integer, parameter :: sqr(4, 4) = reshape( &
     [0, 1, 1, 0, &
      0, 1, 1, 0, &
      0, 0, 0, 0, &
-     0, 0, 0, 0], &
-     shape(sqr))
+     0, 0, 0, 0],  shape(sqr), order=[2,1])
      
 ! dynamic generated shapes
      
-integer :: Lt(Nl, Nl, 0:0) = 0
-integer :: Le(Nl, Nl, 0:0) = 0
-integer :: Lr(Nl, Nl, 0:0) = 0
-integer :: La(Nl, Nl, 0:0) = 0
-integer :: Ln(Nl, Nl, 0:0) = 0
+integer :: Lt(Nl, Nl) = 0
+integer :: Le(Nl, Nl) = 0
+integer :: Lr(Nl, Nl) = 0
+integer :: La(Nl, Nl) = 0
+integer :: Ln(Nl, Nl) = 0
 !-----
-Lt(1,:,0) = 1
-Lt(:, Nl/2, 0) = 1
+Lt(1,:) = 1
+Lt(:, Nl/2) = 1
 
-Le(::Nl/2,:,0) = 1
-Le(Nl,:,0) = 1
-Le(:,1,0) = 1
+Le(::Nl/2,:) = 1
+Le(Nl,:) = 1
+Le(:,1) = 1
 
 
-Lr(::Nl/2,:,0) = 1
-Lr(:,1,0) = 1
-Lr(1:Nl/2, Nl, 0) = 1
+Lr(::Nl/2,:) = 1
+Lr(:,1) = 1
+Lr(1:Nl/2, Nl) = 1
 j = Nl/2
 do i = Nl/2+1,Nl
   j = j+1
-  Lr(i,j,0) = 1 
+  Lr(i,j) = 1 
 enddo
 
-La(:,1,0) = 1
-La(:,Nl,0) = 1
-La(:Nl-1:Nl/2,:,0) = 1
+La(:,1) = 1
+La(:,Nl) = 1
+La(:Nl-1:Nl/2,:) = 1
 
-Ln(:,1,0) = 1
-Ln(:,Nl,0) = 1
+Ln(:,1) = 1
+Ln(:,Nl) = 1
 j = 0
 do i =1,Nl
   j = j+1
-  Ln(i,j,0) = 1 
+  Ln(i,j) = 1 
 enddo
 !===============================================================================
   self%landed = .false.
@@ -209,8 +140,6 @@ enddo
 
   self%y = -1
   if(present(y)) self%y = y
- 
-  self%rot = 0
 
   self%btype = btype
   
@@ -273,14 +202,6 @@ subroutine dissolve(self)
 end subroutine dissolve
 
 
-pure integer function val(self)
-  class(Piece), intent(in) :: self
-  dimension :: val(self%Ny, self%Nx)
-
-  val = self%values(:,:,self%rot)
-end function val
-
-
 subroutine move_left(self, screen)
   class(Piece), intent(inout) :: self
   integer, intent(in) :: screen(:,:)
@@ -323,11 +244,11 @@ subroutine rotate(self, screen)
   class(Piece), intent(inout) :: self
   integer, intent(in) :: screen(:,:)
 
-  self%rot = modulo(self%rot + 1, size(self%values, 3))
+  self%values = rot90(self%values, 1)
 
   if (self%check_collision(self%x, self%y, screen)) then
     call self%tell_why('NO rotation:')
-    self%rot = self%rot - 1
+    self%values = rot90(self%values, -1)
   endif
 end subroutine rotate
 
@@ -336,17 +257,17 @@ logical function check_collision(self, x, y, screen) result (collided)
   class(Piece), intent(inout) :: self
   integer, intent(in) :: x, y, screen(:,:)
 
-  integer :: block(self%Ny, self%Nx)
+  integer :: B(self%Ny, self%Nx)
   integer :: i, ix, ixs
 
 
-  block = self%val()
+  B = self%values
   collided = .false.
 ! always check all, in case rotation
 
 ! Floor check
   do i = 1,self%Ny
-    if (all(block(i,:) == 0)) cycle
+    if (all(B(i,:) == 0)) cycle
     
     collided = y + (i-1) > self%H
     if (collided) then
@@ -357,7 +278,7 @@ logical function check_collision(self, x, y, screen) result (collided)
 
 
   do i = 1,self%Nx
-    if(all(block(:,i) == 0)) cycle
+    if(all(B(:,i) == 0)) cycle
     
     collided = x + (i-1) < 1 .or. x + (i-1) > self%W
     if (collided) then
@@ -371,9 +292,9 @@ logical function check_collision(self, x, y, screen) result (collided)
   ixs = min(self%W, ix + self%Nx - (ix-x) - 1)
   do i = 1, self%Ny 
     if (y + (i-1) < 1) cycle        ! this block row above playfield
-    if (all(block(i,:) == 0)) cycle ! no part of block in this block row
+    if (all(B(i,:) == 0)) cycle ! no part of block in this block row
     
-    collided = any(screen(y + (i-1), ix:ixs) + block(i,ix-x+1:ixs-x+1) == 2)
+    collided = any(screen(y + (i-1), ix:ixs) + B(i,ix-x+1:ixs-x+1) == 2)
     if (collided) then
       write(self%why,'(A20,I3,A4,I3)')  'block hit, x=',x,' y=',y
       return

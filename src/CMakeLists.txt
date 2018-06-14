@@ -99,8 +99,12 @@ if(CURSES_FOUND)
   add_test(NAME Menu COMMAND menu_test)
 endif()
 
+add_library(rotflip rot90.f90)
+target_compile_options(rotflip PRIVATE ${FFLAGS})
+
 add_library(shapes block_init.f90)
 target_compile_options(shapes PRIVATE ${FFLAGS})
+target_link_libraries(shapes PRIVATE rotflip)
 
 add_executable(shapetest tests/test_shapes.f90)
 target_compile_options(shapetest PRIVATE ${FFLAGS})

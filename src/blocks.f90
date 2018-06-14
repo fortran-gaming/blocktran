@@ -39,10 +39,7 @@ contains
 subroutine draw_piece(P)
   class(piece), intent(in) :: P
 
-  integer :: B(P%Ny, P%Ny)
   integer :: i, j, x, y
-
-  B = P%val()
 
 ! not concurrent since "mvaddch" remembers its position
   do i = 1, P%Ny
@@ -50,8 +47,8 @@ subroutine draw_piece(P)
     do j = 1, P%Nx
       x = j + P%x - P%Nx/2
       
-      if (y >= 0 .and. B(i, j) /= 0) then
-        call mvaddch(y, x, P%ch(B(i, j)))
+      if (y >= 0 .and. P%values(i, j) /= 0) then
+        call mvaddch(y, x, P%ch(P%values(i, j)))
       endif
     end do
   end do
@@ -75,53 +72,52 @@ impure elemental subroutine generate_next_type(next_type, Nblock)
 end subroutine generate_next_type
 
 
-subroutine freeze(cur_piece, next_piece)
+subroutine freeze(P, NP)
 ! Called when a piece has hit another and freezes
-  class(piece), intent(inout) :: cur_piece, next_piece
-  integer :: block(cur_piece%Ny, cur_piece%Nx)
+  class(piece), intent(inout) :: P, NP
+
   integer :: i, y, ix, x, Nx, ixs
   character(120):: buf
 
-  if(.not.cur_piece%landed) return
+  if(.not. P%landed) return
 
-  block = cur_piece%val()
-  x = cur_piece%x
-  Nx=cur_piece%Nx
+  x = P%x
+  Nx = P%Nx
 
 ! not concurrent due to impure "game over"
   ix = max(1, x)
   ixs = min(W, ix + Nx - (ix-x) - 1)
-  do i = 1, cur_piece%Ny
-    if (all(block(i, :) == 0)) cycle
+  do i = 1, P%Ny
+    if (all(P%values(i, :) == 0)) cycle
     
-    y = i-1 + cur_piece%y   
+    y = i-1 + P%y   
    
     if (y <= 1)  then
       write(buf,'(A12,I3,A3,I3)') 'freeze: x=',x,'y=',y
-      call game_over(cur_piece, buf)
+      call game_over(P, buf)
     endif
 
-    where(screen(y, ix:ixs) == 1 .or. block(i,ix-x+1:ixs-x+1) ==1)
+    where(screen(y, ix:ixs) == 1 .or. P%values(i,ix-x+1:ixs-x+1) ==1)
           screen(y, ix:ixs) = 1
     endwhere
   end do
 
   call handle_clearing_lines()
-  call spawn_block(cur_piece, next_piece)
+  call spawn_block(P, NP)
 end subroutine freeze
 
 
-subroutine spawn_block(cur_piece, next_piece)
-  class(piece), intent(inout) :: cur_piece
-  class(piece), intent(inout), optional :: next_piece
+subroutine spawn_block(P, NP)
+  class(piece), intent(inout) :: P
+  class(piece), intent(inout), optional :: NP
   integer :: ib
   character :: next_type
 
   ! make new current piece -- have to do this since "=" copys pointers, NOT deep copy for derived types!
-  call cur_piece%init(next_piece%btype,W=W,H=H, debug=debug)
+  call P%init(NP%btype,W=W,H=H, debug=debug)
 
   call generate_next_type(next_type, Nblock)
-  call next_piece%init(next_type, W=W, H=H, x=W+5, y=H/2, debug=debug)
+  call NP%init(next_type, W=W, H=H, x=W+5, y=H/2, debug=debug)
 
 ! ----- logging ---------
   if (Nblock>Tmax) then
@@ -131,7 +127,7 @@ subroutine spawn_block(cur_piece, next_piece)
     ib = Nblock
   endif
 
-  blockseq(ib) = cur_piece%btype
+  blockseq(ib) = P%btype
 ! ------ end logging
 
 
