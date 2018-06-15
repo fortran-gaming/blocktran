@@ -82,7 +82,7 @@ if(CURSES_FOUND)
   target_compile_options(tetran PRIVATE ${FFLAGS})
   target_link_libraries(tetran PRIVATE rand cinter menu blocks keys errs)
   add_test(NAME ShortGame COMMAND tetran -d 100 -s 6 4)
-  set_tests_properties(ShortGame PROPERTIES TIMEOUT 10)
+  set_tests_properties(ShortGame PROPERTIES TIMEOUT 15)
 
   add_executable(testkeys tests/keytest.f90)
   target_compile_options(testkeys PRIVATE ${FFLAGS})

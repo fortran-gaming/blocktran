@@ -1,17 +1,18 @@
 module keys
 
 use cinter, only: getch, flushinp
-use blocks, only: piece, screen, spawn_block, game_over, generate_next_type
+use blocks, only: field, piece, spawn_block, game_over, generate_next_type
 
 implicit none
 
 contains
 
-subroutine handle_input(cur_piece, next_piece)
-  class(piece), intent(inout) :: cur_piece
-  class(piece), intent(inout), optional :: next_piece
-  
-  character :: next_type
+subroutine handle_input(F, P, NP)
+  class(field), intent(in) :: F
+  class(piece), intent(inout) :: P
+  class(piece), intent(inout), optional :: NP
+
+  character :: next
   integer :: inp_chr
 
   inp_chr = getch()
@@ -27,29 +28,29 @@ subroutine handle_input(cur_piece, next_piece)
       endif
   endif
 
-  cur_piece%movereq=.true. ! rather than typing it for each case
+  P%movereq=.true. ! rather than typing it for each case
   select case (inp_chr)
   ! yes this handles upper and lower case, for clever clogs.
-    case (97,65)  ! A - left
-      call cur_piece%move_left(screen)
-    case (115,83,66) ! S - down
-      call cur_piece%move_down(screen)
-    case (100,68,67) ! D - right
-      call cur_piece%move_right(screen)
-    case (119,87) ! W - rotate
-      call cur_piece%rotate(screen)
-    case (113,81) ! Q - quit
-      call game_over()
-    case (116,84) ! CHEAT   T - reset current piece position y to top, preserving x position
-      cur_piece%y = 0
-    case (78,110) ! CHEAT    N - pick a new piece type for the NEXT block
-      if(present(next_piece)) then
-        call generate_next_type(next_type) ! don't pass Nblocks here!
-        call next_piece%init(next_type, W=next_piece%W, H=next_piece%H, &
-                             x=next_piece%W+5, y=next_piece%H/2)
-      endif  
+    case (iachar("A"),iachar("a"))  ! A - left
+      call P%move_left()
+    case (iachar("S"), iachar("s"),66) ! S - down
+      call P%move_down()
+    case (iachar("D"), iachar("d"),67) ! D - right
+      call P%move_right()
+    case (iachar("W"), iachar("w")) ! W - rotate
+      call P%rotate()
+    case (iachar("Q"), iachar("q")) ! Q - quit
+      call game_over(F)
+
+    case (iachar("T"), iachar("t")) ! CHEAT   T - reset current piece position y to top, preserving x position
+      P%y = 0
+    case (iachar("N"), iachar("n")) ! CHEAT    N - pick a new piece type for the NEXT block
+      if(present(NP)) then
+        call generate_next_type(next) ! don't pass Nblocks here!
+        call NP%init(F, next, x=F%W+5, y=F%H/2)
+      endif
     case default ! do nothing
-      cur_piece%movereq = .false.
+      P%movereq = .false.
   end select
 
   call flushinp()  ! clear repeating keys from stdin buffer

@@ -4,9 +4,8 @@ use cinter, only:  initscr,getch,noecho,flushinp,mvprintw,addch, &
   clear,timeout,usleep,cbreak, &
   maxH=>LINES, maxW=>COLS
 use errs, only: err
-use blocks, only: Piece, spawn_block, freeze, screen,debug, H,W, &
-       level, Nblock, Ncleared, newhit, udbg, score, generate_next_type, &
-       draw_piece
+use blocks, only: Field,Piece, spawn_block, freeze, &
+                  newhit, generate_next_type, draw_piece
 use rand, only: random_init
 use keys, only: handle_input
 use, intrinsic:: iso_c_binding, only: c_int,c_ptr
@@ -15,33 +14,22 @@ implicit none
 
 type(c_ptr) :: stdscr
 
-! Microseconds between each automatic downward move
-real :: move_time = 0.5 ! seconds
-integer(c_int), parameter :: sleep_incr = 5e4 !  keyboard polling and screen refresh interval (microseconds).
-! 1e6 microsec: mushy controls. 1e5 microsec a little laggy. 5e4 about right. 1e4 microsec screen flicker.
 integer :: toc, tic,trate  ! elapsed time
 
-integer, parameter :: lines_per_level = 10 ! how many lines to clear to advance to next level
-real, parameter :: difficulty_increase = 1.2 ! factor by which level jumps difficulty
+real :: difffact
+integer :: W, H
+logical :: debug
 
-real :: difficulty_factor=1.
+character :: next
 
-character :: next_type
-
-type(piece) :: cur_piece, next_piece
-
+type(piece) :: P, NP
+type(field) :: F
+!==========================================
 call random_init()
-!===============================================================================
-! Defaults
-W = 25; H = 20
 
-call cmd_parse()
-move_time = move_time / difficulty_factor
+call cmd_parse(W=W, H=H, difffact=difffact, debug=debug)
 
-print *,'Initial piece update time (seconds)', move_time
-
-allocate(screen(H,W))
-screen(:,:) = 0
+call F%init_(W=W, H=H, difffact=difffact, debug=debug)
 
 !--- initialize Curses
 stdscr = initscr()
@@ -50,48 +38,43 @@ stdscr = initscr()
 if (H+3 > maxH) call err('playfield height too tall for terminal window')
 if (W+10 > maxW) call err('playfield width too wide for terminal window')
 
-
 call noecho()
 call cbreak()
 call timeout(0)
 
 !--- show title screen
 call title()
-
-if(debug) write(udbg,*) 'Lines to clear                                 Counter'
-
-call generate_next_type(next_type)
-call next_piece%init(next_type, W=W, H=H, debug=debug)
-call spawn_block(cur_piece,next_piece)
+!--- create first block
+call generate_next_type(next)
+call NP%init(F, next)
+call spawn_block(F, P, NP)
 
 call redraw()
 call system_clock(count=tic, count_rate=trate)
 !--------- main loop
 do
 
-  call handle_input(cur_piece, next_piece)  ! was a key pressed?
-  call freeze(cur_piece, next_piece)
-  if (cur_piece%movereq) call redraw()
+  call handle_input(F, P, NP)  ! was a key pressed?
+  call freeze(F, P, NP)
+  if (P%movereq) call redraw()
 
   call system_clock(count=toc)
 
 !    if(debug) print *,toc-tic, toc, tic  ! in lower right corder of screen
 
-  if ( (toc-tic) / real(trate) > move_time) then ! time's up, move piece one step down. real(trate) is necessary for float time comparison!
-    call cur_piece%move_down(screen)
+  if ( (toc-tic) / real(trate) > F%move_time) then ! time's up, move piece one step down. real(trate) is necessary for float time comparison!
+    call P%move_down()
     call redraw()
 
-    if (newhit.and.modulo(Ncleared,lines_per_level)==0) then ! advance level
+    if (newhit.and.modulo(F%Ncleared, F%lines_per_level)==0) then ! advance level
       newhit=.false.
-      level = level + 1
-      difficulty_factor = difficulty_factor*difficulty_increase
-      move_time = move_time / difficulty_factor
+      call F%levelup()
     endif
 
     call system_clock(count=tic)
   endif
 
-  call usleep(sleep_incr)
+  call usleep(F%sleep_incr)
 end do
 
 contains
@@ -99,26 +82,38 @@ contains
 subroutine redraw()
 
   call clear()
-  call draw_screen()
+  call draw_screen(F)
   ! Draw the falling block
-  call draw_piece(cur_piece)
+  call draw_piece(P)
   ! Draw next block
-  call draw_piece(next_piece)
+  call draw_piece(NP)
 
-  call draw_score()
+  call draw_score(F)
 
 end subroutine redraw
 
 
-subroutine cmd_parse()
+subroutine cmd_parse(W, H, difffact, debug)
   ! reads flag command line arguments
+  integer, intent(out) :: W, H
+  real, intent(out) :: difffact
+  logical, intent(out) :: debug
   integer :: i,argc
   character(*),parameter :: logfn='tetran.log'
   character(256) :: arg
   character(8)  :: date
   character(10) :: time
   character(5)  :: zone
+  real :: r
+! --- default values
+  call random_number(r)
+  W = 8 + int(r*15)
+  call random_number(r)
+  H = 6 + int(r*14)
 
+  difffact = 1.
+  debug = .false.
+! --- process options
   argc = command_argument_count()
 
   do i = 1,argc
@@ -134,20 +129,20 @@ subroutine cmd_parse()
 
       case ('-d','--difficulty')
         call get_command_argument(i+1,arg)
-        read(arg,'(F4.1)') difficulty_factor
-        if (difficulty_factor<=0) call err('difficulty must be > 0')
+        read(arg,'(F4.1)') difffact
+        if (difffact<=0) call err('difficulty must be > 0')
 
       case ('--debug','-v','--verbose')
         debug=.true.
         print *,'debug enabled, writing to ', logfn
-        open(newunit=udbg,file=logfn, action='Write', &
+        open(newunit=F%udbg,file=logfn, action='Write', &
              form='formatted', status='unknown',   &
              position='append')
 
         call date_and_time(date,time,zone)
-        write(udbg,*) '--------------------------------------------'
-        write(udbg,*) 'start: ', date,'T', time, zone
-        write(udbg,*) 'Lines to clear                                 Counter'
+        write(F%udbg,*) '--------------------------------------------'
+        write(F%udbg,*) 'start: ', date,'T', time, zone
+        write(F%udbg,*) 'Lines to clear                                 Counter'
 
     end select
   enddo
@@ -155,17 +150,18 @@ subroutine cmd_parse()
 end subroutine cmd_parse
 
 
-subroutine draw_screen()
+subroutine draw_screen(F)
+  class(field), intent(in) :: F
   integer :: i, j
 
 ! not concurrent (and not where() ) since "addch" has memory of position
-  do i = 1, H
-    do j = 1, W
-      select case (screen(i, j))
+  do i = 1, F%H
+    do j = 1, F%W
+      select case (F%screen(i, j))
         case (1)
           call addch('@')  ! frozen piece
         case (0)
-          call addch('.')  ! background 
+          call addch('.')  ! background
         case default
           call err('unknown screen state')
       end select
@@ -175,23 +171,24 @@ subroutine draw_screen()
 end subroutine draw_screen
 
 
-subroutine draw_score()
+subroutine draw_score(F)
+  class(field), intent(in) :: F
   ! prints on line under bottom of playfield:
   !  score
   !  count of blocks played in this game
   character(16), save :: msg=""
   ! this save variable is necessary to prevent garbage on screen
 
-  write (msg, "(I10)") score
+  write (msg, "(I10)") F%score
   call mvprintw(H, 0, msg)
 
-  write (msg, "(I10)") Nblock
+  write (msg, "(I10)") F%Nblock
   call mvprintw(H+1, 0, msg)
 
-  write (msg, "(I2)") level
+  write (msg, "(I2)") F%level
   call mvprintw(H+2, 0, msg)
 
-  write (msg, "(I4)") Ncleared
+  write (msg, "(I4)") F%Ncleared
   call mvprintw(H+2, W-4, msg)
 end subroutine draw_score
 
