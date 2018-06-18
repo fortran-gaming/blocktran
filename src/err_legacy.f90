@@ -20,7 +20,7 @@ subroutine err(msg)
   call endwin()
 
   write(error_unit,*) msg
-  write(error_unit,*) 'abnormal TETRAN termination'
+  write(error_unit,*) 'ERROR STOP'
   
   stop -1
 end subroutine err

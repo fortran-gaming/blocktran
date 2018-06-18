@@ -5,7 +5,7 @@ program test_menu
   use cinter, only: initscr, refresh, usleep
   use errs, only: endwin
   use menu, only: title
-  use shapes, only: field
+  use fields, only: field
 
 implicit none
 

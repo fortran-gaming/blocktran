@@ -45,6 +45,8 @@ Optional: specify a compiler by setting `FC=`.
 ./tetran
 ```
 
+The command line options are described next in the following sections.
+
 ### difficulty level
 
 adjust cadence of falling blocks with `-d` option, including decimal
@@ -62,6 +64,14 @@ specify width and height of the playfield with `-s` option:
 
 ```bash
 ./tetran -s 20 15
+```
+
+### play against computer
+
+The computer player is for now rudimentary, the AI algorithm is being developed offline.
+
+```bash
+./tetran -p 2
 ```
 
 ### debug mode

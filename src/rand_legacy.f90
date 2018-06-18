@@ -1,4 +1,5 @@
 module rand
+use random
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 
 implicit none
@@ -7,7 +8,7 @@ contains
 
 subroutine random_init()
 ! NOTE: this subroutine is replaced by "call random_init()" in Fortran 2018
-integer :: n, u,ios
+integer :: i,n, u,ios
 integer, allocatable :: seed(:)
 
 character(*), parameter :: randfn = '/dev/urandom'
@@ -17,12 +18,19 @@ allocate(seed(n))
 
 
 open(newunit=u, file=randfn, access="stream", form="unformatted", action="read", status="old", iostat=ios)
-if (ios/=0) call err('failed to open random source generator file: '//randfn)
+if (ios==0) then
+  read(u,iostat=ios) seed
+  close(u)
+endif
+  
+if (ios/=0) then
+  write(stderr,*) 'falling back to internal random number generator'
+  do i = 1,n
+    seed(i) = randint() 
+  enddo
+endif
 
-read(u,iostat=ios) seed
-if (ios/=0) call err('failed to read random source generator file: '//randfn)
 
-close(u)
 
 call random_seed(put=seed)
 

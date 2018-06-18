@@ -34,18 +34,23 @@ elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL PGI)
   list(APPEND FFLAGS -Mallocatable=03)
 endif()
 
+#---- libraries
+set(okcomp GNU Intel)
 
 if((${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU) AND (${CMAKE_Fortran_COMPILER_VERSION} VERSION_GREATER_EQUAL 9))
-  add_library(rand rand.f90)
+  add_library(rand rand.f90 random.f90)
 else()
-  add_library(rand rand_legacy.f90)
-  target_compile_options(rand PRIVATE ${FFLAGS})
+  add_library(rand rand_legacy.f90 random.f90)
 endif()
+target_compile_options(rand PRIVATE ${FFLAGS})
 
-set(okcomp GNU Intel)
-#---- libraries
+
+add_library(AI ai.f90)
+target_compile_options(AI PRIVATE ${FFLAGS})
+target_link_libraries(AI PRIVATE shapes)
+
+
 find_package(Curses)
-
 if(CURSES_FOUND)
   if(CMAKE_Fortran_COMPILER_ID IN_LIST okcomp)
     add_library(errs err.f90)
@@ -65,7 +70,7 @@ if(CURSES_FOUND)
   
   add_library(menu menu.f90)
   target_compile_options(menu PRIVATE ${FFLAGS})
-  target_link_libraries(menu PRIVATE cinter shapes blocks)
+  target_link_libraries(menu PRIVATE rand cinter shapes blocks)
 
  
   add_library(blocks blocks.f90)
@@ -74,19 +79,19 @@ if(CURSES_FOUND)
 
   add_library(keys keys.f90)
   target_compile_options(keys PRIVATE ${FFLAGS})
-  target_link_libraries(keys PRIVATE cinter blocks)
+  target_link_libraries(keys PRIVATE AI cinter blocks)
 
 #  executables
 
   add_executable(tetran main.f90)
   target_compile_options(tetran PRIVATE ${FFLAGS})
   target_link_libraries(tetran PRIVATE rand cinter menu blocks keys errs)
-  add_test(NAME ShortGame COMMAND tetran -d 100 -s 6 4)
-  set_tests_properties(ShortGame PROPERTIES TIMEOUT 15)
+  add_test(NAME ShortGame COMMAND tetran -d 100 -s 6 6)
+  set_tests_properties(ShortGame PROPERTIES TIMEOUT 20)
 
   add_executable(testkeys tests/keytest.f90)
   target_compile_options(testkeys PRIVATE ${FFLAGS})
-  target_link_libraries(testkeys PRIVATE errs cinter)
+  target_link_libraries(testkeys PRIVATE errs cinter keys)
   
   add_executable(blockrand tests/randtest.f90)
   target_compile_options(blockrand PRIVATE ${FFLAGS})
@@ -104,7 +109,7 @@ target_compile_options(rotflip PRIVATE ${FFLAGS})
 
 add_library(shapes block_init.f90)
 target_compile_options(shapes PRIVATE ${FFLAGS})
-target_link_libraries(shapes PRIVATE rotflip)
+target_link_libraries(shapes PRIVATE rand rotflip)
 
 add_executable(shapetest tests/test_shapes.f90)
 target_compile_options(shapetest PRIVATE ${FFLAGS})
