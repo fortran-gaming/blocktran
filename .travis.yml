@@ -13,17 +13,23 @@ git:
 
 addons:
   apt:
-    packages:
-      - gfortran
+    sources: ubuntu-toolchain-r-test
+    packages: gfortran-5
 
 before_install:
-    - if [[ $TRAVIS_OS_NAME == osx ]]; then
+  - if [[ $TRAVIS_OS_NAME == linux ]]; then
+    mkdir -p ~/.local/bin;
+    ln -s /usr/bin/gfortran-5 ~/.local/bin/gfortran;
+    export PATH="$HOME/.local/bin/:$;
+    fi
+
+  - if [[ $TRAVIS_OS_NAME == osx ]]; then
       brew update > /dev/null;
       brew install gcc || true > /dev/null;
       brew link --overwrite gcc > /dev/null;
       brew install ncurses > /dev/null;
       export FC=gfortran;
-      fi
+    fi
 
 install: 
   - cd bin
