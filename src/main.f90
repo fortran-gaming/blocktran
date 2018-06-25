@@ -56,9 +56,6 @@ do i = 1,players
   call system_clock(count=F(i)%tic, count_rate=trate)
 enddo
 
-
-
-
 !--------- main loop
 do
   

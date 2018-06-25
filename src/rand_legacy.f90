@@ -26,7 +26,7 @@ endif
 if (ios/=0) then
   write(stderr,*) 'falling back to internal random number generator'
   do i = 1,n
-    seed(i) = randint() 
+    seed(i) = randint(-1073741823, 1073741823) 
   enddo
 endif
 

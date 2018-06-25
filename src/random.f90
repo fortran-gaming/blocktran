@@ -13,20 +13,12 @@ end interface
 contains
 
 impure elemental integer function randint(lo, hi)
-integer, intent(in), optional :: lo, hi
-integer :: L,H
+integer, intent(in) :: lo, hi
 real :: r
-
- ! /2 avoids overflow
-L = -huge(0)/2
-H =  huge(0)/2
-
-if(present(lo)) L = lo
-if(present(hi)) H = hi
 
 call random_number(r)
 
-randint = floor(r * (H+1 - L)) + L
+randint = floor(r * (hi + 1 - lo)) + lo
 
 end function randint
 

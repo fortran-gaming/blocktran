@@ -34,12 +34,9 @@ before_install:
 install: 
   - cd bin
   - cmake ..
-  - make
+  - cmake --build .
 
 
 script:
-  - make test
-    
-after_failure:
   - ctest -V
 

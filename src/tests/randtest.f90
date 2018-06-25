@@ -1,5 +1,6 @@
 program randblock
 ! confirms random distribution of block types
+use, intrinsic:: iso_fortran_env, only: dp=>real64
 use shapes, only: gen_type
 use rand, only: random_init, randint, std, mean
 use errs, only: err
@@ -53,11 +54,11 @@ endif
 ! -----------
 
 do i = 1,N
-  f(i) = randint()
+  f(i) = randint(-1073741823,  1073741823)
 enddo
 
 print *,new_line(' '),'huge(int)',huge(0), 'huge(real)',huge(0.)
-print *,'expected std, mean',huge(0)/sqrt(12.), 0.
+print *,'expected std, mean',real(huge(0), dp) / sqrt(12._dp), 0.
 print *,'std, mean randint()',std(f), mean(f)
 print *,'a few values',f(:6)
 
