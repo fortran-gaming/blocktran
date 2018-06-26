@@ -31,7 +31,7 @@ cd bin
 
 cmake ..
 
-cmake --build .
+cmake --build . --target install
 
 ctest -V
 ```

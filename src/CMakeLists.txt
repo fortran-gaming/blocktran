@@ -120,3 +120,11 @@ add_executable(motiontest tests/test_motion.f90)
 target_compile_options(motiontest PRIVATE ${FFLAGS})
 target_link_libraries(motiontest PRIVATE shapes ${FLIBS})
 add_test(NAME BlockMotion COMMAND motiontest)
+
+
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX "~/.local/bin" CACHE PATH "..." FORCE)
+endif()
+
+install(TARGETS tetran
+        RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
