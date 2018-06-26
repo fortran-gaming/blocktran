@@ -43,9 +43,9 @@ Optional: specify a compiler by setting `FC=`.
 -   PGI: `FC=pgf95 cmake ..`
 
 ## Play
-
+From any Terminal:
 ```bash
-./tetran
+tetran
 ```
 
 The command line options are described next in the following sections.
@@ -56,7 +56,7 @@ adjust cadence of falling blocks with `-d` option, including decimal
 point:
 
 ```bash
-./tetran -d 1.2
+tetran -d 1.2
 ```
 
 Higher number increase difficulty. Must include decimal point.
@@ -66,7 +66,7 @@ Higher number increase difficulty. Must include decimal point.
 specify width and height of the playfield with `-s` option:
 
 ```bash
-./tetran -s 20 15
+tetran -s 20 15
 ```
 
 ### play against computer
@@ -74,7 +74,7 @@ specify width and height of the playfield with `-s` option:
 The computer player is for now rudimentary, the AI algorithm is being developed offline.
 
 ```bash
-./tetran -p 2
+tetran -p 2
 ```
 
 ### debug mode
@@ -82,7 +82,7 @@ The computer player is for now rudimentary, the AI algorithm is being developed 
 Debug logging is enabled by:
 
 ```bash
-./tetran --debug
+tetran --debug
 ```
 
 ### Controls
