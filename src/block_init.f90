@@ -151,7 +151,7 @@ contains
  procedure, public :: move_left
  procedure, public :: rotate
  procedure, public :: move_down
- procedure, public :: dissolve
+ procedure, public :: dissolver
  procedure, public :: spawn_block
  procedure, public :: vertflip
  procedure, public :: horizflip
@@ -354,14 +354,14 @@ character function gen_type() result(next)
 end function gen_type
 
 
-subroutine dissolve(self)
+subroutine dissolver(self)
   class(Piece), intent(inout) :: self
 
   where (self%values /= 0)
      self%values = modulo(self%values + 1, size(self%ch)+1)
   endwhere
 
-end subroutine dissolve
+end subroutine dissolver
 
 
 subroutine move_left(self, slam)

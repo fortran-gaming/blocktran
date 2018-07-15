@@ -75,7 +75,7 @@ subroutine dissolve(P)
   integer :: i
   character(10) :: buf2
 
-  call P%dissolve()
+  call P%dissolver()
 
   do i = 1, randint(0, P%H / (L+1))
     call P%move_down()
