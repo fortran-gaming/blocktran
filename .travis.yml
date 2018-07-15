@@ -1,15 +1,16 @@
 language: c
-fast_finish: true
-
-os:
-  - linux
-#  - osx
-# FIXME not sure why travis-ci gives osx segfault.
-  
-env: FC=gfortran
+sudo: required
+dist: xenial
+group: travis_latest
+ 
+env: FC=gfortran-5
 
 git:
   depth: 3
+  quiet: true
+
+os:
+  - linux
 
 addons:
   apt:
@@ -17,25 +18,17 @@ addons:
     packages: gfortran-5
 
 before_install:
-  - if [[ $TRAVIS_OS_NAME == linux ]]; then
-    mkdir -p ~/.local/bin;
-    ln -s /usr/bin/gfortran-5 ~/.local/bin/gfortran;
-    export PATH="$HOME/.local/bin/:$PATH";
-    fi
-
   - if [[ $TRAVIS_OS_NAME == osx ]]; then
       brew update > /dev/null;
-      brew install gcc || true > /dev/null;
-      brew link --overwrite gcc > /dev/null;
+      brew install gcc > /dev/null || brew link --overwrite gcc > /dev/null;
       brew install ncurses > /dev/null;
       export FC=gfortran;
     fi
 
 install: 
   - cd bin
-  - cmake ..
+  - cmake ../src
   - cmake --build .
-
 
 script:
   - ctest -V

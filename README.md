@@ -29,7 +29,7 @@ Note: Gfortran 8.1 has a bug with Ncurses that yields immediate segfaults, on Li
 ```bash
 cd bin
 
-cmake ..
+cmake ../src
 
 cmake --build . --target install
 
@@ -38,9 +38,9 @@ ctest -V
 
 Optional: specify a compiler by setting `FC=`.
 
--   Intel: `FC=ifort cmake ..`
--   Flang: `FC=flang cmake ..`
--   PGI: `FC=pgf95 cmake ..`
+-   Intel: `FC=ifort cmake ../src`
+-   Flang: `FC=flang cmake ../src`
+-   PGI: `FC=pgf95 cmake ../src`
 
 ## Play
 From any Terminal:
