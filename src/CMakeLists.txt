@@ -15,13 +15,11 @@ if(${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU)
   -fexceptions -ffpe-trap=invalid,zero,overflow
   -finit-real=nan -Wconversion -fimplicit-none) #-Warray-temporaries
   
-  if (NOT CYGWIN AND NOT WIN32)
+  if (UNIX AND NOT (APPLE OR CYGWIN))
     list(APPEND FFLAGS -fstack-protector-all)
   endif()
 
-  if(${CMAKE_Fortran_COMPILER_VERSION} VERSION_GREATER_EQUAL 8.1)
-    list(APPEND FFLAGS -std=f2018)
-  else()
+  if(${CMAKE_Fortran_COMPILER_VERSION} VERSION_GREATER_EQUAL 8)
     list(APPEND FFLAGS -std=f2008ts)
   endif()
   

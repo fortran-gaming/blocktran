@@ -70,7 +70,7 @@ call draw_piece(S)
 end function makeLetter
 
 
-subroutine dissolve(P)
+recursive subroutine dissolve(P)
   class(piece), intent(inout) :: P
   integer :: i
   character(10) :: buf2
