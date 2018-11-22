@@ -1,7 +1,7 @@
 module blocks
 use, intrinsic:: iso_fortran_env, only: error_unit
 
-use errs, only: err, endwin, printopts
+use errs, only: err, endwin
 use cinter, only: mvaddch
 use shapes, only: Piece
 use fields, only: field
@@ -80,8 +80,6 @@ subroutine game_over(F, P, msg)
   integer :: i
 
   call endwin()
-
-  call printopts()
 
   do i = 1,size(F%screen,1)
     print '(100I1)',F%screen(i,:)

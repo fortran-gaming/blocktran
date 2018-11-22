@@ -1,15 +1,13 @@
 module errs
 
-use, intrinsic:: iso_fortran_env, only: error_unit,compiler_version, compiler_options
+use, intrinsic:: iso_fortran_env, only: error_unit
 
 implicit none
 
 interface
-
-subroutine endwin() bind(C)
-! ncurses restares previous terminal contents (before program was run)
-end subroutine endwin
-
+  subroutine endwin() bind(C)
+  ! ncurses restores previous terminal contents (before program was run)
+  end subroutine endwin
 end interface
 
 contains
@@ -23,12 +21,5 @@ subroutine err(msg)
   error stop
 end subroutine err
 
-
-subroutine printopts()
-
-  print *, compiler_version()
-  !print *, compiler_options()
-
-end subroutine printopts
 
 end module

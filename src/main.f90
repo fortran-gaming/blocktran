@@ -7,7 +7,7 @@ use errs, only: err
 use blocks, only: freeze, draw_piece
 use shapes, only: piece
 use fields, only: field
-use rand, only: random_init, randint
+use random, only: random_init, randint
 use keys, only: key_input
 use, intrinsic:: iso_c_binding, only: c_int,c_ptr
 use, intrinsic:: iso_fortran_env, only: error_unit, input_unit

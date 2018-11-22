@@ -2,7 +2,7 @@ program randblock
 ! confirms random distribution of block types
 use, intrinsic:: iso_fortran_env, only: dp=>real64
 use shapes, only: gen_type
-use rand, only: random_init, randint, std, mean
+use random, only: random_init, randint, std, mean
 use errs, only: err
 implicit none
 
@@ -34,9 +34,7 @@ do i = 1,N
   b(i) = gen_type()
 enddo
 ! results
-print *,''
-print *,'ideal count:',int(ideal)
-print *,''
+print *,new_line(''),'ideal count:',int(ideal),new_line('')
 print '(A5,A16,A10)','Block','Count','Error %'
 print '(A5,A16,A10)','-----','-----','-------'
 do i=1,Ntypes

@@ -3,7 +3,7 @@ program testshapes
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 use shapes, only: piece
 use fields, only: field
-use rand, only: random_init
+use random, only: random_init
 
 implicit none
 

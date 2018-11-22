@@ -2,12 +2,17 @@ module random
 
 implicit none
 
-interface std 
-  module procedure std_int, std_real
+interface std
+  procedure std_int, std_real
 end interface 
 
 interface mean
-  module procedure mean_int, mean_real
+  procedure mean_int, mean_real
+end interface
+
+interface
+  module subroutine random_init()
+  end subroutine
 end interface
 
 contains

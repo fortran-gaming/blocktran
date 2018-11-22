@@ -1,12 +1,12 @@
-module rand
-use random
+submodule (random) rand
+
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 
 implicit none
 
 contains
 
-subroutine random_init()
+module procedure random_init
 ! NOTE: this subroutine is replaced by "call random_init()" in Fortran 2018
 integer :: i,n, u,ios
 integer, allocatable :: seed(:)
@@ -30,21 +30,8 @@ if (ios/=0) then
   enddo
 endif
 
-
-
 call random_seed(put=seed)
 
-end subroutine
+end procedure random_init
 
-
-subroutine err(msg)
-character(*),intent(in) :: msg
-
-write(stderr,*) msg
-
-stop -1
-
-end subroutine err
-
-
-end module
+end submodule rand

@@ -1,34 +1,36 @@
+# Gfortran >= 6 required for SUBMODULE
 language: c
-sudo: required
-dist: xenial
 group: travis_latest
+dist: xenial
  
-env: FC=gfortran-5
-
 git:
   depth: 3
   quiet: true
 
-os:
-  - linux
+env: FC=gfortran
 
 addons:
   apt:
     sources: ubuntu-toolchain-r-test
-    packages: gfortran-5
+    packages: gfortran-6
 
-before_install:
-  - if [[ $TRAVIS_OS_NAME == osx ]]; then
-      brew update > /dev/null;
-      brew install gcc > /dev/null || brew link --overwrite gcc > /dev/null;
-      brew install ncurses > /dev/null;
-      export FC=gfortran;
-    fi
+# needs CMake >= 3.12
+matrix:
+  include:
+  - os: linux
+    env: FC=gfortran-6
+  #- os: osx 
+  #  before_install: brew install gcc
+  - os: windows
+    language: sh
+    install: 
+    - cd bin
+    - cmake -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND" ../src
+    - cmake --build .
 
 install:
   - cd bin
   - cmake ../src
   - cmake --build .
 
-script: ctest -V
-
+script: ctest --output-on-failure

@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/fortran-gaming/tetran.svg?branch=master)](https://travis-ci.com/fortran-gaming/tetran)
+[![Build status](https://ci.appveyor.com/api/projects/status/bhta29i7fvgl90ig?svg=true)](https://ci.appveyor.com/project/scivision/tetran)
 
 # Tetran
-
 
 Text/console falling-block tetromino game written in Modern Fortran.
 
@@ -10,15 +10,14 @@ Text/console falling-block tetromino game written in Modern Fortran.
 -   user-configurable playfield size
 -   Logs pieces played to `tetran.log` so you can recreate memorable games.
 -   uniform random game piece generation.
--   clean, modern Fortran 2008 syntax
+-   clean, modern Fortran 2008 syntax, well structured using Fortran 2008 `submodule`
 -   Ncurses used for display, called directly from Fortran code.
 
 ## Prereq
 
 Tetran works on Mac, Linux, Cygwin and Windows Subsystem for Linux. 
-Any modern Fortran compiler (including Flang with CMake &ge; 3.10) should work.
-
-Note: Gfortran 8.1 has a bug with Ncurses that yields immediate segfaults, on Linux and Mac. Any other version of Gfortran from 4.8 onward workds.
+Any modern Fortran compiler and CMake &ge; 3.12 should work.
+If using Gfortran, Gfortran &ge; 6 required.
 
 -   Linux / WSL: `apt install gfortran libncurses-dev`
 -   Mac: `brew install gcc ncurses`
@@ -39,8 +38,6 @@ ctest -V
 Optional: specify a compiler by setting `FC=`.
 
 -   Intel: `FC=ifort cmake ../src`
--   Flang: `FC=flang cmake ../src`
--   PGI: `FC=pgf95 cmake ../src`
 
 ## Play
 From any Terminal:
@@ -118,10 +115,10 @@ using `time ./blockrand 100000000` *relative normalized* execution times were:
 Tested with:
 
 -   Intel Haswell laptop CPU
--   Flang 5.0
+-   Flang 6.0
 -   Gfortran 7.3
 -   Intel Fortran 2019
--   PGI 2018
+-   PGI 18.10
 
 So Intel Fortran takes over 5 times longer than Gfortran at this simple single-thread benchmark.
 

@@ -128,7 +128,7 @@ use, intrinsic:: iso_c_binding, only: c_int
 use, intrinsic:: iso_fortran_env, only: stdout=>output_unit, stderr=>error_unit
 use rotflip, only: rot90, fliplr, flipud
 use fields, only: field
-use rand, only: randint
+use random, only: randint
 implicit none
 
 private

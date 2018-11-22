@@ -1,44 +1,18 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.12)
 project(tetran Fortran C)
 enable_testing()
 
+include(../cmake/compilers.cmake)
 
-#----- options
-if(CMAKE_BUILD_TYPE STREQUAL Debug)
-  add_compile_options(-g -O0)
-else()
-  add_compile_options(-O3)
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX "~/.local/bin" CACHE PATH "..." FORCE)
 endif()
-
-if(${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU)
-  list(APPEND FFLAGS -march=native -Wall -Wextra -Wpedantic -Werror=array-bounds -fbacktrace -fcheck=all
-  -fexceptions -ffpe-trap=invalid,zero,overflow
-  -finit-real=nan -Wconversion -fimplicit-none) #-Warray-temporaries
-  
-  if (UNIX AND NOT (APPLE OR CYGWIN))
-    list(APPEND FFLAGS -fstack-protector-all)
-  endif()
-
-  if(${CMAKE_Fortran_COMPILER_VERSION} VERSION_GREATER_EQUAL 8)
-    list(APPEND FFLAGS -std=f2008ts)
-  endif()
-  
-elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL Intel)
-  list(APPEND FFLAGS -warn -fpe0 -traceback)# -debug extended -check all)
-elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL Flang)  # https://github.com/flang-compiler/flang/wiki/Fortran-2008
-  list(APPEND FFLAGS -Mallocatable=03)
-  list(APPEND FLIBS -static-flang-libs)
-elseif(${CMAKE_Fortran_COMPILER_ID} STREQUAL PGI)
-  list(APPEND FFLAGS -Mallocatable=03)
-endif()
-
 #---- libraries
-set(okcomp GNU Intel)
-
-if((${CMAKE_Fortran_COMPILER_ID} STREQUAL GNU) AND (${CMAKE_Fortran_COMPILER_VERSION} VERSION_GREATER_EQUAL 9))
-  add_library(rand rand.f90 random.f90)
+add_library(rand random.f90)
+if(f2018)
+  target_sources(rand PRIVATE rand.f90)
 else()
-  add_library(rand rand_legacy.f90 random.f90)
+  target_sources(rand PRIVATE rand_legacy.f90)
 endif()
 target_compile_options(rand PRIVATE ${FFLAGS})
 
@@ -50,7 +24,8 @@ target_link_libraries(AI PRIVATE shapes)
 
 find_package(Curses)
 if(CURSES_FOUND)
-  if(CMAKE_Fortran_COMPILER_ID IN_LIST okcomp)
+
+  if(f2008)
     add_library(errs err.f90)
   else()
     add_library(errs err_legacy.f90)
@@ -60,6 +35,7 @@ if(CURSES_FOUND)
 
   add_library(cinterc cinter.c)
   target_compile_options(cinterc PRIVATE ${CFLAGS})
+  target_include_directories(cinterc PRIVATE ${CURSES_INCLUDE_DIRS})
   target_link_libraries(cinterc PRIVATE errs ${CURSES_LIBRARIES})
 
   add_library(cinter cinter.f90)
@@ -86,6 +62,8 @@ if(CURSES_FOUND)
   target_link_libraries(tetran PRIVATE rand cinter menu blocks keys errs)
   add_test(NAME ShortGame COMMAND tetran -d 100 -s 6 6)
   set_tests_properties(ShortGame PROPERTIES TIMEOUT 20)
+  install(TARGETS tetran
+          RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
 
   add_executable(testkeys tests/keytest.f90)
   target_compile_options(testkeys PRIVATE ${FFLAGS})
@@ -120,9 +98,3 @@ target_link_libraries(motiontest PRIVATE shapes ${FLIBS})
 add_test(NAME BlockMotion COMMAND motiontest)
 
 
-if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  set(CMAKE_INSTALL_PREFIX "~/.local/bin" CACHE PATH "..." FORCE)
-endif()
-
-install(TARGETS tetran
-        RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})

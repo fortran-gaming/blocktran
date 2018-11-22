@@ -1,6 +1,6 @@
 module menu
 use, intrinsic:: iso_c_binding, only: c_int, c_ptr
-use rand, only: randint
+use random, only: randint
 use cinter, only: mvaddch, usleep, refresh, clear, getch, noecho, cbreak, timeout
 use errs, only: err
 use shapes, only: Piece
