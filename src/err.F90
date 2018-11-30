@@ -18,9 +18,11 @@ subroutine err(msg)
   call endwin()
 
   write(error_unit,*) msg
+#if F08
+  error stop
+#else
   stop 1
+#endif
 end subroutine err
-
-
 
 end module

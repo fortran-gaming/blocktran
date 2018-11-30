@@ -3,7 +3,7 @@
 
 # Tetran
 
-Text/console falling-block tetromino game written in Modern Fortran.
+Text/console falling-block tetromino game written in Modern Fortran 2008.
 
 ![Tetran gameplay demo](doc/tetran.gif)
 
@@ -16,7 +16,7 @@ Text/console falling-block tetromino game written in Modern Fortran.
 ## Prereq
 
 Tetran works on Mac, Linux, Cygwin and Windows Subsystem for Linux. 
-Any modern Fortran compiler and CMake &ge; 3.12 should work.
+Any modern Fortran 2008 compiler and CMake &ge; 3.7 should work.
 If using Gfortran, Gfortran &ge; 6 required.
 
 -   Linux / WSL: `apt install gfortran libncurses-dev`
@@ -38,6 +38,7 @@ ctest -V
 Optional: specify a compiler by setting `FC=`.
 
 -   Intel: `FC=ifort cmake ../src`
+
 
 ## Play
 From any Terminal:

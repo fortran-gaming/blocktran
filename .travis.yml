@@ -14,13 +14,13 @@ addons:
     sources: ubuntu-toolchain-r-test
     packages: gfortran-6
 
-# needs CMake >= 3.12
+
 matrix:
   include:
   - os: linux
     env: FC=gfortran-6
-  #- os: osx 
-  #  before_install: brew install gcc
+  - os: osx 
+    before_install: brew install gcc
   - os: windows
     language: sh
     install: 
