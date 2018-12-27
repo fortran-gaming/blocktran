@@ -1,6 +1,5 @@
 module cinter
 use, intrinsic:: iso_c_binding, only: c_int, c_char, c_ptr
-use errs, only: err
 implicit none
 
 integer(c_int)  :: LINES,COLS
@@ -25,6 +24,9 @@ end subroutine getmaxyx
 
 !--- functions that interface directly with Curses
 
+subroutine endwin() bind(C)
+  ! ncurses restores previous terminal contents (before program was run)
+end subroutine endwin
 
 integer(c_int) function getch() result (ch) bind(C)
   import
@@ -99,7 +101,7 @@ subroutine addch(ch)
   
   addch__OUT = f_addch(ch) 
    
-  if (addch__OUT == FAIL) call err('addch')
+  if (addch__OUT == FAIL) error stop 'addch'
 end subroutine addch
 
 end module cinter

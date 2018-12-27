@@ -1,11 +1,8 @@
 program test_menu
 
-  use, intrinsic:: iso_fortran_env, only: stdin=>input_Unit
   use, intrinsic:: iso_c_binding, only: c_ptr
-  use cinter, only: initscr, refresh, usleep
-  use errs, only: endwin
+  use cinter, only: initscr, endwin
   use menu, only: title
-  use fields, only: field
 
 implicit none
 

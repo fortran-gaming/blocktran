@@ -1,6 +1,6 @@
 program test_key
 
-use, intrinsic:: iso_fortran_env, only: stdout=>output_unit, stdin=>input_unit
+use, intrinsic:: iso_fortran_env, only: stdout=>output_unit
 use, intrinsic:: iso_c_binding, only: c_int,c_ptr
 
 use cinter, only: initscr,getch, usleep

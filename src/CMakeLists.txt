@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 3.12)
 project(tetran Fortran C)
 enable_testing()
 
@@ -9,11 +9,11 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif()
 #---- libraries
 add_library(rand random.f90)
-if(f18random)
-  target_sources(rand PRIVATE rand.f90)
-else()
-  target_sources(rand PRIVATE rand_legacy.f90)
-endif()
+#if(f18random)
+#  target_sources(rand PRIVATE rand.f90)
+#else()
+#  target_sources(rand PRIVATE rand_legacy.f90)
+#endif()
 target_compile_options(rand PRIVATE ${FFLAGS})
 
 
@@ -25,20 +25,20 @@ target_link_libraries(AI PRIVATE shapes)
 find_package(Curses)
 if(CURSES_FOUND)
 
-  add_library(errs err.F90)
-  target_compile_options(errs PRIVATE ${FFLAGS})
-  target_link_libraries(errs PRIVATE ${CURSES_LIBRARIES} ${FLIBS})
-  target_compile_definitions(errs PRIVATE F08=${f08submod})
-
   add_library(cinterc cinter.c)
   target_compile_options(cinterc PRIVATE ${CFLAGS})
   target_include_directories(cinterc PRIVATE ${CURSES_INCLUDE_DIRS})
-  target_link_libraries(cinterc PRIVATE errs ${CURSES_LIBRARIES})
+  target_link_libraries(cinterc PRIVATE ${CURSES_LIBRARIES})
 
   add_library(cinter cinter.f90)
   target_compile_options(cinter PRIVATE ${FFLAGS})
   target_link_libraries(cinter PRIVATE cinterc ${CURSES_LIBRARIES} ${FLIBS})
   
+  add_library(errs err.F90)
+  target_compile_options(errs PRIVATE ${FFLAGS})
+  target_link_libraries(errs PRIVATE cinter ${CURSES_LIBRARIES} ${FLIBS})
+  target_compile_definitions(errs PRIVATE F08=${f08errorstop})
+
   add_library(menu menu.f90)
   target_compile_options(menu PRIVATE ${FFLAGS})
   target_link_libraries(menu PRIVATE rand cinter shapes blocks)
@@ -46,7 +46,7 @@ if(CURSES_FOUND)
  
   add_library(blocks blocks.f90)
   target_compile_options(blocks PRIVATE ${FFLAGS})
-  target_link_libraries(blocks PRIVATE errs cinter shapes)
+  target_link_libraries(blocks PRIVATE cinter shapes)
 
   add_library(keys keys.f90)
   target_compile_options(keys PRIVATE ${FFLAGS})
@@ -68,19 +68,19 @@ if(CURSES_FOUND)
   
   add_executable(blockrand tests/randtest.f90)
   target_compile_options(blockrand PRIVATE ${FFLAGS})
-  target_link_libraries(blockrand PRIVATE rand errs blocks)
+  target_link_libraries(blockrand PRIVATE rand shapes)
   add_test(NAME RandomBlocks COMMAND blockrand)
   
   add_executable(menu_test tests/test_menu.f90)
   target_compile_options(menu_test PRIVATE ${FFLAGS})
-  target_link_libraries(menu_test PRIVATE errs cinter menu)
+  target_link_libraries(menu_test PRIVATE cinter menu)
   add_test(NAME Menu COMMAND menu_test)
 endif()
 
 add_library(rotflip rot90.f90)
 target_compile_options(rotflip PRIVATE ${FFLAGS})
 
-add_library(shapes block_init.f90)
+add_library(shapes shapes.f90 fields.f90)
 target_compile_options(shapes PRIVATE ${FFLAGS})
 target_link_libraries(shapes PRIVATE rand rotflip)
 

@@ -1,8 +1,6 @@
 module blocks
-use, intrinsic:: iso_fortran_env, only: error_unit
 
-use errs, only: err, endwin
-use cinter, only: mvaddch
+use cinter, only: mvaddch, endwin
 use shapes, only: Piece
 use fields, only: field
 

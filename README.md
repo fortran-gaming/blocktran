@@ -3,25 +3,29 @@
 
 # Tetran
 
-Text/console falling-block tetromino game written in Modern Fortran 2008.
+Text/console falling-block tetromino game written in object-orienter Fortran 2008.
 
 ![Tetran gameplay demo](doc/tetran.gif)
 
--   user-configurable playfield size
--   Logs pieces played to `tetran.log` so you can recreate memorable games.
--   uniform random game piece generation.
--   clean, modern Fortran 2008 syntax, well structured using Fortran 2008 `submodule`
--   Ncurses used for display, called directly from Fortran code.
+* user-configurable playfield size
+* Logs pieces played to `tetran.log` so you can recreate memorable games.
+* uniform random game piece generation.
+* clean, object-oriented Fortran 2008 syntax, well structured using Fortran 2008 `submodule`
+* Ncurses used for display, called directly from Fortran code.
 
 ## Prereq
 
-Tetran works on Mac, Linux, Cygwin and Windows Subsystem for Linux. 
-Any modern Fortran 2008 compiler and CMake &ge; 3.7 should work.
-If using Gfortran, Gfortran &ge; 6 required.
+Tetran works on Mac, Linux, Cygwin and Windows Subsystem for Linux.
+Requires:
 
--   Linux / WSL: `apt install gfortran libncurses-dev`
--   Mac: `brew install gcc ncurses`
--   Cygwin: `setup-x86_64.exe -P libncurses-devel cmake make gcc-gfortran`
+* Fortran 2008 compilers supporting Fortran `submodule`
+* CMake &ge; 3.12
+
+Obtain these items by:
+
+* Linux / WSL: `apt install gfortran libncurses-dev`.  Use [cmake_setup.sh](https://github.com/scivision/cmake-utils/blob/master/cmake_setup.sh) for CMake &ge; 3.12.
+* Mac: `brew install gcc ncurses cmake`
+* Cygwin: `setup-x86_64.exe -P libncurses-devel cmake make gcc-gfortran`
 
 ## Build
 
@@ -35,9 +39,10 @@ cmake --build . --target install
 ctest -V
 ```
 
-Optional: specify a compiler by setting `FC=`.
+Optional: specify a compiler by setting `FC=` AND `CC=`.
+Failing to set both results in segfaults.
 
--   Intel: `FC=ifort cmake ../src`
+* Intel: `FC=ifort CC=icc cmake ../src`
 
 
 ## Play
@@ -115,11 +120,10 @@ using `time ./blockrand 100000000` *relative normalized* execution times were:
 
 Tested with:
 
--   Intel Haswell laptop CPU
--   Flang 6.0
--   Gfortran 7.3
--   Intel Fortran 2019
--   PGI 18.10
+* Flang 6.0
+* Gfortran 6, 7, 8
+* Intel Fortran 2019
+* PGI 18.10
 
 So Intel Fortran takes over 5 times longer than Gfortran at this simple single-thread benchmark.
 

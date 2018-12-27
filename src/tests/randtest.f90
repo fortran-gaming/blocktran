@@ -3,7 +3,7 @@ program randblock
 use, intrinsic:: iso_fortran_env, only: dp=>real64
 use shapes, only: gen_type
 use random, only: random_init, randint, std, mean
-use errs, only: err
+
 implicit none
 
 character(*), parameter :: types = 'ITLJSZOD'
@@ -46,7 +46,7 @@ enddo
 
 ! randomness simple check -- sufficiently uniformly random
 if (any(e > rtol)) then 
-  call err('non-uniform randomness posssible. Is N > 1000000?')
+  error stop 'non-uniform randomness posssible. Is N > 1000000?'
 endif
 
 ! -----------

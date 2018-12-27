@@ -1,6 +1,6 @@
 program tetran
 use menu, only: title
-use cinter, only:  initscr,getch,noecho,flushinp,mvprintw, mvaddch, &
+use cinter, only:  initscr,noecho, mvprintw, mvaddch, &
   clear,timeout,usleep,cbreak, &
   maxH=>LINES, maxW=>COLS
 use errs, only: err
@@ -9,8 +9,8 @@ use shapes, only: piece
 use fields, only: field
 use random, only: random_init, randint
 use keys, only: key_input
-use, intrinsic:: iso_c_binding, only: c_int,c_ptr
-use, intrinsic:: iso_fortran_env, only: error_unit, input_unit
+use, intrinsic:: iso_c_binding, only: c_ptr
+
 implicit none
 
 type(c_ptr) :: stdscr
@@ -91,7 +91,8 @@ subroutine main(F, P, NP)
 
 !    if(debug) print *,F%toc-F%tic, F%toc, F%tic  ! in lower right corder of screen
 
-  if ( (F%toc - F%tic) / real(trate) > F%move_time) then ! time's up, move piece one step down. real(trate) is necessary for float time comparison!
+  if ( (F%toc - F%tic) / real(trate) > F%move_time) then 
+    !! time's up, move piece one step down. real(trate) is necessary for float time comparison!
     update=.true.
     call P%move_down()
     call freeze(F, P, NP)

@@ -5,7 +5,6 @@ use cinter, only: getch, flushinp
 use blocks, only: game_over
 use shapes, only: piece
 use fields, only: field
-use errs, only: err
 
 implicit none
 
@@ -18,7 +17,7 @@ subroutine key_input(F, P, NP)
 
   integer :: i
   
-  if (P%landed) call err('should not have requested input after landing')
+  if (P%landed) error stop 'should not have requested input after landing'
   
   if (F%AI) then
     call AI_input(F, P)

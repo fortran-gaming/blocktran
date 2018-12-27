@@ -1,130 +1,5 @@
-module fields
-use, intrinsic:: iso_c_binding, only: c_int
-implicit none
-private
-
-type, public :: Field
-  ! Microseconds between each automatic downward move
-  real :: move_time = 0.5 ! seconds
-  integer(c_int) :: sleep_incr = 5e4 !  keyboard polling and screen refresh interval (microseconds).
-  ! 1e6 microsec: mushy controls. 1e5 microsec a little laggy. 5e4 about right. 1e4 microsec screen flicker.
-  real :: difffact = 1.
-  integer :: level = 1
-  real :: diffinc = 1.2 ! factor by which level jumps difficulty
-
-  integer :: score = 0
-  integer :: Nblock = 0
-  integer :: Ncleared = 0 ! total number of lines cleared
-  integer :: lines_per_level = 10 ! how many lines to clear to advance to next level
-  integer :: bonus(-1:4) = [-100,0,40,100,300,1200]
-
-  character(1) :: blockseq(10000) = "" ! record of blocks player experienced
-! NOTE: uses eoshift to avoid indexing beyond array, discarding earliest turns
-
-  integer :: toc, tic ! for each field's update time tracking
-  integer :: H,W  ! playfield height, width
-  integer :: x0  ! master horizontal origin display coordinate for each playfield
-  ! Playfield: 0 for blank
-  integer, allocatable :: screen(:,:)
-
-  logical :: debug = .false.
-  integer :: udbg
-  
-  logical :: newhit = .false.
-  logical :: cheat = .false.
-  logical :: AI
-
-contains
-
-! one per line for PGI, FLang
-  procedure, public :: setup
-  procedure, public :: levelup
-  procedure, public :: clear_lines
-
-end type
-
-
-contains
-
-subroutine setup(self, W, H, x0, AI, difffact, debug)
-
-  class(Field), intent(inout) :: self
-
-  integer, intent(in) :: H,W
-  integer, intent(in), optional :: x0
-  logical, intent(in), optional :: AI
-  real, intent(in), optional :: difffact
-  logical, intent(in), optional :: debug
-
-  self%H = H
-  self%W = W
-
-  self%x0 = 1
-  if (present(x0)) self%x0 = x0
-  
-  self%AI = .false.
-  if (present(AI)) self%AI = AI
-  
-  if (present(difffact)) self%difffact = difffact
-
-  if(present(debug)) self%debug = debug
-
-  allocate(self%screen(self%H, self%W))
-  self%screen = 0
-
-end subroutine setup
-
-
-subroutine levelup(self)
-
-  class(field), intent(inout) :: self
-
-  self%newhit = .false.
-  
-  self%level = self%level + 1
-  self%difffact = self%difffact * self%diffinc
-  self%move_time = self%move_time / self%difffact
-end subroutine levelup
-
-
-subroutine clear_lines(self)
-  class(field), intent(inout) :: self
-  logical :: lines_to_clear(self%H)
-  integer :: i, counter
-
-  lines_to_clear = all(self%screen==1,2) ! mask of lines that need clearing
-  
-  counter = count(lines_to_clear)   ! how many lines are cleared
-  if (counter == 0) return
-  
-  if (self%cheat) then
-    counter = -1  ! penalty
-    self%cheat = .false.
-  endif
-
-  self%Ncleared = self%Ncleared + counter
-  if (self%debug) write(self%udbg,*) lines_to_clear, counter
-
-  self%score = self%score + self%bonus(counter)
-! not concurrent since it could clear lines above shifted by other concurrent iterations
-! i.e. in some cases, it would check an OK line that turns bad after clearing by another elemental iteration.
-! also note non-adjacent lines can be cleared at once.
-  do i = 1, self%H
-    if (.not.lines_to_clear(i)) cycle
-    self%newhit = .true.
-    self%screen(i,:) = 0 ! wipe away cleared lines
-    self%screen(:i, :) = cshift(self%screen(:i, :), shift=-1, dim=1)
-    ! Bring everything down
-  end do
-end subroutine clear_lines
-
-end module fields
-
-!==============================================================================
-
 module shapes
 
-use, intrinsic:: iso_c_binding, only: c_int
 use, intrinsic:: iso_fortran_env, only: stdout=>output_unit, stderr=>error_unit
 use rotflip, only: rot90, fliplr, flipud
 use fields, only: field
@@ -244,7 +119,7 @@ do i =1,Nl
   Ln(i,j) = 1
 enddo
 !===============================================================================
-  if(.not.allocated(F%screen)) call err('must initialize playfield before piece')
+  if(.not.allocated(F%screen)) error stop 'must initialize playfield before piece'
   self%screen = F%screen
 
   self%W = size(self%screen,2)
@@ -298,7 +173,8 @@ enddo
       self%values = Ln
       
     case default
-      call err('unknown shape '//self%btype)
+      write(stderr,*) 'unknown shape '//self%btype
+      error stop
   end select
 
   self%Ny = size(self%values, 1)
@@ -561,14 +437,15 @@ end function hit_block
 
 
 integer function randomx(self)
-! NOTE: even if elemental, because it's part of a class, have to %init() then %randomx() each time, if using externally (which would be unusual)
+!! NOTE: even if elemental, because it's part of a class, have to %init() then %randomx()
+!!    each time, if using externally (which would be unusual)
   class(Piece), intent(in) :: self
 
-  if (self%W==0) call err('playfield has zero width. Be sure to intialize playfield before piece?')
-  if (.not.allocated(self%values)) call err('piece was not allocated')
+  if (self%W==0) error stop 'playfield has zero width. Be sure to intialize playfield before piece?'
+  if (.not.allocated(self%values)) error stop 'piece was not allocated'
   if (self%Nx <1 .or. self%Nx >= self%W) then
     write(stderr,'(A,I3,A,I3)') 'Nx',self%Nx,'  W',self%W
-    call err('piece outside playfield @ initial x position')
+    error stop 'piece outside playfield @ initial x position'
   endif
 
   randomx = randint(1, self%W-self%Nx)   ! 1 to screen width, minus block width
@@ -595,14 +472,5 @@ subroutine tell_why(self, msg)
 
 end subroutine tell_why
 
-
-subroutine err(msg)
-  character(*),intent(in) :: msg
-
-  write(stderr,*) msg
-
-  stop -1
-
-end subroutine err
 
 end module shapes

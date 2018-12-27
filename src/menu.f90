@@ -1,8 +1,8 @@
 module menu
 use, intrinsic:: iso_c_binding, only: c_int, c_ptr
+use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 use random, only: randint
 use cinter, only: mvaddch, usleep, refresh, clear, getch, noecho, cbreak, timeout
-use errs, only: err
 use shapes, only: Piece
 use fields, only: field
 use blocks, only: draw_piece
@@ -82,8 +82,8 @@ recursive subroutine dissolve(P)
     
     if (P%landed) then
       write(buf2,'(A6,I2)') 'Move #', i
-      if (any(P%screen/=0)) call err('screen should be == 0')
-      call err(buf2//buf//P%btype//' letter was landed during dissolve '//P%why)
+      if (any(P%screen/=0)) error stop 'screen should be == 0'
+      write (stderr,*) buf2//buf//P%btype//' letter was landed during dissolve '//P%why
     endif
     
   enddo
