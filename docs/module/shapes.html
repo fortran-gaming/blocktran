@@ -1,0 +1,2437 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+   <meta name="description" content="object-oriented Fortran falling-block game">
+    
+    <meta name="author" content="Michael Hirsch Ph.D." >
+    <link rel="icon" href="../favicon.png">
+
+    <title>shapes &ndash; Tetran</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/local.css" rel="stylesheet">
+    
+    <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="../js/jquery-2.1.3.min.js"></script>
+    <script src="../js/svg-pan-zoom.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Tetran </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+        
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+              data-toggle="dropdown" role="button"
+              aria-haspopup="true"
+     aria-expanded="false">Contents <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          
+              
+            <li><a href="../lists/files.html">Source Files</a></li>
+        
+        
+        
+            <li><a href="../lists/modules.html">Modules</a></li>
+        
+            
+                                
+            <li><a href="../lists/procedures.html">Procedures</a></li>
+        
+               
+            <li><a href="../lists/types.html">Derived Types</a></li>
+        
+        
+            <li><a href="../lists/programs.html">Programs</a></li>
+        
+            </ul>
+            </li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/files.html">Source Files</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/modules.html">Modules</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/procedures.html">Procedures</a></li>
+
+                             
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/types.html">Derived Types</a></li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/programs.html">Programs</a></li>
+
+          </ul>
+        
+        <form action="../search.html" class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+        </div>
+<!--
+        <button type="submit" class="btn btn-default">Submit</button>
+-->
+        </form>
+        
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+    
+  
+  <div class="row">
+    <h1>shapes 
+    <small>Module</small>
+    
+    </h1>
+    
+<div class="row">
+  <div class="col-lg-12">
+<div class="well well-sm">
+  <ul class="list-inline" style="margin-bottom:0px;display:inline">
+     
+     
+     
+     
+    
+    
+     <li><i class="fa fa-list-ol"></i>
+       <a data-toggle="tooltip"
+    data-placement="bottom" data-html="true"
+    title="34.8% of total for modules and submodules.">329 statements</a>
+     </li> 
+     
+     
+     
+    <li><i class="fa fa-code"></i><a href="../src/shapes.f90"> Source File</a></li>
+     
+     
+  </ul>
+  <ol class="breadcrumb in-well text-right">
+  
+    
+     <li><a href='../sourcefile/shapes.f90.html'>shapes.f90</a></li>
+    
+  
+     <li class="active">shapes</li>
+  </ol>
+</div>
+</div>
+</div>
+<script>
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
+    
+<div id="sidebar">
+  
+<h3>Contents</h3>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#types-0">Derived Types</a></h3></div>
+  <div id="types-0" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../module/shapes.html#type-piece">Piece</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#funcs-0">Functions</a></h3></div>
+  <div id="funcs-0" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-gen_type">gen_type</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-check_collision">check_collision</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-hit_floor">hit_floor</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-hit_horiz">hit_horiz</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-hit_block">hit_block</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-randomx">randomx</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#subs-0">Subroutines</a></h3></div>
+  <div class="list-group">
+    <div id="subs-0" class="panel-collapse collapse">
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-init_block">init_block</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-spawn_block">spawn_block</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-dissolver">dissolver</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-move_left">move_left</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-move_right">move_right</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-move_down">move_down</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-rotate">rotate</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-vertflip">vertflip</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-horizflip">horizflip</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-tell_why">tell_why</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+    </div>
+    
+    <div class="col-md-9" id='text'>
+    
+      <br>
+    
+  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">Uses</h3>
+      </div>
+      <ul class="list-group">
+      
+      <li class="list-group-item">
+  <ul class="list-inline">
+    
+    <li><a href="http://fortranwiki.org/fortran/show/ISO_FORTRAN_ENV">iso_fortran_env</a></li>
+    
+    <li><a href='../module/rotflip.html'>rotflip</a></li>
+    
+    <li><a href='../module/fields.html'>fields</a></li>
+    
+    <li><a href='../module/random.html'>random</a></li>
+    
+  </ul>
+      </li>
+      
+      
+      
+      <li class="list-group-item">
+  <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: module~~shapes~~UsesGraph Pages: 1 -->
+<svg id="moduleshapesUsesGraph" width="275pt" height="154pt"
+ viewBox="0.00 0.00 275.00 154.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="module~~shapes~~UsesGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 150)">
+<title>module~~shapes~~UsesGraph</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-150 271,-150 271,4 -4,4"/>
+<!-- module~shapes -->
+<g id="module~~shapes~~UsesGraph_node1" class="node">
+<title>module~shapes</title>
+<polygon fill="none" stroke="#000000" points="267,-84 213,-84 213,-60 267,-60 267,-84"/>
+<text text-anchor="middle" x="240" y="-69.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">shapes</text>
+</g>
+<!-- module~rotflip -->
+<g id="module~~shapes~~UsesGraph_node2" class="node">
+<title>module~rotflip</title>
+<g id="a_module~~shapes~~UsesGraph_node2"><a xlink:href=".././module/rotflip.html" xlink:title="rotflip">
+<polygon fill="#337ab7" stroke="#337ab7" points="177,-146 123,-146 123,-122 177,-122 177,-146"/>
+<text text-anchor="middle" x="150" y="-131.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">rotflip</text>
+</a>
+</g>
+</g>
+<!-- module~shapes&#45;&gt;module~rotflip -->
+<g id="module~~shapes~~UsesGraph_edge2" class="edge">
+<title>module~shapes&#45;&gt;module~rotflip</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M222.2189,-84.2492C208.9436,-93.3944 190.6061,-106.0269 175.7313,-116.274"/>
+<polygon fill="#000000" stroke="#000000" points="173.6874,-113.4318 167.4379,-121.9872 177.6586,-119.1964 173.6874,-113.4318"/>
+</g>
+<!-- module~random -->
+<g id="module~~shapes~~UsesGraph_node3" class="node">
+<title>module~random</title>
+<g id="a_module~~shapes~~UsesGraph_node3"><a xlink:href=".././module/random.html" xlink:title="random">
+<polygon fill="#337ab7" stroke="#337ab7" points="177,-104 123,-104 123,-80 177,-80 177,-104"/>
+<text text-anchor="middle" x="150" y="-89.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">random</text>
+</a>
+</g>
+</g>
+<!-- module~shapes&#45;&gt;module~random -->
+<g id="module~~shapes~~UsesGraph_edge1" class="edge">
+<title>module~shapes&#45;&gt;module~random</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M212.997,-78.0007C204.8842,-79.8035 195.8369,-81.814 187.1869,-83.7362"/>
+<polygon fill="#000000" stroke="#000000" points="186.2976,-80.3484 177.295,-85.9345 187.8161,-87.1817 186.2976,-80.3484"/>
+</g>
+<!-- module~fields -->
+<g id="module~~shapes~~UsesGraph_node4" class="node">
+<title>module~fields</title>
+<g id="a_module~~shapes~~UsesGraph_node4"><a xlink:href=".././module/fields.html" xlink:title="fields">
+<polygon fill="#337ab7" stroke="#337ab7" points="177,-24 123,-24 123,0 177,0 177,-24"/>
+<text text-anchor="middle" x="150" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">fields</text>
+</a>
+</g>
+</g>
+<!-- module~shapes&#45;&gt;module~fields -->
+<g id="module~~shapes~~UsesGraph_edge4" class="edge">
+<title>module~shapes&#45;&gt;module~fields</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M221.7872,-59.8581C208.8563,-51.2375 191.2858,-39.5239 176.7645,-29.843"/>
+<polygon fill="#000000" stroke="#000000" points="178.4477,-26.7587 168.1858,-24.1238 174.5648,-32.5831 178.4477,-26.7587"/>
+</g>
+<!-- iso_fortran_env -->
+<g id="module~~shapes~~UsesGraph_node5" class="node">
+<title>iso_fortran_env</title>
+<g id="a_module~~shapes~~UsesGraph_node5"><a xlink:href="http://fortranwiki.org/fortran/show/ISO_FORTRAN_ENV" xlink:title="iso_fortran_env">
+<polygon fill="#337ab7" stroke="#337ab7" points="87,-104 0,-104 0,-80 87,-80 87,-104"/>
+<text text-anchor="middle" x="43.5" y="-89.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">iso_fortran_env</text>
+</a>
+</g>
+</g>
+<!-- module~shapes&#45;&gt;iso_fortran_env -->
+<g id="module~~shapes~~UsesGraph_edge3" class="edge">
+<title>module~shapes&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M212.7124,-71.4725C201.6304,-71.2828 188.7042,-71.0929 177,-71 153.0008,-70.8095 146.8002,-67.9096 123,-71 112.4865,-72.3652 101.3823,-74.7056 90.9151,-77.3405"/>
+<polygon fill="#000000" stroke="#000000" points="89.886,-73.9923 81.1146,-79.9348 91.6773,-80.7592 89.886,-73.9923"/>
+</g>
+<!-- module~rotflip&#45;&gt;iso_fortran_env -->
+<g id="module~~shapes~~UsesGraph_edge5" class="edge">
+<title>module~rotflip&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M122.85,-123.293C110.849,-118.5602 96.4982,-112.9007 83.3212,-107.7041"/>
+<polygon fill="#000000" stroke="#000000" points="84.5709,-104.4347 73.9841,-104.0219 82.0028,-110.9466 84.5709,-104.4347"/>
+</g>
+<!-- module~random&#45;&gt;iso_fortran_env -->
+<g id="module~~shapes~~UsesGraph_edge6" class="edge">
+<title>module~random&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M122.85,-92C114.9694,-92 106.0755,-92 97.1661,-92"/>
+<polygon fill="#000000" stroke="#000000" points="97.1538,-88.5001 87.1537,-92 97.1537,-95.5001 97.1538,-88.5001"/>
+</g>
+<!-- iso_c_binding -->
+<g id="module~~shapes~~UsesGraph_node6" class="node">
+<title>iso_c_binding</title>
+<g id="a_module~~shapes~~UsesGraph_node6"><a xlink:href="http://fortranwiki.org/fortran/show/ISO_C_BINDING" xlink:title="iso_c_binding">
+<polygon fill="#337ab7" stroke="#337ab7" points="82.5,-24 4.5,-24 4.5,0 82.5,0 82.5,-24"/>
+<text text-anchor="middle" x="43.5" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">iso_c_binding</text>
+</a>
+</g>
+</g>
+<!-- module~fields&#45;&gt;iso_c_binding -->
+<g id="module~~shapes~~UsesGraph_edge7" class="edge">
+<title>module~fields&#45;&gt;iso_c_binding</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M122.85,-12C113.6983,-12 103.1802,-12 92.8581,-12"/>
+<polygon fill="#000000" stroke="#000000" points="92.6593,-8.5001 82.6593,-12 92.6593,-15.5001 92.6593,-8.5001"/>
+</g>
+</g>
+</svg>
+</div><div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div><div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="-graph-help-label">Graph Key</h4></div><div class="modal-body">
+    <p>Nodes of different colours represent the following: </p>
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="490pt" height="32pt"
+ viewBox="0.00 0.00 489.50 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
+<title>Graph Key</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-28 485.5,-28 485.5,4 -4,4"/>
+<!-- Module -->
+<g id="node1" class="node">
+<title>Module</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="54,-24 0,-24 0,0 54,0 54,-24"/>
+<text text-anchor="middle" x="27" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Module</text>
+</g>
+<!-- Submodule -->
+<g id="node2" class="node">
+<title>Submodule</title>
+<polygon fill="#5bc0de" stroke="#5bc0de" points="139.5,-24 72.5,-24 72.5,0 139.5,0 139.5,-24"/>
+<text text-anchor="middle" x="106" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Submodule</text>
+</g>
+<!-- Subroutine -->
+<g id="node3" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="222,-24 158,-24 158,0 222,0 222,-24"/>
+<text text-anchor="middle" x="190" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node4" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="294,-24 240,-24 240,0 294,0 294,-24"/>
+<text text-anchor="middle" x="267" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Function</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="366,-24 312,-24 312,0 366,0 366,-24"/>
+<text text-anchor="middle" x="339" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="#000000" points="481.5,-24 384.5,-24 384.5,0 481.5,0 481.5,-24"/>
+<text text-anchor="middle" x="433" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+    
+    <p>Solid arrows point from a submodule to the (sub)module which it is
+    descended from. Dashed arrows point from a module or program unit to 
+    modules which it uses.
+    </p>
+    </div></div></div></div>
+      </li>
+      
+      </ul>
+    </div>
+    
+
+    
+    
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">Used by</h3>
+      </div>
+      <ul class="list-group">
+  
+  
+  <li class="list-group-item">
+    <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: module~~shapes~~UsedByGraph Pages: 1 -->
+<svg id="moduleshapesUsedByGraph" width="351pt" height="276pt"
+ viewBox="0.00 0.00 351.00 276.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="module~~shapes~~UsedByGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 272)">
+<title>module~~shapes~~UsedByGraph</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-272 347,-272 347,4 -4,4"/>
+<!-- module~shapes -->
+<g id="module~~shapes~~UsedByGraph_node1" class="node">
+<title>module~shapes</title>
+<polygon fill="none" stroke="#000000" points="54,-146 0,-146 0,-122 54,-122 54,-146"/>
+<text text-anchor="middle" x="27" y="-131.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">shapes</text>
+</g>
+<!-- program~testshapes -->
+<g id="module~~shapes~~UsedByGraph_node2" class="node">
+<title>program~testshapes</title>
+<g id="a_module~~shapes~~UsedByGraph_node2"><a xlink:href=".././program/testshapes.html" xlink:title="testshapes">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="154,-268 90,-268 90,-244 154,-244 154,-268"/>
+<text text-anchor="middle" x="122" y="-253.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">testshapes</text>
+</a>
+</g>
+</g>
+<!-- program~testshapes&#45;&gt;module~shapes -->
+<g id="module~~shapes~~UsedByGraph_edge1" class="edge">
+<title>program~testshapes&#45;&gt;module~shapes</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M105.1934,-243.9408C100.0227,-239.8251 94.5103,-234.9933 90,-230 68.7744,-206.5014 49.6341,-175.2038 38.1632,-154.8325"/>
+<polygon fill="#000000" stroke="#000000" points="41.2111,-153.1116 33.3124,-146.0503 35.0836,-156.496 41.2111,-153.1116"/>
+</g>
+<!-- module~keys -->
+<g id="module~~shapes~~UsedByGraph_node3" class="node">
+<title>module~keys</title>
+<g id="a_module~~shapes~~UsedByGraph_node3"><a xlink:href=".././module/keys.html" xlink:title="keys">
+<polygon fill="#337ab7" stroke="#337ab7" points="244,-188 190,-188 190,-164 244,-164 244,-188"/>
+<text text-anchor="middle" x="217" y="-173.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">keys</text>
+</a>
+</g>
+</g>
+<!-- module~keys&#45;&gt;module~shapes -->
+<g id="module~~shapes~~UsedByGraph_edge7" class="edge">
+<title>module~keys&#45;&gt;module~shapes</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M203.284,-188.0754C185.2039,-202.5005 152.1523,-223.7729 122,-216"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M122,-216C87.1395,-207.0134 57.7031,-175.4662 41.2117,-154.2256"/>
+<polygon fill="#000000" stroke="#000000" points="43.9427,-152.0332 35.1522,-146.119 38.3359,-156.2242 43.9427,-152.0332"/>
+</g>
+<!-- module~ai -->
+<g id="module~~shapes~~UsedByGraph_node5" class="node">
+<title>module~ai</title>
+<g id="a_module~~shapes~~UsedByGraph_node5"><a xlink:href=".././module/ai.html" xlink:title="AI">
+<polygon fill="#337ab7" stroke="#337ab7" points="149,-188 95,-188 95,-164 149,-164 149,-188"/>
+<text text-anchor="middle" x="122" y="-173.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">AI</text>
+</a>
+</g>
+</g>
+<!-- module~keys&#45;&gt;module~ai -->
+<g id="module~~shapes~~UsedByGraph_edge10" class="edge">
+<title>module~keys&#45;&gt;module~ai</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M189.7768,-176C180.336,-176 169.5796,-176 159.4602,-176"/>
+<polygon fill="#000000" stroke="#000000" points="159.2272,-172.5001 149.2272,-176 159.2271,-179.5001 159.2272,-172.5001"/>
+</g>
+<!-- module~blocks -->
+<g id="module~~shapes~~UsedByGraph_node7" class="node">
+<title>module~blocks</title>
+<g id="a_module~~shapes~~UsedByGraph_node7"><a xlink:href=".././module/blocks.html" xlink:title="blocks">
+<polygon fill="#337ab7" stroke="#337ab7" points="149,-146 95,-146 95,-122 149,-122 149,-146"/>
+<text text-anchor="middle" x="122" y="-131.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">blocks</text>
+</a>
+</g>
+</g>
+<!-- module~keys&#45;&gt;module~blocks -->
+<g id="module~~shapes~~UsedByGraph_edge13" class="edge">
+<title>module~keys&#45;&gt;module~blocks</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M189.7768,-163.9645C180.0379,-159.6588 168.8989,-154.7342 158.5035,-150.1384"/>
+<polygon fill="#000000" stroke="#000000" points="159.7885,-146.8797 149.2272,-146.0373 156.958,-153.282 159.7885,-146.8797"/>
+</g>
+<!-- program~motiontest -->
+<g id="module~~shapes~~UsedByGraph_node4" class="node">
+<title>program~motiontest</title>
+<g id="a_module~~shapes~~UsedByGraph_node4"><a xlink:href=".././program/motiontest.html" xlink:title="motiontest">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="153,-66 91,-66 91,-42 153,-42 153,-66"/>
+<text text-anchor="middle" x="122" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">motiontest</text>
+</a>
+</g>
+</g>
+<!-- program~motiontest&#45;&gt;module~shapes -->
+<g id="module~~shapes~~UsedByGraph_edge3" class="edge">
+<title>program~motiontest&#45;&gt;module~shapes</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M106.956,-66.0881C101.5807,-70.4428 95.4957,-75.4134 90,-80 76.1613,-91.5494 60.8001,-104.7092 48.7106,-115.146"/>
+<polygon fill="#000000" stroke="#000000" points="46.1956,-112.6938 40.9226,-121.8833 50.7754,-117.9878 46.1956,-112.6938"/>
+</g>
+<!-- module~ai&#45;&gt;module~shapes -->
+<g id="module~~shapes~~UsedByGraph_edge4" class="edge">
+<title>module~ai&#45;&gt;module~shapes</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M94.7768,-163.9645C85.0379,-159.6588 73.8989,-154.7342 63.5035,-150.1384"/>
+<polygon fill="#000000" stroke="#000000" points="64.7885,-146.8797 54.2272,-146.0373 61.958,-153.282 64.7885,-146.8797"/>
+</g>
+<!-- module~menu -->
+<g id="module~~shapes~~UsedByGraph_node6" class="node">
+<title>module~menu</title>
+<g id="a_module~~shapes~~UsedByGraph_node6"><a xlink:href=".././module/menu.html" xlink:title="menu">
+<polygon fill="#337ab7" stroke="#337ab7" points="244,-108 190,-108 190,-84 244,-84 244,-108"/>
+<text text-anchor="middle" x="217" y="-93.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">menu</text>
+</a>
+</g>
+</g>
+<!-- module~menu&#45;&gt;module~shapes -->
+<g id="module~~shapes~~UsedByGraph_edge5" class="edge">
+<title>module~menu&#45;&gt;module~shapes</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M189.9767,-98.1281C164.0834,-100.516 124.0259,-105.126 90,-113 81.4424,-114.9803 72.3985,-117.6419 63.9157,-120.4039"/>
+<polygon fill="#000000" stroke="#000000" points="62.6332,-117.1427 54.2781,-123.6574 64.8723,-123.7749 62.6332,-117.1427"/>
+</g>
+<!-- module~menu&#45;&gt;module~blocks -->
+<g id="module~~shapes~~UsedByGraph_edge15" class="edge">
+<title>module~menu&#45;&gt;module~blocks</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M189.7768,-106.8893C180.1372,-110.7451 169.1261,-115.1496 158.8219,-119.2712"/>
+<polygon fill="#000000" stroke="#000000" points="157.212,-116.1455 149.2272,-123.1091 159.8118,-122.6448 157.212,-116.1455"/>
+</g>
+<!-- module~blocks&#45;&gt;module~shapes -->
+<g id="module~~shapes~~UsedByGraph_edge6" class="edge">
+<title>module~blocks&#45;&gt;module~shapes</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M94.7768,-134C85.336,-134 74.5796,-134 64.4602,-134"/>
+<polygon fill="#000000" stroke="#000000" points="64.2272,-130.5001 54.2272,-134 64.2271,-137.5001 64.2272,-130.5001"/>
+</g>
+<!-- program~tetran -->
+<g id="module~~shapes~~UsedByGraph_node8" class="node">
+<title>program~tetran</title>
+<g id="a_module~~shapes~~UsedByGraph_node8"><a xlink:href=".././program/tetran.html" xlink:title="tetran">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="338.5,-169 284.5,-169 284.5,-145 338.5,-145 338.5,-169"/>
+<text text-anchor="middle" x="311.5" y="-154.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">tetran</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;module~shapes -->
+<g id="module~~shapes~~UsedByGraph_edge2" class="edge">
+<title>program~tetran&#45;&gt;module~shapes</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M294.1616,-169.1457C261.0137,-190.8535 186.2299,-232.5576 122,-216"/>
+</g>
+<!-- program~tetran&#45;&gt;module~keys -->
+<g id="module~~shapes~~UsedByGraph_edge9" class="edge">
+<title>program~tetran&#45;&gt;module~keys</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M284.4201,-162.4446C274.9301,-164.3527 264.1037,-166.5294 253.9454,-168.5718"/>
+<polygon fill="#000000" stroke="#000000" points="253.1977,-165.152 244.0839,-170.5546 254.5776,-172.0147 253.1977,-165.152"/>
+</g>
+<!-- program~tetran&#45;&gt;module~menu -->
+<g id="module~~shapes~~UsedByGraph_edge11" class="edge">
+<title>program~tetran&#45;&gt;module~menu</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M292.8298,-144.9484C278.9807,-136.0087 259.8846,-123.6821 244.3206,-113.6356"/>
+<polygon fill="#000000" stroke="#000000" points="245.9312,-110.5094 235.6314,-108.0266 242.1349,-116.3905 245.9312,-110.5094"/>
+</g>
+<!-- program~tetran&#45;&gt;module~blocks -->
+<g id="module~~shapes~~UsedByGraph_edge14" class="edge">
+<title>program~tetran&#45;&gt;module~blocks</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M284.3493,-153.7047C251.5619,-149.7252 196.2403,-143.0107 159.423,-138.5421"/>
+<polygon fill="#000000" stroke="#000000" points="159.4493,-135.0197 149.1004,-137.2892 158.6058,-141.9687 159.4493,-135.0197"/>
+</g>
+<!-- program~randblock -->
+<g id="module~~shapes~~UsedByGraph_node9" class="node">
+<title>program~randblock</title>
+<g id="a_module~~shapes~~UsedByGraph_node9"><a xlink:href=".././program/randblock.html" xlink:title="randblock">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="151.5,-24 92.5,-24 92.5,0 151.5,0 151.5,-24"/>
+<text text-anchor="middle" x="122" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">randblock</text>
+</a>
+</g>
+</g>
+<!-- program~randblock&#45;&gt;module~shapes -->
+<g id="module~~shapes~~UsedByGraph_edge8" class="edge">
+<title>program~randblock&#45;&gt;module~shapes</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M100.6835,-24.1134C96.8963,-26.7717 93.1581,-29.7683 90,-33 66.5772,-56.969 47.5493,-91.0991 36.7471,-112.8992"/>
+<polygon fill="#000000" stroke="#000000" points="33.5655,-111.4392 32.3765,-121.9671 39.8713,-114.4785 33.5655,-111.4392"/>
+</g>
+<!-- program~test_menu -->
+<g id="module~~shapes~~UsedByGraph_node10" class="node">
+<title>program~test_menu</title>
+<g id="a_module~~shapes~~UsedByGraph_node10"><a xlink:href=".././program/test_menu.html" xlink:title="test_menu">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="343,-108 280,-108 280,-84 343,-84 343,-108"/>
+<text text-anchor="middle" x="311.5" y="-93.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">test_menu</text>
+</a>
+</g>
+</g>
+<!-- program~test_menu&#45;&gt;module~menu -->
+<g id="module~~shapes~~UsedByGraph_edge12" class="edge">
+<title>program~test_menu&#45;&gt;module~menu</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M279.77,-96C271.536,-96 262.5947,-96 254.111,-96"/>
+<polygon fill="#000000" stroke="#000000" points="254.0681,-92.5001 244.068,-96 254.068,-99.5001 254.0681,-92.5001"/>
+</g>
+</g>
+</svg>
+</div><div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div><div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="-graph-help-label">Graph Key</h4></div><div class="modal-body">
+    <p>Nodes of different colours represent the following: </p>
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="490pt" height="32pt"
+ viewBox="0.00 0.00 489.50 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
+<title>Graph Key</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-28 485.5,-28 485.5,4 -4,4"/>
+<!-- Module -->
+<g id="node1" class="node">
+<title>Module</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="54,-24 0,-24 0,0 54,0 54,-24"/>
+<text text-anchor="middle" x="27" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Module</text>
+</g>
+<!-- Submodule -->
+<g id="node2" class="node">
+<title>Submodule</title>
+<polygon fill="#5bc0de" stroke="#5bc0de" points="139.5,-24 72.5,-24 72.5,0 139.5,0 139.5,-24"/>
+<text text-anchor="middle" x="106" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Submodule</text>
+</g>
+<!-- Subroutine -->
+<g id="node3" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="222,-24 158,-24 158,0 222,0 222,-24"/>
+<text text-anchor="middle" x="190" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node4" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="294,-24 240,-24 240,0 294,0 294,-24"/>
+<text text-anchor="middle" x="267" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Function</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="366,-24 312,-24 312,0 366,0 366,-24"/>
+<text text-anchor="middle" x="339" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="#000000" points="481.5,-24 384.5,-24 384.5,0 481.5,0 481.5,-24"/>
+<text text-anchor="middle" x="433" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+    
+    <p>Solid arrows point from a submodule to the (sub)module which it is
+    descended from. Dashed arrows point from a module or program unit to 
+    modules which it uses.
+    </p>
+    </div></div></div></div>
+  </li>
+  
+      </ul>
+    </div>
+    
+
+    <br>
+
+    <section class="visible-xs visible-sm hidden-md">
+      
+<h3>Contents</h3>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#types-1">Derived Types</a></h3></div>
+  <div id="types-1" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../module/shapes.html#type-piece">Piece</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#funcs-1">Functions</a></h3></div>
+  <div id="funcs-1" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-gen_type">gen_type</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-check_collision">check_collision</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-hit_floor">hit_floor</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-hit_horiz">hit_horiz</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-hit_block">hit_block</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-randomx">randomx</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#subs-1">Subroutines</a></h3></div>
+  <div class="list-group">
+    <div id="subs-1" class="panel-collapse collapse">
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-init_block">init_block</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-spawn_block">spawn_block</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-dissolver">dissolver</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-move_left">move_left</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-move_right">move_right</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-move_down">move_down</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-rotate">rotate</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-vertflip">vertflip</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-horizflip">horizflip</a>
+      
+      <a class="list-group-item" href="../module/shapes.html#proc-tell_why">tell_why</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+    </section>
+    <br class="visible-xs visible-sm hidden-md">
+
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    <section>
+     <h2>Derived Types</h2>
+   
+     
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="type-piece"></span><h3>type, public, extends(<a href='../type/field.html'>Field</a>) :: <a href='../type/piece.html'>Piece</a>
+    
+  </h3></div>
+  <div class="panel-body">
+    
+     
+     <h4>Components</h4>
+    
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th><th>Visibility</th>
+
+<th>Attributes</th><th></th><th>Name</th><th></th><th>Initial</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-move_time"></span>real,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>move_time</strong></td><td> =</td><td>0.5</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-sleep_incr"></span>integer(kind=c_int),</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>sleep_incr</strong></td><td> =</td><td>50000</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-difffact"></span>real,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>difffact</strong></td><td> =</td><td>1.</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-level"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>level</strong></td><td> =</td><td>1</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-diffinc"></span>real,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>diffinc</strong></td><td> =</td><td>1.2</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-score"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>score</strong></td><td> =</td><td>0</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-nblock"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>Nblock</strong></td><td> =</td><td>0</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-ncleared"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>Ncleared</strong></td><td> =</td><td>0</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-lines_per_level"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>lines_per_level</strong></td><td> =</td><td>10</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-bonus"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>bonus</strong>(-1:4)</td><td> =</td><td>[-100, 0, 40, 100, 300, 1200]</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-blockseq"></span>character(len=1),</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>blockseq</strong>(10000)</td><td> =</td><td>""</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-toc"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>toc</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-tic"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>tic</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-h"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>H</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-w"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>W</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-x0"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>x0</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-screen"></span>integer,</td>
+  
+  <td>public,</td>
+  <td>allocatable</td><td>::</td>
+  <td><strong>screen</strong>(:,:)</td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-debug"></span>logical,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>debug</strong></td><td> =</td><td>.false.</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-udbg"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>udbg</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-newhit"></span>logical,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>newhit</strong></td><td> =</td><td>.false.</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-cheat"></span>logical,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>cheat</strong></td><td> =</td><td>.false.</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-ai"></span>logical,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>AI</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-btype"></span>character,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>btype</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-why"></span>character(len=80),</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>why</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-ch"></span>character,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>ch</strong>(12)</td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-nx"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>Nx</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-ny"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>Ny</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-x"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>x</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-y"></span>integer,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>y</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-values"></span>integer,</td>
+  
+  <td>public,</td>
+  <td>allocatable</td><td>::</td>
+  <td><strong>values</strong>(:,:)</td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-landed"></span>logical,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>landed</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-movereq"></span>logical,</td>
+  
+  <td>public</td>
+  <td></td><td>::</td>
+  <td><strong>movereq</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+     
+     
+          
+     
+     <h4>Type-Bound Procedures</h4>
+      <table class="table table-striped varlist">
+      <tbody>
+      
+       <tr><td>procedure, public :: <strong><a href='../type/field.html#boundprocedure-setup'>setup</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, public :: <strong><a href='../type/field.html#boundprocedure-levelup'>levelup</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, public :: <strong><a href='../type/field.html#boundprocedure-clear_lines'>clear_lines</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, public :: <strong><a href='../type/piece.html#boundprocedure-init'>init</a></strong>  => init_block </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, private :: <strong><a href='../type/piece.html#boundprocedure-init_block'>init_block</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, public :: <strong><a href='../type/piece.html#boundprocedure-check_collision'>check_collision</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, public :: <strong><a href='../type/piece.html#boundprocedure-move_right'>move_right</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, public :: <strong><a href='../type/piece.html#boundprocedure-move_left'>move_left</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, public :: <strong><a href='../type/piece.html#boundprocedure-rotate'>rotate</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, public :: <strong><a href='../type/piece.html#boundprocedure-move_down'>move_down</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, public :: <strong><a href='../type/piece.html#boundprocedure-dissolver'>dissolver</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, public :: <strong><a href='../type/piece.html#boundprocedure-spawn_block'>spawn_block</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, public :: <strong><a href='../type/piece.html#boundprocedure-vertflip'>vertflip</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, public :: <strong><a href='../type/piece.html#boundprocedure-horizflip'>horizflip</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, private :: <strong><a href='../type/piece.html#boundprocedure-randomx'>randomx</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, private :: <strong><a href='../type/piece.html#boundprocedure-tell_why'>tell_why</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, private :: <strong><a href='../type/piece.html#boundprocedure-hit_horiz'>hit_horiz</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, private :: <strong><a href='../type/piece.html#boundprocedure-hit_floor'>hit_floor</a></strong>  </td>
+       <td></td></tr>
+      
+       <tr><td>procedure, private :: <strong><a href='../type/piece.html#boundprocedure-hit_block'>hit_block</a></strong>  </td>
+       <td></td></tr>
+      
+       </tbody>
+       </table>
+     
+  </div>
+</div>
+
+     
+    </section>
+  <br>
+    
+    
+     
+    <section>
+    <h2>Functions</h2>
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-gen_type"></span><h3>
+public function <a href='../proc/gen_type.html'>gen_type</a>() result(next)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      <em>None</em>
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>character
+  </small></h4>
+  
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-check_collision"></span><h3>
+private function <a href='../proc/check_collision.html'>check_collision</a>(self) result(collided)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical
+  </small></h4>
+  
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-hit_floor"></span><h3>
+private function <a href='../proc/hit_floor.html'>hit_floor</a>(self)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical
+  </small></h4>
+  
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-hit_horiz"></span><h3>
+private function <a href='../proc/hit_horiz.html'>hit_horiz</a>(self)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical
+  </small></h4>
+  
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-hit_block"></span><h3>
+private function <a href='../proc/hit_block.html'>hit_block</a>(self)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>logical
+  </small></h4>
+  
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-randomx"></span><h3>
+private function <a href='../proc/randomx.html'>randomx</a>(self)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>integer
+  </small></h4>
+  
+    
+
+  </div>
+  </div>
+
+    
+    </section>
+    <br>
+    
+
+    
+    <section>
+    <h2>Subroutines</h2>
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-init_block"></span><h3>
+private subroutine <a href='../proc/init_block.html'>init_block</a>(self, F, btype, x, y)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/field.html'>Field</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>F</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>btype</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>x</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>y</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-spawn_block"></span><h3>
+private subroutine <a href='../proc/spawn_block.html'>spawn_block</a>(self, F, NP)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/field.html'>Field</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>F</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>NP</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-dissolver"></span><h3>
+private subroutine <a href='../proc/dissolver.html'>dissolver</a>(self)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-move_left"></span><h3>
+private subroutine <a href='../proc/move_left.html'>move_left</a>(self, slam)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>slam</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-move_right"></span><h3>
+private subroutine <a href='../proc/move_right.html'>move_right</a>(self, slam)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>slam</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-move_down"></span><h3>
+private recursive subroutine <a href='../proc/move_down.html'>move_down</a>(self, slam)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>slam</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-rotate"></span><h3>
+private subroutine <a href='../proc/rotate.html'>rotate</a>(self)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-vertflip"></span><h3>
+private subroutine <a href='../proc/vertflip.html'>vertflip</a>(self)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-horizflip"></span><h3>
+private subroutine <a href='../proc/horizflip.html'>horizflip</a>(self)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-tell_why"></span><h3>
+private subroutine <a href='../proc/tell_why.html'>tell_why</a>(self, msg)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(len=*),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>msg</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    </section>    
+    <br>
+    
+    
+    
+    </div>
+  </div>
+
+  
+    <hr>    
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-md-4"><p>&copy; 2018 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+                                          </p></div>
+        <div class="col-xs-6 col-md-4 col-md-push-4">
+          <p class="text-right">
+            Documentation generated by 
+            <a href="https://github.com/cmacmackin/ford">FORD</a>
+            
+          </p>
+        </div>
+        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> Tetran was developed by Michael Hirsch Ph.D.</p></div>
+      </div>
+      <br>
+      </div> <!-- /container -->    
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+-->
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- MathJax JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+        jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+        extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+      });
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+    <script src="../tipuesearch/tipuesearch_content.js"></script>
+    <script src="../tipuesearch/tipuesearch_set.js"></script>
+    <script src="../tipuesearch/tipuesearch.js"></script>
+    
+    
+  </body>
+</html>

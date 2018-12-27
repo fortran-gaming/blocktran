@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+   <meta name="description" content="object-oriented Fortran falling-block game">
+    
+    <meta name="author" content="Michael Hirsch Ph.D." >
+    <link rel="icon" href="../favicon.png">
+
+    <title>randint &ndash; Tetran</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/local.css" rel="stylesheet">
+    
+    <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="../js/jquery-2.1.3.min.js"></script>
+    <script src="../js/svg-pan-zoom.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Tetran </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+        
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+              data-toggle="dropdown" role="button"
+              aria-haspopup="true"
+     aria-expanded="false">Contents <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          
+              
+            <li><a href="../lists/files.html">Source Files</a></li>
+        
+        
+        
+            <li><a href="../lists/modules.html">Modules</a></li>
+        
+            
+                                
+            <li><a href="../lists/procedures.html">Procedures</a></li>
+        
+               
+            <li><a href="../lists/types.html">Derived Types</a></li>
+        
+        
+            <li><a href="../lists/programs.html">Programs</a></li>
+        
+            </ul>
+            </li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/files.html">Source Files</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/modules.html">Modules</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/procedures.html">Procedures</a></li>
+
+                             
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/types.html">Derived Types</a></li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/programs.html">Programs</a></li>
+
+          </ul>
+        
+        <form action="../search.html" class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+        </div>
+<!--
+        <button type="submit" class="btn btn-default">Submit</button>
+-->
+        </form>
+        
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+    
+  
+  <div class="row">
+    <h1>randint
+      <small>Function</small>
+    
+    </h1>
+    
+<div class="row">
+  <div class="col-lg-12">
+<div class="well well-sm">
+  <ul class="list-inline" style="margin-bottom:0px;display:inline">
+     
+     
+     
+     
+    
+    
+     <li><i class="fa fa-list-ol"></i>
+       <a data-toggle="tooltip"
+    data-placement="bottom" data-html="true"
+    title=" 0.3% of total for procedures.">6 statements</a>
+     </li> 
+     
+     
+     
+    <li><i class="fa fa-code"></i><a href="../src/random.f90"> Source File</a></li>
+     
+     
+  </ul>
+  <ol class="breadcrumb in-well text-right">
+  
+    
+     <li><a href='../sourcefile/random.f90.html'>random.f90</a></li>
+    
+     <li><a href='../module/random.html'>random</a></li>
+    
+  
+     <li class="active">randint</li>
+  </ol>
+</div>
+</div>
+</div>
+<script>
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
+    
+<div id="sidebar">
+  
+<h3>Contents</h3>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<em>None</em>
+
+
+</div>
+
+    </div>
+    
+    <div class="col-md-9" id='text'>
+    <h2>
+public impure elemental function randint(lo, hi)
+    
+    
+   
+</h2>
+    
+  
+
+
+    
+
+    <h3>Arguments</h3>
+    
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-lo"></span>integer,</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>lo</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-hi"></span>integer,</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>hi</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+    
+    
+    
+    
+    
+    
+    
+   <h3>Return Value <small><span class="anchor" id="variable-randint"></span>integer
+  </small></h3>
+    
+    
+    
+    <br>
+    
+    
+     
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">Called by</h3>
+      </div>
+      <div class="panel-body">
+  <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: proc~~randint~~CalledByGraph Pages: 1 -->
+<svg id="procrandintCalledByGraph" width="368pt" height="261pt"
+ viewBox="0.00 0.00 368.00 260.54" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~randint~~CalledByGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 256.5415)">
+<title>proc~~randint~~CalledByGraph</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-256.5415 364,-256.5415 364,4 -4,4"/>
+<!-- proc~randint -->
+<g id="proc~~randint~~CalledByGraph_node1" class="node">
+<title>proc~randint</title>
+<polygon fill="none" stroke="#000000" points="360,-148 306,-148 306,-124 360,-124 360,-148"/>
+<text text-anchor="middle" x="333" y="-133.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">randint</text>
+</g>
+<!-- proc~cmd_parse -->
+<g id="proc~~randint~~CalledByGraph_node2" class="node">
+<title>proc~cmd_parse</title>
+<g id="a_proc~~randint~~CalledByGraph_node2"><a xlink:href=".././proc/cmd_parse.html" xlink:title="cmd_parse">
+<polygon fill="#d9534f" stroke="#d9534f" points="165,-251 99,-251 99,-227 165,-227 165,-251"/>
+<text text-anchor="middle" x="132" y="-236.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">cmd_parse</text>
+</a>
+</g>
+</g>
+<!-- proc~cmd_parse&#45;&gt;proc~randint -->
+<g id="proc~~randint~~CalledByGraph_edge1" class="edge">
+<title>proc~cmd_parse&#45;&gt;proc~randint</title>
+<path fill="none" stroke="#000000" d="M165.2254,-247.6487C194.6961,-253.4004 237.9206,-256.983 270,-239 300.8783,-221.6903 318.433,-182.3963 326.8053,-157.6551"/>
+<polygon fill="#000000" stroke="#000000" points="330.1648,-158.6392 329.8433,-148.0493 323.4907,-156.5284 330.1648,-158.6392"/>
+</g>
+<!-- proc~randomx -->
+<g id="proc~~randint~~CalledByGraph_node3" class="node">
+<title>proc~randomx</title>
+<g id="a_proc~~randint~~CalledByGraph_node3"><a xlink:href=".././proc/randomx.html" xlink:title="randomx">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="263,-230 208,-230 208,-206 263,-206 263,-230"/>
+<text text-anchor="middle" x="235.5" y="-215.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">randomx</text>
+</a>
+</g>
+</g>
+<!-- proc~randomx&#45;&gt;proc~randint -->
+<g id="proc~~randint~~CalledByGraph_edge2" class="edge">
+<title>proc~randomx&#45;&gt;proc~randint</title>
+<path fill="none" stroke="#000000" d="M257.1575,-205.8341C261.529,-203.0994 266.0056,-200.0875 270,-197 286.3593,-184.355 303.0921,-167.9584 315.1978,-155.3497"/>
+<polygon fill="#000000" stroke="#000000" points="317.7665,-157.7273 322.0926,-148.0559 312.6796,-152.9186 317.7665,-157.7273"/>
+</g>
+<!-- proc~gen_type -->
+<g id="proc~~randint~~CalledByGraph_node4" class="node">
+<title>proc~gen_type</title>
+<g id="a_proc~~randint~~CalledByGraph_node4"><a xlink:href=".././proc/gen_type.html" xlink:title="gen_type">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="264,-188 207,-188 207,-164 264,-164 264,-188"/>
+<text text-anchor="middle" x="235.5" y="-173.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">gen_type</text>
+</a>
+</g>
+</g>
+<!-- proc~gen_type&#45;&gt;proc~randint -->
+<g id="proc~~randint~~CalledByGraph_edge3" class="edge">
+<title>proc~gen_type&#45;&gt;proc~randint</title>
+<path fill="none" stroke="#000000" d="M264.2259,-164.215C274.2894,-160.0864 285.731,-155.3924 296.3539,-151.0343"/>
+<polygon fill="#000000" stroke="#000000" points="297.8933,-154.1859 305.8165,-147.1522 295.2364,-147.7097 297.8933,-154.1859"/>
+</g>
+<!-- proc~dissolve -->
+<g id="proc~~randint~~CalledByGraph_node5" class="node">
+<title>proc~dissolve</title>
+<g id="a_proc~~randint~~CalledByGraph_node5"><a xlink:href=".././proc/dissolve.html" xlink:title="dissolve">
+<polygon fill="#d9534f" stroke="#d9534f" points="262.5,-24 208.5,-24 208.5,0 262.5,0 262.5,-24"/>
+<text text-anchor="middle" x="235.5" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">dissolve</text>
+</a>
+</g>
+</g>
+<!-- proc~dissolve&#45;&gt;proc~randint -->
+<g id="proc~~randint~~CalledByGraph_edge4" class="edge">
+<title>proc~dissolve&#45;&gt;proc~randint</title>
+<path fill="none" stroke="#000000" d="M258.8895,-24.1304C262.8442,-26.7519 266.7241,-29.7311 270,-33 294.1908,-57.1387 313.1209,-92.3057 323.6798,-114.6646"/>
+<polygon fill="#000000" stroke="#000000" points="320.586,-116.3151 327.9309,-123.9507 326.9507,-113.4013 320.586,-116.3151"/>
+</g>
+<!-- proc~random_init -->
+<g id="proc~~randint~~CalledByGraph_node6" class="node">
+<title>proc~random_init</title>
+<g id="a_proc~~randint~~CalledByGraph_node6"><a xlink:href=".././proc/random_init.html" xlink:title="random_init">
+<polygon fill="#d9534f" stroke="#d9534f" points="270,-108 201,-108 201,-84 270,-84 270,-108"/>
+<text text-anchor="middle" x="235.5" y="-93.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">random_init</text>
+</a>
+</g>
+</g>
+<!-- proc~random_init&#45;&gt;proc~randint -->
+<g id="proc~~randint~~CalledByGraph_edge5" class="edge">
+<title>proc~random_init&#45;&gt;proc~randint</title>
+<path fill="none" stroke="#000000" d="M264.7532,-108.0013C274.7166,-112.0889 285.9808,-116.7101 296.4442,-121.0027"/>
+<polygon fill="#000000" stroke="#000000" points="295.1877,-124.2703 305.7679,-124.8279 297.8447,-117.7941 295.1877,-124.2703"/>
+</g>
+<!-- proc~random_init~2 -->
+<g id="proc~~randint~~CalledByGraph_node7" class="node">
+<title>proc~random_init~2</title>
+<g id="a_proc~~randint~~CalledByGraph_node7"><a xlink:href=".././proc/random_init~2.html" xlink:title="random_init">
+<polygon fill="#777777" stroke="#777777" points="270,-66 201,-66 201,-42 270,-42 270,-66"/>
+<text text-anchor="middle" x="235.5" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">random_init</text>
+</a>
+</g>
+</g>
+<!-- proc~random_init~2&#45;&gt;proc~randint -->
+<g id="proc~~randint~~CalledByGraph_edge6" class="edge">
+<title>proc~random_init~2&#45;&gt;proc~randint</title>
+<path fill="none" stroke="#000000" d="M257.1575,-66.1659C261.529,-68.9006 266.0056,-71.9125 270,-75 286.3593,-87.645 303.0921,-104.0416 315.1978,-116.6503"/>
+<polygon fill="#000000" stroke="#000000" points="312.6796,-119.0814 322.0926,-123.9441 317.7665,-114.2727 312.6796,-119.0814"/>
+</g>
+<!-- program~randblock -->
+<g id="proc~~randint~~CalledByGraph_node8" class="node">
+<title>program~randblock</title>
+<g id="a_proc~~randint~~CalledByGraph_node8"><a xlink:href=".././program/randblock.html" xlink:title="randblock">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="161.5,-148 102.5,-148 102.5,-124 161.5,-124 161.5,-148"/>
+<text text-anchor="middle" x="132" y="-133.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">randblock</text>
+</a>
+</g>
+</g>
+<!-- program~randblock&#45;&gt;proc~randint -->
+<g id="proc~~randint~~CalledByGraph_edge7" class="edge">
+<title>program~randblock&#45;&gt;proc~randint</title>
+<path fill="none" stroke="#000000" d="M161.6582,-136C197.1933,-136 256.7701,-136 295.4749,-136"/>
+<polygon fill="#000000" stroke="#000000" points="295.8008,-139.5001 305.8008,-136 295.8008,-132.5001 295.8008,-139.5001"/>
+</g>
+<!-- program~randblock&#45;&gt;proc~gen_type -->
+<g id="proc~~randint~~CalledByGraph_edge10" class="edge">
+<title>program~randblock&#45;&gt;proc~gen_type</title>
+<path fill="none" stroke="#000000" d="M161.6589,-147.4624C172.7658,-151.7549 185.5441,-156.6934 197.3149,-161.2425"/>
+<polygon fill="#000000" stroke="#000000" points="196.3173,-164.6092 206.9067,-164.9494 198.8408,-158.0798 196.3173,-164.6092"/>
+</g>
+<!-- program~randblock&#45;&gt;proc~random_init -->
+<g id="proc~~randint~~CalledByGraph_edge14" class="edge">
+<title>program~randblock&#45;&gt;proc~random_init</title>
+<path fill="none" stroke="#000000" d="M161.6589,-124.5376C172.0079,-120.538 183.808,-115.9776 194.8921,-111.6939"/>
+<polygon fill="#000000" stroke="#000000" points="196.3281,-114.8913 204.394,-108.0217 193.8046,-108.3619 196.3281,-114.8913"/>
+</g>
+<!-- program~tetran -->
+<g id="proc~~randint~~CalledByGraph_node9" class="node">
+<title>program~tetran</title>
+<g id="a_proc~~randint~~CalledByGraph_node9"><a xlink:href=".././program/tetran.html" xlink:title="tetran">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="58.5,-108 4.5,-108 4.5,-84 58.5,-84 58.5,-108"/>
+<text text-anchor="middle" x="31.5" y="-93.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">tetran</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;proc~cmd_parse -->
+<g id="proc~~randint~~CalledByGraph_edge8" class="edge">
+<title>program~tetran&#45;&gt;proc~cmd_parse</title>
+<path fill="none" stroke="#000000" d="M38.7825,-108.0253C50.7362,-127.5469 75.5396,-167.1565 99,-199 103.846,-205.5776 109.4032,-212.5184 114.5584,-218.7383"/>
+<polygon fill="#000000" stroke="#000000" points="112.1176,-221.2737 121.2345,-226.6713 117.4734,-216.7665 112.1176,-221.2737"/>
+</g>
+<!-- program~tetran&#45;&gt;proc~random_init -->
+<g id="proc~~randint~~CalledByGraph_edge12" class="edge">
+<title>program~tetran&#45;&gt;proc~random_init</title>
+<path fill="none" stroke="#000000" d="M58.5896,-96C92.2895,-96 150.3032,-96 190.671,-96"/>
+<polygon fill="#000000" stroke="#000000" points="190.7841,-99.5001 200.7841,-96 190.784,-92.5001 190.7841,-99.5001"/>
+</g>
+<!-- proc~title -->
+<g id="proc~~randint~~CalledByGraph_node10" class="node">
+<title>proc~title</title>
+<g id="a_proc~~randint~~CalledByGraph_node10"><a xlink:href=".././proc/title.html" xlink:title="title">
+<polygon fill="#d9534f" stroke="#d9534f" points="159,-25 105,-25 105,-1 159,-1 159,-25"/>
+<text text-anchor="middle" x="132" y="-10.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">title</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;proc~title -->
+<g id="proc~~randint~~CalledByGraph_edge15" class="edge">
+<title>program~tetran&#45;&gt;proc~title</title>
+<path fill="none" stroke="#000000" d="M43.9518,-83.7239C57.1411,-70.9699 78.8082,-50.7173 99,-35 100.7659,-33.6254 102.6153,-32.2453 104.4985,-30.8832"/>
+<polygon fill="#000000" stroke="#000000" points="106.6046,-33.6817 112.8175,-25.0997 102.6088,-27.9342 106.6046,-33.6817"/>
+</g>
+<!-- proc~title&#45;&gt;proc~dissolve -->
+<g id="proc~~randint~~CalledByGraph_edge11" class="edge">
+<title>proc~title&#45;&gt;proc~dissolve</title>
+<path fill="none" stroke="#000000" d="M159.1934,-12.7373C171.1973,-12.6213 185.496,-12.4831 198.4535,-12.3579"/>
+<polygon fill="#000000" stroke="#000000" points="198.5225,-15.8575 208.4882,-12.261 198.4548,-8.8579 198.5225,-15.8575"/>
+</g>
+<!-- program~testshapes -->
+<g id="proc~~randint~~CalledByGraph_node11" class="node">
+<title>program~testshapes</title>
+<g id="a_proc~~randint~~CalledByGraph_node11"><a xlink:href=".././program/testshapes.html" xlink:title="testshapes">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="164,-68 100,-68 100,-44 164,-44 164,-68"/>
+<text text-anchor="middle" x="132" y="-53.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">testshapes</text>
+</a>
+</g>
+</g>
+<!-- program~testshapes&#45;&gt;proc~random_init -->
+<g id="proc~~randint~~CalledByGraph_edge13" class="edge">
+<title>program~testshapes&#45;&gt;proc~random_init</title>
+<path fill="none" stroke="#000000" d="M163.0534,-68.0013C172.9917,-71.8422 184.1492,-76.1543 194.675,-80.2222"/>
+<polygon fill="#000000" stroke="#000000" points="193.5214,-83.5286 204.1108,-83.8689 196.0449,-76.9993 193.5214,-83.5286"/>
+</g>
+<!-- proc~init_block -->
+<g id="proc~~randint~~CalledByGraph_node12" class="node">
+<title>proc~init_block</title>
+<g id="a_proc~~randint~~CalledByGraph_node12"><a xlink:href=".././proc/init_block.html" xlink:title="init_block">
+<polygon fill="#d9534f" stroke="#d9534f" points="160.5,-190 103.5,-190 103.5,-166 160.5,-166 160.5,-190"/>
+<text text-anchor="middle" x="132" y="-175.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">init_block</text>
+</a>
+</g>
+</g>
+<!-- proc~init_block&#45;&gt;proc~gen_type -->
+<g id="proc~~randint~~CalledByGraph_edge9" class="edge">
+<title>proc~init_block&#45;&gt;proc~gen_type</title>
+<path fill="none" stroke="#000000" d="M160.5558,-177.4482C171.6626,-177.2336 184.5667,-176.9842 196.505,-176.7535"/>
+<polygon fill="#000000" stroke="#000000" points="196.7476,-180.2496 206.6781,-176.5569 196.6123,-173.2509 196.7476,-180.2496"/>
+</g>
+<!-- program~test_menu -->
+<g id="proc~~randint~~CalledByGraph_node13" class="node">
+<title>program~test_menu</title>
+<g id="a_proc~~randint~~CalledByGraph_node13"><a xlink:href=".././program/test_menu.html" xlink:title="test_menu">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="63,-25 0,-25 0,-1 63,-1 63,-25"/>
+<text text-anchor="middle" x="31.5" y="-10.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">test_menu</text>
+</a>
+</g>
+</g>
+<!-- program~test_menu&#45;&gt;proc~title -->
+<g id="proc~~randint~~CalledByGraph_edge16" class="edge">
+<title>program~test_menu&#45;&gt;proc~title</title>
+<path fill="none" stroke="#000000" d="M63.0231,-13C73.1258,-13 84.4069,-13 94.8717,-13"/>
+<polygon fill="#000000" stroke="#000000" points="94.9904,-16.5001 104.9904,-13 94.9904,-9.5001 94.9904,-16.5001"/>
+</g>
+</g>
+</svg>
+</div><div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div><div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="-graph-help-label">Graph Key</h4></div><div class="modal-body">
+    <p>Nodes of different colours represent the following: </p>
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="560pt" height="32pt"
+ viewBox="0.00 0.00 559.50 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
+<title>Graph Key</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-28 555.5,-28 555.5,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="64,-24 0,-24 0,0 64,0 64,-24"/>
+<text text-anchor="middle" x="32" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="136,-24 82,-24 82,0 136,0 136,-24"/>
+<text text-anchor="middle" x="109" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="209.5,-24 154.5,-24 154.5,0 209.5,0 209.5,-24"/>
+<text text-anchor="middle" x="182" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Interface</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node4" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="364,-24 228,-24 228,0 364,0 364,-24"/>
+<text text-anchor="middle" x="296" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="436,-24 382,-24 382,0 436,0 436,-24"/>
+<text text-anchor="middle" x="409" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="#000000" points="551.5,-24 454.5,-24 454.5,0 551.5,0 551.5,-24"/>
+<text text-anchor="middle" x="503" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+    
+    <p>Solid arrows point from a procedure to one which it calls. Dashed 
+    arrows point from an interface to procedures which implement that interface.
+    This could include the module procedures in a generic interface or the
+    implementation in a submodule of an interface in a parent module.
+    </p>
+    </div></div></div></div>
+      </div>
+    </div>
+     
+    <br>
+
+    <section class="visible-xs visible-sm hidden-md">
+      
+<h3>Contents</h3>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<em>None</em>
+
+
+    </section>
+    <br class="visible-xs visible-sm hidden-md">
+
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+
+
+    
+    
+    
+    
+    </div>
+  </div>
+
+
+    <hr>    
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-md-4"><p>&copy; 2018 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+                                          </p></div>
+        <div class="col-xs-6 col-md-4 col-md-push-4">
+          <p class="text-right">
+            Documentation generated by 
+            <a href="https://github.com/cmacmackin/ford">FORD</a>
+            
+          </p>
+        </div>
+        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> Tetran was developed by Michael Hirsch Ph.D.</p></div>
+      </div>
+      <br>
+      </div> <!-- /container -->    
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+-->
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- MathJax JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+        jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+        extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+      });
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+    <script src="../tipuesearch/tipuesearch_content.js"></script>
+    <script src="../tipuesearch/tipuesearch_set.js"></script>
+    <script src="../tipuesearch/tipuesearch.js"></script>
+    
+    
+  </body>
+</html>

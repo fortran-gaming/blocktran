@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+   <meta name="description" content="object-oriented Fortran falling-block game">
+    
+    <meta name="author" content="Michael Hirsch Ph.D." >
+    <link rel="icon" href="../favicon.png">
+
+    <title>randblock &ndash; Tetran</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/local.css" rel="stylesheet">
+    
+    <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="../js/jquery-2.1.3.min.js"></script>
+    <script src="../js/svg-pan-zoom.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Tetran </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+        
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+              data-toggle="dropdown" role="button"
+              aria-haspopup="true"
+     aria-expanded="false">Contents <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          
+              
+            <li><a href="../lists/files.html">Source Files</a></li>
+        
+        
+        
+            <li><a href="../lists/modules.html">Modules</a></li>
+        
+            
+                                
+            <li><a href="../lists/procedures.html">Procedures</a></li>
+        
+               
+            <li><a href="../lists/types.html">Derived Types</a></li>
+        
+        
+            <li><a href="../lists/programs.html">Programs</a></li>
+        
+            </ul>
+            </li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/files.html">Source Files</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/modules.html">Modules</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/procedures.html">Procedures</a></li>
+
+                             
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/types.html">Derived Types</a></li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/programs.html">Programs</a></li>
+
+          </ul>
+        
+        <form action="../search.html" class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+        </div>
+<!--
+        <button type="submit" class="btn btn-default">Submit</button>
+-->
+        </form>
+        
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+    
+  
+  <div class="row">
+    <h1>randblock
+    <small>Program</small>
+    
+    </h1>
+    
+<div class="row">
+  <div class="col-lg-12">
+<div class="well well-sm">
+  <ul class="list-inline" style="margin-bottom:0px;display:inline">
+     
+     
+     
+     
+    
+    
+     <li><i class="fa fa-list-ol"></i>
+       <a data-toggle="tooltip"
+    data-placement="bottom" data-html="true"
+    title=" 9.2% of total for programs.">50 statements</a>
+     </li> 
+     
+     
+     
+    <li><i class="fa fa-code"></i><a href="../src/randtest.f90"> Source File</a></li>
+     
+     
+  </ul>
+  <ol class="breadcrumb in-well text-right">
+  
+    
+     <li><a href='../sourcefile/randtest.f90.html'>randtest.f90</a></li>
+    
+  
+     <li class="active">randblock</li>
+  </ol>
+</div>
+</div>
+</div>
+<script>
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
+    
+<div id="sidebar">
+  
+<h3>Contents</h3>
+ 
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#vars-0">Variables</a></h3></div>
+  <div id="vars-0" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-types">types</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-ntypes">Ntypes</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-rtol">rtol</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-ideal">ideal</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-b">b</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-e">e</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-f">f</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-g">g</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-i~2">i</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-n">n</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-c">c</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-u">u</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-buf~2">buf</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+    </div>
+    
+    <div class="col-md-9" id='text'>
+    
+  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">Uses</h3>
+      </div>
+      <ul class="list-group">
+      
+      <li class="list-group-item">
+  <ul class="list-inline">
+    
+    <li><a href="http://fortranwiki.org/fortran/show/ISO_FORTRAN_ENV">iso_fortran_env</a></li>
+    
+    <li><a href='../module/shapes.html'>shapes</a></li>
+    
+    <li><a href='../module/random.html'>random</a></li>
+    
+  </ul>
+      </li>
+      
+      
+      
+      <li class="list-group-item">
+  <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: program~~randblock~~UsesGraph Pages: 1 -->
+<svg id="programrandblockUsesGraph" width="370pt" height="184pt"
+ viewBox="0.00 0.00 370.00 183.71" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="program~~randblock~~UsesGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 179.7126)">
+<title>program~~randblock~~UsesGraph</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-179.7126 366,-179.7126 366,4 -4,4"/>
+<!-- program~randblock -->
+<g id="program~~randblock~~UsesGraph_node1" class="node">
+<title>program~randblock</title>
+<polygon fill="none" stroke="#000000" points="362,-146 303,-146 303,-122 362,-122 362,-146"/>
+<text text-anchor="middle" x="332.5" y="-131.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">randblock</text>
+</g>
+<!-- iso_fortran_env -->
+<g id="program~~randblock~~UsesGraph_node2" class="node">
+<title>iso_fortran_env</title>
+<g id="a_program~~randblock~~UsesGraph_node2"><a xlink:href="http://fortranwiki.org/fortran/show/ISO_FORTRAN_ENV" xlink:title="iso_fortran_env">
+<polygon fill="#337ab7" stroke="#337ab7" points="87,-126 0,-126 0,-102 87,-102 87,-126"/>
+<text text-anchor="middle" x="43.5" y="-111.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">iso_fortran_env</text>
+</a>
+</g>
+</g>
+<!-- program~randblock&#45;&gt;iso_fortran_env -->
+<g id="program~~randblock~~UsesGraph_edge2" class="edge">
+<title>program~randblock&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M240,-174C187.555,-178.9836 173.0305,-171.5001 123,-155 105.0465,-149.0789 86.1908,-139.518 71.3507,-131.1178"/>
+<polygon fill="#000000" stroke="#000000" points="73.0791,-128.0742 62.6735,-126.0804 69.5646,-134.128 73.0791,-128.0742"/>
+</g>
+<!-- module~random -->
+<g id="program~~randblock~~UsesGraph_node3" class="node">
+<title>module~random</title>
+<g id="a_program~~randblock~~UsesGraph_node3"><a xlink:href=".././module/random.html" xlink:title="random">
+<polygon fill="#337ab7" stroke="#337ab7" points="177,-146 123,-146 123,-122 177,-122 177,-146"/>
+<text text-anchor="middle" x="150" y="-131.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">random</text>
+</a>
+</g>
+</g>
+<!-- program~randblock&#45;&gt;module~random -->
+<g id="program~~randblock~~UsesGraph_edge1" class="edge">
+<title>program~randblock&#45;&gt;module~random</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M313.9677,-146.1536C295.9409,-156.9456 267.3459,-171.4015 240,-174"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M240,-174C215.7928,-176.3003 190.707,-163.7012 173.1889,-152.0464"/>
+<polygon fill="#000000" stroke="#000000" points="174.9561,-149.0104 164.7626,-146.1217 170.9298,-154.7366 174.9561,-149.0104"/>
+</g>
+<!-- module~shapes -->
+<g id="program~~randblock~~UsesGraph_node4" class="node">
+<title>module~shapes</title>
+<g id="a_program~~randblock~~UsesGraph_node4"><a xlink:href=".././module/shapes.html" xlink:title="shapes">
+<polygon fill="#337ab7" stroke="#337ab7" points="267,-106 213,-106 213,-82 267,-82 267,-106"/>
+<text text-anchor="middle" x="240" y="-91.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">shapes</text>
+</a>
+</g>
+</g>
+<!-- program~randblock&#45;&gt;module~shapes -->
+<g id="program~~randblock~~UsesGraph_edge3" class="edge">
+<title>program~randblock&#45;&gt;module~shapes</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M304.7469,-121.9987C295.8067,-118.1326 285.7625,-113.7892 276.3013,-109.6978"/>
+<polygon fill="#000000" stroke="#000000" points="277.6647,-106.4742 267.0969,-105.7176 274.8863,-112.8992 277.6647,-106.4742"/>
+</g>
+<!-- module~random&#45;&gt;iso_fortran_env -->
+<g id="program~~randblock~~UsesGraph_edge4" class="edge">
+<title>module~random&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M122.85,-128.9014C114.9694,-127.4215 106.0755,-125.7513 97.1661,-124.0781"/>
+<polygon fill="#000000" stroke="#000000" points="97.628,-120.6038 87.1537,-122.1979 96.3359,-127.4835 97.628,-120.6038"/>
+</g>
+<!-- module~shapes&#45;&gt;iso_fortran_env -->
+<g id="program~~randblock~~UsesGraph_edge7" class="edge">
+<title>module~shapes&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M212.6775,-96.7809C182.9887,-99.8027 134.7984,-104.7075 97.4298,-108.511"/>
+<polygon fill="#000000" stroke="#000000" points="96.7954,-105.0574 87.2012,-109.552 97.5043,-112.0214 96.7954,-105.0574"/>
+</g>
+<!-- module~shapes&#45;&gt;module~random -->
+<g id="program~~randblock~~UsesGraph_edge5" class="edge">
+<title>module~shapes&#45;&gt;module~random</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M212.997,-106.0013C204.7078,-109.6854 195.4431,-113.8031 186.6234,-117.7229"/>
+<polygon fill="#000000" stroke="#000000" points="185.0116,-114.6091 177.295,-121.8689 187.8546,-121.0058 185.0116,-114.6091"/>
+</g>
+<!-- module~rotflip -->
+<g id="program~~randblock~~UsesGraph_node5" class="node">
+<title>module~rotflip</title>
+<g id="a_program~~randblock~~UsesGraph_node5"><a xlink:href=".././module/rotflip.html" xlink:title="rotflip">
+<polygon fill="#337ab7" stroke="#337ab7" points="177,-66 123,-66 123,-42 177,-42 177,-66"/>
+<text text-anchor="middle" x="150" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">rotflip</text>
+</a>
+</g>
+</g>
+<!-- module~shapes&#45;&gt;module~rotflip -->
+<g id="program~~randblock~~UsesGraph_edge6" class="edge">
+<title>module~shapes&#45;&gt;module~rotflip</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M212.997,-81.9987C204.7078,-78.3146 195.4431,-74.1969 186.6234,-70.2771"/>
+<polygon fill="#000000" stroke="#000000" points="187.8546,-66.9942 177.295,-66.1311 185.0116,-73.3909 187.8546,-66.9942"/>
+</g>
+<!-- module~fields -->
+<g id="program~~randblock~~UsesGraph_node6" class="node">
+<title>module~fields</title>
+<g id="a_program~~randblock~~UsesGraph_node6"><a xlink:href=".././module/fields.html" xlink:title="fields">
+<polygon fill="#337ab7" stroke="#337ab7" points="177,-24 123,-24 123,0 177,0 177,-24"/>
+<text text-anchor="middle" x="150" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">fields</text>
+</a>
+</g>
+</g>
+<!-- module~shapes&#45;&gt;module~fields -->
+<g id="program~~randblock~~UsesGraph_edge8" class="edge">
+<title>module~shapes&#45;&gt;module~fields</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M228.2873,-81.9081C215.9031,-69.3044 195.6207,-49.1728 177,-33 176.0417,-32.1677 175.0551,-31.3279 174.0518,-30.4878"/>
+<polygon fill="#000000" stroke="#000000" points="176.1975,-27.7217 166.2203,-24.1571 171.7969,-33.1656 176.1975,-27.7217"/>
+</g>
+<!-- module~rotflip&#45;&gt;iso_fortran_env -->
+<g id="program~~randblock~~UsesGraph_edge9" class="edge">
+<title>module~rotflip&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M128.4481,-66.1419C112.8579,-74.9251 91.5683,-86.9193 74.2026,-96.7028"/>
+<polygon fill="#000000" stroke="#000000" points="72.0143,-93.9183 65.0198,-101.8762 75.4503,-100.017 72.0143,-93.9183"/>
+</g>
+<!-- iso_c_binding -->
+<g id="program~~randblock~~UsesGraph_node7" class="node">
+<title>iso_c_binding</title>
+<g id="a_program~~randblock~~UsesGraph_node7"><a xlink:href="http://fortranwiki.org/fortran/show/ISO_C_BINDING" xlink:title="iso_c_binding">
+<polygon fill="#337ab7" stroke="#337ab7" points="82.5,-24 4.5,-24 4.5,0 82.5,0 82.5,-24"/>
+<text text-anchor="middle" x="43.5" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">iso_c_binding</text>
+</a>
+</g>
+</g>
+<!-- module~fields&#45;&gt;iso_c_binding -->
+<g id="program~~randblock~~UsesGraph_edge10" class="edge">
+<title>module~fields&#45;&gt;iso_c_binding</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M122.85,-12C113.6983,-12 103.1802,-12 92.8581,-12"/>
+<polygon fill="#000000" stroke="#000000" points="92.6593,-8.5001 82.6593,-12 92.6593,-15.5001 92.6593,-8.5001"/>
+</g>
+</g>
+</svg>
+</div><div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div><div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="-graph-help-label">Graph Key</h4></div><div class="modal-body">
+    <p>Nodes of different colours represent the following: </p>
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="490pt" height="32pt"
+ viewBox="0.00 0.00 489.50 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
+<title>Graph Key</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-28 485.5,-28 485.5,4 -4,4"/>
+<!-- Module -->
+<g id="node1" class="node">
+<title>Module</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="54,-24 0,-24 0,0 54,0 54,-24"/>
+<text text-anchor="middle" x="27" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Module</text>
+</g>
+<!-- Submodule -->
+<g id="node2" class="node">
+<title>Submodule</title>
+<polygon fill="#5bc0de" stroke="#5bc0de" points="139.5,-24 72.5,-24 72.5,0 139.5,0 139.5,-24"/>
+<text text-anchor="middle" x="106" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Submodule</text>
+</g>
+<!-- Subroutine -->
+<g id="node3" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="222,-24 158,-24 158,0 222,0 222,-24"/>
+<text text-anchor="middle" x="190" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node4" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="294,-24 240,-24 240,0 294,0 294,-24"/>
+<text text-anchor="middle" x="267" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Function</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="366,-24 312,-24 312,0 366,0 366,-24"/>
+<text text-anchor="middle" x="339" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="#000000" points="481.5,-24 384.5,-24 384.5,0 481.5,0 481.5,-24"/>
+<text text-anchor="middle" x="433" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+    
+    <p>Solid arrows point from a submodule to the (sub)module which it is
+    descended from. Dashed arrows point from a module or program unit to 
+    modules which it uses.
+    </p>
+    </div></div></div></div>
+      </li>
+      
+      </ul>
+    </div>
+    
+
+    
+    
+    <br>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">Calls</h3>
+      </div>
+      <div class="panel-body">
+  <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: program~~randblock~~CallsGraph Pages: 1 -->
+<svg id="programrandblockCallsGraph" width="452pt" height="171pt"
+ viewBox="0.00 0.00 452.00 170.86" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="program~~randblock~~CallsGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 166.8589)">
+<title>program~~randblock~~CallsGraph</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-166.8589 448,-166.8589 448,4 -4,4"/>
+<!-- program~randblock -->
+<g id="program~~randblock~~CallsGraph_node1" class="node">
+<title>program~randblock</title>
+<polygon fill="none" stroke="#000000" points="59,-107 0,-107 0,-83 59,-83 59,-107"/>
+<text text-anchor="middle" x="29.5" y="-92.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">randblock</text>
+</g>
+<!-- interface~mean -->
+<g id="program~~randblock~~CallsGraph_node2" class="node">
+<title>interface~mean</title>
+<g id="a_program~~randblock~~CallsGraph_node2"><a xlink:href=".././interface/mean.html" xlink:title="mean">
+<polygon fill="#a7506f" stroke="#a7506f" points="344,-66 290,-66 290,-42 344,-42 344,-66"/>
+<text text-anchor="middle" x="317" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">mean</text>
+</a>
+</g>
+</g>
+<!-- program~randblock&#45;&gt;interface~mean -->
+<g id="program~~randblock~~CallsGraph_edge1" class="edge">
+<title>program~randblock&#45;&gt;interface~mean</title>
+<path fill="none" stroke="#000000" d="M37.9952,-107.2315C49.1108,-122.0406 70.1292,-146.2125 95,-156 123.5365,-167.2301 133.9721,-162.2263 164,-156 206.6861,-147.149 217.9503,-141.5125 254,-117 271.7956,-104.8996 288.8557,-87.3445 300.7238,-73.8374"/>
+<polygon fill="#000000" stroke="#000000" points="303.5584,-75.9081 307.4027,-66.0353 298.2407,-71.3559 303.5584,-75.9081"/>
+</g>
+<!-- proc~gen_type -->
+<g id="program~~randblock~~CallsGraph_node3" class="node">
+<title>proc~gen_type</title>
+<g id="a_program~~randblock~~CallsGraph_node3"><a xlink:href=".././proc/gen_type.html" xlink:title="gen_type">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="158,-147 101,-147 101,-123 158,-123 158,-147"/>
+<text text-anchor="middle" x="129.5" y="-132.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">gen_type</text>
+</a>
+</g>
+</g>
+<!-- program~randblock&#45;&gt;proc~gen_type -->
+<g id="program~~randblock~~CallsGraph_edge2" class="edge">
+<title>program~randblock&#45;&gt;proc~gen_type</title>
+<path fill="none" stroke="#000000" d="M59.2325,-106.893C69.2826,-110.913 80.6477,-115.4591 91.2629,-119.7051"/>
+<polygon fill="#000000" stroke="#000000" points="90.1568,-123.0323 100.7414,-123.4966 92.7566,-116.5329 90.1568,-123.0323"/>
+</g>
+<!-- interface~std -->
+<g id="program~~randblock~~CallsGraph_node4" class="node">
+<title>interface~std</title>
+<g id="a_program~~randblock~~CallsGraph_node4"><a xlink:href=".././interface/std.html" xlink:title="std">
+<polygon fill="#a7506f" stroke="#a7506f" points="156.5,-25 102.5,-25 102.5,-1 156.5,-1 156.5,-25"/>
+<text text-anchor="middle" x="129.5" y="-10.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">std</text>
+</a>
+</g>
+</g>
+<!-- program~randblock&#45;&gt;interface~std -->
+<g id="program~~randblock~~CallsGraph_edge3" class="edge">
+<title>program~randblock&#45;&gt;interface~std</title>
+<path fill="none" stroke="#000000" d="M40.9274,-82.9902C53.5184,-70.0949 74.6865,-49.3885 95,-34 96.3833,-32.9521 97.8217,-31.9105 99.2914,-30.8838"/>
+<polygon fill="#000000" stroke="#000000" points="101.4591,-33.6472 107.8887,-25.2263 97.6112,-27.7997 101.4591,-33.6472"/>
+</g>
+<!-- proc~randint -->
+<g id="program~~randblock~~CallsGraph_node5" class="node">
+<title>proc~randint</title>
+<g id="a_program~~randblock~~CallsGraph_node5"><a xlink:href=".././proc/randint.html" xlink:title="randint">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="254,-108 200,-108 200,-84 254,-84 254,-108"/>
+<text text-anchor="middle" x="227" y="-93.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">randint</text>
+</a>
+</g>
+</g>
+<!-- program~randblock&#45;&gt;proc~randint -->
+<g id="program~~randblock~~CallsGraph_edge4" class="edge">
+<title>program~randblock&#45;&gt;proc~randint</title>
+<path fill="none" stroke="#000000" d="M59.0677,-95.1497C93.8877,-95.326 151.7698,-95.6191 189.6566,-95.8109"/>
+<polygon fill="#000000" stroke="#000000" points="189.7589,-99.3114 199.7766,-95.8622 189.7944,-92.3115 189.7589,-99.3114"/>
+</g>
+<!-- proc~random_init -->
+<g id="program~~randblock~~CallsGraph_node6" class="node">
+<title>proc~random_init</title>
+<g id="a_program~~randblock~~CallsGraph_node6"><a xlink:href=".././proc/random_init.html" xlink:title="random_init">
+<polygon fill="#d9534f" stroke="#d9534f" points="164,-67 95,-67 95,-43 164,-43 164,-67"/>
+<text text-anchor="middle" x="129.5" y="-52.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">random_init</text>
+</a>
+</g>
+</g>
+<!-- program~randblock&#45;&gt;proc~random_init -->
+<g id="program~~randblock~~CallsGraph_edge5" class="edge">
+<title>program~randblock&#45;&gt;proc~random_init</title>
+<path fill="none" stroke="#000000" d="M59.2325,-83.107C68.831,-79.2676 79.629,-74.9484 89.8276,-70.869"/>
+<polygon fill="#000000" stroke="#000000" points="91.3783,-74.0184 99.3632,-67.0547 88.7786,-67.519 91.3783,-74.0184"/>
+</g>
+<!-- proc~mean_real -->
+<g id="program~~randblock~~CallsGraph_node9" class="node">
+<title>proc~mean_real</title>
+<g id="a_program~~randblock~~CallsGraph_node9"><a xlink:href=".././proc/mean_real.html" xlink:title="mean_real">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="444,-87 380,-87 380,-63 444,-63 444,-87"/>
+<text text-anchor="middle" x="412" y="-72.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">mean_real</text>
+</a>
+</g>
+</g>
+<!-- interface~mean&#45;&gt;proc~mean_real -->
+<g id="program~~randblock~~CallsGraph_edge6" class="edge">
+<title>interface~mean&#45;&gt;proc~mean_real</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M344.2232,-60.0178C352.1836,-61.7774 361.0794,-63.7439 369.74,-65.6583"/>
+<polygon fill="#000000" stroke="#000000" points="369.2088,-69.1253 379.7286,-67.8663 370.7198,-62.2903 369.2088,-69.1253"/>
+</g>
+<!-- proc~mean_int -->
+<g id="program~~randblock~~CallsGraph_node10" class="node">
+<title>proc~mean_int</title>
+<g id="a_program~~randblock~~CallsGraph_node10"><a xlink:href=".././proc/mean_int.html" xlink:title="mean_int">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="440.5,-45 383.5,-45 383.5,-21 440.5,-21 440.5,-45"/>
+<text text-anchor="middle" x="412" y="-30.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">mean_int</text>
+</a>
+</g>
+</g>
+<!-- interface~mean&#45;&gt;proc~mean_int -->
+<g id="program~~randblock~~CallsGraph_edge7" class="edge">
+<title>interface~mean&#45;&gt;proc~mean_int</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M344.2232,-47.9822C353.3385,-45.9673 363.6802,-43.6812 373.4908,-41.5126"/>
+<polygon fill="#000000" stroke="#000000" points="374.4398,-44.8874 383.4486,-39.3114 372.9288,-38.0524 374.4398,-44.8874"/>
+</g>
+<!-- proc~gen_type&#45;&gt;proc~randint -->
+<g id="program~~randblock~~CallsGraph_edge8" class="edge">
+<title>proc~gen_type&#45;&gt;proc~randint</title>
+<path fill="none" stroke="#000000" d="M158.2259,-123.5097C168.2894,-119.4842 179.731,-114.9076 190.3539,-110.6584"/>
+<polygon fill="#000000" stroke="#000000" points="191.8316,-113.837 199.8165,-106.8734 189.2319,-107.3377 191.8316,-113.837"/>
+</g>
+<!-- proc~std_int -->
+<g id="program~~randblock~~CallsGraph_node7" class="node">
+<title>proc~std_int</title>
+<g id="a_program~~randblock~~CallsGraph_node7"><a xlink:href=".././proc/std_int.html" xlink:title="std_int">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="254,-66 200,-66 200,-42 254,-42 254,-66"/>
+<text text-anchor="middle" x="227" y="-51.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">std_int</text>
+</a>
+</g>
+</g>
+<!-- interface~std&#45;&gt;proc~std_int -->
+<g id="program~~randblock~~CallsGraph_edge9" class="edge">
+<title>interface~std&#45;&gt;proc~std_int</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M156.6592,-24.4208C167.1185,-28.8191 179.2395,-33.9161 190.4425,-38.6271"/>
+<polygon fill="#000000" stroke="#000000" points="189.4116,-41.9904 199.9865,-42.6405 192.1251,-35.5377 189.4116,-41.9904"/>
+</g>
+<!-- proc~std_real -->
+<g id="program~~randblock~~CallsGraph_node8" class="node">
+<title>proc~std_real</title>
+<g id="a_program~~randblock~~CallsGraph_node8"><a xlink:href=".././proc/std_real.html" xlink:title="std_real">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="254,-24 200,-24 200,0 254,0 254,-24"/>
+<text text-anchor="middle" x="227" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">std_real</text>
+</a>
+</g>
+</g>
+<!-- interface~std&#45;&gt;proc~std_real -->
+<g id="program~~randblock~~CallsGraph_edge10" class="edge">
+<title>interface~std&#45;&gt;proc~std_real</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M156.6592,-12.7214C166.9072,-12.6163 178.7505,-12.4949 189.7625,-12.3819"/>
+<polygon fill="#000000" stroke="#000000" points="190.0229,-15.8795 199.9865,-12.2771 189.9511,-8.8799 190.0229,-15.8795"/>
+</g>
+<!-- proc~random_init&#45;&gt;proc~randint -->
+<g id="program~~randblock~~CallsGraph_edge11" class="edge">
+<title>proc~random_init&#45;&gt;proc~randint</title>
+<path fill="none" stroke="#000000" d="M158.2259,-67.0796C168.2894,-71.3115 179.731,-76.1228 190.3539,-80.5898"/>
+<polygon fill="#000000" stroke="#000000" points="189.2416,-83.9189 199.8165,-84.569 191.9551,-77.4662 189.2416,-83.9189"/>
+</g>
+<!-- proc~std_int&#45;&gt;interface~mean -->
+<g id="program~~randblock~~CallsGraph_edge12" class="edge">
+<title>proc~std_int&#45;&gt;interface~mean</title>
+<path fill="none" stroke="#000000" d="M254.003,-54C262.0277,-54 270.9665,-54 279.5309,-54"/>
+<polygon fill="#000000" stroke="#000000" points="279.7051,-57.5001 289.705,-54 279.705,-50.5001 279.7051,-57.5001"/>
+</g>
+<!-- proc~std_real&#45;&gt;interface~mean -->
+<g id="program~~randblock~~CallsGraph_edge13" class="edge">
+<title>proc~std_real&#45;&gt;interface~mean</title>
+<path fill="none" stroke="#000000" d="M253.0317,-24.1481C261.987,-28.3273 272.1691,-33.0789 281.7348,-37.5429"/>
+<polygon fill="#000000" stroke="#000000" points="280.4848,-40.8219 291.0268,-41.8792 283.4451,-34.4786 280.4848,-40.8219"/>
+</g>
+</g>
+</svg>
+</div><div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div><div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="-graph-help-label">Graph Key</h4></div><div class="modal-body">
+    <p>Nodes of different colours represent the following: </p>
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="560pt" height="32pt"
+ viewBox="0.00 0.00 559.50 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
+<title>Graph Key</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-28 555.5,-28 555.5,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="64,-24 0,-24 0,0 64,0 64,-24"/>
+<text text-anchor="middle" x="32" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="136,-24 82,-24 82,0 136,0 136,-24"/>
+<text text-anchor="middle" x="109" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="209.5,-24 154.5,-24 154.5,0 209.5,0 209.5,-24"/>
+<text text-anchor="middle" x="182" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Interface</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node4" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="364,-24 228,-24 228,0 364,0 364,-24"/>
+<text text-anchor="middle" x="296" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="436,-24 382,-24 382,0 436,0 436,-24"/>
+<text text-anchor="middle" x="409" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="#000000" points="551.5,-24 454.5,-24 454.5,0 551.5,0 551.5,-24"/>
+<text text-anchor="middle" x="503" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+    
+    <p>Solid arrows point from a procedure to one which it calls. Dashed 
+    arrows point from an interface to procedures which implement that interface.
+    This could include the module procedures in a generic interface or the
+    implementation in a submodule of an interface in a parent module.
+    </p>
+    </div></div></div></div>
+      </div>
+    </div>
+     
+    <br>
+
+     <section class="visible-xs visible-sm hidden-md">
+       
+<h3>Contents</h3>
+ 
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#vars-1">Variables</a></h3></div>
+  <div id="vars-1" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-types">types</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-ntypes">Ntypes</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-rtol">rtol</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-ideal">ideal</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-b">b</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-e">e</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-f">f</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-g">g</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-i~2">i</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-n">n</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-c">c</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-u">u</a>
+      
+      <a class="list-group-item" href="../program/randblock.html#variable-buf~2">buf</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     </section>
+     <br class="visible-xs visible-sm hidden-md">
+
+     
+
+    
+    <section>
+    <h2>Variables</h2>
+    
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+
+<th>Attributes</th><th></th><th>Name</th><th></th><th>Initial</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-types"></span>character(len=*),</td>
+  
+  
+  <td>parameter</td><td>::</td>
+  <td><strong>types</strong></td><td> =</td><td>'ITLJSZOD'</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-ntypes"></span>integer,</td>
+  
+  
+  <td>parameter</td><td>::</td>
+  <td><strong>Ntypes</strong></td><td> =</td><td>len(types)</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-rtol"></span>real,</td>
+  
+  
+  <td>parameter</td><td>::</td>
+  <td><strong>rtol</strong></td><td> =</td><td>0.01</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-ideal"></span>real</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>ideal</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-b"></span>character,</td>
+  
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>b</strong>(:)</td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-e"></span>real,</td>
+  
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>e</strong>(:)</td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-f"></span>integer,</td>
+  
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>f</strong>(:)</td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-g"></span>integer,</td>
+  
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>g</strong>(:)</td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-i~2"></span>integer</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>i</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-n"></span>integer</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>n</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-c"></span>integer</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>c</strong>(Ntypes)</td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-u"></span>integer</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>u</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-buf~2"></span>character(len=16)</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>buf</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+    </section>
+    <br>
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+
+
+    
+    
+    
+    
+    </div>
+  </div>
+
+  
+    <hr>    
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-md-4"><p>&copy; 2018 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+                                          </p></div>
+        <div class="col-xs-6 col-md-4 col-md-push-4">
+          <p class="text-right">
+            Documentation generated by 
+            <a href="https://github.com/cmacmackin/ford">FORD</a>
+            
+          </p>
+        </div>
+        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> Tetran was developed by Michael Hirsch Ph.D.</p></div>
+      </div>
+      <br>
+      </div> <!-- /container -->    
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+-->
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- MathJax JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+        jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+        extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+      });
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+    <script src="../tipuesearch/tipuesearch_content.js"></script>
+    <script src="../tipuesearch/tipuesearch_set.js"></script>
+    <script src="../tipuesearch/tipuesearch.js"></script>
+    
+    
+  </body>
+</html>

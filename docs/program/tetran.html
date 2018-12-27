@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+   <meta name="description" content="object-oriented Fortran falling-block game">
+    
+    <meta name="author" content="Michael Hirsch Ph.D." >
+    <link rel="icon" href="../favicon.png">
+
+    <title>tetran &ndash; Tetran</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/local.css" rel="stylesheet">
+    
+    <link  href="../tipuesearch/tipuesearch.css" rel="stylesheet">
+    
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="../js/jquery-2.1.3.min.js"></script>
+    <script src="../js/svg-pan-zoom.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../index.html">Tetran </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+        
+            <li class="dropdown hidden-xs visible-sm visible-md hidden-lg">
+              <a href="#" class="dropdown-toggle"
+              data-toggle="dropdown" role="button"
+              aria-haspopup="true"
+     aria-expanded="false">Contents <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          
+              
+            <li><a href="../lists/files.html">Source Files</a></li>
+        
+        
+        
+            <li><a href="../lists/modules.html">Modules</a></li>
+        
+            
+                                
+            <li><a href="../lists/procedures.html">Procedures</a></li>
+        
+               
+            <li><a href="../lists/types.html">Derived Types</a></li>
+        
+        
+            <li><a href="../lists/programs.html">Programs</a></li>
+        
+            </ul>
+            </li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/files.html">Source Files</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/modules.html">Modules</a></li>
+
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/procedures.html">Procedures</a></li>
+
+                             
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/types.html">Derived Types</a></li>
+
+
+<li class="visible-xs hidden-sm visible-lg"><a href="../lists/programs.html">Programs</a></li>
+
+          </ul>
+        
+        <form action="../search.html" class="navbar-form navbar-right" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+        </div>
+<!--
+        <button type="submit" class="btn btn-default">Submit</button>
+-->
+        </form>
+        
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+    
+  
+  <div class="row">
+    <h1>tetran
+    <small>Program</small>
+    
+    </h1>
+    
+<div class="row">
+  <div class="col-lg-12">
+<div class="well well-sm">
+  <ul class="list-inline" style="margin-bottom:0px;display:inline">
+     
+     
+     
+     
+    
+    
+     <li><i class="fa fa-list-ol"></i>
+       <a data-toggle="tooltip"
+    data-placement="bottom" data-html="true"
+    title="27.2% of total for programs.">148 statements</a>
+     </li> 
+     
+     
+     
+    <li><i class="fa fa-code"></i><a href="../src/main.f90"> Source File</a></li>
+     
+     
+  </ul>
+  <ol class="breadcrumb in-well text-right">
+  
+    
+     <li><a href='../sourcefile/main.f90.html'>main.f90</a></li>
+    
+  
+     <li class="active">tetran</li>
+  </ol>
+</div>
+</div>
+</div>
+<script>
+  $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
+    
+<div id="sidebar">
+  
+<h3>Contents</h3>
+ 
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#vars-0">Variables</a></h3></div>
+  <div id="vars-0" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-stdscr~2">stdscr</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-trate">trate</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-difffact~4">difffact</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-w~5">W</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-h~5">H</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-players~2">players</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-i">i</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-x0~4">x0</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-debug~4">debug</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-update">update</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-isai">isAI</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-f~15">F</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-p~15">P</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-np~6">NP</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#subs-0">Subroutines</a></h3></div>
+  <div class="list-group">
+    <div id="subs-0" class="panel-collapse collapse">
+      
+      <a class="list-group-item" href="../program/tetran.html#proc-main">main</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#proc-redraw">redraw</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#proc-cmd_parse">cmd_parse</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#proc-draw_screen">draw_screen</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#proc-draw_score">draw_score</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+    </div>
+    
+    <div class="col-md-9" id='text'>
+    
+  
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">Uses</h3>
+      </div>
+      <ul class="list-group">
+      
+      <li class="list-group-item">
+  <ul class="list-inline">
+    
+    <li><a href='../module/menu.html'>menu</a></li>
+    
+    <li><a href='../module/cinter.html'>cinter</a></li>
+    
+    <li><a href='../module/errs.html'>errs</a></li>
+    
+    <li><a href='../module/blocks.html'>blocks</a></li>
+    
+    <li><a href='../module/shapes.html'>shapes</a></li>
+    
+    <li><a href='../module/fields.html'>fields</a></li>
+    
+    <li><a href='../module/random.html'>random</a></li>
+    
+    <li><a href='../module/keys.html'>keys</a></li>
+    
+    <li><a href="http://fortranwiki.org/fortran/show/ISO_C_BINDING">iso_c_binding</a></li>
+    
+  </ul>
+      </li>
+      
+      
+      
+      <li class="list-group-item">
+  <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: program~~tetran~~UsesGraph Pages: 1 -->
+<svg id="programtetranUsesGraph" width="545pt" height="342pt"
+ viewBox="0.00 0.00 545.00 342.42" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="program~~tetran~~UsesGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 338.4175)">
+<title>program~~tetran~~UsesGraph</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-338.4175 541,-338.4175 541,4 -4,4"/>
+<!-- program~tetran -->
+<g id="program~~tetran~~UsesGraph_node1" class="node">
+<title>program~tetran</title>
+<polygon fill="none" stroke="#000000" points="537,-144.7203 483,-144.7203 483,-120.7203 537,-120.7203 537,-144.7203"/>
+<text text-anchor="middle" x="510" y="-130.3203" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">tetran</text>
+</g>
+<!-- module~errs -->
+<g id="program~~tetran~~UsesGraph_node2" class="node">
+<title>module~errs</title>
+<g id="a_program~~tetran~~UsesGraph_node2"><a xlink:href=".././module/errs.html" xlink:title="errs">
+<polygon fill="#337ab7" stroke="#337ab7" points="357,-64.7203 303,-64.7203 303,-40.7203 357,-40.7203 357,-64.7203"/>
+<text text-anchor="middle" x="330" y="-50.3203" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">errs</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;module~errs -->
+<g id="program~~tetran~~UsesGraph_edge1" class="edge">
+<title>program~tetran&#45;&gt;module~errs</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M420,-12.7203C395.6068,-3.6967 368.4272,-19.5182 350.3843,-33.8458"/>
+<polygon fill="#000000" stroke="#000000" points="347.7069,-31.5248 342.3131,-40.6439 352.2164,-36.8788 347.7069,-31.5248"/>
+</g>
+<!-- module~fields -->
+<g id="program~~tetran~~UsesGraph_node3" class="node">
+<title>module~fields</title>
+<g id="a_program~~tetran~~UsesGraph_node3"><a xlink:href=".././module/fields.html" xlink:title="fields">
+<polygon fill="#337ab7" stroke="#337ab7" points="177,-258.7203 123,-258.7203 123,-234.7203 177,-234.7203 177,-258.7203"/>
+<text text-anchor="middle" x="150" y="-244.3203" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">fields</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;module~fields -->
+<g id="program~~tetran~~UsesGraph_edge2" class="edge">
+<title>program~tetran&#45;&gt;module~fields</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M504.3442,-144.7597C494.6405,-164.5408 473.3009,-204.4415 447,-231.7203 376.481,-304.8615 339.2882,-350.2706 240,-328.7203"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M240,-328.7203C205.2746,-322.3853 177.5568,-289.4231 162.4803,-267.2679"/>
+<polygon fill="#000000" stroke="#000000" points="165.3723,-265.2949 156.9833,-258.8237 159.5058,-269.1139 165.3723,-265.2949"/>
+</g>
+<!-- module~cinter -->
+<g id="program~~tetran~~UsesGraph_node4" class="node">
+<title>module~cinter</title>
+<g id="a_program~~tetran~~UsesGraph_node4"><a xlink:href=".././module/cinter.html" xlink:title="cinter">
+<polygon fill="#337ab7" stroke="#337ab7" points="267,-140.7203 213,-140.7203 213,-116.7203 267,-116.7203 267,-140.7203"/>
+<text text-anchor="middle" x="240" y="-126.3203" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">cinter</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;module~cinter -->
+<g id="program~~tetran~~UsesGraph_edge3" class="edge">
+<title>program~tetran&#45;&gt;module~cinter</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M482.7562,-131.3273C464.8714,-130.7555 440.9911,-130.6418 420,-132.7203"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M420,-132.7203C380.1848,-136.6628 369.8373,-127.008 330,-130.7203"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M330,-130.7203C312.7669,-132.3262 293.6016,-132.1685 277.4007,-131.4725"/>
+<polygon fill="#000000" stroke="#000000" points="277.3988,-127.9678 267.2325,-130.9504 277.0399,-134.9586 277.3988,-127.9678"/>
+</g>
+<!-- iso_c_binding -->
+<g id="program~~tetran~~UsesGraph_node5" class="node">
+<title>iso_c_binding</title>
+<g id="a_program~~tetran~~UsesGraph_node5"><a xlink:href="http://fortranwiki.org/fortran/show/ISO_C_BINDING" xlink:title="iso_c_binding">
+<polygon fill="#337ab7" stroke="#337ab7" points="82.5,-100.7203 4.5,-100.7203 4.5,-76.7203 82.5,-76.7203 82.5,-100.7203"/>
+<text text-anchor="middle" x="43.5" y="-86.3203" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">iso_c_binding</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;iso_c_binding -->
+<g id="program~~tetran~~UsesGraph_edge4" class="edge">
+<title>program~tetran&#45;&gt;iso_c_binding</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M240,-328.7203C182.3091,-318.1956 163.1483,-310.4653 123,-267.7203 79.751,-221.6742 57.4055,-148.1894 48.4009,-111.3412"/>
+<polygon fill="#000000" stroke="#000000" points="51.7049,-110.0972 46.0264,-101.1527 44.8876,-111.6861 51.7049,-110.0972"/>
+</g>
+<!-- module~random -->
+<g id="program~~tetran~~UsesGraph_node6" class="node">
+<title>module~random</title>
+<g id="a_program~~tetran~~UsesGraph_node6"><a xlink:href=".././module/random.html" xlink:title="random">
+<polygon fill="#337ab7" stroke="#337ab7" points="177,-59.7203 123,-59.7203 123,-35.7203 177,-35.7203 177,-59.7203"/>
+<text text-anchor="middle" x="150" y="-45.3203" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">random</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;module~random -->
+<g id="program~~tetran~~UsesGraph_edge5" class="edge">
+<title>program~tetran&#45;&gt;module~random</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M505.9766,-120.6C496.3027,-93.8682 468.8482,-30.7905 420,-12.7203"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M420,-12.7203C340.2887,16.7668 239.3521,-12.435 186.3308,-32.4291"/>
+<polygon fill="#000000" stroke="#000000" points="185.0665,-29.1654 177.0041,-36.0391 187.5933,-35.6934 185.0665,-29.1654"/>
+</g>
+<!-- module~shapes -->
+<g id="program~~tetran~~UsesGraph_node7" class="node">
+<title>module~shapes</title>
+<g id="a_program~~tetran~~UsesGraph_node7"><a xlink:href=".././module/shapes.html" xlink:title="shapes">
+<polygon fill="#337ab7" stroke="#337ab7" points="267,-182.7203 213,-182.7203 213,-158.7203 267,-158.7203 267,-182.7203"/>
+<text text-anchor="middle" x="240" y="-168.3203" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">shapes</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;module~shapes -->
+<g id="program~~tetran~~UsesGraph_edge6" class="edge">
+<title>program~tetran&#45;&gt;module~shapes</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M330,-130.7203C307.4473,-132.822 284.1362,-143.459 266.8903,-153.2354"/>
+<polygon fill="#000000" stroke="#000000" points="264.7946,-150.4089 257.9765,-158.5184 268.3636,-156.4306 264.7946,-150.4089"/>
+</g>
+<!-- module~menu -->
+<g id="program~~tetran~~UsesGraph_node8" class="node">
+<title>module~menu</title>
+<g id="a_program~~tetran~~UsesGraph_node8"><a xlink:href=".././module/menu.html" xlink:title="menu">
+<polygon fill="#337ab7" stroke="#337ab7" points="447,-104.7203 393,-104.7203 393,-80.7203 447,-80.7203 447,-104.7203"/>
+<text text-anchor="middle" x="420" y="-90.3203" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">menu</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;module~menu -->
+<g id="program~~tetran~~UsesGraph_edge7" class="edge">
+<title>program~tetran&#45;&gt;module~menu</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M482.997,-120.719C474.7078,-117.0349 465.4431,-112.9173 456.6234,-108.9974"/>
+<polygon fill="#000000" stroke="#000000" points="457.8546,-105.7145 447.295,-104.8514 455.0116,-112.1112 457.8546,-105.7145"/>
+</g>
+<!-- module~blocks -->
+<g id="program~~tetran~~UsesGraph_node9" class="node">
+<title>module~blocks</title>
+<g id="a_program~~tetran~~UsesGraph_node9"><a xlink:href=".././module/blocks.html" xlink:title="blocks">
+<polygon fill="#337ab7" stroke="#337ab7" points="357,-182.7203 303,-182.7203 303,-158.7203 357,-158.7203 357,-182.7203"/>
+<text text-anchor="middle" x="330" y="-168.3203" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">blocks</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;module~blocks -->
+<g id="program~~tetran~~UsesGraph_edge8" class="edge">
+<title>program~tetran&#45;&gt;module~blocks</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M420,-132.7203C398.069,-134.8919 375.2147,-144.6488 358.0243,-153.7315"/>
+<polygon fill="#000000" stroke="#000000" points="356.1639,-150.7605 349.0986,-158.6556 359.5453,-156.8896 356.1639,-150.7605"/>
+</g>
+<!-- module~keys -->
+<g id="program~~tetran~~UsesGraph_node10" class="node">
+<title>module~keys</title>
+<g id="a_program~~tetran~~UsesGraph_node10"><a xlink:href=".././module/keys.html" xlink:title="keys">
+<polygon fill="#337ab7" stroke="#337ab7" points="447,-222.7203 393,-222.7203 393,-198.7203 447,-198.7203 447,-222.7203"/>
+<text text-anchor="middle" x="420" y="-208.3203" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">keys</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;module~keys -->
+<g id="program~~tetran~~UsesGraph_edge9" class="edge">
+<title>program~tetran&#45;&gt;module~keys</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M495.9375,-144.9078C481.4072,-157.5008 458.536,-177.3224 441.6879,-191.9242"/>
+<polygon fill="#000000" stroke="#000000" points="439.2284,-189.4242 433.9638,-198.6184 443.8129,-194.714 439.2284,-189.4242"/>
+</g>
+<!-- module~errs&#45;&gt;module~cinter -->
+<g id="program~~tetran~~UsesGraph_edge10" class="edge">
+<title>module~errs&#45;&gt;module~cinter</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M315.5399,-64.9311C301.1068,-77.1191 278.7373,-96.0089 262.0817,-110.0736"/>
+<polygon fill="#000000" stroke="#000000" points="259.8063,-107.414 254.4242,-116.5399 264.3226,-112.7622 259.8063,-107.414"/>
+</g>
+<!-- iso_fortran_env -->
+<g id="program~~tetran~~UsesGraph_node12" class="node">
+<title>iso_fortran_env</title>
+<g id="a_program~~tetran~~UsesGraph_node12"><a xlink:href="http://fortranwiki.org/fortran/show/ISO_FORTRAN_ENV" xlink:title="iso_fortran_env">
+<polygon fill="#337ab7" stroke="#337ab7" points="87,-58.7203 0,-58.7203 0,-34.7203 87,-34.7203 87,-58.7203"/>
+<text text-anchor="middle" x="43.5" y="-44.3203" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">iso_fortran_env</text>
+</a>
+</g>
+</g>
+<!-- module~errs&#45;&gt;iso_fortran_env -->
+<g id="program~~tetran~~UsesGraph_edge11" class="edge">
+<title>module~errs&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M302.8783,-45.0018C263.3317,-34.7269 187.5217,-18.7289 123,-26.7203 113.251,-27.9278 102.9797,-29.9381 93.1765,-32.2305"/>
+<polygon fill="#000000" stroke="#000000" points="92.0416,-28.9055 83.1715,-34.6997 93.7189,-35.7016 92.0416,-28.9055"/>
+</g>
+<!-- module~fields&#45;&gt;iso_c_binding -->
+<g id="program~~tetran~~UsesGraph_edge12" class="edge">
+<title>module~fields&#45;&gt;iso_c_binding</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M136.1074,-234.6708C131.6656,-230.482 126.895,-225.6047 123,-220.7203 94.1815,-184.5815 68.0495,-137.0954 54.1051,-110.0413"/>
+<polygon fill="#000000" stroke="#000000" points="57.1892,-108.3846 49.5367,-101.0573 50.9496,-111.5575 57.1892,-108.3846"/>
+</g>
+<!-- module~cinter&#45;&gt;iso_c_binding -->
+<g id="program~~tetran~~UsesGraph_edge13" class="edge">
+<title>module~cinter&#45;&gt;iso_c_binding</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M213.8796,-140.7486C189.792,-150.1348 153.29,-160.0021 123,-149.7203 98.7309,-141.4824 76.0664,-122.5247 61.1968,-107.9132"/>
+<polygon fill="#000000" stroke="#000000" points="63.667,-105.4333 54.1643,-100.7483 58.6713,-110.3367 63.667,-105.4333"/>
+</g>
+<!-- module~random&#45;&gt;iso_fortran_env -->
+<g id="program~~tetran~~UsesGraph_edge14" class="edge">
+<title>module~random&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M122.85,-47.4654C114.9694,-47.3914 106.0755,-47.3079 97.1661,-47.2243"/>
+<polygon fill="#000000" stroke="#000000" points="97.1862,-43.7244 87.1537,-47.1302 97.1204,-50.7241 97.1862,-43.7244"/>
+</g>
+<!-- module~shapes&#45;&gt;module~fields -->
+<g id="program~~tetran~~UsesGraph_edge18" class="edge">
+<title>module~shapes&#45;&gt;module~fields</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M225.5399,-182.9311C211.1068,-195.1191 188.7373,-214.0089 172.0817,-228.0736"/>
+<polygon fill="#000000" stroke="#000000" points="169.8063,-225.414 164.4242,-234.5399 174.3226,-230.7622 169.8063,-225.414"/>
+</g>
+<!-- module~shapes&#45;&gt;module~random -->
+<g id="program~~tetran~~UsesGraph_edge15" class="edge">
+<title>module~shapes&#45;&gt;module~random</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M222.0847,-158.6966C218.8105,-155.9926 215.6094,-152.9562 213,-149.7203 189.7899,-120.9383 198.3768,-104.8889 177,-74.7203 175.2394,-72.2356 173.2412,-69.7732 171.1475,-67.4052"/>
+<polygon fill="#000000" stroke="#000000" points="173.3174,-64.6117 163.867,-59.8221 168.2679,-69.4596 173.3174,-64.6117"/>
+</g>
+<!-- module~rotflip -->
+<g id="program~~tetran~~UsesGraph_node11" class="node">
+<title>module~rotflip</title>
+<g id="a_program~~tetran~~UsesGraph_node11"><a xlink:href=".././module/rotflip.html" xlink:title="rotflip">
+<polygon fill="#337ab7" stroke="#337ab7" points="177,-140.7203 123,-140.7203 123,-116.7203 177,-116.7203 177,-140.7203"/>
+<text text-anchor="middle" x="150" y="-126.3203" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">rotflip</text>
+</a>
+</g>
+</g>
+<!-- module~shapes&#45;&gt;module~rotflip -->
+<g id="program~~tetran~~UsesGraph_edge16" class="edge">
+<title>module~shapes&#45;&gt;module~rotflip</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M213.9683,-158.5722C205.013,-154.3931 194.8309,-149.6414 185.2652,-145.1774"/>
+<polygon fill="#000000" stroke="#000000" points="186.5152,-141.8984 175.9732,-140.8412 183.5549,-148.2417 186.5152,-141.8984"/>
+</g>
+<!-- module~shapes&#45;&gt;iso_fortran_env -->
+<g id="program~~tetran~~UsesGraph_edge17" class="edge">
+<title>module~shapes&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M212.9495,-172.7162C187.1763,-173.1704 148.6113,-169.9008 123,-149.7203 91.737,-125.0866 114.6321,-96.3676 87,-67.7203 86.083,-66.7697 85.1143,-65.8565 84.1035,-64.9799"/>
+<polygon fill="#000000" stroke="#000000" points="85.8637,-61.9354 75.6963,-58.9563 81.7867,-67.6256 85.8637,-61.9354"/>
+</g>
+<!-- module~menu&#45;&gt;module~fields -->
+<g id="program~~tetran~~UsesGraph_edge19" class="edge">
+<title>module~menu&#45;&gt;module~fields</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M240,-88.7203C225.5696,-91.3797 222.3579,-96.4182 213,-107.7203 183.3537,-143.5262 164.7518,-195.5436 155.981,-224.732"/>
+<polygon fill="#000000" stroke="#000000" points="152.6067,-223.8018 153.1923,-234.3804 159.3314,-225.7456 152.6067,-223.8018"/>
+</g>
+<!-- module~menu&#45;&gt;module~cinter -->
+<g id="program~~tetran~~UsesGraph_edge20" class="edge">
+<title>module~menu&#45;&gt;module~cinter</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M330,-92.7203C310.2584,-96.5875 289.3297,-104.6926 272.627,-112.2347"/>
+<polygon fill="#000000" stroke="#000000" points="270.9057,-109.1754 263.322,-116.574 273.8642,-115.5195 270.9057,-109.1754"/>
+</g>
+<!-- module~menu&#45;&gt;iso_c_binding -->
+<g id="program~~tetran~~UsesGraph_edge21" class="edge">
+<title>module~menu&#45;&gt;iso_c_binding</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M150,-88.7203C131.2996,-86.8942 110.664,-86.5179 92.5763,-86.7281"/>
+<polygon fill="#000000" stroke="#000000" points="92.4737,-83.2293 82.5375,-86.9063 92.5981,-90.2282 92.4737,-83.2293"/>
+</g>
+<!-- module~menu&#45;&gt;module~random -->
+<g id="program~~tetran~~UsesGraph_edge22" class="edge">
+<title>module~menu&#45;&gt;module~random</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M392.9596,-90.0276C374.9507,-88.8907 350.8537,-88.6354 330,-92.7203"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M330,-92.7203C290.7073,-100.4173 279.3764,-81.4636 240,-88.7203"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M240,-88.7203C215.041,-93.3201 188.8999,-78.9394 171.2626,-65.9632"/>
+<polygon fill="#000000" stroke="#000000" points="173.3727,-63.1704 163.3299,-59.7952 169.0759,-68.6965 173.3727,-63.1704"/>
+</g>
+<!-- module~menu&#45;&gt;module~shapes -->
+<g id="program~~tetran~~UsesGraph_edge24" class="edge">
+<title>module~menu&#45;&gt;module~shapes</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M330,-92.7203C314.244,-95.8067 314.918,-105.9622 303,-116.7203 286.8882,-131.2641 283.58,-135.7127 267,-149.7203 266.0049,-150.5611 264.982,-151.4119 263.9435,-152.265"/>
+<polygon fill="#000000" stroke="#000000" points="261.5,-149.7375 255.876,-158.7165 265.8718,-155.2045 261.5,-149.7375"/>
+</g>
+<!-- module~menu&#45;&gt;module~blocks -->
+<g id="program~~tetran~~UsesGraph_edge25" class="edge">
+<title>module~menu&#45;&gt;module~blocks</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M405.9375,-104.9078C391.4072,-117.5008 368.536,-137.3224 351.6879,-151.9242"/>
+<polygon fill="#000000" stroke="#000000" points="349.2284,-149.4242 343.9638,-158.6184 353.8129,-154.714 349.2284,-149.4242"/>
+</g>
+<!-- module~menu&#45;&gt;iso_fortran_env -->
+<g id="program~~tetran~~UsesGraph_edge23" class="edge">
+<title>module~menu&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M240,-88.7203C200.6624,-95.9699 189.8106,-92.6079 150,-88.7203"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M150,-88.7203C135.7922,-87.3329 103.9962,-74.2783 78.824,-63.0869"/>
+<polygon fill="#000000" stroke="#000000" points="80.107,-59.8263 69.5513,-58.9171 77.2361,-66.2105 80.107,-59.8263"/>
+</g>
+<!-- module~blocks&#45;&gt;module~fields -->
+<g id="program~~tetran~~UsesGraph_edge28" class="edge">
+<title>module~blocks&#45;&gt;module~fields</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M316.2445,-182.882C311.8118,-187.0782 307.0119,-191.9316 303,-196.7203 270.7021,-235.272 290.2525,-288.7032 240,-290.7203"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M240,-290.7203C214.9901,-291.7242 189.657,-277.6942 172.2679,-265.216"/>
+<polygon fill="#000000" stroke="#000000" points="174.0296,-262.1602 163.9424,-258.92 169.8074,-267.7434 174.0296,-262.1602"/>
+</g>
+<!-- module~blocks&#45;&gt;module~cinter -->
+<g id="program~~tetran~~UsesGraph_edge26" class="edge">
+<title>module~blocks&#45;&gt;module~cinter</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M303.9683,-158.5722C295.013,-154.3931 284.8309,-149.6414 275.2652,-145.1774"/>
+<polygon fill="#000000" stroke="#000000" points="276.5152,-141.8984 265.9732,-140.8412 273.5549,-148.2417 276.5152,-141.8984"/>
+</g>
+<!-- module~blocks&#45;&gt;module~shapes -->
+<g id="program~~tetran~~UsesGraph_edge27" class="edge">
+<title>module~blocks&#45;&gt;module~shapes</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M302.997,-170.7203C294.9723,-170.7203 286.0335,-170.7203 277.4691,-170.7203"/>
+<polygon fill="#000000" stroke="#000000" points="277.295,-167.2204 267.295,-170.7203 277.2949,-174.2204 277.295,-167.2204"/>
+</g>
+<!-- module~keys&#45;&gt;module~fields -->
+<g id="program~~tetran~~UsesGraph_edge29" class="edge">
+<title>module~keys&#45;&gt;module~fields</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M411.2791,-222.8171C400.3235,-237.0209 380.132,-260.1115 357,-271.7203 309.9155,-295.3499 292.6388,-288.6075 240,-290.7203"/>
+</g>
+<!-- module~keys&#45;&gt;module~cinter -->
+<g id="program~~tetran~~UsesGraph_edge30" class="edge">
+<title>module~keys&#45;&gt;module~cinter</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M392.6042,-214.8308C374.4452,-216.5663 350.3145,-216.956 330,-210.7203"/>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M330,-210.7203C292.7413,-199.2835 295.207,-176.6161 267,-149.7203 266.2049,-148.9622 265.3837,-148.204 264.5444,-147.4496"/>
+<polygon fill="#000000" stroke="#000000" points="266.6222,-144.624 256.7138,-140.8725 262.12,-149.9842 266.6222,-144.624"/>
+</g>
+<!-- module~keys&#45;&gt;module~shapes -->
+<g id="program~~tetran~~UsesGraph_edge32" class="edge">
+<title>module~keys&#45;&gt;module~shapes</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M330,-210.7203C310.3235,-204.6805 289.2522,-195.4766 272.4483,-187.4197"/>
+<polygon fill="#000000" stroke="#000000" points="273.6111,-184.0922 263.0904,-182.841 270.5346,-190.3799 273.6111,-184.0922"/>
+</g>
+<!-- module~keys&#45;&gt;module~blocks -->
+<g id="program~~tetran~~UsesGraph_edge33" class="edge">
+<title>module~keys&#45;&gt;module~blocks</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M392.997,-198.719C384.7078,-195.0349 375.4431,-190.9173 366.6234,-186.9974"/>
+<polygon fill="#000000" stroke="#000000" points="367.8546,-183.7145 357.295,-182.8514 365.0116,-190.1112 367.8546,-183.7145"/>
+</g>
+<!-- module~ai -->
+<g id="program~~tetran~~UsesGraph_node13" class="node">
+<title>module~ai</title>
+<g id="a_program~~tetran~~UsesGraph_node13"><a xlink:href=".././module/ai.html" xlink:title="AI">
+<polygon fill="#337ab7" stroke="#337ab7" points="357,-262.7203 303,-262.7203 303,-238.7203 357,-238.7203 357,-262.7203"/>
+<text text-anchor="middle" x="330" y="-248.3203" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">AI</text>
+</a>
+</g>
+</g>
+<!-- module~keys&#45;&gt;module~ai -->
+<g id="program~~tetran~~UsesGraph_edge31" class="edge">
+<title>module~keys&#45;&gt;module~ai</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M392.997,-222.7217C384.7078,-226.4058 375.4431,-230.5234 366.6234,-234.4433"/>
+<polygon fill="#000000" stroke="#000000" points="365.0116,-231.3295 357.295,-238.5892 367.8546,-237.7261 365.0116,-231.3295"/>
+</g>
+<!-- module~rotflip&#45;&gt;iso_fortran_env -->
+<g id="program~~tetran~~UsesGraph_edge34" class="edge">
+<title>module~rotflip&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M137.3509,-116.5638C132.8196,-112.2026 127.6767,-107.2454 123,-102.7203 106.9629,-87.2031 105.2839,-80.5139 87,-67.7203 85.1019,-66.3922 83.1069,-65.1061 81.058,-63.8686"/>
+<polygon fill="#000000" stroke="#000000" points="82.3067,-60.5591 71.8635,-58.773 78.9135,-66.6817 82.3067,-60.5591"/>
+</g>
+<!-- module~ai&#45;&gt;module~fields -->
+<g id="program~~tetran~~UsesGraph_edge36" class="edge">
+<title>module~ai&#45;&gt;module~fields</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M313.0558,-262.9137C295.6582,-274.2724 267.3359,-289.6231 240,-290.7203"/>
+</g>
+<!-- module~ai&#45;&gt;module~shapes -->
+<g id="program~~tetran~~UsesGraph_edge35" class="edge">
+<title>module~ai&#45;&gt;module~shapes</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M316.3309,-238.5701C301.7093,-225.573 278.3265,-204.7884 261.2901,-189.6449"/>
+<polygon fill="#000000" stroke="#000000" points="263.3022,-186.7506 253.5028,-182.7228 258.6516,-191.9825 263.3022,-186.7506"/>
+</g>
+</g>
+</svg>
+</div><div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div><div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="-graph-help-label">Graph Key</h4></div><div class="modal-body">
+    <p>Nodes of different colours represent the following: </p>
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="490pt" height="32pt"
+ viewBox="0.00 0.00 489.50 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
+<title>Graph Key</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-28 485.5,-28 485.5,4 -4,4"/>
+<!-- Module -->
+<g id="node1" class="node">
+<title>Module</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="54,-24 0,-24 0,0 54,0 54,-24"/>
+<text text-anchor="middle" x="27" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Module</text>
+</g>
+<!-- Submodule -->
+<g id="node2" class="node">
+<title>Submodule</title>
+<polygon fill="#5bc0de" stroke="#5bc0de" points="139.5,-24 72.5,-24 72.5,0 139.5,0 139.5,-24"/>
+<text text-anchor="middle" x="106" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Submodule</text>
+</g>
+<!-- Subroutine -->
+<g id="node3" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="222,-24 158,-24 158,0 222,0 222,-24"/>
+<text text-anchor="middle" x="190" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node4" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="294,-24 240,-24 240,0 294,0 294,-24"/>
+<text text-anchor="middle" x="267" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Function</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="366,-24 312,-24 312,0 366,0 366,-24"/>
+<text text-anchor="middle" x="339" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="#000000" points="481.5,-24 384.5,-24 384.5,0 481.5,0 481.5,-24"/>
+<text text-anchor="middle" x="433" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+    
+    <p>Solid arrows point from a submodule to the (sub)module which it is
+    descended from. Dashed arrows point from a module or program unit to 
+    modules which it uses.
+    </p>
+    </div></div></div></div>
+      </li>
+      
+      </ul>
+    </div>
+    
+
+    
+    
+    <br>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+  <h3 class="panel-title">Calls</h3>
+      </div>
+      <div class="panel-body">
+  <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: program~~tetran~~CallsGraph Pages: 1 -->
+<svg id="programtetranCallsGraph" width="465pt" height="512pt"
+ viewBox="0.00 0.00 465.00 511.68" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="program~~tetran~~CallsGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 507.6773)">
+<title>program~~tetran~~CallsGraph</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-507.6773 461,-507.6773 461,4 -4,4"/>
+<!-- program~tetran -->
+<g id="program~~tetran~~CallsGraph_node1" class="node">
+<title>program~tetran</title>
+<polygon fill="none" stroke="#000000" points="54,-189.6773 0,-189.6773 0,-165.6773 54,-165.6773 54,-189.6773"/>
+<text text-anchor="middle" x="27" y="-175.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">tetran</text>
+</g>
+<!-- proc~title -->
+<g id="program~~tetran~~CallsGraph_node2" class="node">
+<title>proc~title</title>
+<g id="a_program~~tetran~~CallsGraph_node2"><a xlink:href=".././proc/title.html" xlink:title="title">
+<polygon fill="#d9534f" stroke="#d9534f" points="151.5,-314.6773 97.5,-314.6773 97.5,-290.6773 151.5,-290.6773 151.5,-314.6773"/>
+<text text-anchor="middle" x="124.5" y="-300.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">title</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;proc~title -->
+<g id="program~~tetran~~CallsGraph_edge1" class="edge">
+<title>program~tetran&#45;&gt;proc~title</title>
+<path fill="none" stroke="#000000" d="M36.7051,-190.1198C53.5824,-211.7573 88.4777,-256.4949 108.8252,-282.5814"/>
+<polygon fill="#000000" stroke="#000000" points="106.2108,-284.9204 115.1209,-290.6528 111.7303,-280.6151 106.2108,-284.9204"/>
+</g>
+<!-- proc~cmd_parse -->
+<g id="program~~tetran~~CallsGraph_node3" class="node">
+<title>proc~cmd_parse</title>
+<g id="a_program~~tetran~~CallsGraph_node3"><a xlink:href=".././proc/cmd_parse.html" xlink:title="cmd_parse">
+<polygon fill="#d9534f" stroke="#d9534f" points="157.5,-25.6773 91.5,-25.6773 91.5,-1.6773 157.5,-1.6773 157.5,-25.6773"/>
+<text text-anchor="middle" x="124.5" y="-11.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">cmd_parse</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;proc~cmd_parse -->
+<g id="program~~tetran~~CallsGraph_edge2" class="edge">
+<title>program~tetran&#45;&gt;proc~cmd_parse</title>
+<path fill="none" stroke="#000000" d="M32.0639,-165.6527C41.8163,-143.0491 64.5077,-93.0458 90,-54.6773 94.7781,-47.4858 100.6264,-40.1197 106.1408,-33.6509"/>
+<polygon fill="#000000" stroke="#000000" points="108.8747,-35.8419 112.8414,-26.0177 103.614,-31.2239 108.8747,-35.8419"/>
+</g>
+<!-- interface~noecho -->
+<g id="program~~tetran~~CallsGraph_node4" class="node">
+<title>interface~noecho</title>
+<g id="a_program~~tetran~~CallsGraph_node4"><a xlink:href=".././interface/noecho.html" xlink:title="noecho">
+<polygon fill="#a7506f" stroke="#a7506f" points="255.5,-503.6773 201.5,-503.6773 201.5,-479.6773 255.5,-479.6773 255.5,-503.6773"/>
+<text text-anchor="middle" x="228.5" y="-489.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">noecho</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;interface~noecho -->
+<g id="program~~tetran~~CallsGraph_edge4" class="edge">
+<title>program~tetran&#45;&gt;interface~noecho</title>
+<path fill="none" stroke="#000000" d="M28.6001,-189.7604C33.3426,-222.1807 49.5978,-312.8802 90,-375.6773 117.8023,-418.8904 166.7416,-454.3014 198.3783,-474.1988"/>
+<polygon fill="#000000" stroke="#000000" points="196.8534,-477.3701 207.2044,-479.6303 200.5222,-471.4084 196.8534,-477.3701"/>
+</g>
+<!-- proc~initscr -->
+<g id="program~~tetran~~CallsGraph_node5" class="node">
+<title>proc~initscr</title>
+<g id="a_program~~tetran~~CallsGraph_node5"><a xlink:href=".././proc/initscr.html" xlink:title="initscr">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="151.5,-87.6773 97.5,-87.6773 97.5,-63.6773 151.5,-63.6773 151.5,-87.6773"/>
+<text text-anchor="middle" x="124.5" y="-73.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">initscr</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;proc~initscr -->
+<g id="program~~tetran~~CallsGraph_edge3" class="edge">
+<title>program~tetran&#45;&gt;proc~initscr</title>
+<path fill="none" stroke="#000000" d="M34.6682,-165.5234C45.5658,-148.8813 66.802,-118.6768 90,-97.6773 91.4614,-96.3544 93.0114,-95.0598 94.6136,-93.8028"/>
+<polygon fill="#000000" stroke="#000000" points="96.7979,-96.5436 102.8909,-87.8761 92.7226,-90.8521 96.7979,-96.5436"/>
+</g>
+<!-- interface~timeout -->
+<g id="program~~tetran~~CallsGraph_node6" class="node">
+<title>interface~timeout</title>
+<g id="a_program~~tetran~~CallsGraph_node6"><a xlink:href=".././interface/timeout.html" xlink:title="timeout">
+<polygon fill="#a7506f" stroke="#a7506f" points="255.5,-461.6773 201.5,-461.6773 201.5,-437.6773 255.5,-437.6773 255.5,-461.6773"/>
+<text text-anchor="middle" x="228.5" y="-447.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">timeout</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;interface~timeout -->
+<g id="program~~tetran~~CallsGraph_edge8" class="edge">
+<title>program~tetran&#45;&gt;interface~timeout</title>
+<path fill="none" stroke="#000000" d="M30.5086,-189.8001C38.402,-215.8469 59.2997,-278.4527 90,-323.6773 127.0673,-378.2811 143.38,-387.5564 195,-428.6773 196.3288,-429.7359 197.7138,-430.786 199.1317,-431.8195"/>
+<polygon fill="#000000" stroke="#000000" points="197.2179,-434.7508 207.4501,-437.4988 201.1649,-428.9696 197.2179,-434.7508"/>
+</g>
+<!-- proc~random_init -->
+<g id="program~~tetran~~CallsGraph_node7" class="node">
+<title>proc~random_init</title>
+<g id="a_program~~tetran~~CallsGraph_node7"><a xlink:href=".././proc/random_init.html" xlink:title="random_init">
+<polygon fill="#d9534f" stroke="#d9534f" points="159,-130.6773 90,-130.6773 90,-106.6773 159,-106.6773 159,-130.6773"/>
+<text text-anchor="middle" x="124.5" y="-116.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">random_init</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;proc~random_init -->
+<g id="program~~tetran~~CallsGraph_edge6" class="edge">
+<title>program~tetran&#45;&gt;proc~random_init</title>
+<path fill="none" stroke="#000000" d="M47.2021,-165.4525C61.2834,-156.9315 80.2712,-145.4414 95.9035,-135.9819"/>
+<polygon fill="#000000" stroke="#000000" points="97.9139,-138.8563 104.6574,-130.6846 94.2899,-132.8674 97.9139,-138.8563"/>
+</g>
+<!-- interface~cbreak -->
+<g id="program~~tetran~~CallsGraph_node8" class="node">
+<title>interface~cbreak</title>
+<g id="a_program~~tetran~~CallsGraph_node8"><a xlink:href=".././interface/cbreak.html" xlink:title="cbreak">
+<polygon fill="#a7506f" stroke="#a7506f" points="255.5,-209.6773 201.5,-209.6773 201.5,-185.6773 255.5,-185.6773 255.5,-209.6773"/>
+<text text-anchor="middle" x="228.5" y="-195.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">cbreak</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;interface~cbreak -->
+<g id="program~~tetran~~CallsGraph_edge7" class="edge">
+<title>program~tetran&#45;&gt;interface~cbreak</title>
+<path fill="none" stroke="#000000" d="M54.1752,-180.3746C89.5767,-183.8884 151.6267,-190.0472 191.3538,-193.9904"/>
+<polygon fill="#000000" stroke="#000000" points="191.1375,-197.486 201.4343,-194.9909 191.829,-190.5202 191.1375,-197.486"/>
+</g>
+<!-- interface~clear -->
+<g id="program~~tetran~~CallsGraph_node9" class="node">
+<title>interface~clear</title>
+<g id="a_program~~tetran~~CallsGraph_node9"><a xlink:href=".././interface/clear.html" xlink:title="clear">
+<polygon fill="#a7506f" stroke="#a7506f" points="255.5,-167.6773 201.5,-167.6773 201.5,-143.6773 255.5,-143.6773 255.5,-167.6773"/>
+<text text-anchor="middle" x="228.5" y="-153.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">clear</text>
+</a>
+</g>
+</g>
+<!-- program~tetran&#45;&gt;interface~clear -->
+<g id="program~~tetran~~CallsGraph_edge5" class="edge">
+<title>program~tetran&#45;&gt;interface~clear</title>
+<path fill="none" stroke="#000000" d="M54.1752,-174.7103C89.5767,-170.8451 151.6267,-164.0704 191.3538,-159.733"/>
+<polygon fill="#000000" stroke="#000000" points="191.8733,-163.1972 201.4343,-158.6324 191.1135,-156.2385 191.8733,-163.1972"/>
+</g>
+<!-- proc~title&#45;&gt;interface~noecho -->
+<g id="program~~tetran~~CallsGraph_edge13" class="edge">
+<title>proc~title&#45;&gt;interface~noecho</title>
+<path fill="none" stroke="#000000" d="M126.9693,-315.005C133.4587,-344.7743 153.434,-421.7362 195,-470.6773 195.711,-471.5144 196.4639,-472.3289 197.2508,-473.1204"/>
+<polygon fill="#000000" stroke="#000000" points="195.1114,-475.8935 205.0334,-479.609 199.594,-470.5171 195.1114,-475.8935"/>
+</g>
+<!-- proc~title&#45;&gt;interface~timeout -->
+<g id="program~~tetran~~CallsGraph_edge17" class="edge">
+<title>proc~title&#45;&gt;interface~timeout</title>
+<path fill="none" stroke="#000000" d="M128.8621,-314.698C138.0387,-338.6937 161.3085,-393.2643 195,-428.6773 195.8783,-429.6005 196.8053,-430.5001 197.7694,-431.3749"/>
+<polygon fill="#000000" stroke="#000000" points="195.6583,-434.1672 205.6922,-437.5691 199.9698,-428.6525 195.6583,-434.1672"/>
+</g>
+<!-- proc~title&#45;&gt;interface~cbreak -->
+<g id="program~~tetran~~CallsGraph_edge16" class="edge">
+<title>proc~title&#45;&gt;interface~cbreak</title>
+<path fill="none" stroke="#000000" d="M132.8208,-290.5234C145.0686,-273.2057 169.2946,-241.0527 195,-218.6773 196.1326,-217.6915 197.3162,-216.7208 198.5339,-215.7698"/>
+<polygon fill="#000000" stroke="#000000" points="200.7645,-218.4783 206.8841,-209.8295 196.7067,-212.7744 200.7645,-218.4783"/>
+</g>
+<!-- proc~title&#45;&gt;interface~clear -->
+<g id="program~~tetran~~CallsGraph_edge14" class="edge">
+<title>proc~title&#45;&gt;interface~clear</title>
+<path fill="none" stroke="#000000" d="M128.8621,-290.6566C138.0387,-266.661 161.3085,-212.0904 195,-176.6773 195.8783,-175.7542 196.8053,-174.8545 197.7694,-173.9798"/>
+<polygon fill="#000000" stroke="#000000" points="199.9698,-176.7022 205.6922,-167.7856 195.6583,-171.1875 199.9698,-176.7022"/>
+</g>
+<!-- proc~makeletter -->
+<g id="program~~tetran~~CallsGraph_node10" class="node">
+<title>proc~makeletter</title>
+<g id="a_program~~tetran~~CallsGraph_node10"><a xlink:href=".././proc/makeletter.html" xlink:title="makeLetter">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="262,-335.6773 195,-335.6773 195,-311.6773 262,-311.6773 262,-335.6773"/>
+<text text-anchor="middle" x="228.5" y="-321.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">makeLetter</text>
+</a>
+</g>
+</g>
+<!-- proc~title&#45;&gt;proc~makeletter -->
+<g id="program~~tetran~~CallsGraph_edge10" class="edge">
+<title>proc~title&#45;&gt;proc~makeletter</title>
+<path fill="none" stroke="#000000" d="M151.5533,-308.14C161.6907,-310.187 173.4859,-312.5687 184.7509,-314.8434"/>
+<polygon fill="#000000" stroke="#000000" points="184.3896,-318.341 194.8845,-316.8896 185.7751,-311.4795 184.3896,-318.341"/>
+</g>
+<!-- interface~refresh -->
+<g id="program~~tetran~~CallsGraph_node11" class="node">
+<title>interface~refresh</title>
+<g id="a_program~~tetran~~CallsGraph_node11"><a xlink:href=".././interface/refresh.html" xlink:title="refresh">
+<polygon fill="#a7506f" stroke="#a7506f" points="255.5,-419.6773 201.5,-419.6773 201.5,-395.6773 255.5,-395.6773 255.5,-419.6773"/>
+<text text-anchor="middle" x="228.5" y="-405.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">refresh</text>
+</a>
+</g>
+</g>
+<!-- proc~title&#45;&gt;interface~refresh -->
+<g id="program~~tetran~~CallsGraph_edge9" class="edge">
+<title>proc~title&#45;&gt;interface~refresh</title>
+<path fill="none" stroke="#000000" d="M132.8208,-314.8312C145.0686,-332.149 169.2946,-364.302 195,-386.6773 196.1326,-387.6632 197.3162,-388.6339 198.5339,-389.5848"/>
+<polygon fill="#000000" stroke="#000000" points="196.7067,-392.5803 206.8841,-395.5251 200.7645,-386.8764 196.7067,-392.5803"/>
+</g>
+<!-- interface~usleep -->
+<g id="program~~tetran~~CallsGraph_node12" class="node">
+<title>interface~usleep</title>
+<g id="a_program~~tetran~~CallsGraph_node12"><a xlink:href=".././interface/usleep.html" xlink:title="usleep">
+<polygon fill="#a7506f" stroke="#a7506f" points="255.5,-377.6773 201.5,-377.6773 201.5,-353.6773 255.5,-353.6773 255.5,-377.6773"/>
+<text text-anchor="middle" x="228.5" y="-363.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">usleep</text>
+</a>
+</g>
+</g>
+<!-- proc~title&#45;&gt;interface~usleep -->
+<g id="program~~tetran~~CallsGraph_edge11" class="edge">
+<title>proc~title&#45;&gt;interface~usleep</title>
+<path fill="none" stroke="#000000" d="M144.5522,-314.8244C160.2347,-324.3243 182.2466,-337.6584 199.796,-348.2893"/>
+<polygon fill="#000000" stroke="#000000" points="198.1428,-351.3799 208.5093,-353.5676 201.7697,-345.3928 198.1428,-351.3799"/>
+</g>
+<!-- proc~dissolve -->
+<g id="program~~tetran~~CallsGraph_node13" class="node">
+<title>proc~dissolve</title>
+<g id="a_program~~tetran~~CallsGraph_node13"><a xlink:href=".././proc/dissolve.html" xlink:title="dissolve">
+<polygon fill="#d9534f" stroke="#d9534f" points="255.5,-251.6773 201.5,-251.6773 201.5,-227.6773 255.5,-227.6773 255.5,-251.6773"/>
+<text text-anchor="middle" x="228.5" y="-237.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">dissolve</text>
+</a>
+</g>
+</g>
+<!-- proc~title&#45;&gt;proc~dissolve -->
+<g id="program~~tetran~~CallsGraph_edge12" class="edge">
+<title>proc~title&#45;&gt;proc~dissolve</title>
+<path fill="none" stroke="#000000" d="M144.5522,-290.5303C160.2347,-281.0304 182.2466,-267.6962 199.796,-257.0653"/>
+<polygon fill="#000000" stroke="#000000" points="201.7697,-259.9619 208.5093,-251.7871 198.1428,-253.9747 201.7697,-259.9619"/>
+</g>
+<!-- interface~getch -->
+<g id="program~~tetran~~CallsGraph_node16" class="node">
+<title>interface~getch</title>
+<g id="a_program~~tetran~~CallsGraph_node16"><a xlink:href=".././interface/getch.html" xlink:title="getch">
+<polygon fill="#a7506f" stroke="#a7506f" points="255.5,-293.6773 201.5,-293.6773 201.5,-269.6773 255.5,-269.6773 255.5,-293.6773"/>
+<text text-anchor="middle" x="228.5" y="-279.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">getch</text>
+</a>
+</g>
+</g>
+<!-- proc~title&#45;&gt;interface~getch -->
+<g id="program~~tetran~~CallsGraph_edge15" class="edge">
+<title>proc~title&#45;&gt;interface~getch</title>
+<path fill="none" stroke="#000000" d="M151.5533,-297.2146C163.6157,-294.779 178.0252,-291.8694 191.0959,-289.2301"/>
+<polygon fill="#000000" stroke="#000000" points="192.1115,-292.5957 201.2209,-287.1856 190.7259,-285.7342 192.1115,-292.5957"/>
+</g>
+<!-- proc~randint -->
+<g id="program~~tetran~~CallsGraph_node15" class="node">
+<title>proc~randint</title>
+<g id="a_program~~tetran~~CallsGraph_node15"><a xlink:href=".././proc/randint.html" xlink:title="randint">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="358.5,-127.6773 304.5,-127.6773 304.5,-103.6773 358.5,-103.6773 358.5,-127.6773"/>
+<text text-anchor="middle" x="331.5" y="-113.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">randint</text>
+</a>
+</g>
+</g>
+<!-- proc~cmd_parse&#45;&gt;proc~randint -->
+<g id="program~~tetran~~CallsGraph_edge18" class="edge">
+<title>proc~cmd_parse&#45;&gt;proc~randint</title>
+<path fill="none" stroke="#000000" d="M157.7023,-4.9959C186.9343,.7614 229.7494,4.4671 262,-12.6773 294.167,-29.7773 314.1387,-69.1383 324.0069,-93.9494"/>
+<polygon fill="#000000" stroke="#000000" points="320.8326,-95.4524 327.6237,-103.5845 327.3861,-92.9923 320.8326,-95.4524"/>
+</g>
+<!-- interface~f_initscr -->
+<g id="program~~tetran~~CallsGraph_node14" class="node">
+<title>interface~f_initscr</title>
+<g id="a_program~~tetran~~CallsGraph_node14"><a xlink:href=".././interface/f_initscr.html" xlink:title="f_initscr">
+<polygon fill="#a7506f" stroke="#a7506f" points="255.5,-45.6773 201.5,-45.6773 201.5,-21.6773 255.5,-21.6773 255.5,-45.6773"/>
+<text text-anchor="middle" x="228.5" y="-31.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">f_initscr</text>
+</a>
+</g>
+</g>
+<!-- proc~initscr&#45;&gt;interface~f_initscr -->
+<g id="program~~tetran~~CallsGraph_edge20" class="edge">
+<title>proc~initscr&#45;&gt;interface~f_initscr</title>
+<path fill="none" stroke="#000000" d="M151.5533,-64.752C163.8545,-59.7841 178.5968,-53.8306 191.8707,-48.4699"/>
+<polygon fill="#000000" stroke="#000000" points="193.2591,-51.6839 201.2209,-44.6939 190.6378,-45.1932 193.2591,-51.6839"/>
+</g>
+<!-- interface~getmaxyx -->
+<g id="program~~tetran~~CallsGraph_node17" class="node">
+<title>interface~getmaxyx</title>
+<g id="a_program~~tetran~~CallsGraph_node17"><a xlink:href=".././interface/getmaxyx.html" xlink:title="getmaxyx">
+<polygon fill="#a7506f" stroke="#a7506f" points="257.5,-87.6773 199.5,-87.6773 199.5,-63.6773 257.5,-63.6773 257.5,-87.6773"/>
+<text text-anchor="middle" x="228.5" y="-73.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">getmaxyx</text>
+</a>
+</g>
+</g>
+<!-- proc~initscr&#45;&gt;interface~getmaxyx -->
+<g id="program~~tetran~~CallsGraph_edge19" class="edge">
+<title>proc~initscr&#45;&gt;interface~getmaxyx</title>
+<path fill="none" stroke="#000000" d="M151.5533,-75.6773C163.0261,-75.6773 176.6221,-75.6773 189.17,-75.6773"/>
+<polygon fill="#000000" stroke="#000000" points="189.3941,-79.1774 199.3941,-75.6773 189.394,-72.1774 189.3941,-79.1774"/>
+</g>
+<!-- proc~random_init&#45;&gt;proc~randint -->
+<g id="program~~tetran~~CallsGraph_edge21" class="edge">
+<title>proc~random_init&#45;&gt;proc~randint</title>
+<path fill="none" stroke="#000000" d="M159.1471,-118.1752C196.4941,-117.6339 255.7308,-116.7754 294.1099,-116.2192"/>
+<polygon fill="#000000" stroke="#000000" points="294.398,-119.7155 304.3461,-116.0709 294.2964,-112.7162 294.398,-119.7155"/>
+</g>
+<!-- proc~draw_piece -->
+<g id="program~~tetran~~CallsGraph_node18" class="node">
+<title>proc~draw_piece</title>
+<g id="a_program~~tetran~~CallsGraph_node18"><a xlink:href=".././proc/draw_piece.html" xlink:title="draw_piece">
+<polygon fill="#d9534f" stroke="#d9534f" points="365,-293.6773 298,-293.6773 298,-269.6773 365,-269.6773 365,-293.6773"/>
+<text text-anchor="middle" x="331.5" y="-279.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">draw_piece</text>
+</a>
+</g>
+</g>
+<!-- proc~makeletter&#45;&gt;proc~draw_piece -->
+<g id="program~~tetran~~CallsGraph_edge22" class="edge">
+<title>proc~makeletter&#45;&gt;proc~draw_piece</title>
+<path fill="none" stroke="#000000" d="M258.0157,-311.6418C268.7902,-307.2483 281.1453,-302.2103 292.6116,-297.5347"/>
+<polygon fill="#000000" stroke="#000000" points="294.0418,-300.7314 301.98,-293.7146 291.3987,-294.2496 294.0418,-300.7314"/>
+</g>
+<!-- proc~dissolve&#45;&gt;proc~randint -->
+<g id="program~~tetran~~CallsGraph_edge23" class="edge">
+<title>proc~dissolve&#45;&gt;proc~randint</title>
+<path fill="none" stroke="#000000" d="M250.7357,-227.5847C254.7078,-224.9245 258.6444,-221.9219 262,-218.6773 287.2619,-194.2513 308.5148,-159.2069 320.6323,-136.9469"/>
+<polygon fill="#000000" stroke="#000000" points="323.795,-138.4538 325.3951,-127.9805 317.613,-135.17 323.795,-138.4538"/>
+</g>
+<!-- proc~dissolve&#45;&gt;proc~draw_piece -->
+<g id="program~~tetran~~CallsGraph_edge24" class="edge">
+<title>proc~dissolve&#45;&gt;proc~draw_piece</title>
+<path fill="none" stroke="#000000" d="M255.562,-250.7123C266.7554,-255.2766 279.9539,-260.6585 292.1807,-265.6442"/>
+<polygon fill="#000000" stroke="#000000" points="291.1398,-268.9995 301.7211,-269.5345 293.7829,-262.5177 291.1398,-268.9995"/>
+</g>
+<!-- interface~mvaddch -->
+<g id="program~~tetran~~CallsGraph_node19" class="node">
+<title>interface~mvaddch</title>
+<g id="a_program~~tetran~~CallsGraph_node19"><a xlink:href=".././interface/mvaddch.html" xlink:title="mvaddch">
+<polygon fill="#a7506f" stroke="#a7506f" points="457,-293.6773 401,-293.6773 401,-269.6773 457,-269.6773 457,-293.6773"/>
+<text text-anchor="middle" x="429" y="-279.2773" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">mvaddch</text>
+</a>
+</g>
+</g>
+<!-- proc~draw_piece&#45;&gt;interface~mvaddch -->
+<g id="program~~tetran~~CallsGraph_edge25" class="edge">
+<title>proc~draw_piece&#45;&gt;interface~mvaddch</title>
+<path fill="none" stroke="#000000" d="M365.054,-281.6773C373.3562,-281.6773 382.3118,-281.6773 390.8167,-281.6773"/>
+<polygon fill="#000000" stroke="#000000" points="390.893,-285.1774 400.893,-281.6773 390.893,-278.1774 390.893,-285.1774"/>
+</g>
+</g>
+</svg>
+</div><div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div><div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="-graph-help-label">Graph Key</h4></div><div class="modal-body">
+    <p>Nodes of different colours represent the following: </p>
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="560pt" height="32pt"
+ viewBox="0.00 0.00 559.50 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
+<title>Graph Key</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-28 555.5,-28 555.5,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="64,-24 0,-24 0,0 64,0 64,-24"/>
+<text text-anchor="middle" x="32" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="136,-24 82,-24 82,0 136,0 136,-24"/>
+<text text-anchor="middle" x="109" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="209.5,-24 154.5,-24 154.5,0 209.5,0 209.5,-24"/>
+<text text-anchor="middle" x="182" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Interface</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node4" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="364,-24 228,-24 228,0 364,0 364,-24"/>
+<text text-anchor="middle" x="296" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="436,-24 382,-24 382,0 436,0 436,-24"/>
+<text text-anchor="middle" x="409" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="#000000" points="551.5,-24 454.5,-24 454.5,0 551.5,0 551.5,-24"/>
+<text text-anchor="middle" x="503" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+    
+    <p>Solid arrows point from a procedure to one which it calls. Dashed 
+    arrows point from an interface to procedures which implement that interface.
+    This could include the module procedures in a generic interface or the
+    implementation in a submodule of an interface in a parent module.
+    </p>
+    </div></div></div></div>
+      </div>
+    </div>
+     
+    <br>
+
+     <section class="visible-xs visible-sm hidden-md">
+       
+<h3>Contents</h3>
+ 
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#vars-1">Variables</a></h3></div>
+  <div id="vars-1" class="panel-collapse collapse">
+    <div class="list-group">
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-stdscr~2">stdscr</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-trate">trate</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-difffact~4">difffact</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-w~5">W</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-h~5">H</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-players~2">players</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-i">i</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-x0~4">x0</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-debug~4">debug</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-update">update</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-isai">isAI</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-f~15">F</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-p~15">P</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#variable-np~6">NP</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading text-left"><h3 class="panel-title"><a data-toggle="collapse" href="#subs-1">Subroutines</a></h3></div>
+  <div class="list-group">
+    <div id="subs-1" class="panel-collapse collapse">
+      
+      <a class="list-group-item" href="../program/tetran.html#proc-main">main</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#proc-redraw">redraw</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#proc-cmd_parse">cmd_parse</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#proc-draw_screen">draw_screen</a>
+      
+      <a class="list-group-item" href="../program/tetran.html#proc-draw_score">draw_score</a>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+     </section>
+     <br class="visible-xs visible-sm hidden-md">
+
+     
+
+    
+    <section>
+    <h2>Variables</h2>
+    
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+
+<th>Attributes</th><th></th><th>Name</th><th></th><th>Initial</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-stdscr~2"></span>type(c_ptr)</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>stdscr</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-trate"></span>integer</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>trate</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-difffact~4"></span>real</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>difffact</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-w~5"></span>integer</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>W</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-h~5"></span>integer</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>H</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-players~2"></span>integer</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>players</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-i"></span>integer</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>i</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-x0~4"></span>integer</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>x0</strong>(2)</td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-debug~4"></span>logical</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>debug</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-update"></span>logical</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>update</strong></td><td> =</td><td>.false.</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-isai"></span>logical</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>isAI</strong>(2)</td><td> =</td><td>[.false., .true.]</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-f~15"></span>type(<a href='../type/field.html'>Field</a>)</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>F</strong>(2)</td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-p~15"></span>type(<a href='../type/piece.html'>Piece</a>)</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>P</strong>(2)</td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-np~6"></span>type(<a href='../type/piece.html'>Piece</a>)</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>NP</strong>(2)</td><td></td><td></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+    </section>
+    <br>
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+
+
+    
+    <section>
+    <h2>Subroutines</h2>
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-main"></span><h3>
+subroutine <a href='../proc/main.html'>main</a>(F, P, NP)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+
+
+
+
+
+
+
+<p>time's up, move piece one step down. real(trate) is necessary for float time comparison!</p>
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/field.html'>Field</a>)</td>
+  <td></td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>F</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/piece.html'>Piece</a>)</td>
+  <td></td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>P</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>type(<a href='../type/piece.html'>Piece</a>)</td>
+  <td></td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>NP</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-redraw"></span><h3>
+subroutine <a href='../proc/redraw.html'>redraw</a>(F, P, NP)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/field.html'>Field</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>F</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>P</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>NP</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-cmd_parse"></span><h3>
+subroutine <a href='../proc/cmd_parse.html'>cmd_parse</a>(W, H, difffact, players, debug)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>W</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>H</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>real,</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>difffact</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>players</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical,</td>
+  <td>intent(out)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>debug</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-draw_screen"></span><h3>
+subroutine <a href='../proc/draw_screen.html'>draw_screen</a>(F)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/field.html'>Field</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>F</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    
+  <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="proc-draw_score"></span><h3>
+subroutine <a href='../proc/draw_score.html'>draw_score</a>(F)
+    
+    
+   
+</h3></div>
+  <div class="panel-body">
+       
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/field.html'>Field</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>F</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  </div>
+  </div>
+
+    
+    </section>    
+    
+    
+    
+    
+    </div>
+  </div>
+
+  
+    <hr>    
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+      <div class="row">
+        <div class="col-xs-6 col-md-4"><p>&copy; 2018 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+                                          </p></div>
+        <div class="col-xs-6 col-md-4 col-md-push-4">
+          <p class="text-right">
+            Documentation generated by 
+            <a href="https://github.com/cmacmackin/ford">FORD</a>
+            
+          </p>
+        </div>
+        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> Tetran was developed by Michael Hirsch Ph.D.</p></div>
+      </div>
+      <br>
+      </div> <!-- /container -->    
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+-->
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- MathJax JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } },
+        jax: ['input/TeX','input/MathML','output/HTML-CSS'],
+        extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']
+      });
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    
+    <script src="../tipuesearch/tipuesearch_content.js"></script>
+    <script src="../tipuesearch/tipuesearch_set.js"></script>
+    <script src="../tipuesearch/tipuesearch.js"></script>
+    
+    
+  </body>
+</html>
