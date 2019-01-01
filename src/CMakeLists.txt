@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.12)
-project(tetran Fortran C)
+cmake_minimum_required(VERSION 3.11)
+project(tetran C Fortran)
 enable_testing()
 
 include(../cmake/compilers.cmake)
