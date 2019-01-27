@@ -12,10 +12,10 @@ interface mean
   procedure mean_int, mean_real
 end interface
 
-!interface
-!  module subroutine random_init()
-!  end subroutine
-!end interface
+interface
+  module subroutine random_init()
+  end subroutine
+end interface
 
 contains
 
@@ -60,34 +60,6 @@ integer, intent(in) :: A(:)
 mean = sum(A) / real(size(A))  ! real coerces
 
 end function mean_int
-
-subroutine random_init
-! NOTE: this subroutine is replaced by "call random_init()" in Fortran 2018
-integer :: i,n, u,ios
-integer, allocatable :: seed(:)
-
-character(*), parameter :: randfn = '/dev/urandom'
-
-call random_seed(size=n)
-allocate(seed(n))
-
-
-open(newunit=u, file=randfn, access="stream", form="unformatted", action="read", status="old", iostat=ios)
-if (ios==0) then
-  read(u,iostat=ios) seed
-  close(u)
-endif
-  
-if (ios/=0) then
-  write(stderr,*) 'falling back to internal random number generator'
-  do i = 1,n
-    seed(i) = randint(-1073741823, 1073741823) 
-  enddo
-endif
-
-call random_seed(put=seed)
-
-end subroutine random_init
 
 
 end module random

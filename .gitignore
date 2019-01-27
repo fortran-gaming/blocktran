@@ -1,3 +1,4 @@
+build/
 tetran
 *.log
 main

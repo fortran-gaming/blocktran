@@ -30,7 +30,7 @@ Obtain these items by:
 ## Build
 
 ```bash
-cd bin
+cd build
 
 cmake ../src
 

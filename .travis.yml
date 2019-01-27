@@ -20,16 +20,17 @@ matrix:
   - os: linux
     env: FC=gfortran-6
   - os: osx 
-    before_install: brew install gcc
+    before_install: 
+    - brew update
+    - brew install gcc
   - os: windows
-    language: sh
     install: 
-    - cd bin
+    - cd build
     - cmake -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND" ../src
     - cmake --build .
 
 install:
-  - cd bin
+  - cd build
   - cmake ../src
   - cmake --build .
 

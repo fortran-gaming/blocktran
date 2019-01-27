@@ -9,11 +9,11 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 endif()
 #---- libraries
 add_library(rand random.f90)
-#if(f18random)
-#  target_sources(rand PRIVATE rand.f90)
-#else()
-#  target_sources(rand PRIVATE rand_legacy.f90)
-#endif()
+if(f18random)
+  target_sources(rand PRIVATE rand.f90)
+else()
+  target_sources(rand PRIVATE rand_legacy.f90)
+endif()
 target_compile_options(rand PRIVATE ${FFLAGS})
 
 
