@@ -1,4 +1,3 @@
-program motiontest
 ! -------- shape horiz. movement & rotation
 ! FIXME: Each shape should be tested.
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
@@ -33,7 +32,7 @@ logical function initial(next) result(failed)
   type(piece) :: P
 
   failed = .true.
-  
+
   print *,'intiial position test...'
 
   call F%setup(W=W, H=H)
@@ -43,16 +42,16 @@ logical function initial(next) result(failed)
     write(stderr,*) next//' bad initial Y position'
     return
   endif
-  
+
   if(P%landed) then
     write(stderr,*) next//' was initially landed'
     return
   endif
-  
+
   call print_piece(P)
- 
+
   failed = .false.
-  
+
 end function initial
 
 
@@ -61,7 +60,7 @@ logical function test_floor(next) result(failed)
   type(field) :: F
   type(piece) :: P
   integer :: y ! test positions
-  
+
   failed = .true.
 
   print *, 'floor hit test...'
@@ -76,39 +75,39 @@ logical function test_floor(next) result(failed)
     write(stderr,*) next//' failed to move down',P%why
     return
   endif
-  
+
   call P%move_down() ! y=2
   call P%move_down() ! y=3
   call P%move_down() ! y=4
   call P%move_down() ! y=5
   call P%move_down() ! y=6
-  call P%move_down() ! y=7 
+  call P%move_down() ! y=7
   call P%move_down() ! y=8
   call P%move_down() ! y=9 at bottom (allow sliding along floor before final freeze)
-    
+
   if(P%landed) then
     write(stderr,*)  next//' floor before rotation) failing to slide along floor',P%why
     return
   endif
-  
-  
+
+
   call P%move_down() ! y=10-1 landed (frozen) on bottom
 
   if(.not.P%landed) then
-    write(stderr,*) next//' (floor before rotation)  failed to land.  Y=',P%y 
+    write(stderr,*) next//' (floor before rotation)  failed to land.  Y=',P%y
     return
   endif
   print *,'OK:  ',P%why
- 
-  
+
+
   y = P%y
-  call P%move_down() ! y=10-1 frozen 
+  call P%move_down() ! y=10-1 frozen
   if(.not.(y==P%y)) then
     write(stderr,*) next//' passed through floor!',P%why
     return
   endif
   print *,'OK:  ',P%why
-  
+
   y = P%y
   P%y=P%y-1; P%landed = .false. ! y=9 manually unfreeze
   call P%rotate()
@@ -129,7 +128,7 @@ logical function test_floor(next) result(failed)
     write(stderr,*) next//' (after rotation) failed to land',P%why
     return
   endif
-  
+
   y = P%y
   call P%move_down() ! y=7 pressing on bottom
   if(.not.(y==P%y)) then
@@ -137,7 +136,7 @@ logical function test_floor(next) result(failed)
     return
   endif
   y = P%y
-  
+
   failed = .false.
 end function test_floor
 
@@ -149,7 +148,7 @@ logical function left_wall(next) result(failed)
   integer :: x ! test positions
 
   failed = .true.
-  
+
   print *,'left wall test...'
 
   ! -- Left wall
@@ -162,7 +161,7 @@ logical function left_wall(next) result(failed)
     write(stderr,*) next//' failed to move left',P%why
     return
   endif
-  
+
   call P%move_left() ! x=3
   call P%move_left() ! x=2
   call P%move_left() ! x=1 at left wall
@@ -170,7 +169,7 @@ logical function left_wall(next) result(failed)
     write(stderr,*) next//' passing through left wall!',P%why
     return
   endif
-  
+
   x=P%x
   !call print_piece(line)
   ! -- rotate left wall
@@ -182,7 +181,7 @@ logical function left_wall(next) result(failed)
     write(stderr,*) next//' I move left after rotate',P%why
     return
   endif
-  
+
   call P%move_left() ! at left wall
   call P%move_left() ! pushing on left wall
 
@@ -190,7 +189,7 @@ logical function left_wall(next) result(failed)
     write(stderr,*) next//' I move left collision detection',P%why
     return
   endif
-  
+
   failed = .false.
 end function left_wall
 
@@ -202,7 +201,7 @@ logical function right_wall(next) result(failed)
   integer :: x ! test positions
 
   failed = .true.
-  
+
   print *,'right wall test...'
 
   call F%setup(W, H)
@@ -215,7 +214,7 @@ logical function right_wall(next) result(failed)
     write(stderr,*) next//' failed to move right',P%why
     return
   endif
-  
+
   call P%move_right() ! x=6
   call P%move_right() ! x=6
   call P%move_right() ! x=7 at right wall
@@ -224,7 +223,7 @@ logical function right_wall(next) result(failed)
     write(stderr,*) next//' (before rotate) I move right collision detection',P%why
     return
   endif
-  
+
   call P%rotate()
   call P%move_right() ! at right wall
   call P%move_right() ! pushing on right wall
@@ -242,7 +241,7 @@ logical function block_hit(next) result(failed)
   type(field) :: F
   type(piece) :: P
   integer :: y ! test positions
-  
+
   failed = .true.
 
   print *,'block hit test...'
@@ -263,7 +262,7 @@ logical function block_hit(next) result(failed)
     write(stderr,*) next//' (obj) failure to move down',P%why
     return
   endif
-  
+
   call P%move_down() ! y=2
   call P%move_down() ! y=3
   call P%move_down() ! y=4
@@ -273,7 +272,7 @@ logical function block_hit(next) result(failed)
     write(stderr,*) next//' (obj before rotation) failing to slide along object',P%why
     return
   endif
-  
+
   call P%move_down() ! y=5 landed (frozen) on bottom
     call P%move_down() ! y=5 landed (frozen) on bottom
       call P%move_down() ! y=5 landed (frozen) on bottom
@@ -281,7 +280,7 @@ logical function block_hit(next) result(failed)
     write(stderr,*) next//' (obj before rotation)  failed to land',P%why
     return
   endif
-  
+
   y = P%y
   call P%move_down() ! y=5 pressing on bottom
   if(.not.(y==P%y)) then
@@ -289,7 +288,7 @@ logical function block_hit(next) result(failed)
     return
   endif
   y = P%y
-  
+
   failed = .false.
 end function block_hit
 
@@ -309,7 +308,5 @@ subroutine print_block(B)
     print '(8I1)', B(i,:)
   enddo
 end subroutine print_block
-
-
 
 end program

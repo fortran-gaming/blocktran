@@ -3,7 +3,7 @@
 
 # Tetran
 
-Text/console falling-block tetromino game written in object-orienter Fortran 2008.
+Text/console falling-block tetromino game written in object-oriented Fortran 2008.
 
 ![Tetran gameplay demo](doc/tetran.gif)
 
@@ -11,11 +11,11 @@ Text/console falling-block tetromino game written in object-orienter Fortran 200
 * Logs pieces played to `tetran.log` so you can recreate memorable games.
 * uniform random game piece generation.
 * clean, object-oriented Fortran 2008 syntax, well structured using Fortran 2008 `submodule`
-* Ncurses used for display, called directly from Fortran code.
+* Curses (Ncurses, PDcurses) used for display, called directly from Fortran code.
 
 ## Prereq
 
-Tetran works on Mac, Linux, Cygwin and Windows Subsystem for Linux.
+Tetran works on Mac, Linux, native Windows, Cygwin, Windows Subsystem for Linux.
 Requires:
 
 * Fortran 2008 compilers supporting Fortran `submodule`
@@ -29,21 +29,30 @@ Obtain these items by:
 
 ## Build
 
+from the top-level `tetran` directory:
+
 ```bash
+cmake -B build -S .
+
+cmake --build build -j --target install
+
 cd build
-
-cmake ../src
-
-cmake --build . --target install
 
 ctest -V
 ```
 
-Optional: specify a compiler by setting `FC=` AND `CC=`.
+### Compiler selection
+
+As usual, optionally specify a compiler by setting environment variables `FC` AND `CC`.
 Failing to set both results in segfaults.
 
-* Intel: `FC=ifort CC=icc cmake ../src`
+### Native Windows
+The easiest way to use Tetran on Windows is via Windows Subsystem for Linux or Cygwin.
+Otherwise, on native Windows, you must:
 
+1. compile [PDcurses](https://pdcurses.sourceforge.io/) yourself, which results in `pdcurses.a` file
+2. from PDcurses file you extracted and pdcurses.a you compiled, copy curses.h and pdcurses.a to C:\pdcurses\{curses.h, curses.a}
+3. use initial CMake options `cmake -G "MinGW Makefiles" -B build -S .`
 
 ## Play
 From any Terminal:
@@ -115,7 +124,7 @@ using `time ./blockrand 100000000` *relative normalized* execution times were:
 
     GNU   1.00 (fastest normalized)
     Flang 1.90
-    PGI:  1.82 
+    PGI:  1.82
     ifort 8.22
 
 Tested with:

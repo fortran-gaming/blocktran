@@ -14,7 +14,7 @@ end interface
 
 interface
   module subroutine random_init()
-  end subroutine
+  end subroutine random_init
 end interface
 
 contains

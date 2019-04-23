@@ -1,7 +1,8 @@
-program tetran
+use, intrinsic:: iso_c_binding, only: c_ptr, c_bool, c_int
+
 use menu, only: title
 use cinter, only:  initscr,noecho, mvprintw, mvaddch, &
-  clear,timeout,usleep,cbreak, &
+  clear,timeout,usleep,cbreak, keypad, endwin, refresh, &
   maxH=>LINES, maxW=>COLS
 use errs, only: err
 use blocks, only: freeze, draw_piece
@@ -9,16 +10,17 @@ use shapes, only: piece
 use fields, only: field
 use random, only: random_init, randint
 use keys, only: key_input
-use, intrinsic:: iso_c_binding, only: c_ptr
 
 implicit none
 
 type(c_ptr) :: stdscr
 
 integer :: trate  ! elapsed time
+logical(c_bool), parameter :: true = .true.
 
 real :: difffact
 integer :: W, H, players, i
+integer(c_int) :: ierr
 integer :: x0(2)
 logical :: debug, update=.false.
 logical :: isAI(2) = [.false., .true.]
@@ -33,7 +35,7 @@ call cmd_parse(W=W, H=H, difffact=difffact, players=players, debug=debug)
 !--- initialize Curses
 stdscr = initscr()
 
-! too big -- FIXME generate new window for game
+! Game Playfield too big
 if (H+3 > maxH) call err('playfield height too tall for terminal window')
 if (W+10 > maxW) call err('playfield width too wide for terminal window')
 x0 = [1, W+15]
@@ -41,6 +43,7 @@ x0 = [1, W+15]
 call noecho()
 call cbreak()
 call timeout(0)
+ierr = keypad(stdscr, true)
 
 !--- show title screen
 call title()
@@ -57,41 +60,42 @@ do i = 1,players
 enddo
 
 !--------- main loop
-do
-  
+main: do
+
   do i = 1,players
-    call main(F(i), P(i), NP(i))
-  enddo
-  
+    call mainsub(F(i), P(i), NP(i))
+  end do
+
   if (update) then
     call clear()
     do i = 1,players
       call redraw(F(i), P(i), NP(i))
     enddo
     update=.false.
-  endif
-  
+  end if
+
   call usleep(F(1)%sleep_incr)
-  
-enddo
+
+
+end do main
 
 contains
 
 
-subroutine main(F, P, NP)
+subroutine mainsub(F, P, NP)
   class(field) :: F
   type(piece) :: P, NP
 
   call key_input(F, P, NP)  ! was a key pressed?
   call freeze(F, P, NP)
-  
-  if (P%movereq) update=.true.
+
+   update = P%movereq
 
   call system_clock(count=F%toc)
 
 !    if(debug) print *,F%toc-F%tic, F%toc, F%tic  ! in lower right corder of screen
 
-  if ( (F%toc - F%tic) / real(trate) > F%move_time) then 
+  if ( (F%toc - F%tic) / real(trate) > F%move_time) then
     !! time's up, move piece one step down. real(trate) is necessary for float time comparison!
     update=.true.
     call P%move_down()
@@ -104,7 +108,7 @@ subroutine main(F, P, NP)
     call system_clock(count=F%tic)
   endif
 
-end subroutine main
+end subroutine mainsub
 
 
 subroutine redraw(F, P, NP)
@@ -119,6 +123,8 @@ subroutine redraw(F, P, NP)
   call draw_piece(NP)
 
   call draw_score(F)
+
+  call refresh()
 
 end subroutine redraw
 
@@ -158,7 +164,7 @@ subroutine cmd_parse(W, H, difffact, players, debug)
         call get_command_argument(i+1,arg)
         read(arg,'(F4.1)') difffact
         if (difffact<=0) call err('difficulty must be > 0')
-        
+
       case('-p','--players')
         call get_command_argument(i+1,arg)
         read(arg,'(I1)') players
@@ -189,7 +195,7 @@ subroutine draw_screen(F)
 ! not concurrent (and not where() ) since "addch" has memory of position
   do i = 1, F%H
     do j = 1, F%W
-    
+
       select case (F%screen(i, j))
         case (1)
           call mvaddch(y=(i-1), x=F%x0+(j-1)-1, ch='@')  ! frozen piece
@@ -198,7 +204,7 @@ subroutine draw_screen(F)
         case default
           call err('unknown screen state')
       end select
-      
+
     end do
   end do
 end subroutine draw_screen

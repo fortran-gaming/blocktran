@@ -1,4 +1,3 @@
-program randblock
 ! confirms random distribution of block types
 use, intrinsic:: iso_fortran_env, only: dp=>real64
 use shapes, only: gen_type
@@ -45,7 +44,7 @@ do i=1,Ntypes
 enddo
 
 ! randomness simple check -- sufficiently uniformly random
-if (any(e > rtol)) then 
+if (any(e > rtol)) then
   error stop 'non-uniform randomness posssible. Is N > 1000000?'
 endif
 
@@ -60,12 +59,13 @@ print *,'expected std, mean',real(huge(0), dp) / sqrt(12._dp), 0.
 print *,'std, mean randint()',std(f), mean(f)
 print *,'a few values',f(:6)
 
-print *,new_line(' '),'/dev/urandom a few values...'
-open(newunit=u, file='/dev/urandom', access="stream", form="unformatted", action="read", status="old")
-read(u) G
-close(u)
+open(newunit=u, file='/dev/urandom', access="stream", form="unformatted", action="read", status="old", iostat=i)
+if (i==0) then
+  read(u) g
+  close(u)
 
-print *,'std, mean /dev/urandom',std(g), mean(g)
-
+  print *,new_line(' '),'/dev/urandom a few values...'
+  print *,'std, mean /dev/urandom',std(g), mean(g)
+endif
 
 end program

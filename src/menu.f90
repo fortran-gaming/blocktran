@@ -2,14 +2,16 @@ module menu
 use, intrinsic:: iso_c_binding, only: c_int, c_ptr
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 use random, only: randint
-use cinter, only: mvaddch, usleep, refresh, clear, getch, noecho, cbreak, timeout
+use cinter, only: mvaddch, usleep, refresh, clear, getch, noecho, cbreak, timeout, printw, kbhit
 use shapes, only: Piece
 use fields, only: field
 use blocks, only: draw_piece
 implicit none
 
-character(10) :: buf
+character(14) :: buf
 integer(c_int), parameter:: y0 = 5, L = 10, W = 80, H = 60
+integer :: Nstates
+integer(c_int) :: ic
 
 contains
 
@@ -19,8 +21,10 @@ subroutine title(Fld)
   integer(c_int) :: x, i
   type(piece) :: T0, E, T1, R, A, N
 
+
 if(present(fld)) F = Fld
 call F%setup(W=W, H=H)
+
 
 x=5
 T0 = makeLetter(F, y0, x,  "t")
@@ -30,17 +34,23 @@ R = makeLetter(F, y0, x+3*(L+1), "r")
 A = makeLetter(F, y0, x+4*(L+1), "a")
 N = makeLetter(F, y0, x+5*(L+1), "n")
 
+Nstates = size(T0%ch)
+
 call noecho()
 call cbreak()
 call timeout(0)
 call refresh()
 call usleep(250000)
 
-do i = 1,size(T0%ch)
-  if (getch() /= -1) exit
+do i = 1,Nstates
+  if (kbhit() /= 0) then
+    if (getch() /= -1) exit
+  endif
 
   call clear()
-  write(buf,'(A6,I2)') 'Loop #', i
+  !write(buf,'(A6,I2,A3,I3)') 'Loop #', i,' / ',Nstates
+  !ierr = printw(buf)
+
 
   call dissolve(T0)
   call dissolve(E)
@@ -79,13 +89,13 @@ recursive subroutine dissolve(P)
 
   do i = 1, randint(0, P%H / (L+1))
     call P%move_down()
-    
+
     if (P%landed) then
       write(buf2,'(A6,I2)') 'Move #', i
       if (any(P%screen/=0)) error stop 'screen should be == 0'
       write (stderr,*) buf2//buf//P%btype//' letter was landed during dissolve '//P%why
     endif
-    
+
   enddo
 
   call draw_piece(P)

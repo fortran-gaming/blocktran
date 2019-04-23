@@ -50,10 +50,9 @@ subroutine init_block(self,F,btype,x,y)
   integer :: i,j
   integer, parameter :: Nl = 10
 
-  ! Flang / PGF chokes on backslash, so do achar(92).
-  ! also FLang / PGF wants defined length.
+  ! Flang / PGI chokes on backslash, so do achar(92).
+  ! also Flang / PGI wants defined length.
   character, parameter :: ch(12) = ["#","$","@","%","&","^","-","/","|", achar(92), "*", "."]
-
 
 
 ! dynamic generated shapes
@@ -134,8 +133,8 @@ enddo
   if(present(y)) self%y = y
 
   self%ch = ch
-  
-  
+
+
   if (present(btype)) then
     self%btype = btype
   else
@@ -160,7 +159,7 @@ enddo
       self%values = oh
     case ("D")
       self%values = dot
-      
+
     case ("t")
       self%values = Lt
     case ("e")
@@ -171,7 +170,7 @@ enddo
       self%values = La
     case ("n")
       self%values = Ln
-      
+
     case default
       write(stderr,*) 'unknown shape '//self%btype
       error stop
@@ -197,14 +196,14 @@ subroutine spawn_block(self, F, NP)
   class(piece), intent(inout) :: self
   class(field), intent(inout) :: F
   class(piece), intent(inout), optional :: NP
-  
+
   integer :: ib
 
   ! make new current piece -- have to do this since "=" copys pointers, NOT deep copy for derived types!
   call self%init(F, NP%btype)
 
   call NP%init(F, x=F%W+5, y=F%H/2)
-  
+
 ! track block count
   F%Nblock = F%Nblock + 1  ! for game stats
 
@@ -226,7 +225,7 @@ character function gen_type() result(next)
   character, parameter :: Btypes(8) = ['I','T','L','J','S','Z','O','D']
 
   next = Btypes(randint(1,size(Btypes)))
-  
+
 end function gen_type
 
 
@@ -244,7 +243,7 @@ subroutine move_left(self, slam)
   class(Piece), intent(inout) :: self
   logical, intent(in), optional :: slam
   integer :: i
-  
+
   if (present(slam)) then
     if (slam) then
       do i = 1,self%W
@@ -256,14 +255,14 @@ subroutine move_left(self, slam)
       enddo
     endif
   endif
-  
+
 !-- one pixel move left attempt
   self%x = self%x - 1
   if (self%check_collision()) then
     self%x = self%x + 1
     call self%tell_why()
   endif
-  
+
 end subroutine move_left
 
 
@@ -271,7 +270,7 @@ subroutine move_right(self, slam)
   class(Piece), intent(inout) :: self
   logical, intent(in), optional :: slam
   integer :: i
-  
+
   if (present(slam)) then
     if (slam) then
       do i = 1,self%W
@@ -295,12 +294,12 @@ end subroutine move_right
 recursive subroutine move_down(self, slam)
   class(Piece), intent(inout) :: self
   logical, intent(in), optional :: slam
-  
+
   if(self%landed) then
     self%why = 'no movement allowed after landing'
-    return 
+    return
   endif
-  
+
   if(present(slam)) then
     if (slam) then
       do while(.not.self%landed)
@@ -315,7 +314,7 @@ recursive subroutine move_down(self, slam)
   if (self%check_collision()) then  ! landed
     self%landed = .true.
     self%y = self%y - 1
-    call self%tell_why()   
+    call self%tell_why()
   endif
 end subroutine move_down
 
@@ -336,7 +335,7 @@ subroutine vertflip(self)
   class(Piece), intent(inout) :: self
 
   self%values = flipud(self%values)
-  
+
   if (self%check_collision()) then
     call self%tell_why('NO vertical flip:')
     self%values = flipud(self%values)
@@ -349,7 +348,7 @@ subroutine horizflip(self)
   class(Piece), intent(inout) :: self
 
   self%values = fliplr(self%values)
-  
+
   if (self%check_collision()) then
     call self%tell_why('NO horizontal flip:')
     self%values = fliplr(self%values)
@@ -378,16 +377,16 @@ logical function hit_floor(self)
 ! NOTE: do NOT set self%alanded in this function, as this will break rotation attempts near floor!
   class(Piece), intent(inout) :: self
   integer :: i
-  
-  hit_floor = .false. 
-  
+
+  hit_floor = .false.
+
   do i = 1,self%Ny
     if (all(self%values(i,:) == 0)) cycle
 
-    hit_floor = self%y + (i-1) > self%H 
+    hit_floor = self%y + (i-1) > self%H
     if (hit_floor) exit
   enddo
-  
+
   if (hit_floor) then
     write(self%why,'(A20,I3,A3,I3)') 'floor hit, y0=',self%y,'y=',self%y+(i-1)
   endif
@@ -398,7 +397,7 @@ end function hit_floor
 logical function hit_horiz(self)
   class(Piece), intent(inout) :: self
   integer :: i
-  
+
   hit_horiz = .false.
 
   do i = 1,self%Nx
@@ -407,7 +406,7 @@ logical function hit_horiz(self)
     hit_horiz = self%x + (i-1) < 1 .or. self%x + (i-1) > self%W
     if (hit_horiz) exit
   enddo
-  
+
   if (hit_horiz) write(self%why,'(A21,I3,A3,I3)') 'wall hit, x0=',self%x,'x=',self%x+(i-1)
 
 end function hit_horiz
@@ -416,9 +415,9 @@ end function hit_horiz
 logical function hit_block(self)
   class(Piece), intent(inout) :: self
   integer :: i, ix, ixs
-  
+
   hit_block = .false.
-  
+
   ix = max(1,self%x)
   ixs = min(self%W, ix + self%Nx - (ix-self%x) - 1)
   do i = 1, self%Ny
@@ -427,10 +426,10 @@ logical function hit_block(self)
 
     hit_block = any(self%screen(self%y + (i-1), ix:ixs) + self%values(i,ix-self%x+1:ixs-self%x+1) > &
                     maxval(self%values(i,ix-self%x+1:ixs-self%x+1)))
-    
+
     if(hit_block) exit
   enddo
-  
+
    if (hit_block) write(self%why,'(A20,I3,A4,I3)')  'block hit, x=',self%x,' y=',self%y
 
 end function hit_block
