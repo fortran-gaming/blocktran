@@ -129,12 +129,11 @@ using `time ./blockrand 100000000` *relative normalized* execution times were:
 
 Tested with:
 
-* Flang 6.0
+* Flang &ge; 7
 * Gfortran 6, 7, 8
 * Intel Fortran 2019
-* PGI 18.10
+* PGI &ge; 19.4
 
-So Intel Fortran takes over 5 times longer than Gfortran at this simple single-thread benchmark.
 
 ### References
 

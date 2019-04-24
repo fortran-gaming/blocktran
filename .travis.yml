@@ -1,10 +1,10 @@
 # Gfortran >= 6 required for SUBMODULE
-language: c
+language: minimal
 group: travis_latest
 dist: xenial
- 
+
 git:
-  depth: 3
+  depth: 25
   quiet: true
 
 env: FC=gfortran
@@ -19,19 +19,19 @@ matrix:
   include:
   - os: linux
     env: FC=gfortran-6
-  - os: osx 
-    before_install: 
+  - os: osx
+    before_install:
     - brew update
     - brew install gcc
   - os: windows
-    install: 
+    install:
     - cd build
-    - cmake -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND" ../src
-    - cmake --build .
+    - cmake -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND" ..
+    - cmake --build . -j
 
 install:
   - cd build
-  - cmake ../src
-  - cmake --build .
+  - cmake ..
+  - cmake --build . -j
 
 script: ctest --output-on-failure

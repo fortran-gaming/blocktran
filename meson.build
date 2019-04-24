@@ -34,7 +34,7 @@ if curses.found()
     link_with: [cinterc],
     dependencies : curses)
 
-  errs = library('errs', 'src/err.F90',
+  errs = library('errs', 'src/err.f90',
     link_with: cinter, dependencies: curses)
 
   blocks = library('blocks', 'src/blocks.f90',

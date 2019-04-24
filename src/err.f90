@@ -8,16 +8,13 @@ implicit none
 contains
 
 subroutine err(msg)
-  character(*),intent(in) :: msg
 
-  call endwin()
+character(*),intent(in) :: msg
 
-  write(error_unit,*) msg
-#if F08
-  error stop
-#else
-  stop 1
-#endif
+call endwin()
+write(error_unit,*) msg
+error stop
+
 end subroutine err
 
 end module

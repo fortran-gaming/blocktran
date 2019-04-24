@@ -43,10 +43,9 @@ if(CURSES_FOUND)
     target_sources(cinter PRIVATE src/unixcinter.f90)
   endif()
 
-  add_library(errs src/err.F90)
+  add_library(errs src/err.f90)
   target_compile_options(errs PRIVATE ${FFLAGS})
   target_link_libraries(errs PRIVATE cinter ${CURSES_LIBRARIES})
-  target_compile_definitions(errs PRIVATE F08=${f08errorstop})
 
   add_library(menu src/menu.f90)
   target_compile_options(menu PRIVATE ${FFLAGS})

@@ -16,10 +16,7 @@ implicit none
   failed = failed .or. right_wall("I")
   failed = failed .or. block_hit("I")
 
-  if (failed) then
-    write(stderr,*) 'ERROR: Motion test'
-    stop 1
-  endif
+  if (failed) error stop 'Motion test'
 
   print *,'OK motion'
 

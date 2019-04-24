@@ -5,7 +5,7 @@ image:
 environment:
   MINGW_DIR: C:\mingw-w64\x86_64-7.2.0-posix-seh-rt_v5-rev1\mingw64\bin
 
-clone_depth: 3
+clone_depth: 25
 
 build: off
 
@@ -14,10 +14,10 @@ init:
 
 install:
 - cd build
-- cmd: cmake -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND" ../src
-- sh: cmake ../src
+- cmd: cmake -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND" ..
+- sh: cmake ..
 
-- cmake --build .
+- cmake --build . -j
 
 test_script: ctest --output-on-failure
 
