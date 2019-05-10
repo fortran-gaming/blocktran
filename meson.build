@@ -13,14 +13,18 @@ shapes = library('shapes', 'src/shapes.f90', 'src/fields.f90','src/rot90.f90',
 AI = library('AI', 'src/ai.f90',
   link_with: shapes)
 
+if os == 'windows'
+  curses_path = 'c:/pdcurses'
+else
+  curses_path = []
+endif
+
 curses = dependency('ncurses', required: false)
 if not curses.found()
-  if os == 'windows'  # look for PDcurses
-    curses_lib = cc.find_library('curses', dirs : 'c:/pdcurses', required : false)
+    curses_lib = cc.find_library('curses', dirs : curses_path, required : false)
     if curses_lib.found()
-      curses = declare_dependency(dependencies : curses_lib, include_directories : 'c:/pdcurses')
+      curses = declare_dependency(dependencies : curses_lib, include_directories : curses_path)
     endif
-  endif
 endif
 if curses.found()
   cinterc = library('cinterc', 'src/cinter.c', dependencies : curses)
