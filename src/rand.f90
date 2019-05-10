@@ -1,4 +1,11 @@
 submodule (random) rand
-! This is Fortran 2018 standard
-intrinsic :: random_init
+
+contains
+
+module procedure rand_init
+
+call random_init(repeatable, image_distinct)
+
+end procedure rand_init
+
 end submodule rand

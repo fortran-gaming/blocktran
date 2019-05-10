@@ -8,7 +8,7 @@ use errs, only: err
 use blocks, only: freeze, draw_piece
 use shapes, only: piece
 use fields, only: field
-use random, only: random_init, randint
+use random, only: rand_init, randint
 use keys, only: key_input
 
 implicit none
@@ -28,7 +28,7 @@ logical :: isAI(2) = [.false., .true.]
 type(field) :: F(2)
 type(piece) :: P(2), NP(2)
 !==========================================
-call random_init()
+call rand_init(.false., .false.)
 
 call cmd_parse(W=W, H=H, difffact=difffact, players=players, debug=debug)
 
