@@ -24,7 +24,7 @@ Requires:
 Obtain these items by:
 
 * Linux / WSL: `apt install gfortran libncurses-dev`.  Use [cmake_setup.sh](https://github.com/scivision/cmake-utils/blob/master/cmake_setup.sh) for CMake &ge; 3.12.
-* Mac: `brew install gcc ncurses cmake`
+* Mac: `brew install gcc cmake`
 * Cygwin: `setup-x86_64.exe -P libncurses-devel cmake make gcc-gfortran`
 
 ## Build

@@ -31,6 +31,6 @@ endif
 
 call random_seed(put=seed)
 
-end procedure random_init
+end procedure rand_init
 
 end submodule rand

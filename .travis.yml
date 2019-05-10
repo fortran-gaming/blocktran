@@ -21,8 +21,9 @@ matrix:
     env: FC=gfortran-6
   - os: osx
     before_install:
-    - brew update
-    - brew install gcc
+    - brew update >/dev/null
+    - brew upgrade cmake > /dev/null
+    - brew install gcc >/dev/null
   - os: windows
     install:
     - cd build

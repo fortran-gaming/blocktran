@@ -1,7 +1,3 @@
-if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Release CACHE STRING "Debug or Release")
-endif()
-
 if(CMAKE_Fortran_COMPILER_ID STREQUAL GNU)
   list(APPEND FFLAGS -march=native -Wall -Wextra -Wpedantic -Werror=array-bounds
       -finit-real=nan -Wconversion -fimplicit-none
