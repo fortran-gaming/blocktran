@@ -2,7 +2,11 @@ cmake_minimum_required(VERSION 3.12)
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Debug or Release")
 endif()
-project(tetran C Fortran)
+project(tetran
+  LANGUAGES C Fortran
+  VERSION 1.2.0
+  DESCRIPTION "Falling-block game in Fortran + Curses"
+  HOMEPAGE_URL https://www.github.com/fortran-gaming/tetran)
 enable_testing()
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/compilers.cmake)
