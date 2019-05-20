@@ -1,6 +1,6 @@
 project('tetran', 'c', 'fortran',
   default_options : ['default_library=static'],
-  meson_version : '>= 0.50')
+  meson_version : '>= 0.50.999')
 
 cc = meson.get_compiler('c')
 fc = meson.get_compiler('fortran')
@@ -49,18 +49,21 @@ if curses.found()
 
   #  executables
   tetran = executable('tetran', 'src/main.f90',
-    link_with: [cinter, menu, shapes, blocks, keys, errs])
+    link_with: [cinter, menu, shapes, blocks, keys, errs],
+    link_language: 'fortran')
   test('ShortGame', tetran, args : ['-d', '100', '-s', '6', '6'], timeout : 30)
 
   testkeys_exe = executable('testkeys', 'src/tests/keytest.f90',
-    link_with: [errs, cinter, keys])
+    link_with: [errs, cinter, keys],
+    link_langauge: 'fortran')
 
   blockrand = executable('blockrand', 'src/tests/randtest.f90',
     link_with: shapes)
   test('RandomBlocks', blockrand)
 
   menu_test = executable('menu_test', 'src/tests/test_menu.f90',
-    link_with: [cinter, menu])
+    link_with: [cinter, menu],
+    link_language: 'fortran')
   test('Menu', menu_test)
 endif
 

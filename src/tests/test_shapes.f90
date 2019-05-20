@@ -1,7 +1,7 @@
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 use shapes, only: piece
 use fields, only: field
-use random, only: random_init
+use random, only: rand_init
 
 implicit none
 
@@ -13,7 +13,7 @@ integer, parameter :: Ntest = 100 ! arbitrary
 integer :: i
 integer :: xarr(Ntest) ! test for randomness etc.
 
-call random_init()
+call rand_init(.false., .false.)
 
 call F%setup(W=W, H=H)  ! must generate playfield before any pieces, or they will die when they realize they're outside a playfield
 
