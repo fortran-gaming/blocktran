@@ -24,15 +24,15 @@ matrix:
     - brew update >/dev/null
     - brew upgrade cmake > /dev/null
     - brew install gcc >/dev/null
-  - os: windows
-    install:
-    - cd build
-    - cmake -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND" ..
-    - cmake --build . -j
+#  - os: windows
+#    install:
+#    - cd build
+#    - cmake -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND" ..
+#    - cmake --build . --parallel
 
 install:
   - cd build
   - cmake ..
-  - cmake --build . -j
+  - cmake --build . --parallel
 
-script: ctest --output-on-failure
+script: ctest --parallel --output-on-failure
