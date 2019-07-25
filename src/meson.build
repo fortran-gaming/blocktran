@@ -38,7 +38,8 @@ if curses.found()
 
   #  executables
   tetran = executable('tetran', 'main.f90',
-    link_with: [cinter, menu, shapes, blocks, keys, errs])
+    link_with: [cinter, menu, shapes, blocks, keys, errs],
+    install: true)
   if os != 'windows'
     test('ShortGame', tetran, args : ['-d', '100', '-s', '6', '6'], timeout : 30)
   endif

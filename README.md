@@ -19,27 +19,24 @@ Tetran works on Mac, Linux, native Windows, Cygwin, Windows Subsystem for Linux.
 Requires:
 
 * Fortran 2008 compilers supporting Fortran `submodule`
-* CMake &ge; 3.12
+* Meson or CMake
 
 Obtain these items by:
 
-* Linux / WSL: `apt install gfortran libncurses-dev`.  Use [cmake_setup.sh](https://github.com/scivision/cmake-utils/blob/master/cmake_setup.sh) for CMake &ge; 3.12.
-* Mac: `brew install gcc cmake`
-* Cygwin: `setup-x86_64.exe -P libncurses-devel cmake make gcc-gfortran`
+* Linux / WSL: `apt install gfortran libncurses-dev ninja-build` and then `pip install meson`
+* Mac: `brew install gcc meson ninja`
+* Cygwin: `setup-x86_64.exe -P libncurses-devel meson ninja gcc-gfortran`
 
 ## Build
 
 from the top-level `tetran` directory:
 
 ```bash
-cmake -B build -S .
+meson build
 
-cmake --build build -j --target install
-
-cd build
-
-ctest -V
+meson test -C build
 ```
+
 
 ### Compiler selection
 
@@ -47,6 +44,7 @@ As usual, optionally specify a compiler by setting environment variables `FC` AN
 Failing to set both results in segfaults.
 
 ### Native Windows
+
 The easiest way to use Tetran on Windows is via Windows Subsystem for Linux or Cygwin.
 Otherwise, on native Windows, you must:
 
@@ -55,7 +53,9 @@ Otherwise, on native Windows, you must:
 3. use initial CMake options `cmake -G "MinGW Makefiles" -B build -S .`
 
 ## Play
+
 From any Terminal:
+
 ```bash
 tetran
 ```
@@ -64,8 +64,7 @@ The command line options are described next in the following sections.
 
 ### difficulty level
 
-adjust cadence of falling blocks with `-d` option, including decimal
-point:
+adjust cadence of falling blocks with `-d` option, including decimal point:
 
 ```bash
 tetran -d 1.2
@@ -130,7 +129,7 @@ using `time ./blockrand 100000000` *relative normalized* execution times were:
 Tested with:
 
 * Flang &ge; 7
-* Gfortran 6, 7, 8
+* Gfortran &ge; 6
 * Intel Fortran 2019
 * PGI &ge; 19.4
 
@@ -139,4 +138,3 @@ Tested with:
 
 * [Control codes](https://en.wikipedia.org/wiki/C0_and_C1_control_codes)
 * legacy / demo author:   [Lewis Bobbermen](https://github.com/lewisjb)
-
