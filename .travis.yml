@@ -12,7 +12,8 @@ env: FC=gfortran
 addons:
   apt:
     sources: ubuntu-toolchain-r-test
-    packages: gfortran-6
+    packages:
+    - gfortran-6
 
 
 matrix:
@@ -24,11 +25,6 @@ matrix:
     - brew update >/dev/null
     - brew upgrade cmake > /dev/null
     - brew install gcc >/dev/null
-#  - os: windows
-#    install:
-#    - cd build
-#    - cmake -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND" ..
-#    - cmake --build . --parallel
 
 install:
   - cd build
