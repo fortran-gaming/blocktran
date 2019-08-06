@@ -1,10 +1,9 @@
 if(CMAKE_Fortran_COMPILER_ID STREQUAL GNU)
   list(APPEND FFLAGS -march=native -Wall -Wextra -Wpedantic -Werror=array-bounds
-      -finit-real=nan -Wconversion -fimplicit-none
-      -fcheck=all) #-Warray-temporaries
+      -finit-real=nan -Wconversion -fimplicit-none) #-Warray-temporaries
 
   if(CMAKE_BUILD_TYPE STREQUAL Debug)
-    list(APPEND FFLAGS -fexceptions -ffpe-trap=invalid,zero,overflow)
+    list(APPEND FFLAGS -fexceptions -ffpe-trap=invalid,zero,overflow -fcheck=all)
   endif()
 
   if (UNIX AND NOT (APPLE OR CYGWIN))
@@ -17,9 +16,9 @@ if(CMAKE_Fortran_COMPILER_ID STREQUAL GNU)
 
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL Intel)
   if(WIN32)
-    list(APPEND FFLAGS /4Yd /traceback /warn)
+    list(APPEND FFLAGS /warn:declarations /traceback /warn)
   else()
-    list(APPEND FFLAGS -implicitnone -traceback -warn)
+    list(APPEND FFLAGS -warn declarations -traceback -warn)
   endif()
 
   if(CMAKE_BUILD_TYPE STREQUAL Debug)
@@ -28,7 +27,7 @@ elseif(CMAKE_Fortran_COMPILER_ID STREQUAL Intel)
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL Flang)  # https://github.com/flang-compiler/flang/wiki/Fortran-2008
 
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL PGI)
-
+  set(FFLAGS -C -Mdclchk)
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL NAG)
 
 endif()

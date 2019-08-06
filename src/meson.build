@@ -1,4 +1,4 @@
-if fc.run('call random_init(.false., .false.); end').returncode() == 0
+if fc.links('call random_init(.false., .false.); end', name: 'F2018 random_init')
   rsrc = 'rand.f90'
 else
   rsrc = 'rand_legacy.f90'
@@ -12,7 +12,9 @@ AI = library('AI', 'ai.f90',
 
 
 if curses.found()
-  cinterc = library('cinterc', 'cinter.c', dependencies : curses)
+  cinterc = library('cinterc', 'cinter.c',
+    dependencies : curses,
+    include_directories: curses_path)
 
   if os == 'windows'
     cinter_src = files('wincinter.f90')

@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.com/fortran-gaming/tetran.svg?branch=master)](https://travis-ci.com/fortran-gaming/tetran)
 [![Build status](https://ci.appveyor.com/api/projects/status/bhta29i7fvgl90ig?svg=true)](https://ci.appveyor.com/project/scivision/tetran)
 
 # Tetran
@@ -19,7 +18,7 @@ Tetran works on Mac, Linux, native Windows, Cygwin, Windows Subsystem for Linux.
 Requires:
 
 * Fortran 2008 compilers supporting Fortran `submodule`
-* Meson or CMake
+* Meson
 
 Obtain these items by:
 
@@ -35,6 +34,8 @@ from the top-level `tetran` directory:
 meson build
 
 meson test -C build
+
+meson install -C build
 ```
 
 
