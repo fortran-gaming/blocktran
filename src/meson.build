@@ -40,7 +40,7 @@ if curses.found()
 
   #  executables
   tetran = executable('tetran', 'main.f90',
-    link_with: [cinter, menu, shapes, blocks, keys, errs],
+    link_with: [cinter, menu, shapes, blocks, keys, AI, errs],  # need AI for flang
     install: true,
     link_language: 'fortran')  # link_language needed for e.g. Ubuntu 16.04
   if os != 'windows'
@@ -62,7 +62,7 @@ if curses.found()
     link_language: 'fortran')  # link_language needed for e.g. Ubuntu 16.04
 
   menu_test = executable('menu_test', 'tests/test_menu.f90',
-    link_with: [cinter, menu],
+    link_with: [cinter, menu, blocks, shapes],  # need blocks, shapes for flang
     link_language: 'fortran')  # link_language needed for e.g. Ubuntu 16.04
   if os != 'windows'
     test('Menu', menu_test,
