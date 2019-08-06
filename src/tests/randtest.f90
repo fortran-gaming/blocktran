@@ -7,7 +7,7 @@ implicit none
 
 character(*), parameter :: types = 'ITLJSZOD'
 integer,parameter :: Ntypes=len(types)
-real, parameter :: rtol = 0.01
+real, parameter :: rtol = 0.05
 real :: ideal
 character,allocatable :: b(:)
 real, allocatable :: e(:)

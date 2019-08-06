@@ -41,35 +41,53 @@ if curses.found()
   #  executables
   tetran = executable('tetran', 'main.f90',
     link_with: [cinter, menu, shapes, blocks, keys, errs],
-    install: true)
+    install: true,
+    link_language: 'fortran')  # link_language needed for e.g. Ubuntu 16.04
   if os != 'windows'
-    test('ShortGame', tetran, args : ['-d', '100', '-s', '6', '6'], timeout : 30)
+    test('ShortGame', tetran, args : ['-d', '100', '-s', '6', '6'],
+      timeout : 30,
+      suite: 'gui')
   endif
 
   curses_test = executable('curses_test', 'tests/test_curses.f90',
-    link_with: cinter)
+    link_with: cinter,
+    link_language: 'fortran')  # link_language needed for e.g. Ubuntu 16.04
   if os != 'windows'  # PDcurses doesn't work with ctest
-    test('CursesLib', curses_test)
+    test('CursesLib', curses_test,
+      suite: 'gui')
   endif
 
   testkeys_exe = executable('testkeys', 'tests/keytest.f90',
-    link_with: [errs, cinter, keys])
+    link_with: [errs, cinter, keys],
+    link_language: 'fortran')  # link_language needed for e.g. Ubuntu 16.04
 
   menu_test = executable('menu_test', 'tests/test_menu.f90',
-    link_with: [cinter, menu])
+    link_with: [cinter, menu],
+    link_language: 'fortran')  # link_language needed for e.g. Ubuntu 16.04
   if os != 'windows'
-    test('Menu', menu_test, timeout: 15)
+    test('Menu', menu_test,
+      timeout: 15,
+      suite: 'gui')
   endif
 endif
 
 blockrand = executable('blockrand', 'tests/randtest.f90',
-    link_with: shapes)
-  test('RandomBlocks', blockrand, timeout: 10)
+    link_with: shapes,
+    link_language: 'fortran')  # link_language needed for e.g. Ubuntu 16.04
+test('RandomBlocks', blockrand,
+  timeout: 10,
+  suite: 'nogui')
 
 shapetest = executable('shapetest', 'tests/test_shapes.f90',
-  link_with: shapes)
-test('BlockShapes', shapetest, timeout: 15)
+  link_with: shapes,
+  link_language: 'fortran')  # link_language needed for e.g. Ubuntu 16.04
+test('BlockShapes', shapetest,
+  timeout: 15,
+  suite: 'nogui')
 
 motiontest = executable('motiontest', 'tests/test_motion.f90',
-  link_with: shapes)
-test('BlockMotion', motiontest, timeout: 10)
+  link_with: shapes,
+  link_language: 'fortran')  # link_language needed for e.g. Ubuntu 16.04
+test('BlockMotion', motiontest,
+  timeout: 10,
+  suite: 'nogui')

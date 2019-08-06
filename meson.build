@@ -26,14 +26,14 @@ endif
 if os == 'windows'
   curses_path = 'c:/pdcurses'
 else
-  curses_path = []
+  curses_path = ''
 endif
 
 curses = dependency('ncurses', required: false)
-if not curses.found()
-    curses = cc.find_library('curses', dirs : curses_path, required : false)
+if not curses.found() and run_command('python', '-c', 'import os; assert os.path.isdir("' + curses_path + '")').returncode() == 0
+  curses = cc.find_library('curses', dirs : curses_path, required : false)
 endif
-if not fc.links('''
+if curses.found() and not fc.links('''
 module foo
 use, intrinsic:: iso_c_binding
 interface
@@ -43,6 +43,7 @@ end interface
 end module foo
 program a
 use foo
+call endwin()
 end program''',
 dependencies : curses, include_directories: include_directories(curses_path), name: 'Curses OK')
   curses = disabler()
