@@ -1,5 +1,6 @@
 [![Build Status](https://dev.azure.com/mhirsch0512/Tetran/_apis/build/status/fortran-gaming.tetran?branchName=master)](https://dev.azure.com/mhirsch0512/Tetran/_build/latest?definitionId=13&branchName=master)
-[![Build status](https://ci.appveyor.com/api/projects/status/bhta29i7fvgl90ig?svg=true)](https://ci.appveyor.com/project/scivision/tetran)
+
+[![Actions Status](https://github.com/fortran-gaming/tetran/workflows/ci/badge.svg)](https://github.com/fortran-gaming/tetran/actions)
 
 # Tetran
 

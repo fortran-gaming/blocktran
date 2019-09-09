@@ -27,7 +27,7 @@ if (i==0) read(buf,*) N
 
 ideal = N/Ntypes
 
-allocate(b(N), e(N), f(N), g(N))
+allocate(b(N), e(Ntypes), f(N), g(N))
 
 do i = 1,N
   b(i) = gen_type()
