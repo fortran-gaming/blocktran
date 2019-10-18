@@ -27,11 +27,7 @@ if curses_root == ''
   curses_root = []
 endif
 
-curses = dependency('curses', required: false)
-if not curses.found()
-  curses = cc.find_library('curses', dirs : curses_root, required : false, disabler: true)
-endif
-if not fc.links('''
+code = '''
 module foo
 use, intrinsic:: iso_c_binding
 interface
@@ -42,10 +38,19 @@ end module foo
 program a
 use foo
 call endwin()
-end program''',
-dependencies : curses, include_directories: include_directories(curses_root), name: 'Curses')
+end program'''
+curses = dependency('curses', required: false, disabler: true)
+if not fc.links(code, dependencies : curses, name: 'Curses')
   curses = disabler()
 endif
+if not curses.found()
+  curses_lib = cc.find_library('curses', dirs : curses_root, required : false, disabler: true)
+  curses = declare_dependency(include_directories: curses_root, dependencies: curses_lib)
+  if not fc.links(code, dependencies : curses_lib, name: 'Curses')
+    curses = disabler()
+  endif
+endif
+
 
 subdir('src')
 

@@ -11,8 +11,7 @@ AI = library('AI', 'ai.f90',
   link_with: shapes)
 
 cinterc = library('cinterc', 'cinter.c',
-  dependencies : curses,
-  include_directories: curses_root)
+  dependencies : curses)
 
 if os == 'windows'
   cinter_src = files('wincinter.f90')
