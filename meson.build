@@ -24,11 +24,7 @@ endif
 
 curses_root = get_option('curses_root')
 if curses_root == ''
-  if os != 'windows'
-    curses_root = ['/usr/lib', '/usr/local/lib', '/usr/local/opt']
-  else
-    curses_root = []
-  endif
+  curses_root = []
 endif
 
 curses = dependency('curses', required: false)
