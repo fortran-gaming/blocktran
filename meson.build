@@ -39,14 +39,15 @@ program a
 use foo
 call endwin()
 end program'''
-curses = dependency('curses', required: false, disabler: true)
-if not fc.links(code, dependencies : curses, name: 'Curses')
+# dependency needs to be "ncurses", while find_library is "curses"
+curses = dependency('ncurses', required: false, disabler: true)
+if curses.found() and not fc.links(code, dependencies : curses, name: 'Curses')
   curses = disabler()
 endif
 if not curses.found()
   curses_lib = cc.find_library('curses', dirs : curses_root, required : false, disabler: true)
   curses = declare_dependency(include_directories: curses_root, dependencies: curses_lib)
-  if not fc.links(code, dependencies : curses_lib, name: 'Curses')
+  if curses.found() and not fc.links(code, dependencies : curses_lib, name: 'Curses')
     curses = disabler()
   endif
 endif
