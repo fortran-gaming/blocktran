@@ -22,17 +22,20 @@ elif fc.get_id() == 'pgi'
 endif
 #--- Curses
 
-if os == 'windows'
-  curses_path = 'c:/pdcurses'
-else
-  curses_path = ''
+curses_root = get_option('curses_root')
+if curses_root == ''
+  if os != 'windows'
+    curses_root = ['/usr/lib', '/usr/local/lib', '/usr/local/opt']
+  else
+    curses_root = []
+  endif
 endif
 
-curses = dependency('ncurses', required: false)
-if not curses.found() and run_command('python', '-c', 'import os; assert os.path.isdir("' + curses_path + '")').returncode() == 0
-  curses = cc.find_library('curses', dirs : curses_path, required : false)
+curses = dependency('curses', required: false)
+if not curses.found()
+  curses = cc.find_library('curses', dirs : curses_root, required : false, disabler: true)
 endif
-if curses.found() and not fc.links('''
+if not fc.links('''
 module foo
 use, intrinsic:: iso_c_binding
 interface
@@ -44,8 +47,18 @@ program a
 use foo
 call endwin()
 end program''',
-dependencies : curses, include_directories: include_directories(curses_path), name: 'Curses OK')
+dependencies : curses, include_directories: include_directories(curses_root), name: 'Curses')
   curses = disabler()
 endif
 
 subdir('src')
+
+tetran = executable('tetran', 'src/main.f90',
+  link_with: [cinter, menu, shapes, blocks, keys, AI, errs],  # need AI for fla$
+  install: true,
+  link_language: 'fortran')  # link_language needed for e.g. Ubuntu 16.04
+if os != 'windows'
+  test('ShortGame', tetran, args : ['-d', '100', '-s', '6', '6'],
+    timeout : 30,
+    suite: 'gui')
+endif

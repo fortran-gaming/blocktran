@@ -1,0 +1,1 @@
+option('curses_root', type: 'string', description: 'top-level directory where Curses library is')
