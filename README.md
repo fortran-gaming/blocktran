@@ -1,5 +1,3 @@
-[![Build Status](https://dev.azure.com/mhirsch0512/Tetran/_apis/build/status/fortran-gaming.tetran?branchName=master)](https://dev.azure.com/mhirsch0512/Tetran/_build/latest?definitionId=13&branchName=master)
-
 [![Actions Status](https://github.com/fortran-gaming/tetran/workflows/ci/badge.svg)](https://github.com/fortran-gaming/tetran/actions)
 
 # Tetran
@@ -40,20 +38,13 @@ meson test -C build
 meson install -C build
 ```
 
+Meson will automatically build PDcurses if Curses isn't available on your system already.
+
 
 ### Compiler selection
 
 As usual, optionally specify a compiler by setting environment variables `FC` AND `CC`.
 Failing to set both results in segfaults.
-
-### Native Windows
-
-The easiest way to use Tetran on Windows is via Windows Subsystem for Linux or Cygwin.
-Otherwise, on native Windows, you must:
-
-1. compile [PDcurses](https://pdcurses.sourceforge.io/) yourself, which results in `pdcurses.a` file
-2. from PDcurses file you extracted and pdcurses.a you compiled, copy curses.h and pdcurses.a to C:\pdcurses\{curses.h, curses.a}
-3. use initial CMake options `cmake -G "MinGW Makefiles" -B build -S .`
 
 ## Play
 
