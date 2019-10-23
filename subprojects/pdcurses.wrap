@@ -1,0 +1,4 @@
+[wrap-git]
+directory = pdcurses
+url = https://github.com/scivision/pdcurses.git
+revision = head
