@@ -74,13 +74,17 @@ character(kind=c_char), intent(in), value :: ch
 end subroutine mvaddch
 
 
-subroutine refresh() bind(C, name='refresh')
+subroutine refresh() bind(C)
 end subroutine refresh
 
 
-subroutine clear() bind (C)
+subroutine clear() bind(C)
 !! clear entire screen
 end subroutine clear
+
+subroutine border() bind(C)
+!! draw border
+end subroutine border
 
 subroutine noecho() bind (C)
 ! don't echo keypresses to screen

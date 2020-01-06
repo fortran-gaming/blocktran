@@ -2,7 +2,7 @@ module menu
 use, intrinsic:: iso_c_binding, only: c_int, c_ptr
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 use random, only: randint
-use cinter, only: mvaddch, usleep, refresh, clear, getch, noecho, cbreak, timeout, printw, kbhit
+use cinter, only: usleep, refresh, clear, getch, noecho, cbreak, timeout, printw, kbhit
 use shapes, only: Piece
 use fields, only: field
 use blocks, only: draw_piece
@@ -18,13 +18,12 @@ contains
 subroutine title(Fld)
 class(field), intent(in), optional :: Fld
 type(field) :: F
-integer(c_int) :: x, i
+integer(c_int) :: x, i, ierr
 type(piece) :: T0, E, T1, R, A, N
 
 
 if(present(fld)) F = Fld
 call F%setup(W=W, H=H)
-
 
 x=5
 T0 = makeLetter(F, y0, x,  "t")
@@ -48,9 +47,10 @@ do i = 1,Nstates
   endif
 
   call clear()
-  !write(buf,'(A6,I2,A3,I3)') 'Loop #', i,' / ',Nstates
-  !ierr = printw(buf)
-
+  if (F%debug) then
+    write(buf,'(A6,I2,A3,I3)') 'Loop #', i,' / ',Nstates
+    ierr = printw(buf)
+  endif
 
   call dissolve(T0)
   call dissolve(E)
@@ -86,14 +86,17 @@ integer :: i
 character(10) :: buf2
 
 call P%dissolver()
+!! updates random character for each pixel of this piece
 
 do i = 1, randint(0, P%H / (L+1))
   call P%move_down()
 
-  if (P%landed) then
-    write(buf2,'(A6,I2)') 'Move #', i
-    if (any(P%screen/=0)) error stop 'screen should be == 0'
-    write (stderr,*) buf2//buf//P%btype//' letter was landed during dissolve '//P%why
+  if(P%debug) then
+    if (P%landed) then
+      write(buf2,'(A6,I2)') 'Move #', i
+      if (any(P%screen/=0)) error stop 'screen should be == 0'
+      write (stderr,*) buf2//buf//P%btype//' letter was landed during dissolve '//P%why
+    endif
   endif
 
 enddo
