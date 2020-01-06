@@ -1,15 +1,10 @@
 f18flag = fc.first_supported_argument(['-std=f2018', '-stand f18', '/stand:f18'])
 if fc.get_id() == 'gcc'
-  add_project_arguments('-march=native', '-Wall', '-Wextra', '-Wpedantic',
-    '-Werror=array-bounds', '-finit-real=nan', '-Wconversion', '-fimplicit-none', f18flag,
-    language: 'fortran')
-
+  add_project_arguments('-Werror=array-bounds', f18flag, language: 'fortran')
 elif fc.get_id() == 'intel'
-  add_project_arguments(f18flag, '-warn all', '-traceback', language: 'fortran')
+  add_project_arguments(f18flag, language: 'fortran')
 elif fc.get_id() == 'intel-cl'
-  add_project_arguments(f18flag, '/traceback', '/warn:all', language: 'fortran')
-elif fc.get_id() == 'pgi'
-  add_project_arguments('-C', '-Mdclchk', language: 'fortran')
+  add_project_arguments(f18flag, language: 'fortran')
 endif
 #--- Curses
 

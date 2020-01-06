@@ -13,11 +13,7 @@ AI = library('AI', 'ai.f90',
 cinterc = library('cinterc', 'cinter.c',
   dependencies : curses)
 
-if os == 'windows'
-  cinter_src = files('wincinter.f90')
-else
-  cinter_src = files('unixcinter.f90')
-endif
+cinter_src = os == 'windows' ? files('wincinter.f90') : cinter_src = files('unixcinter.f90')
 cinter = library('cinter', 'cinter.f90', cinter_src,
   link_with: [cinterc],
   dependencies : curses)

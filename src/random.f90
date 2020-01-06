@@ -5,17 +5,17 @@ use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 implicit none
 
 interface std
-  procedure std_int, std_real
+procedure std_int, std_real
 end interface
 
 interface mean
-  procedure mean_int, mean_real
+procedure mean_int, mean_real
 end interface
 
 interface
-  module subroutine rand_init(repeatable, image_distinct)
-  logical, intent(in) :: repeatable, image_distinct
-  end subroutine rand_init
+module subroutine rand_init(repeatable, image_distinct)
+logical, intent(in) :: repeatable, image_distinct
+end subroutine rand_init
 end interface
 
 contains

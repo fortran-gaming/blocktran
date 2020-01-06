@@ -16,10 +16,10 @@ integer(c_int) :: ic
 contains
 
 subroutine title(Fld)
-  class(field), intent(in), optional :: Fld
-  type(field) :: F
-  integer(c_int) :: x, i
-  type(piece) :: T0, E, T1, R, A, N
+class(field), intent(in), optional :: Fld
+type(field) :: F
+integer(c_int) :: x, i
+type(piece) :: T0, E, T1, R, A, N
 
 
 if(present(fld)) F = Fld
@@ -68,9 +68,9 @@ end subroutine title
 
 type(piece) function makeLetter(F, y0, x0, letter) result(S)
 
-  type(field), intent(in) :: F
-  integer(c_int), intent(in) :: y0, x0
-  character, intent(in) :: letter
+type(field), intent(in) :: F
+integer(c_int), intent(in) :: y0, x0
+character, intent(in) :: letter
 
 
 call S%init(F, letter, x=x0, y=y0)
@@ -81,28 +81,25 @@ end function makeLetter
 
 
 recursive subroutine dissolve(P)
-  class(piece), intent(inout) :: P
-  integer :: i
-  character(10) :: buf2
+class(piece), intent(inout) :: P
+integer :: i
+character(10) :: buf2
 
-  call P%dissolver()
+call P%dissolver()
 
-  do i = 1, randint(0, P%H / (L+1))
-    call P%move_down()
+do i = 1, randint(0, P%H / (L+1))
+  call P%move_down()
 
-    if (P%landed) then
-      write(buf2,'(A6,I2)') 'Move #', i
-      if (any(P%screen/=0)) error stop 'screen should be == 0'
-      write (stderr,*) buf2//buf//P%btype//' letter was landed during dissolve '//P%why
-    endif
+  if (P%landed) then
+    write(buf2,'(A6,I2)') 'Move #', i
+    if (any(P%screen/=0)) error stop 'screen should be == 0'
+    write (stderr,*) buf2//buf//P%btype//' letter was landed during dissolve '//P%why
+  endif
 
-  enddo
+enddo
 
-  call draw_piece(P)
+call draw_piece(P)
 
 end subroutine dissolve
 
 end module
-
-
-

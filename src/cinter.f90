@@ -13,24 +13,24 @@ interface
 
 ! http://www.urbanjost.altervista.org/LIBRARY/libscreen/ncurses/pdsrc/ncurses_from_Fortran.html
 function f_initscr() result (initscr__OUT) bind(C, name='initscr')
-  import
-  type(c_ptr):: initscr__OUT         ! WINDOW *initscr
+import
+type(c_ptr):: initscr__OUT         ! WINDOW *initscr
 end function f_initscr
 
 subroutine getmaxyx(win,y,x) bind(C, name='macro_getmaxyx')
-  import
-  type (c_ptr), value :: win
-  integer(c_int) :: y,x
+import
+type (c_ptr), value :: win
+integer(c_int) :: y,x
 end subroutine getmaxyx
 
 !--- functions that interface directly with Curses
 
 subroutine endwin() bind(C)
-  ! ncurses restores previous terminal contents (before program was run)
+! ncurses restores previous terminal contents (before program was run)
 end subroutine endwin
 
 integer(c_int) function getch() result (ch) bind(C)
-  import
+import
 end function getch
 
 subroutine flushinp() bind (c)
@@ -38,8 +38,8 @@ end subroutine flushinp
 
 subroutine timeout(delay) bind (C)
 !! timeout(0) => non-blocking getch() (-1 if no keypress)
-  import
-  integer(c_int), value :: delay
+import
+integer(c_int), value :: delay
 end subroutine timeout
 
 function nodelay(win, bf) result (ierr) bind(C, name='nodelay')
@@ -62,15 +62,15 @@ end function keypad
 
 
 integer(c_int) function f_addch(ch) result (addch__OUT) bind(c, name='addch')
-  import
-  character(kind=c_char) , value, intent(in):: ch
+import
+character(kind=c_char) , value, intent(in):: ch
 end function f_addch
 
 
 subroutine mvaddch(y, x, ch) bind (C, name='mvaddch')
-  import
-  integer(c_int), intent(in), value :: y, x
-  character(kind=c_char), intent(in), value :: ch
+import
+integer(c_int), intent(in), value :: y, x
+character(kind=c_char), intent(in), value :: ch
 end subroutine mvaddch
 
 
@@ -91,19 +91,19 @@ subroutine cbreak() bind (C)
 end subroutine cbreak
 
 subroutine mvprintw(y, x, str) bind (C)
-  import
-  integer(c_int), intent(in), value :: y, x
-  character(kind=c_char),intent(in) :: str
+import
+integer(c_int), intent(in), value :: y, x
+character(kind=c_char),intent(in) :: str
 end subroutine mvprintw
 
 integer(c_int) function printw(str) bind (C)
-  import
-  character(kind=c_char),intent(in) :: str
+import
+character(kind=c_char),intent(in) :: str
 end function printw
 
 subroutine usleep(time) bind (C)
-  import
-  integer(c_int), value :: time
+import
+integer(c_int), value :: time
 end subroutine usleep
 
 end interface
@@ -112,24 +112,24 @@ contains
 
 function initscr() result (stdscr__OUT) ! call initscr() but set global variables too
 ! http://www.urbanjost.altervista.org/LIBRARY/libscreen/ncurses/pdsrc/ncurses_from_Fortran.html
-  type(C_PTR)           :: stdscr__OUT
-  stdscr = f_initscr()
-  !stdscr=returnstd()
-  !curscr=returncur()
-  stdscr__OUT=stdscr
-  call getmaxyx(stdscr, LINES, COLS)
-  if(LINES < 0) error stop 'Curses: could not get LINES'
-  if(COLS < 0) error stop 'Curses: could not get COLS'
+type(C_PTR)           :: stdscr__OUT
+stdscr = f_initscr()
+!stdscr=returnstd()
+!curscr=returncur()
+stdscr__OUT=stdscr
+call getmaxyx(stdscr, LINES, COLS)
+if(LINES < 0) error stop 'Curses: could not get LINES'
+if(COLS < 0) error stop 'Curses: could not get COLS'
 end function initscr
 
 
 subroutine addch(ch)
-  character(kind=c_char), value, intent(in):: ch                   ! const chtype ch
-  integer(c_int) :: ierr
+character(kind=c_char), value, intent(in):: ch  !< const chtype ch
+integer(c_int) :: ierr
 
-  ierr = f_addch(ch)
+ierr = f_addch(ch)
 
-  if (ierr == FAIL) error stop 'addch'
+if (ierr == FAIL) error stop 'addch'
 end subroutine addch
 
 end module cinter

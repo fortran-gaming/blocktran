@@ -4,7 +4,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 project(tetran
   LANGUAGES C Fortran
-  VERSION 1.2.0
+  VERSION 1.3.0
   DESCRIPTION "Falling-block game in Fortran + Curses"
   HOMEPAGE_URL https://www.github.com/fortran-gaming/tetran)
 enable_testing()

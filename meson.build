@@ -1,5 +1,5 @@
 project('tetran', 'c', 'fortran',
-  default_options : ['default_library=static', 'buildtype=release'],
+  default_options : ['default_library=static', 'buildtype=release', 'warning_level=3'],
   version: '1.3.0',
   meson_version : '>= 0.51')
 

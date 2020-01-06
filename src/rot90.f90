@@ -1,7 +1,7 @@
 module rotflip
 
 ! This module provides rot90, flipud, fliplr for Fortran like Matlab and NumPy
-! 
+!
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 implicit none
 
@@ -20,14 +20,14 @@ r = 1
 if (present(k)) r = k
 
 select case (modulo(r,4))
-  case (0)
-    rot90 = A  ! unmodified
-  case (1) 
-    rot90 = transpose(flip(A,1))
-  case (2)
-    rot90 = flip(A,0)
-  case (3)
-    rot90 = flip(transpose(A), 1)
+case (0)
+  rot90 = A  ! unmodified
+case (1)
+  rot90 = transpose(flip(A,1))
+case (2)
+  rot90 = flip(A,0)
+case (3)
+  rot90 = flip(transpose(A), 1)
 end select
 
 end function rot90
@@ -44,14 +44,14 @@ M = size(A,1)
 N = size(A,2)
 
 select case (d)
-  case (0)  ! flip both dimensions
-    flip = A(M:1:-1, N:1:-1)
-  case (1)
-    flip = A(M:1:-1, :)
-  case (2)
-    flip = A(:, N:1:-1)
-  case default
-    write(stderr,*) 'bad flip dimension, 2-D only  (1 or 2), or 0 for both dimensions'
+case (0)  ! flip both dimensions
+  flip = A(M:1:-1, N:1:-1)
+case (1)
+  flip = A(M:1:-1, :)
+case (2)
+  flip = A(:, N:1:-1)
+case default
+  write(stderr,*) 'bad flip dimension, 2-D only  (1 or 2), or 0 for both dimensions'
 end select
 
 end function flip

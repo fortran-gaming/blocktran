@@ -1,5 +1,7 @@
 submodule (random) rand
 
+implicit none
+
 contains
 
 module procedure rand_init

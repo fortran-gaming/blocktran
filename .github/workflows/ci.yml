@@ -2,11 +2,18 @@ name: ci
 
 on:
   push:
-    paths-ignore:
-      - "**/*.md"
+    paths:
+      - "**/*.f90"
+      - "**/*.F90"
+      - "**/*.build"
+      - "**/*.txt"
   pull_request:
-    paths-ignore:
-      - "**/*.md"
+    paths:
+      - "**/*.f90"
+      - "**/*.F90"
+      - "**/*.build"
+      - "**/*.txt"
+
 jobs:
 
   linuxMeson:
