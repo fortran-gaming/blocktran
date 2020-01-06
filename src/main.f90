@@ -67,7 +67,7 @@ main: do
   end do
 
   if (update) then
-    call clear()
+    !call clear()
     do i = 1,players
       call redraw(F(i), P(i), NP(i))
     enddo
