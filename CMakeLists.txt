@@ -58,22 +58,15 @@ if(CURSES_FOUND)
   add_executable(tetran src/main.f90)
   target_compile_options(tetran PRIVATE ${FFLAGS})
   target_link_libraries(tetran PRIVATE cinter menu shapes blocks keys errs)
-  if(NOT WIN32)  # PDcurses doesn't work with ctest
-    add_test(NAME ShortGame COMMAND tetran -d 100 -s 6 6)
-    set_tests_properties(ShortGame PROPERTIES TIMEOUT 20
-      FIXTURES_REQUIRED CursesF)
-  endif()
+  add_test(NAME ShortGameGUI COMMAND tetran -d 100 -s 6 6)
+  set_tests_properties(ShortGameGUI PROPERTIES TIMEOUT 30)
   install(TARGETS tetran
           RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
 
   add_executable(curses_test src/tests/test_curses.f90)
   target_compile_options(curses_test PRIVATE ${FFLAGS})
   target_link_libraries(curses_test PRIVATE cinter)
-  if(NOT WIN32)  # PDcurses doesn't work with ctest
-    add_test(NAME CursesLib COMMAND curses_test)
-    set_tests_properties(CursesLib PROPERTIES
-      FIXTURES_SETUP CursesF)
-  endif()
+  add_test(NAME CursesLibGUI COMMAND curses_test)
 
   add_executable(testkeys src/tests/keytest.f90)
   target_compile_options(testkeys PRIVATE ${FFLAGS})
@@ -82,11 +75,8 @@ if(CURSES_FOUND)
   add_executable(menu_test src/tests/test_menu.f90)
   target_compile_options(menu_test PRIVATE ${FFLAGS})
   target_link_libraries(menu_test PRIVATE cinter menu)
-  if(NOT WIN32)  # PDcurses doesn't work with ctest
-    add_test(NAME TitleScreen COMMAND menu_test)
-    set_tests_properties(TitleScreen PROPERTIES TIMEOUT 10
-      FIXTURES_REQUIRED CursesF)
-  endif()
+  add_test(NAME TitleScreenGUI COMMAND menu_test)
+  set_tests_properties(TitleScreenGUI PROPERTIES TIMEOUT 10)
 endif()
 
 add_executable(blockrand src/tests/randtest.f90)

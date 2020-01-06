@@ -31,7 +31,7 @@ jobs:
       env:
         FC: gfortran
     - run: cmake --build build --parallel
-    - run: ctest -V --parallel
+    - run: ctest -V --parallel -E GUI
       working-directory: build
 
   windows:
@@ -42,5 +42,5 @@ jobs:
       env:
         FC: gfortran
     - run: cmake --build build --parallel
-    - run: ctest -V --parallel
+    - run: ctest -V --parallel -E GUI
       working-directory: build
