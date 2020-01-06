@@ -1,0 +1,43 @@
+name: ci_cmake
+
+on:
+  push:
+    paths:
+      - "**/*.f90"
+      - "**/*.F90"
+      - "**/*.cmake"
+      - "**/*.txt"
+  pull_request:
+    paths:
+      - "**/*.f90"
+      - "**/*.F90"
+      - "**/*.cmake"
+      - "**/*.txt"
+
+jobs:
+
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install packages
+      run: |
+        sudo apt update -yq
+        sudo apt install -yq --no-install-recommends gfortran libncurses-dev
+    - run: cmake -B build
+      env:
+        FC: gfortran
+    - run: cmake --build build --parallel
+    - run: ctest -V --parallel
+      working-directory: build
+
+  windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v1
+    - run: cmake -B build -G "MinGW Makefiles" -DCMAKE_SH="CMAKE_SH-NOTFOUND"
+      env:
+        FC: gfortran
+    - run: cmake --build build --parallel
+    - run: ctest -V --parallel
+      working-directory: build

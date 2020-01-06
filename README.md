@@ -1,6 +1,7 @@
-[![Actions Status](https://github.com/fortran-gaming/tetran/workflows/ci/badge.svg)](https://github.com/fortran-gaming/tetran/actions)
-
 # Tetran
+
+[![Actions Status](https://github.com/fortran-gaming/tetran/workflows/ci_meson/badge.svg)](https://github.com/fortran-gaming/tetran/actions)
+[![Actions Status](https://github.com/fortran-gaming/tetran/workflows/ci_cmake/badge.svg)](https://github.com/fortran-gaming/tetran/actions)
 
 Text/console falling-block tetromino game written in object-oriented Fortran 2008.
 
@@ -39,7 +40,6 @@ meson install -C build
 ```
 
 Meson will automatically build PDcurses if Curses isn't available on your system already.
-
 
 ### Compiler selection
 
@@ -107,7 +107,9 @@ Other "secret" cheat keys exist! You can also use arrow keys.
 
 unlike some games, block distribution is uniformly random as confirmed by:
 
-    ./blockrand
+```sh
+./blockrand
+```
 
 #### Normalized benchmarks
 
@@ -125,8 +127,7 @@ Tested with:
 * Flang &ge; 7
 * Gfortran &ge; 6
 * Intel Fortran 2019
-* PGI &ge; 19.4
-
+* PGI &ge; 19.10
 
 ### References
 

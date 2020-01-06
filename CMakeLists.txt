@@ -15,17 +15,20 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(CMAKE_INSTALL_PREFIX "~/.local/bin" CACHE PATH "..." FORCE)
 endif()
 
-if(WIN32 AND NOT DEFINED Curses_ROOT)
-  set(Curses_ROOT c:/pdcurses)  # be sure you name PDcurses library compiled "curses.a", not "pdcurses.a"
-endif()
-
 add_library(AI src/ai.f90)
 target_compile_options(AI PRIVATE ${FFLAGS})
 target_link_libraries(AI PRIVATE shapes)
 
-
+find_package(PkgConfig)
 find_package(Curses)
 if(CURSES_FOUND)
+  # CMake FindNcurses is goofed up on some platforms, missing the include directory!
+  pkg_check_modules(NC ncurses)
+  find_path(NCI NAMES curses.h HINTS ${NC_INCLUDE_DIRS} ${CURSES_INCLUDE_DIRS}/ncurses)
+  if(NCI)
+    list(APPEND CURSES_INCLUDE_DIRS ${NCI})
+  endif()
+  message(STATUS "CURSES include: ${CURSES_INCLUDE_DIRS}")
 
   add_library(cinterc src/cinter.c)
   target_compile_options(cinterc PRIVATE ${CFLAGS})
