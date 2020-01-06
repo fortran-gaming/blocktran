@@ -11,6 +11,8 @@ subdir('cmake')
 
 subdir('src')
 
+subdir('src/tests')
+
 tetran = executable('tetran', 'src/main.f90',
   link_with: [cinter, menu, shapes, blocks, keys, AI, errs],  # need AI for fla$
   install: true,
