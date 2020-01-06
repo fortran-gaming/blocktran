@@ -19,7 +19,7 @@ add_library(AI src/ai.f90)
 target_compile_options(AI PRIVATE ${FFLAGS})
 target_link_libraries(AI PRIVATE shapes)
 
-include(curses.cmake)
+include(cmake/curses.cmake)
 if(CURSES_FOUND)
 
   add_library(cinterc src/cinter.c)

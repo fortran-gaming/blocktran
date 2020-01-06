@@ -36,10 +36,7 @@ logical :: AI
 
 contains
 
-! one per line for PGI, FLang
-procedure, public :: setup
-procedure, public :: levelup
-procedure, public :: clear_lines
+procedure, public :: setup, levelup, clear_lines
 
 end type
 
