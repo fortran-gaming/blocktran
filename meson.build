@@ -1,6 +1,6 @@
 project('tetran', 'c', 'fortran',
   default_options : ['default_library=static', 'buildtype=release', 'warning_level=3'],
-  version: '1.3.0',
+  version: '1.3.1',
   meson_version : '>= 0.51')
 
 cc = meson.get_compiler('c')

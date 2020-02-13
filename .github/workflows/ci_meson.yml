@@ -1,4 +1,6 @@
 name: ci_meson
+env:
+  CI: true
 
 on:
   push:
@@ -22,15 +24,19 @@ jobs:
     - uses: actions/setup-python@v1
       with:
         python-version: '3.x'
+
     - run: pip install -r requirements.txt
     - name: Install packages
       run: |
         sudo apt update -yq
-        sudo apt install -yq --no-install-recommends gfortran libncurses-dev
+        sudo apt install -yq --no-install-recommends ninja-build gfortran libncurses-dev
+
     - run: meson setup build
       env:
         FC: gfortran
+
     - run: ninja -C build
+
     - run: meson test -C build -v --suite nogui
     - uses: actions/upload-artifact@v1
       if: failure()
@@ -45,13 +51,18 @@ jobs:
     - uses: actions/setup-python@v1
       with:
         python-version: '3.x'
-    - run: pip install -r requirements.txt
-    - run: brew install gcc
+
+    - run: |
+        pip install -r requirements.txt
+        brew install gcc ninja
+
     - run: meson setup build
       env:
         FC: gfortran-9
         CC: gcc-9
+
     - run: ninja -C build
+
     - run: meson test -C build -v --suite nogui
     - uses: actions/upload-artifact@v1
       if: failure()
@@ -66,11 +77,17 @@ jobs:
     - uses: actions/setup-python@v1
       with:
         python-version: '3.x'
-    - run: pip install -r requirements.txt
+
+    - run: |
+        pip install -r requirements.txt
+        cinst -y ninja
+
     - run: meson setup build
       env:
         FC: gfortran
+
     - run: ninja -C build
+
     - run: meson test -C build -v --suite nogui
     - uses: actions/upload-artifact@v1
       if: failure()
