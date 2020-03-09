@@ -12,8 +12,6 @@ enable_testing()
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/compilers.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/curses.cmake)
 
-set(CMAKE_Fortran_MODULE_DIRECTORY ${CMAKE_BINARY_DIR})
-
 add_subdirectory(src)
 
 if(CURSES_FOUND)

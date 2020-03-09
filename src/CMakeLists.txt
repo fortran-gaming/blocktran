@@ -34,3 +34,8 @@ if(CURSES_FOUND)
   add_library(keys OBJECT keys.f90)
   target_link_libraries(keys PRIVATE AI cinter blocks)
 endif()
+
+foreach(t AI blocks cinter cinterc errs keys menu shapes)
+  target_include_directories(${t} INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/include)
+  set_target_properties(${t} PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include)
+endforeach()
