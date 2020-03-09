@@ -36,6 +36,8 @@ if(CURSES_FOUND)
 endif()
 
 foreach(t AI blocks cinter cinterc errs keys menu shapes)
-  target_include_directories(${t} INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/include)
+  target_include_directories(${t}
+    PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include  # necessary in general for IBM XL
+    INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/include)
   set_target_properties(${t} PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include)
 endforeach()
