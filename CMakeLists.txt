@@ -14,12 +14,14 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/curses.cmake)
 
 add_subdirectory(src)
 
+set(CI $ENV{CI})  # have to use internal variable, not ENV{} directly
+
 if(CURSES_FOUND)
   add_executable(tetran src/main.f90)
   target_link_libraries(tetran PRIVATE AI cinterc cinter menu shapes blocks keys errs)
   install(TARGETS tetran
     RUNTIME DESTINATION bin)
-  if(NOT ENV{CI})
+  if(NOT CI)
     add_test(NAME ShortGameGUI COMMAND tetran -d 100 -s 6 6)
     set_tests_properties(ShortGameGUI PROPERTIES TIMEOUT 30)
   endif()
