@@ -1,5 +1,5 @@
 if(CMAKE_Fortran_COMPILER_ID STREQUAL GNU)
-  add_compile_options(-march=native)
+  add_compile_options(-mtune=native)
   string(APPEND CMAKE_Fortran_FLAGS " -Wall -Wextra -Werror=array-bounds -finit-real=nan -Wconversion -fimplicit-none")
 
   string(APPEND CMAKE_Fortran_FLAGS_DEBUG " -fexceptions -ffpe-trap=invalid,zero,overflow -fcheck=all")

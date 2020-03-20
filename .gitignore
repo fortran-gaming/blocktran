@@ -1,6 +1,8 @@
 subprojects/
+!subprojects/*.wrap
+
 .mypy_cache/
-build/
+build*/
 tetran
 *.log
 main

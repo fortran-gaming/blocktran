@@ -8,6 +8,8 @@ else()
   target_sources(shapes PRIVATE rand_legacy.f90)
 endif()
 
+set(_mods AI shapes)
+
 if(CURSES_FOUND)
   add_library(cinterc OBJECT cinter.c)
   target_include_directories(cinterc PRIVATE ${CURSES_INCLUDE_DIRS})
@@ -33,9 +35,11 @@ if(CURSES_FOUND)
 
   add_library(keys OBJECT keys.f90)
   target_link_libraries(keys PRIVATE AI cinter blocks)
+
+  list(APPEND _mods blocks cinter cinterc errs keys menu)
 endif()
 
-foreach(t AI blocks cinter cinterc errs keys menu shapes)
+foreach(t ${_mods})
   target_include_directories(${t}
     PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include  # necessary in general for IBM XL
     INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/include)

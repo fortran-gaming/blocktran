@@ -2,7 +2,7 @@ find_package(PkgConfig)
 find_package(Curses)
 # CMake FindCurses is goofed up on some platforms, missing the include directory!
 if(CURSES_FOUND)
-  pkg_check_modules(NC ncurses)
+  pkg_check_modules(NC ncurses QUIET)
   find_path(NCI NAMES curses.h HINTS ${NC_INCLUDE_DIRS} ${CURSES_INCLUDE_DIRS}/ncurses)
   if(NCI)
     list(APPEND CURSES_INCLUDE_DIRS ${NCI})
