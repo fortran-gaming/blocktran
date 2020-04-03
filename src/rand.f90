@@ -1,6 +1,6 @@
 submodule (random) rand
 
-implicit none
+implicit none (external)
 
 contains
 

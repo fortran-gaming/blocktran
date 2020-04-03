@@ -1,9 +1,10 @@
+program test_menu
 
 use, intrinsic:: iso_c_binding, only: c_ptr, c_int
 use cinter, only: initscr, endwin, nodelay
 use menu, only: title
 
-implicit none
+implicit none (external)
 
 type(c_ptr) :: stdscr
 

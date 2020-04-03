@@ -1,4 +1,5 @@
 module menu
+
 use, intrinsic:: iso_c_binding, only: c_int, c_ptr
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 use random, only: randint
@@ -6,7 +7,8 @@ use cinter, only: usleep, refresh, clear, getch, noecho, cbreak, timeout, printw
 use shapes, only: Piece
 use fields, only: field
 use blocks, only: draw_piece
-implicit none
+
+implicit none (external)
 
 character(14) :: buf
 integer(c_int), parameter:: y0 = 5, L = 10, W = 80, H = 60

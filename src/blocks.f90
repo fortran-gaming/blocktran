@@ -4,9 +4,8 @@ use cinter, only: mvaddch, endwin
 use shapes, only: Piece
 use fields, only: field
 
-implicit none
+implicit none (external)
 private
-
 public :: game_over, draw_piece, freeze
 
 contains

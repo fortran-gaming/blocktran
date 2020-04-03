@@ -1,7 +1,9 @@
 module cinter
+
 use, intrinsic:: iso_c_binding, only: c_int, c_char, c_ptr, c_bool
 use oscinter, only: kbhit
-implicit none
+
+implicit none (external)
 
 integer(c_int)  :: LINES, COLS
 type(c_ptr) :: stdscr,curscr

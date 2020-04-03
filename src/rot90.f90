@@ -3,7 +3,8 @@ module rotflip
 ! This module provides rot90, flipud, fliplr for Fortran like Matlab and NumPy
 !
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
-implicit none
+
+implicit none (external)
 
 contains
 

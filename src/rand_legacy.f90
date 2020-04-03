@@ -2,7 +2,7 @@ submodule (random) randinit
 
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 
-implicit none
+implicit none (external)
 
 contains
 

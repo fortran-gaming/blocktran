@@ -2,7 +2,7 @@ module random
 
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 
-implicit none
+implicit none (external)
 
 interface std
 procedure std_int, std_real

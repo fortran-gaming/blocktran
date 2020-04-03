@@ -3,7 +3,7 @@ module errs
 use, intrinsic:: iso_fortran_env, only: error_unit
 use cinter, only: endwin
 
-implicit none
+implicit none (external)
 
 contains
 

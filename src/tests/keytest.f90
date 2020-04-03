@@ -1,9 +1,11 @@
+program keytest
+
 use, intrinsic:: iso_c_binding, only: c_int,c_ptr, c_char, c_bool
 
 use cinter, only: initscr,getch, cbreak, timeout, printw, refresh, noecho, kbhit, usleep, flushinp, keypad, clear
 use errs, only: endwin
 
-implicit none
+implicit none (external)
 
 type(c_ptr) :: stdscr
 integer(c_int) :: ic, ierr

@@ -1,8 +1,9 @@
+program test_curses
 ! Test Fortran CURSES interface
 use, intrinsic:: iso_c_binding, only: c_ptr, c_int
 use cinter, only: initscr, endwin, mvprintw, printw, refresh, LINES, COLS, usleep
 
-implicit none
+implicit none (external)
 
 integer(c_int) :: ierr
 type(c_ptr) :: stdscr

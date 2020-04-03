@@ -3,7 +3,7 @@ module AI
 use fields, only: field
 use shapes, only: piece
 
-implicit none
+implicit none (external)
 
 contains
 

@@ -1,9 +1,11 @@
+program test_shapes
+
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 use shapes, only: piece
 use fields, only: field
 use random, only: rand_init
 
-implicit none
+implicit none (external)
 
 type(field) :: F
 type(piece) :: S,line,tee,ell,jay,ess,zee,oh

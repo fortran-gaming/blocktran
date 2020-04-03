@@ -1,3 +1,5 @@
+program tetran
+
 use, intrinsic:: iso_c_binding, only: c_ptr, c_bool, c_int
 
 use menu, only: title
@@ -11,7 +13,7 @@ use fields, only: field
 use random, only: rand_init, randint
 use keys, only: key_input
 
-implicit none
+implicit none (external)
 
 type(c_ptr) :: stdscr
 

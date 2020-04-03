@@ -1,6 +1,7 @@
 module oscinter
 use, intrinsic:: iso_c_binding, only: c_int
-implicit none
+
+implicit none (external)
 
 interface
 

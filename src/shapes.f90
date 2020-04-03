@@ -4,7 +4,8 @@ use, intrinsic:: iso_fortran_env, only: stdout=>output_unit, stderr=>error_unit
 use rotflip, only: rot90, fliplr, flipud
 use fields, only: field
 use random, only: randint
-implicit none
+
+implicit none (external)
 
 private
 

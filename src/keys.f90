@@ -1,4 +1,5 @@
 module keys
+
 use, intrinsic:: iso_c_binding, only: c_int
 use ai, only: AI_input
 use cinter, only: getch, flushinp, kbhit, printw, endwin
@@ -6,7 +7,7 @@ use blocks, only: game_over
 use shapes, only: piece
 use fields, only: field
 
-implicit none
+implicit none (external)
 
 contains
 
