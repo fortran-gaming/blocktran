@@ -13,6 +13,7 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/compilers.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/curses.cmake)
 
 add_subdirectory(src)
+add_subdirectory(src/tests)
 
 set(CI $ENV{CI})  # have to use internal variable, not ENV{} directly
 
@@ -22,7 +23,7 @@ if(CURSES_FOUND)
   install(TARGETS tetran
     RUNTIME DESTINATION bin)
   if(NOT CI)
-    add_test(NAME ShortGameGUI COMMAND tetran -d 100 -s 6 6)
+    add_test(NAME ShortGameGUI COMMAND $<TARGET_FILE:tetran> -d 100 -s 6 6)
     set_tests_properties(ShortGameGUI PROPERTIES TIMEOUT 30)
   endif()
 endif()

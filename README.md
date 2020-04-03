@@ -1,7 +1,7 @@
 # Tetran
 
-[![Actions Status](https://github.com/fortran-gaming/tetran/workflows/ci_meson/badge.svg)](https://github.com/fortran-gaming/tetran/actions)
-[![Actions Status](https://github.com/fortran-gaming/tetran/workflows/ci_cmake/badge.svg)](https://github.com/fortran-gaming/tetran/actions)
+![Actions Status](https://github.com/fortran-gaming/tetran/workflows/ci_meson/badge.svg)
+![Actions Status](https://github.com/fortran-gaming/tetran/workflows/ci_cmake/badge.svg)
 
 Text/console falling-block tetromino game written in object-oriented Fortran 2008.
 
@@ -29,7 +29,13 @@ Obtain these items by:
 
 ## Build
 
-from the top-level `tetran` directory:
+```sh
+ctest -S setup.cmake -VV
+```
+
+### Meson
+
+If you wish to use Meson instead of CMake, from the top-level `tetran` directory:
 
 ```bash
 meson build
