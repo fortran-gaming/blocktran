@@ -1,3 +1,5 @@
+program test_motion
+
 ! -------- shape horiz. movement & rotation
 ! FIXME: Each shape should be tested.
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
@@ -7,16 +9,12 @@ use fields, only: field
 implicit none
 
 integer, parameter :: W=10,H=10
-logical :: failed = .false.
 
-
-failed = failed .or. initial("I")
-failed = failed .or. test_floor("I")
-failed = failed .or. left_wall("I")
-failed = failed .or. right_wall("I")
-failed = failed .or. block_hit("I")
-
-if (failed) error stop 'Motion test'
+if (initial("I")) error stop 'initial'
+if (test_floor("I")) error stop 'floor'
+if (left_wall("I")) error stop 'left'
+if (right_wall("I")) error stop 'right'
+if (block_hit("I")) error stop 'block'
 
 print *,'OK motion'
 
