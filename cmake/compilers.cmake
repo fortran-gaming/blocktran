@@ -1,5 +1,15 @@
 set(CMAKE_CONFIGURATION_TYPES "Release;RelWithDebInfo;Debug" CACHE STRING "Build type selections" FORCE)
 
+include(CheckFortranSourceCompiles)
+check_fortran_source_compiles("implicit none (external); end" f2018impnone SRC_EXT f90)
+if(NOT f2018impnone)
+  message(FATAL_ERROR "Compiler does not support Fortran 2018 IMPLICIT NONE (EXTERNAL): ${CMAKE_Fortran_COMPILER_ID} ${CMAKE_Fortran_COMPILER_VERSION}")
+endif()
+
+check_fortran_source_compiles("call random_init(.false., .false.); end" f18random SRC_EXT f90)
+
+# always do compiler options after all FindXXX and checks
+
 if(CMAKE_Fortran_COMPILER_ID STREQUAL Intel)
   if(WIN32)
     add_compile_options(/arch:native)
@@ -23,11 +33,3 @@ elseif(CMAKE_Fortran_COMPILER_ID STREQUAL GNU)
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL PGI)
   string(APPEND CMAKE_Fortran_FLAGS " -C -Mdclchk")
 endif()
-
-include(CheckFortranSourceCompiles)
-check_fortran_source_compiles("implicit none (external); end" f2018impnone SRC_EXT f90)
-if(NOT f2018impnone)
-  message(FATAL_ERROR "Compiler does not support Fortran 2018 IMPLICIT NONE (EXTERNAL): ${CMAKE_Fortran_COMPILER_ID} ${CMAKE_Fortran_COMPILER_VERSION}")
-endif()
-
-check_fortran_source_compiles("call random_init(.false., .false.); end" f18random SRC_EXT f90)

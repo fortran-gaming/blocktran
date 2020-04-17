@@ -1,6 +1,5 @@
 name: ci_cmake
 env:
-  CI: true
   CMAKE_GENERATOR: Ninja
 
 on:
@@ -12,6 +11,7 @@ on:
       - "**/*.txt"
       - ".github/workflows/ci_cmake.yml"
   pull_request:
+
 
 jobs:
 
@@ -37,10 +37,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - run: brew install ninja
+    - run: brew install ninja ncurses
     - run: ctest -S setup.cmake -VV
 
+
   windows:
+    if: false  # waiting for MSYS2 on Actions, Tetran works fine with MSYS2
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2

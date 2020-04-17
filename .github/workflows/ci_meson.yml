@@ -1,6 +1,4 @@
 name: ci_meson
-env:
-  CI: true
 
 on:
   push:
@@ -10,7 +8,6 @@ on:
       - "**/*.build"
       - ".github/workflows/ci_meson.yml"
   pull_request:
-  release:
 
 jobs:
 

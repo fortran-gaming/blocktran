@@ -8,38 +8,32 @@ else()
   target_sources(shapes PRIVATE rand_legacy.f90)
 endif()
 
-set(_mods AI shapes)
+add_library(cinterc OBJECT cinter.c)
+target_include_directories(cinterc PRIVATE ${CURSES_INCLUDE_DIRS})
+target_link_libraries(cinterc PRIVATE ${CURSES_LIBRARIES})
 
-if(CURSES_FOUND)
-  add_library(cinterc OBJECT cinter.c)
-  target_include_directories(cinterc PRIVATE ${CURSES_INCLUDE_DIRS})
-  target_link_libraries(cinterc PRIVATE ${CURSES_LIBRARIES})
-
-  add_library(cinter OBJECT cinter.f90)
-  target_link_libraries(cinter PRIVATE cinterc ${CURSES_LIBRARIES})
-  if(WIN32)
-    target_sources(cinter PRIVATE wincinter.f90)
-  else()
-    target_sources(cinter PRIVATE unixcinter.f90)
-  endif()
-
-  add_library(errs OBJECT err.f90)
-  target_link_libraries(errs PRIVATE cinter ${CURSES_LIBRARIES})
-
-  add_library(menu OBJECT menu.f90)
-  target_link_libraries(menu PRIVATE cinter shapes blocks)
-
-
-  add_library(blocks OBJECT blocks.f90)
-  target_link_libraries(blocks PRIVATE cinter shapes)
-
-  add_library(keys OBJECT keys.f90)
-  target_link_libraries(keys PRIVATE AI cinter blocks)
-
-  list(APPEND _mods blocks cinter cinterc errs keys menu)
+add_library(cinter OBJECT cinter.f90)
+target_link_libraries(cinter PRIVATE cinterc ${CURSES_LIBRARIES})
+if(WIN32)
+  target_sources(cinter PRIVATE wincinter.f90)
+else()
+  target_sources(cinter PRIVATE unixcinter.f90)
 endif()
 
-foreach(t ${_mods})
+add_library(errs OBJECT err.f90)
+target_link_libraries(errs PRIVATE cinter ${CURSES_LIBRARIES})
+
+add_library(menu OBJECT menu.f90)
+target_link_libraries(menu PRIVATE cinter shapes blocks)
+
+
+add_library(blocks OBJECT blocks.f90)
+target_link_libraries(blocks PRIVATE cinter shapes)
+
+add_library(keys OBJECT keys.f90)
+target_link_libraries(keys PRIVATE AI cinter blocks)
+
+foreach(t AI shapes blocks cinter cinterc errs keys menu)
   target_include_directories(${t}
     PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include  # necessary in general for IBM XL
     INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/include)
