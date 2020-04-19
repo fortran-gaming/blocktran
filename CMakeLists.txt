@@ -6,12 +6,13 @@ endif()
 
 project(tetran
 LANGUAGES C Fortran
-VERSION 1.3.3
+VERSION 1.3.4
 DESCRIPTION "Falling-block game in Fortran + Curses"
 HOMEPAGE_URL https://www.github.com/fortran-gaming/tetran)
 
 enable_testing()
 include(CTest)
+include(FeatureSummary)
 
 set(CI $ENV{CI})  # have to use internal variable, not ENV{} directly
 
@@ -29,3 +30,7 @@ if(NOT CI)
   add_test(NAME ShortGameGUI COMMAND $<TARGET_FILE:tetran> -d 100 -s 6 6)
   set_tests_properties(ShortGameGUI PROPERTIES TIMEOUT 30)
 endif()
+
+set_package_properties(Curses PROPERTIES URL "https://invisible-island.net/ncurses/" DESCRIPTION "terminal graphics library")
+
+feature_summary(WHAT ALL)
