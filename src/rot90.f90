@@ -4,7 +4,7 @@ module rotflip
 !
 use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 
-implicit none (external)
+implicit none (type, external)
 
 contains
 

@@ -6,7 +6,7 @@ use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 use shapes, only: piece
 use fields, only: field
 
-implicit none (external)
+implicit none (type, external)
 
 integer, parameter :: W=10,H=10
 

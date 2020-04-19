@@ -13,7 +13,7 @@ use fields, only: field
 use random, only: rand_init, randint
 use keys, only: key_input
 
-implicit none (external)
+implicit none (type, external)
 
 type(c_ptr) :: stdscr
 

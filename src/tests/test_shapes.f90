@@ -5,7 +5,7 @@ use shapes, only: piece
 use fields, only: field
 use random, only: rand_init
 
-implicit none (external)
+implicit none (type, external)
 
 type(field) :: F
 type(piece) :: S,line,tee,ell,jay,ess,zee,oh

@@ -8,7 +8,7 @@ use shapes, only: Piece
 use fields, only: field
 use blocks, only: draw_piece
 
-implicit none (external)
+implicit none (type, external)
 
 character(14) :: buf
 integer(c_int), parameter:: y0 = 5, L = 10, W = 80, H = 60

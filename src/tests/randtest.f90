@@ -3,7 +3,7 @@ use, intrinsic:: iso_fortran_env, only: dp=>real64
 use shapes, only: gen_type
 use random, only: rand_init, randint, std, mean
 
-implicit none (external)
+implicit none (type, external)
 
 character(*), parameter :: types = 'ITLJSZOD'
 integer,parameter :: Ntypes=len(types)
