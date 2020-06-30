@@ -12,13 +12,15 @@ interface mean
 procedure mean_int, mean_real
 end interface
 
-interface
-module subroutine rand_init(repeatable, image_distinct)
-logical, intent(in) :: repeatable, image_distinct
-end subroutine rand_init
-end interface
-
 contains
+
+subroutine rand_init(repeatable, image_distinct)
+!! if intrinsic random_init available, use it.
+logical, intent(in) :: repeatable, image_distinct
+
+@_random_init@
+
+end subroutine rand_init
 
 impure elemental integer function randint(lo, hi)
 integer, intent(in) :: lo, hi

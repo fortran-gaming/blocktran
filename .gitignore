@@ -1,12 +1,5 @@
 subprojects/
 !subprojects/*.wrap
 
-.mypy_cache/
 build*/
-tetran
 *.log
-main
-*.mod
-*.o
-*.so
-bin/

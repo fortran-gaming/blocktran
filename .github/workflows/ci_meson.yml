@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - "**/*.f90"
-      - "**/*.F90"
       - "**/*.build"
       - ".github/workflows/ci_meson.yml"
   pull_request:
@@ -15,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-python@v1
+    - uses: actions/setup-python@v2
       with:
         python-version: '3.x'
 
@@ -29,7 +28,7 @@ jobs:
       env:
         FC: gfortran
 
-    - run: ninja -C build
+    - run: meson compile -C build
 
     - run: meson test -C build -v --suite nogui
     - uses: actions/upload-artifact@v1
@@ -43,7 +42,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-python@v1
+    - uses: actions/setup-python@v2
       with:
         python-version: '3.x'
 
@@ -55,7 +54,7 @@ jobs:
       env:
         FC: gfortran
 
-    - run: ninja -C build
+    - run: meson compile -C build
 
     - run: meson test -C build -v --suite nogui
     - uses: actions/upload-artifact@v1

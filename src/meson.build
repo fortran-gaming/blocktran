@@ -1,11 +1,21 @@
+conf_data = configuration_data()
 if fc.links('call random_init(.false., .false.); end', name: 'F2018 random_init')
-  rsrc = 'rand.f90'
+  conf_data.set('_random_init', 'call random_init(repeatable, image_distinct)')
 else
-  rsrc = 'rand_legacy.f90'
+  conf_data.set('_random_init', '''
+integer, allocatable :: seed(:)
+integer :: i,n
+call random_seed(size=n)
+allocate(seed(n))
+do i = 1,n
+  seed(i) = randint(-1073741823, 1073741823)
+end do''')
 endif
+rand = configure_file(input : 'random.in.f90',
+output : 'random.f90',
+configuration : conf_data)
 
-shapes = library('shapes', 'shapes.f90', 'fields.f90','rot90.f90',
-  'random.f90', rsrc)
+shapes = library('shapes', 'shapes.f90', 'fields.f90','rot90.f90', rand)
 
 AI = library('AI', 'ai.f90',
   link_with: shapes)

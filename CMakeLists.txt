@@ -6,7 +6,7 @@ endif()
 
 project(tetran
 LANGUAGES C Fortran
-VERSION 1.3.4
+VERSION 1.4.0
 DESCRIPTION "Falling-block game in Fortran + Curses"
 HOMEPAGE_URL https://www.github.com/fortran-gaming/tetran)
 

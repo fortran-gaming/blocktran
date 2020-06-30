@@ -1,12 +1,24 @@
 add_library(AI OBJECT ai.f90)
 target_link_libraries(AI PRIVATE shapes)
 
-add_library(shapes OBJECT shapes.f90 fields.f90 rot90.f90 random.f90)
 if(f18random)
-  target_sources(shapes PRIVATE rand.f90)
+set(_random_init "call random_init(repeatable, image_distinct)")
 else()
-  target_sources(shapes PRIVATE rand_legacy.f90)
+set(_random_init "
+integer, allocatable :: seed(:)
+integer :: i,n
+call random_seed(size=n)
+allocate(seed(n))
+do i = 1,n
+  seed(i) = randint(-1073741823, 1073741823)
+end do
+")
 endif()
+
+configure_file(random.in.f90 random.f90)
+add_library(shapes OBJECT shapes.f90 fields.f90 rot90.f90
+  ${CMAKE_CURRENT_BINARY_DIR}/random.f90)
+
 
 add_library(cinterc OBJECT cinter.c)
 target_include_directories(cinterc PRIVATE ${CURSES_INCLUDE_DIRS})
