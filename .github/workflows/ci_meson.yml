@@ -6,7 +6,6 @@ on:
       - "**/*.f90"
       - "**/*.build"
       - ".github/workflows/ci_meson.yml"
-  pull_request:
 
 jobs:
 
@@ -18,11 +17,11 @@ jobs:
       with:
         python-version: '3.x'
 
-    - run: pip install meson ninja
+    - run: pip install meson
     - name: Install packages
       run: |
         sudo apt update -yq
-        sudo apt install -yq --no-install-recommends gfortran libncurses-dev
+        sudo apt install -yq --no-install-recommends gfortran ninja-build libncurses-dev
 
     - run: meson setup build
       env:
