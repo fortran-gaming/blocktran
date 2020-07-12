@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - "**/*.f90"
-      - "**/*.build"
+      - "**/meson.build"
       - ".github/workflows/ci_meson.yml"
 
 jobs:
@@ -45,9 +45,7 @@ jobs:
       with:
         python-version: '3.x'
 
-    - run: |
-        pip install meson
-        cinst -y ninja
+    - run: pip install meson ninja
 
     - run: meson setup build
       env:

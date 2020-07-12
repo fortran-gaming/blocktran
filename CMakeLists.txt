@@ -12,11 +12,12 @@ HOMEPAGE_URL https://www.github.com/fortran-gaming/tetran)
 
 enable_testing()
 include(CTest)
-include(FeatureSummary)
 
-set(CI $ENV{CI})  # have to use internal variable, not ENV{} directly
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/curses.cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
+
+find_package(Curses REQUIRED)
+
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/compilers.cmake)
 
 add_subdirectory(src)
@@ -26,11 +27,10 @@ add_executable(tetran src/main.f90)
 target_link_libraries(tetran PRIVATE AI cinterc cinter menu shapes blocks keys errs)
 install(TARGETS tetran
   RUNTIME DESTINATION bin)
-if(NOT CI)
-  add_test(NAME ShortGameGUI COMMAND $<TARGET_FILE:tetran> -d 100 -s 6 6)
-  set_tests_properties(ShortGameGUI PROPERTIES TIMEOUT 30)
-endif()
+add_test(NAME gui:game COMMAND $<TARGET_FILE:tetran> -d 100 -s 6 6)
+set_tests_properties(gui:game PROPERTIES TIMEOUT 30)
 
+# ---
+include(FeatureSummary)
 set_package_properties(Curses PROPERTIES URL "https://invisible-island.net/ncurses/" DESCRIPTION "terminal graphics library")
-
 feature_summary(WHAT ALL)
