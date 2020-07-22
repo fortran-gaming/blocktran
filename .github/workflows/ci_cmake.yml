@@ -23,7 +23,6 @@ jobs:
 
     - name: Install packages
       run: |
-        pip install ninja
         sudo apt update -yq
         sudo apt install -yq --no-install-recommends gfortran libncurses-dev
 
@@ -35,8 +34,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - run: brew install ninja ncurses
+    - run: brew install ncurses
     - run: ctest -S setup.cmake -E gui -VV
+      env:
+        FC: gfortran-9
+        CC: gcc-9
+        CXX: g++-9
 
 
   windows:
