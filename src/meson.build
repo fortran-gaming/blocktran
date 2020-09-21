@@ -21,6 +21,8 @@ cinter = library('cinter', 'cinter.f90', cinter_src,
   link_with: [cinterc],
   dependencies : curses)
 
+sleep = library('sleep', 'sleep_std.F90')
+
 errs = library('errs', 'err.f90',
   link_with: cinter, dependencies: curses)
 
@@ -28,7 +30,7 @@ blocks = library('blocks', 'blocks.f90',
   link_with: [cinter, shapes])
 
 menu = library('menu', 'menu.f90',
-  link_with: [cinter, shapes, blocks])
+  link_with: [cinter, shapes, blocks, sleep])
 
 
 keys = library('keys', 'keys.f90',

@@ -107,11 +107,6 @@ import
 character(kind=c_char),intent(in) :: str
 end function printw
 
-subroutine usleep(time) bind (C)
-import
-integer(c_int), value :: time
-end subroutine usleep
-
 end interface
 
 contains

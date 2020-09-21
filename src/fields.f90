@@ -8,7 +8,7 @@ private
 type, public :: Field
 ! Microseconds between each automatic downward move
 real :: move_time = 0.5 ! seconds
-integer(c_int) :: sleep_incr = 50000 !  keyboard polling and screen refresh interval (microseconds).
+integer(c_int) :: sleep_incr = 50 !  keyboard polling and screen refresh interval (milliseconds).
 ! 1e6 microsec: mushy controls. 1e5 microsec a little laggy. 5e4 about right. 1e4 microsec screen flicker.
 real :: difffact = 1.
 integer :: level = 1
@@ -118,4 +118,3 @@ end do
 end subroutine clear_lines
 
 end module fields
-

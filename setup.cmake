@@ -7,8 +7,8 @@ set(_opts)
 
 # --- boilerplate follows
 message(STATUS "CMake ${CMAKE_VERSION}")
-if(CMAKE_VERSION VERSION_LESS 3.12)
-  message(FATAL_ERROR "Please update CMake >= 3.12.
+if(CMAKE_VERSION VERSION_LESS 3.14)
+  message(FATAL_ERROR "Please update CMake >= 3.14.
     Try 'pip install -U cmake' or https://cmake.org/download/")
 endif()
 

@@ -14,11 +14,12 @@ subdir('src')
 subdir('src/tests')
 
 tetran = executable('tetran', 'src/main.f90',
-  link_with: [cinter, menu, shapes, blocks, keys, AI, errs],  # need AI for fla$
+  link_with: [cinter, menu, shapes, blocks, keys, AI, errs, sleep],  # need AI for fla$
   install: true,
   link_language: 'fortran')  # link_language needed for e.g. Ubuntu 16.04
 if os != 'windows'
   test('ShortGame', tetran, args : ['-d', '100', '-s', '6', '6'],
     timeout : 30,
+    parallel: false,
     suite: 'gui')
 endif

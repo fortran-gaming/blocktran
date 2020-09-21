@@ -1,9 +1,10 @@
 program keytest
 
-use, intrinsic:: iso_c_binding, only: c_int,c_ptr, c_char, c_bool
+use, intrinsic :: iso_c_binding, only: c_int,c_ptr, c_char, c_bool
 
-use cinter, only: initscr,getch, cbreak, timeout, printw, refresh, noecho, kbhit, usleep, flushinp, keypad, clear
-use errs, only: endwin
+use cinter, only : initscr,getch, cbreak, timeout, printw, refresh, noecho, kbhit, flushinp, keypad, clear
+use sleep_std, only : sleep
+use errs, only : endwin
 
 implicit none (type, external)
 
@@ -32,14 +33,14 @@ do
     select case (ic)
       case (-1)
         !ierr = printw('waiting for getch ')
-        call usleep(200000)
+        call sleep(200)
         cycle
       case (27)
         exit
     end select
   else
     !ierr = printw('waiting for kbhit ')
-    call usleep(200000)
+    call sleep(200)
     !call clear()
   endif
 

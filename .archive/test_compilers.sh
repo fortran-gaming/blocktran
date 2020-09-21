@@ -53,7 +53,7 @@ ret=$?
 [[ $ret == 0 ]] && ctest -j4 --output-on-failure || exit $ret
 
 )
-  
+
 done
 
 cd "${0%/*}"  # change to directory of this script

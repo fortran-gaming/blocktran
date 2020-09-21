@@ -11,6 +11,7 @@ configure_file(random.in.f90 random.f90)
 add_library(shapes OBJECT shapes.f90 fields.f90 rot90.f90
   ${CMAKE_CURRENT_BINARY_DIR}/random.f90)
 
+add_library(sleep sleep_std.F90)
 
 add_library(cinterc OBJECT cinter.c)
 target_link_libraries(cinterc PRIVATE CURSES::CURSES)
@@ -27,7 +28,7 @@ add_library(errs OBJECT err.f90)
 target_link_libraries(errs PRIVATE cinter CURSES::CURSES)
 
 add_library(menu OBJECT menu.f90)
-target_link_libraries(menu PRIVATE cinter shapes blocks)
+target_link_libraries(menu PRIVATE cinter shapes blocks sleep)
 
 
 add_library(blocks OBJECT blocks.f90)
@@ -36,7 +37,7 @@ target_link_libraries(blocks PRIVATE cinter shapes)
 add_library(keys OBJECT keys.f90)
 target_link_libraries(keys PRIVATE AI cinter blocks)
 
-foreach(t AI shapes blocks cinter cinterc errs keys menu)
+foreach(t AI shapes blocks cinter cinterc errs keys menu sleep)
   target_include_directories(${t}
     PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include  # necessary in general for IBM XL
     INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/include)

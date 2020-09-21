@@ -4,8 +4,9 @@ use, intrinsic:: iso_c_binding, only: c_ptr, c_bool, c_int
 
 use menu, only: title
 use cinter, only:  initscr,noecho, mvprintw, mvaddch, &
-  clear,timeout,usleep,cbreak, keypad, endwin, refresh, &
+  clear,timeout, cbreak, keypad, endwin, refresh, &
   maxH=>LINES, maxW=>COLS
+use sleep_std, only : sleep
 use errs, only: err
 use blocks, only: freeze, draw_piece
 use shapes, only: piece
@@ -76,7 +77,7 @@ main: do
     update=.false.
   end if
 
-  call usleep(F(1)%sleep_incr)
+  call sleep(F(1)%sleep_incr)
 
 
 end do main

@@ -1,9 +1,10 @@
 module menu
 
-use, intrinsic:: iso_c_binding, only: c_int, c_ptr
-use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
+use, intrinsic :: iso_c_binding, only: c_int, c_ptr
+use, intrinsic :: iso_fortran_env, only: stderr=>error_unit
 use random, only: randint
-use cinter, only: usleep, refresh, clear, getch, noecho, cbreak, timeout, printw, kbhit
+use cinter, only: refresh, clear, getch, noecho, cbreak, timeout, printw, kbhit
+use sleep_std, only : sleep
 use shapes, only: Piece
 use fields, only: field
 use blocks, only: draw_piece
@@ -41,7 +42,7 @@ call noecho()
 call cbreak()
 call timeout(0)
 call refresh()
-call usleep(250000)
+call sleep(250)
 
 do i = 1,Nstates
   if (kbhit() /= 0) then
@@ -62,7 +63,7 @@ do i = 1,Nstates
   call dissolve(N)
 
   call refresh()
-  call usleep(150000)
+  call sleep(150)
 enddo
 
 end subroutine title

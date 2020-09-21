@@ -1,13 +1,14 @@
 curses_test = executable('curses_test', 'test_curses.f90',
-  link_with: cinter,
+  link_with: [cinter, sleep],
   link_language: 'fortran')  # link_language needed for e.g. Ubuntu 16.04
 if os != 'windows'  # PDcurses doesn't work with ctest
   test('CursesLib', curses_test,
+    parallel: false,
     suite: 'gui')
 endif
 
 testkeys_exe = executable('testkeys', 'keytest.f90',
-  link_with: [errs, cinter, keys],
+  link_with: [errs, cinter, keys, sleep],
   link_language: 'fortran')  # link_language needed for e.g. Ubuntu 16.04
 
 menu_test = executable('menu_test', 'test_menu.f90',
@@ -16,9 +17,9 @@ menu_test = executable('menu_test', 'test_menu.f90',
 if os != 'windows'
   test('Menu', menu_test,
     timeout: 15,
+    parallel: false,
     suite: 'gui')
 endif
-
 
 blockrand = executable('blockrand', 'randtest.f90',
   link_with: shapes,

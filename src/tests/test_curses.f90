@@ -1,7 +1,8 @@
 program test_curses
 ! Test Fortran CURSES interface
-use, intrinsic:: iso_c_binding, only: c_ptr, c_int
-use cinter, only: initscr, endwin, mvprintw, printw, refresh, LINES, COLS, usleep
+use, intrinsic :: iso_c_binding, only: c_ptr, c_int
+use cinter, only : initscr, endwin, mvprintw, printw, refresh, LINES, COLS
+use sleep_std, only : sleep
 
 implicit none (type, external)
 
@@ -12,7 +13,7 @@ stdscr = initscr()
 
 ierr = printw('hi from Curses')
 call refresh()
-call usleep(1000000)
+call sleep(1000)
 
 call endwin()
 
