@@ -55,7 +55,7 @@ do i = 1,N
   f(i) = randint(-1073741823,  1073741823)
 enddo
 
-print *,new_line(' '),'huge(int)',huge(0), 'huge(real)',huge(0.)
+print '(/,A)','huge(int)',huge(0), 'huge(real)',huge(0.)
 print *,'expected std, mean',real(huge(0), dp) / sqrt(12._dp), 0.
 print *,'std, mean randint()',std(f), mean(f)
 print *,'a few values',f(:6)
@@ -65,7 +65,7 @@ if (i==0) then
   read(u) g
   close(u)
 
-  print *,new_line(' '),'/dev/urandom a few values...'
+  print '(/,A)','/dev/urandom a few values...'
   print *,'std, mean /dev/urandom',std(g), mean(g)
 endif
 

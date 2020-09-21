@@ -2,17 +2,9 @@ add_library(AI OBJECT ai.f90)
 target_link_libraries(AI PRIVATE shapes)
 
 if(f18random)
-set(_random_init "call random_init(repeatable, image_distinct)")
+  set(_random_init "call random_init(repeatable, image_distinct)")
 else()
-set(_random_init "
-integer, allocatable :: seed(:)
-integer :: i,n
-call random_seed(size=n)
-allocate(seed(n))
-do i = 1,n
-  seed(i) = randint(-1073741823, 1073741823)
-end do
-")
+  set(_random_init "call random_seed()")
 endif()
 
 configure_file(random.in.f90 random.f90)

@@ -2,14 +2,7 @@ conf_data = configuration_data()
 if fc.links('call random_init(.false., .false.); end', name: 'F2018 random_init')
   conf_data.set('_random_init', 'call random_init(repeatable, image_distinct)')
 else
-  conf_data.set('_random_init', '''
-integer, allocatable :: seed(:)
-integer :: i,n
-call random_seed(size=n)
-allocate(seed(n))
-do i = 1,n
-  seed(i) = randint(-1073741823, 1073741823)
-end do''')
+  conf_data.set('_random_init', 'call random_seed()')
 endif
 rand = configure_file(input : 'random.in.f90',
 output : 'random.f90',

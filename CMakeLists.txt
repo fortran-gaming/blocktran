@@ -10,7 +10,6 @@ VERSION 1.4.0
 DESCRIPTION "Falling-block game in Fortran + Curses"
 HOMEPAGE_URL https://www.github.com/fortran-gaming/tetran)
 
-enable_testing()
 include(CTest)
 
 
@@ -21,14 +20,20 @@ find_package(Curses REQUIRED)
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/compilers.cmake)
 
 add_subdirectory(src)
+
+if(BUILD_TESTING)
 add_subdirectory(src/tests)
+endif()
 
 add_executable(tetran src/main.f90)
 target_link_libraries(tetran PRIVATE AI cinterc cinter menu shapes blocks keys errs)
 install(TARGETS tetran
   RUNTIME DESTINATION bin)
+
+if(NOT CI)
 add_test(NAME gui:game COMMAND $<TARGET_FILE:tetran> -d 100 -s 6 6)
 set_tests_properties(gui:game PROPERTIES TIMEOUT 30)
+endif()
 
 # ---
 include(FeatureSummary)
