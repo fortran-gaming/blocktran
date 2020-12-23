@@ -1,0 +1,10 @@
+name = "tetran"
+version = "1.4.0"
+license = "Affero GPL"
+author = "Michael Hirsch"
+copyright = "2020 Michael Hirsch"
+keywords = ["games"]
+homepage = "https://github.com/fortran-gaming/tetran"
+
+[build]
+link = ["curses"]
