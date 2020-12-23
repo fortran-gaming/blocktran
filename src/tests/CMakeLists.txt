@@ -1,4 +1,3 @@
-
 add_executable(blockrand randtest.f90)
 target_link_libraries(blockrand PRIVATE shapes)
 add_test(NAME block:random COMMAND blockrand)
