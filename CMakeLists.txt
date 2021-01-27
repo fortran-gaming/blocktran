@@ -35,7 +35,7 @@ install(TARGETS tetran
 
 if(NOT CI)
 add_test(NAME gui:game COMMAND $<TARGET_FILE:tetran> -d 100 -s 6 6)
-set_tests_properties(gui:game PROPERTIES TIMEOUT 30)
+set_tests_properties(gui:game PROPERTIES TIMEOUT 30 RESOURCE_LOCK display)
 endif()
 
 # ---
