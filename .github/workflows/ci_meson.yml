@@ -24,17 +24,9 @@ jobs:
         sudo apt install -yq --no-install-recommends gfortran ninja-build libncurses-dev
 
     - run: meson setup build
-      env:
-        FC: gfortran
-
     - run: meson compile -C build
 
     - run: meson test -C build -v --suite nogui
-    - uses: actions/upload-artifact@v1
-      if: failure()
-      with:
-        name: Linux_Meson_Testlog
-        path: build/meson-logs/testlog.txt
 
 
   windows:
@@ -50,14 +42,6 @@ jobs:
     - run: pip install meson ninja
 
     - run: meson setup build
-      env:
-        FC: gfortran
-
     - run: meson compile -C build
 
     - run: meson test -C build -v --suite nogui
-    - uses: actions/upload-artifact@v1
-      if: failure()
-      with:
-        name: Windows_Meson_Testlog
-        path: build/meson-logs/testlog.txt

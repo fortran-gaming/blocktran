@@ -30,6 +30,7 @@ jobs:
 
 
   mac:
+    needs: linux
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
@@ -37,9 +38,8 @@ jobs:
     - run: brew install ncurses
     - run: ctest -S setup.cmake -E gui -VV
       env:
-        FC: gfortran-9
-        CC: gcc-9
-        CXX: g++-9
+        FC: gfortran-10
+        CC: gcc-10
 
 
   windows:

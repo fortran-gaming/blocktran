@@ -1,6 +1,8 @@
+include(CheckFortranSourceCompiles)
+include(CheckFortranCompilerFlag)
+
 set(CMAKE_CONFIGURATION_TYPES "Release;RelWithDebInfo;Debug" CACHE STRING "Build type selections" FORCE)
 
-include(CheckFortranSourceCompiles)
 check_fortran_source_compiles("implicit none (type, external); end" f2018impnone SRC_EXT f90)
 if(NOT f2018impnone)
   message(FATAL_ERROR "Compiler does not support Fortran 2018 IMPLICIT NONE (type, external): ${CMAKE_Fortran_COMPILER_ID} ${CMAKE_Fortran_COMPILER_VERSION}")
@@ -26,10 +28,9 @@ elseif(CMAKE_Fortran_COMPILER_ID STREQUAL GNU)
 
   string(APPEND CMAKE_Fortran_FLAGS_DEBUG " -fexceptions -ffpe-trap=invalid,zero,overflow -fcheck=all")
 
-  if(CMAKE_Fortran_COMPILER_VERSION VERSION_GREATER_EQUAL 8)
+  check_fortran_compiler_flag(-std=f2018 HAS_F2018)
+  if(HAS_F2018)
     string(APPEND CMAKE_Fortran_FLAGS " -std=f2018")
   endif()
 
-elseif(CMAKE_Fortran_COMPILER_ID STREQUAL PGI)
-  string(APPEND CMAKE_Fortran_FLAGS " -C -Mdclchk")
 endif()
