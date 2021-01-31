@@ -14,10 +14,10 @@ check_fortran_source_compiles("call random_init(.false., .false.); end" f18rando
 
 if(CMAKE_Fortran_COMPILER_ID STREQUAL Intel)
   if(WIN32)
-    add_compile_options(/arch:native)
+    add_compile_options(/QxHost)
     string(APPEND CMAKE_Fortran_FLAGS " /stand:f18 /traceback /warn /heap-arrays")
   else()
-    add_compile_options(-march=native)
+    add_compile_options(-xHost)
     string(APPEND CMAKE_Fortran_FLAGS " -stand f18 -traceback -warn -heap-arrays")
   endif()
 
