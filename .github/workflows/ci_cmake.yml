@@ -31,6 +31,25 @@ jobs:
     - run: ctest -E gui -V
       working-directory: build
 
+    - name: create package
+      run: cpack --config build/CPackConfig.cmake
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: tetran-Linux.tar.gz
+        path: build/package
+
+    - name: Upload release exe
+      if: github.event.action == 'published'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: build/package
+        asset_name: tetran-Linux.tar.gz
+        asset_content_type: application/gzip
 
   mac:
     needs: linux
@@ -49,6 +68,25 @@ jobs:
     - run: ctest -E gui -V
       working-directory: build
 
+    - name: create package
+      run: cpack --config build/CPackConfig.cmake
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: tetran-Darwin.tar.gz
+        path: build/package
+
+    - name: Upload release exe
+      if: github.event.action == 'published'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: build/package
+        asset_name: tetran-Darwin.tar.gz
+        asset_content_type: application/gzip
 
   windows:
     needs: linux
@@ -76,3 +114,23 @@ jobs:
     - run: cmake --build build
     - run: ctest -E gui -V
       working-directory: build
+
+    - name: create package
+      run: cpack --config build/CPackConfig.cmake
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1
+      with:
+        name: tetran-Windows.zip
+        path: build/package
+
+    - name: Upload release exe
+      if: github.event.action == 'published'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: build/package
+        asset_name: tetran-Windows.zip
+        asset_content_type: application/zip

@@ -2,7 +2,16 @@
 \\.git*
 \\.vscode/
 \\.mypy_cache/
+\\.archive/
 
+subprojects/
 _CPack_Packages/
 build*/
-paper/
+doc/
+
+
+fpm.toml
+.editorconfig
+.gdbinit
+ford.md
+meson.build

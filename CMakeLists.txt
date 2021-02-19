@@ -25,6 +25,8 @@ if(BUILD_TESTING)
 endif()
 
 add_executable(tetran src/main.f90)
+target_compile_options(tetran PRIVATE ${static_flag})
+target_link_options(tetran PRIVATE ${static_link_flag})
 target_link_libraries(tetran PRIVATE game AI cinterc cinter menu shapes blocks keys errs sleep random)
 install(TARGETS tetran
   EXPORT tetranTargets
@@ -37,3 +39,5 @@ if(BUILD_TESTING)
     RESOURCE_LOCK display
     DEPENDS "block:shapes;block:motion;block:random")
 endif()
+
+include(cmake/install.cmake)
