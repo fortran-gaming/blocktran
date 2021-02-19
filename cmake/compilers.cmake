@@ -1,7 +1,17 @@
 include(CheckFortranSourceCompiles)
 include(CheckFortranCompilerFlag)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS on)
+
 set(CMAKE_CONFIGURATION_TYPES "Release;RelWithDebInfo;Debug" CACHE STRING "Build type selections" FORCE)
+
+# check C-Fortran ABI compatibility
+try_compile(abi_ok ${CMAKE_CURRENT_BINARY_DIR}/abi_check ${CMAKE_CURRENT_LIST_DIR}/abi_check abi_check)
+if(abi_ok)
+  message(STATUS "C and Fortran compiler detected to be ABI-compatible.")
+else()
+  message(FATAL ERROR "C compiler {CMAKE_C_COMPILER_ID} {CMAKE_C_COMPILER_VERSION} and Fortran compiler ${CMAKE_Fortran_COMPILER_ID} ${CMAKE_Fortran_COMPILER_VERSION} are ABI-incompatible.")
+endif()
 
 check_fortran_source_compiles("implicit none (type, external); end" f2018impnone SRC_EXT f90)
 if(NOT f2018impnone)
