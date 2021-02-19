@@ -7,7 +7,9 @@ on:
       - "**/*.cmake"
       - "**/*.txt"
       - ".github/workflows/ci_cmake.yml"
-
+  pull_request:
+  release:
+    types: published
 
 jobs:
 
@@ -47,7 +49,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: build/package
+        asset_path: build/package/tetran-Linux.tar.gz
         asset_name: tetran-Linux.tar.gz
         asset_content_type: application/gzip
 
@@ -84,7 +86,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: build/package
+        asset_path: build/package/tetran-Darwin.tar.gz
         asset_name: tetran-Darwin.tar.gz
         asset_content_type: application/gzip
 
@@ -131,6 +133,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: build/package
+        asset_path: build/package/tetran-Windows.zip
         asset_name: tetran-Windows.zip
         asset_content_type: application/zip
