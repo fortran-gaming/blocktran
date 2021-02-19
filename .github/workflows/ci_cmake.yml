@@ -1,7 +1,4 @@
 name: ci_cmake
-env:
-  CMAKE_GENERATOR: Ninja
-  HOMEBREW_NO_INSTALL_CLEANUP: 1
 
 on:
   push:
@@ -16,6 +13,8 @@ jobs:
 
   linux:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
@@ -27,26 +26,53 @@ jobs:
         sudo apt update -yq
         sudo apt install -yq --no-install-recommends gfortran libncurses-dev
 
-    - run: ctest -S setup.cmake -E gui -VV
+    - run: cmake --preset=ninja
+    - run: cmake --build build
+    - run: ctest -E gui -V
+      working-directory: build
 
 
   mac:
     needs: linux
     runs-on: macos-latest
+    timeout-minutes: 15
+    env:
+      HOMEBREW_NO_INSTALL_CLEANUP: 1
+
     steps:
     - uses: actions/checkout@v2
 
     - run: brew install ncurses
-    - run: ctest -S setup.cmake -E gui -VV
-      env:
-        FC: gfortran-10
-        CC: gcc-10
+
+    - run: cmake --preset=gcc10
+    - run: cmake --build build
+    - run: ctest -E gui -V
+      working-directory: build
 
 
   windows:
-    if: false  # waiting for MSYS2 on Actions, Tetran works fine with MSYS2
+    needs: linux
     runs-on: windows-latest
+    timeout-minutes: 15
+
+    defaults:
+      run:
+        shell: msys2 {0}
+
     steps:
+    - uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: >-
+          git
+          mingw-w64-x86_64-cmake
+          mingw-w64-x86_64-ninja
+          mingw-w64-x86_64-gcc-fortran
+          mingw-w64-x86_64-ncurses
+
     - uses: actions/checkout@v2
 
-    - run: ctest -S setup.cmake -E gui -VV
+    - run: cmake --preset=ninja
+    - run: cmake --build build
+    - run: ctest -E gui -V
+      working-directory: build

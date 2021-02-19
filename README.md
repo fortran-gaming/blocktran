@@ -13,54 +13,20 @@ Text/console falling-block tetromino game written in object-oriented Fortran 200
 * clean, object-oriented Fortran 2008 syntax, well structured using Fortran 2008 `submodule`
 * Curses (Ncurses, PDcurses) used for display, called directly from Fortran code.
 
-## Prereq
+## Build and Play
 
 Tetran works on Mac, Linux, native Windows, Cygwin, Windows Subsystem for Linux.
-Requires:
-
-* Fortran 2008 compilers supporting Fortran `submodule`
-* Meson
-
-Obtain these items by:
-
-* Linux / WSL: `apt install gfortran libncurses-dev ninja-build` and then `pip install meson`
-* Mac: `brew install gcc meson ninja`
-* Cygwin: `setup-x86_64.exe -P libncurses-devel meson ninja gcc-gfortran`
-
-## Build
+Requires a Fortran compiler and CMake.
 
 ```sh
-ctest -S setup.cmake -VV
+cmake -B build
+cmake --build build
 ```
 
-### Meson
+CMake will automatically download and build Curses if you don't have it.
 
-If you wish to use Meson instead of CMake, from the top-level `tetran` directory:
-
-```bash
-meson build
-
-meson test -C build
-
-meson install -C build
-```
-
-Meson will automatically build PDcurses if Curses isn't available on your system already.
-
-### Compiler selection
-
-As usual, optionally specify a compiler by setting environment variables `FC` AND `CC`.
-Failing to set both results in segfaults.
-
-## Play
-
-From any Terminal:
-
-```bash
-tetran
-```
-
-The command line options are described next in the following sections.
+The main exectuable file is build/tetran.
+You can copy this file to your Desktop or wherever you like.
 
 ### difficulty level
 
@@ -82,7 +48,7 @@ tetran -s 20 15
 
 ### play against computer
 
-The computer player is for now rudimentary, the AI algorithm is being developed offline.
+The computer player is rudimentary.
 
 ```bash
 tetran -p 2
@@ -116,24 +82,6 @@ unlike some games, block distribution is uniformly random as confirmed by:
 ```sh
 ./blockrand
 ```
-
-#### Normalized benchmarks
-
-using `time ./blockrand 100000000` *relative normalized* execution times were:
-
-`-O3`:
-
-    GNU   1.00 (fastest normalized)
-    Flang 1.90
-    PGI:  1.82
-    ifort 8.22
-
-Tested with:
-
-* Flang &ge; 7
-* Gfortran &ge; 6
-* Intel Fortran 2019
-* PGI &ge; 19.10
 
 ### References
 
