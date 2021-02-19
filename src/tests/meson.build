@@ -1,9 +1,9 @@
 curses_test = executable('curses_test', 'test_curses.f90',
   link_with: [cinter, sleep],
   link_language: 'fortran')  # link_language needed for e.g. Ubuntu 16.04
-if os != 'windows'  # PDcurses doesn't work with ctest
+if os != 'windows'  # PDcurses doesn't work with "meson test"
   test('CursesLib', curses_test,
-    parallel: false,
+    is_parallel: false,
     suite: 'gui')
 endif
 
@@ -17,7 +17,7 @@ menu_test = executable('menu_test', 'test_menu.f90',
 if os != 'windows'
   test('Menu', menu_test,
     timeout: 15,
-    parallel: false,
+    is_parallel: false,
     suite: 'gui')
 endif
 

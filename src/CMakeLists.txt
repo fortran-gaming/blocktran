@@ -1,3 +1,6 @@
+add_library(game OBJECT game.f90)
+target_link_libraries(game PRIVATE AI cinterc cinter menu shapes blocks keys errs sleep random)
+
 add_library(AI OBJECT ai.f90)
 target_link_libraries(AI PRIVATE shapes)
 
@@ -8,8 +11,10 @@ else()
 endif()
 
 configure_file(random.in.f90 random.f90)
-add_library(shapes OBJECT shapes.f90 fields.f90 rot90.f90
-  ${CMAKE_CURRENT_BINARY_DIR}/random.f90)
+add_library(random OBJECT ${CMAKE_CURRENT_BINARY_DIR}/random.f90)
+
+add_library(shapes OBJECT shapes.f90 fields.f90 rot90.f90)
+target_link_libraries(shapes PRIVATE random)
 
 add_library(sleep sleep_std.F90)
 
@@ -37,7 +42,7 @@ target_link_libraries(blocks PRIVATE cinter shapes)
 add_library(keys OBJECT keys.f90)
 target_link_libraries(keys PRIVATE AI cinter blocks)
 
-foreach(t AI shapes blocks cinter cinterc errs keys menu sleep)
+foreach(t AI shapes blocks cinter cinterc errs game keys menu random sleep)
   target_include_directories(${t}
     PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include  # necessary in general for IBM XL
     INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/include)

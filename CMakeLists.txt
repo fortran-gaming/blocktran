@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 
 project(tetran
 LANGUAGES C Fortran
-VERSION 1.4.2
+VERSION 1.5.0
 DESCRIPTION "Falling-block game in Fortran + Curses"
 HOMEPAGE_URL https://www.github.com/fortran-gaming/tetran)
 
@@ -25,7 +25,7 @@ if(BUILD_TESTING)
 endif()
 
 add_executable(tetran src/main.f90)
-target_link_libraries(tetran PRIVATE AI cinterc cinter menu shapes blocks keys errs sleep)
+target_link_libraries(tetran PRIVATE game AI cinterc cinter menu shapes blocks keys errs sleep random)
 install(TARGETS tetran
   RUNTIME DESTINATION bin)
 

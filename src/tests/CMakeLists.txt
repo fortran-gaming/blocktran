@@ -1,15 +1,15 @@
 add_executable(blockrand randtest.f90)
-target_link_libraries(blockrand PRIVATE shapes)
+target_link_libraries(blockrand PRIVATE shapes random)
 add_test(NAME block:random COMMAND blockrand)
 
 # blocks:{motion,shapes} fail if run simultaneously with gui
 # and gui tests fail if run in parallel
 add_executable(shapetest test_shapes.f90)
-target_link_libraries(shapetest PRIVATE shapes)
+target_link_libraries(shapetest PRIVATE shapes random)
 add_test(NAME block:shapes COMMAND shapetest)
 
 add_executable(motiontest test_motion.f90)
-target_link_libraries(motiontest PRIVATE shapes)
+target_link_libraries(motiontest PRIVATE shapes random)
 add_test(NAME block:motion COMMAND motiontest)
 
 
@@ -21,10 +21,10 @@ if(NOT CI)
 endif()
 
 add_executable(testkeys keytest.f90)
-target_link_libraries(testkeys PRIVATE errs cinter cinterc keys shapes blocks AI sleep)
+target_link_libraries(testkeys PRIVATE errs cinter cinterc keys shapes blocks AI sleep random)
 
 add_executable(menu_test test_menu.f90)
-target_link_libraries(menu_test PRIVATE cinter cinterc menu shapes blocks)
+target_link_libraries(menu_test PRIVATE cinter cinterc menu shapes blocks random)
 if(NOT CI)
   add_test(NAME gui:title_screen COMMAND menu_test)
   set_tests_properties(gui:title_screen PROPERTIES TIMEOUT 10)
