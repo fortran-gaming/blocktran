@@ -1,22 +1,20 @@
 include(CheckFortranSourceCompiles)
-include(CheckFortranCompilerFlag)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS on)
 
 set(CMAKE_CONFIGURATION_TYPES "Release;RelWithDebInfo;Debug" CACHE STRING "Build type selections" FORCE)
 
 # check C-Fortran ABI compatibility
-try_compile(abi_ok ${CMAKE_CURRENT_BINARY_DIR}/abi_check ${CMAKE_CURRENT_LIST_DIR}/abi_check abi_check)
-if(abi_ok)
-  message(STATUS "C and Fortran compiler detected to be ABI-compatible.")
-else()
-  message(FATAL ERROR "C compiler {CMAKE_C_COMPILER_ID} {CMAKE_C_COMPILER_VERSION} and Fortran compiler ${CMAKE_Fortran_COMPILER_ID} ${CMAKE_Fortran_COMPILER_VERSION} are ABI-incompatible.")
+if(NOT abi_ok)
+  message(CHECK_START "checking that C and Fortran compilers can link")
+  try_compile(abi_ok ${CMAKE_CURRENT_BINARY_DIR}/abi_check ${CMAKE_CURRENT_LIST_DIR}/abi_check abi_check)
+  if(abi_ok)
+    message(CHECK_PASS "OK")
+  else()
+    message(FATAL ERROR "C compiler {CMAKE_C_COMPILER_ID} {CMAKE_C_COMPILER_VERSION} and Fortran compiler ${CMAKE_Fortran_COMPILER_ID} ${CMAKE_Fortran_COMPILER_VERSION} are ABI-incompatible.")
+  endif()
 endif()
 
-check_fortran_source_compiles("implicit none (type, external); end" f2018impnone SRC_EXT f90)
-if(NOT f2018impnone)
-  message(FATAL_ERROR "Compiler does not support Fortran 2018 IMPLICIT NONE (type, external): ${CMAKE_Fortran_COMPILER_ID} ${CMAKE_Fortran_COMPILER_VERSION}")
-endif()
 
 check_fortran_source_compiles("call random_init(.false., .false.); end" f18random SRC_EXT f90)
 
@@ -41,24 +39,16 @@ if(CMAKE_Fortran_COMPILER_ID STREQUAL Intel)
 
   if(WIN32)
     add_compile_options(/QxHost)
-    string(APPEND CMAKE_Fortran_FLAGS " /stand:f18 /traceback /warn /heap-arrays")
+    string(APPEND CMAKE_Fortran_FLAGS " /traceback /warn /heap-arrays")
   else()
     add_compile_options(-xHost)
-    string(APPEND CMAKE_Fortran_FLAGS " -stand f18 -traceback -warn -heap-arrays")
+    string(APPEND CMAKE_Fortran_FLAGS " -traceback -warn -heap-arrays")
   endif()
 
   string(APPEND CMAKE_Fortran_FLAGS_DEBUG " -fpe0 -debug extended -check all")
 
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL GNU)
-
-  add_compile_options(-mtune=native)
-  string(APPEND CMAKE_Fortran_FLAGS " -Wall -Wextra -Werror=array-bounds -finit-real=nan -Wconversion -fimplicit-none")
+  string(APPEND CMAKE_Fortran_FLAGS " -mtune=native -Wall -Wextra -Werror=array-bounds -finit-real=nan -Wconversion -fimplicit-none")
 
   string(APPEND CMAKE_Fortran_FLAGS_DEBUG " -fexceptions -ffpe-trap=invalid,zero,overflow -fcheck=all")
-
-  check_fortran_compiler_flag(-std=f2018 HAS_F2018)
-  if(HAS_F2018)
-    string(APPEND CMAKE_Fortran_FLAGS " -std=f2018")
-  endif()
-
 endif()
