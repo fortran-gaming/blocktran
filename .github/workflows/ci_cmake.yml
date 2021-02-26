@@ -36,7 +36,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
-        name: blocktran-Linux.tar.gz
+        name: blocktran-linux.tar.gz
         path: build/package
 
     - name: Upload release exe
@@ -46,8 +46,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: build/package/blocktran-Linux.tar.gz
-        asset_name: blocktran-Linux.tar.gz
+        asset_path: build/package/blocktran-linux.tar.gz
+        asset_name: blocktran-linux.tar.gz
         asset_content_type: application/gzip
 
   mac:
@@ -73,7 +73,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
-        name: blocktran-Darwin.tar.gz
+        name: blocktran-darwin.tar.gz
         path: build/package
 
     - name: Upload release exe
@@ -83,8 +83,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: build/package/blocktran-Darwin.tar.gz
-        asset_name: blocktran-Darwin.tar.gz
+        asset_path: build/package/blocktran-darwin.tar.gz
+        asset_name: blocktran-darwin.tar.gz
         asset_content_type: application/gzip
 
   windows:
@@ -120,7 +120,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
-        name: blocktran-Windows.zip
+        name: blocktran-windows.zip
         path: build/package
 
     - name: Upload release exe
@@ -130,6 +130,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: build/package/blocktran-Windows.zip
-        asset_name: blocktran-Windows.zip
+        asset_path: build/package/blocktran-windows.zip
+        asset_name: blocktran-windows.zip
         asset_content_type: application/zip
