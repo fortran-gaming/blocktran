@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.14...3.20)
 
 project(blocktran
 LANGUAGES C Fortran
-VERSION 1.5.1
+VERSION 1.5.2
 DESCRIPTION "Falling-block game in Fortran + Curses"
 HOMEPAGE_URL https://www.github.com/fortran-gaming/blocktran)
 

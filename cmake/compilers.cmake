@@ -18,19 +18,15 @@ endif()
 
 check_fortran_source_compiles("call random_init(.false., .false.); end" f18random SRC_EXT f90)
 
-# --- static flags avoid users needing libgfortran etc. on their system.
+# --- static flags avoid users needing libgfortran etc. on their Windows system
+# MacOS and Linux needs more caution as true static linking is an advanced topic.
 set(static_flag)
 set(static_link_flag)
-if(CMAKE_Fortran_COMPILER_ID STREQUAL GNU)
+if(MINGW AND CMAKE_Fortran_COMPILER_ID STREQUAL GNU)
   set(static_flag -static)
   set(static_link_flag -static-libgfortran)
-  if(MINGW)
-    # MinGW / MSYS2 special considerations: https://www.msys2.org/news/#2021-01-31-aslr-enabled-by-default
-    list(APPEND static_link_flag -Wl,--default-image-base-low)
-  endif()
-elseif(CMAKE_Fortran_COMPILER_ID STREQUAL Intel AND NOT WIN32)
-  # this test doesn't fail on Windows, even though the flag is not for Windows
-  set(static_flag -static-intel)
+  # MinGW / MSYS2 special considerations: https://www.msys2.org/news/#2021-01-31-aslr-enabled-by-default
+  list(APPEND static_link_flag -Wl,--default-image-base-low)
 endif()
 
 # always do compiler options after all FindXXX and checks
