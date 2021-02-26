@@ -20,13 +20,12 @@ check_fortran_source_compiles("call random_init(.false., .false.); end" f18rando
 
 # --- static flags avoid users needing libgfortran etc. on their Windows system
 # MacOS and Linux needs more caution as true static linking is an advanced topic.
-set(static_flag)
-set(static_link_flag)
+# this does not guarantee a portable executable, careful testing is needed and possibly further options
+set(static_link_flags)
 if(MINGW AND CMAKE_Fortran_COMPILER_ID STREQUAL GNU)
-  set(static_flag -static)
-  set(static_link_flag -static-libgfortran)
+  set(static_link_flags -static -static-libgfortran)
   # MinGW / MSYS2 special considerations: https://www.msys2.org/news/#2021-01-31-aslr-enabled-by-default
-  list(APPEND static_link_flag -Wl,--default-image-base-low)
+  list(APPEND static_link_flags -Wl,--default-image-base-low)
 endif()
 
 # always do compiler options after all FindXXX and checks
