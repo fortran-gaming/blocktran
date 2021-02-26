@@ -10,7 +10,7 @@
     <meta name="author" content="Michael Hirsch Ph.D." >
     <link rel="icon" href="../favicon.png">
 
-    <title>Piece &ndash; Tetran </title>
+    <title>Piece &ndash; BlockTran </title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/pygments.css" rel="stylesheet">
@@ -44,7 +44,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index.html">Tetran </a>
+          <a class="navbar-brand" href="../index.html">BlockTran </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -130,7 +130,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="<p>50.9% of total for derived types.</p>Including implementation: 470 statements, 86.7% of total for derived types.">27 statements</a>
+    title="<p>35.1% of total for derived types.</p>Including implementation: 347 statements, 83.2% of total for derived types.">13 statements</a>
      </li> 
      
      
@@ -265,43 +265,41 @@
   <div id="boundprocs-0" class="panel-collapse collapse">
     <div class="list-group">
       
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-setup">setup</a>
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-clear_lines">clear_lines</a>
       
       <a class="list-group-item" href="../type/piece.html#boundprocedure-levelup">levelup</a>
       
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-clear_lines">clear_lines</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-init">init</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-init_block">init_block</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-check_collision">check_collision</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-move_right">move_right</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-move_left">move_left</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-rotate">rotate</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-move_down">move_down</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-dissolver">dissolver</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-spawn_block">spawn_block</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-vertflip">vertflip</a>
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-setup">setup</a>
       
       <a class="list-group-item" href="../type/piece.html#boundprocedure-horizflip">horizflip</a>
       
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-randomx">randomx</a>
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-vertflip">vertflip</a>
       
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-tell_why">tell_why</a>
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-spawn_block">spawn_block</a>
       
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-hit_horiz">hit_horiz</a>
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-dissolver">dissolver</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-move_down">move_down</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-rotate">rotate</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-move_left">move_left</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-move_right">move_right</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-check_collision">check_collision</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-init">init</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-hit_block">hit_block</a>
       
       <a class="list-group-item" href="../type/piece.html#boundprocedure-hit_floor">hit_floor</a>
       
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-hit_block">hit_block</a>
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-hit_horiz">hit_horiz</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-tell_why">tell_why</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-randomx">randomx</a>
       
     </div>
   </div>
@@ -318,84 +316,7 @@
     <div class="col-md-9" id='text'>
       <h2>type, public, extends(<a href='../type/field.html'>Field</a>) :: Piece</h2>
     
-    <br>
     
-    <div class="panel panel-default">
-      <div class="panel-heading">
-  <h3 class="panel-title">Inherits</h3>
-      </div>
-      <div class="panel-body">
-    <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
- "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Generated by graphviz version 2.40.1 (20161225.0304)
- -->
-<!-- Title: type~~piece~~InheritsGraph Pages: 1 -->
-<svg id="typepieceInheritsGraph" width="152pt" height="32pt"
- viewBox="0.00 0.00 152.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="type~~piece~~InheritsGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
-<title>type~~piece~~InheritsGraph</title>
-<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-28 148,-28 148,4 -4,4"/>
-<!-- type~piece -->
-<g id="type~~piece~~InheritsGraph_node1" class="node">
-<title>type~piece</title>
-<polygon fill="none" stroke="#000000" points="144,-24 90,-24 90,0 144,0 144,-24"/>
-<text text-anchor="middle" x="117" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">Piece</text>
-</g>
-<!-- type~field -->
-<g id="type~~piece~~InheritsGraph_node2" class="node">
-<title>type~field</title>
-<g id="a_type~~piece~~InheritsGraph_node2"><a xlink:href=".././type/field.html" xlink:title="Field">
-<polygon fill="#5cb85c" stroke="#5cb85c" points="54,-24 0,-24 0,0 54,0 54,-24"/>
-<text text-anchor="middle" x="27" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Field</text>
-</a>
-</g>
-</g>
-<!-- type~piece&#45;&gt;type~field -->
-<g id="type~~piece~~InheritsGraph_edge1" class="edge">
-<title>type~piece&#45;&gt;type~field</title>
-<path fill="none" stroke="#000000" d="M89.997,-12C81.9723,-12 73.0335,-12 64.4691,-12"/>
-<polygon fill="#000000" stroke="#000000" points="64.295,-8.5001 54.295,-12 64.2949,-15.5001 64.295,-8.5001"/>
-</g>
-</g>
-</svg>
-</div><div><a type="button" class="graph-help" data-toggle="modal" href="#graph-help-text">Help</a></div><div class="modal fade" id="graph-help-text" tabindex="-1" role="dialog"><div class="modal-dialog modal-lg" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="-graph-help-label">Graph Key</h4></div><div class="modal-body">
-    <p>Nodes of different colours represent the following: </p>
-    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
- "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Generated by graphviz version 2.40.1 (20161225.0304)
- -->
-<!-- Title: Graph Key Pages: 1 -->
-<svg width="178pt" height="32pt"
- viewBox="0.00 0.00 177.50 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28)">
-<title>Graph Key</title>
-<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-28 173.5,-28 173.5,4 -4,4"/>
-<!-- Type -->
-<g id="node1" class="node">
-<title>Type</title>
-<polygon fill="#5cb85c" stroke="#5cb85c" points="54,-24 0,-24 0,0 54,0 54,-24"/>
-<text text-anchor="middle" x="27" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#ffffff">Type</text>
-</g>
-<!-- This Page&#39;s Entity -->
-<g id="node2" class="node">
-<title>This Page&#39;s Entity</title>
-<polygon fill="none" stroke="#000000" points="169.5,-24 72.5,-24 72.5,0 169.5,0 169.5,-24"/>
-<text text-anchor="middle" x="121" y="-9.6" font-family="Helvetica,sans-Serif" font-size="10.50" fill="#000000">This Page&#39;s Entity</text>
-</g>
-</g>
-</svg>
-
-    
-    <p>Solid arrows point from a derived type to the parent type which it
-    extends. Dashed arrows point from a derived type to the other
-    types it contains as a components, with a label listing the name(s) of
-    said component(s).
-    </p>
-    </div></div></div></div>
-      </div>
-    </div>
     
     
     <br>
@@ -502,43 +423,41 @@
   <div id="boundprocs-1" class="panel-collapse collapse">
     <div class="list-group">
       
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-setup">setup</a>
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-clear_lines">clear_lines</a>
       
       <a class="list-group-item" href="../type/piece.html#boundprocedure-levelup">levelup</a>
       
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-clear_lines">clear_lines</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-init">init</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-init_block">init_block</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-check_collision">check_collision</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-move_right">move_right</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-move_left">move_left</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-rotate">rotate</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-move_down">move_down</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-dissolver">dissolver</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-spawn_block">spawn_block</a>
-      
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-vertflip">vertflip</a>
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-setup">setup</a>
       
       <a class="list-group-item" href="../type/piece.html#boundprocedure-horizflip">horizflip</a>
       
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-randomx">randomx</a>
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-vertflip">vertflip</a>
       
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-tell_why">tell_why</a>
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-spawn_block">spawn_block</a>
       
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-hit_horiz">hit_horiz</a>
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-dissolver">dissolver</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-move_down">move_down</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-rotate">rotate</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-move_left">move_left</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-move_right">move_right</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-check_collision">check_collision</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-init">init</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-hit_block">hit_block</a>
       
       <a class="list-group-item" href="../type/piece.html#boundprocedure-hit_floor">hit_floor</a>
       
-      <a class="list-group-item" href="../type/piece.html#boundprocedure-hit_block">hit_block</a>
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-hit_horiz">hit_horiz</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-tell_why">tell_why</a>
+      
+      <a class="list-group-item" href="../type/piece.html#boundprocedure-randomx">randomx</a>
       
     </div>
   </div>
@@ -588,7 +507,7 @@
   
   <td>public</td>
   <td></td><td>::</td>
-  <td><strong>sleep_incr</strong></td><td> =</td><td>50000</td><td></td>
+  <td><strong>sleep_incr</strong></td><td> =</td><td>50</td><td></td>
   
 </tr>
 
@@ -1029,6 +948,134 @@
     
      
 <div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-clear_lines"></span><h3>procedure, public :: <strong>clear_lines</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+        
+          
+    
+    <h3>
+private subroutine <a href='../proc/clear_lines.html'>clear_lines</a>(self)
+    
+    
+   
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/field.html'>Field</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+        
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-levelup"></span><h3>procedure, public :: <strong>levelup</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+        
+          
+    
+    <h3>
+private subroutine <a href='../proc/levelup.html'>levelup</a>(self)
+    
+    
+   
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/field.html'>Field</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+        
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
   <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-setup"></span><h3>procedure, public :: <strong>setup</strong>  
     
   </h3></div>
@@ -1183,7 +1230,7 @@ private subroutine <a href='../proc/setup.html'>setup</a>(self, W, H, x0, AI, di
     
      
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-levelup"></span><h3>procedure, public :: <strong>levelup</strong>  
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-horizflip"></span><h3>procedure, public :: <strong>horizflip</strong>  
     
   </h3></div>
   
@@ -1195,614 +1242,7 @@ private subroutine <a href='../proc/setup.html'>setup</a>(self, W, H, x0, AI, di
           
     
     <h3>
-private subroutine <a href='../proc/levelup.html'>levelup</a>(self)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>class(<a href='../type/field.html'>Field</a>),</td>
-  <td>intent(inout)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>self</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-        
-      
-      </li>
-    
-  </ul>
-</div>
-
-    
-     
-<div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-clear_lines"></span><h3>procedure, public :: <strong>clear_lines</strong>  
-    
-  </h3></div>
-  
-  <ul class="list-group">
-    
-      <li class="list-group-item">
-      
-        
-          
-    
-    <h3>
-private subroutine <a href='../proc/clear_lines.html'>clear_lines</a>(self)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>class(<a href='../type/field.html'>Field</a>),</td>
-  <td>intent(inout)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>self</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-        
-      
-      </li>
-    
-  </ul>
-</div>
-
-    
-     
-<div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-init"></span><h3>procedure, public :: <strong>init</strong>  => <a href='../proc/init_block.html'>init_block</a> 
-    
-  </h3></div>
-  
-  <ul class="list-group">
-    
-      <li class="list-group-item">
-      
-        
-          
-    
-    <h3>
-private subroutine <a href='../proc/init_block.html'>init_block</a>(self, F, btype, x, y)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
-  <td>intent(inout)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>self</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>class(<a href='../type/field.html'>Field</a>),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>F</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>character,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>btype</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>x</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>y</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-        
-      
-      </li>
-    
-  </ul>
-</div>
-
-    
-     
-<div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-init_block"></span><h3>procedure, private :: <strong>init_block</strong>  
-    
-  </h3></div>
-  
-  <ul class="list-group">
-    
-      <li class="list-group-item">
-      
-        
-          
-    
-    <h3>
-private subroutine <a href='../proc/init_block.html'>init_block</a>(self, F, btype, x, y)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
-  <td>intent(inout)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>self</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>class(<a href='../type/field.html'>Field</a>),</td>
-  <td>intent(in)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>F</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>character,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>btype</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>x</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>integer,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>y</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-        
-      
-      </li>
-    
-  </ul>
-</div>
-
-    
-     
-<div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-check_collision"></span><h3>procedure, public :: <strong>check_collision</strong>  
-    
-  </h3></div>
-  
-  <ul class="list-group">
-    
-      <li class="list-group-item">
-      
-        
-          
-    
-    <h3>
-private function <a href='../proc/check_collision.html'>check_collision</a>(self) result(collided)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
-  <td>intent(inout)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>self</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-  
-  
-  
-  
-     <h4>Return Value <small>logical
-  </small></h4>
-  
-    
-
-        
-      
-      </li>
-    
-  </ul>
-</div>
-
-    
-     
-<div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-move_right"></span><h3>procedure, public :: <strong>move_right</strong>  
-    
-  </h3></div>
-  
-  <ul class="list-group">
-    
-      <li class="list-group-item">
-      
-        
-          
-    
-    <h3>
-private subroutine <a href='../proc/move_right.html'>move_right</a>(self, slam)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
-  <td>intent(inout)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>self</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>logical,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>slam</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-        
-      
-      </li>
-    
-  </ul>
-</div>
-
-    
-     
-<div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-move_left"></span><h3>procedure, public :: <strong>move_left</strong>  
-    
-  </h3></div>
-  
-  <ul class="list-group">
-    
-      <li class="list-group-item">
-      
-        
-          
-    
-    <h3>
-private subroutine <a href='../proc/move_left.html'>move_left</a>(self, slam)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
-  <td>intent(inout)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>self</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>logical,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>slam</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-        
-      
-      </li>
-    
-  </ul>
-</div>
-
-    
-     
-<div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-rotate"></span><h3>procedure, public :: <strong>rotate</strong>  
-    
-  </h3></div>
-  
-  <ul class="list-group">
-    
-      <li class="list-group-item">
-      
-        
-          
-    
-    <h3>
-private subroutine <a href='../proc/rotate.html'>rotate</a>(self)
+private subroutine <a href='../proc/horizflip.html'>horizflip</a>(self)
     
     
    
@@ -1854,7 +1294,7 @@ private subroutine <a href='../proc/rotate.html'>rotate</a>(self)
     
      
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-move_down"></span><h3>procedure, public :: <strong>move_down</strong>  
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-vertflip"></span><h3>procedure, public :: <strong>vertflip</strong>  
     
   </h3></div>
   
@@ -1866,86 +1306,7 @@ private subroutine <a href='../proc/rotate.html'>rotate</a>(self)
           
     
     <h3>
-private recursive subroutine <a href='../proc/move_down.html'>move_down</a>(self, slam)
-    
-    
-   
-</h3>
-    
-    
-    <h4>Arguments</h4>
-    
-      
-      
-<table class="table table-striped varlist">
-<thead><tr><th>Type</th>
-<th>Intent</th><th>Optional</th>
-<th>Attributes</th><th></th><th>Name</th><th></th></thead>
-
-
-
-<tbody>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
-  <td>intent(inout)</td>
-  <td></td>
-  
-  <td></td><td>::</td>
-  <td><strong>self</strong></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" ></span>logical,</td>
-  <td>intent(in),</td>
-  <td>optional</td>
-  
-  <td></td><td>::</td>
-  <td><strong>slam</strong></td><td></td>
-  
-</tr>
-
-</tbody>
-</table>
-
-      
-    
-    
-
-        
-      
-      </li>
-    
-  </ul>
-</div>
-
-    
-     
-<div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-dissolver"></span><h3>procedure, public :: <strong>dissolver</strong>  
-    
-  </h3></div>
-  
-  <ul class="list-group">
-    
-      <li class="list-group-item">
-      
-        
-          
-    
-    <h3>
-private subroutine <a href='../proc/dissolver.html'>dissolver</a>(self)
+private subroutine <a href='../proc/vertflip.html'>vertflip</a>(self)
     
     
    
@@ -2091,7 +1452,7 @@ private subroutine <a href='../proc/spawn_block.html'>spawn_block</a>(self, F, N
     
      
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-vertflip"></span><h3>procedure, public :: <strong>vertflip</strong>  
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-dissolver"></span><h3>procedure, public :: <strong>dissolver</strong>  
     
   </h3></div>
   
@@ -2103,7 +1464,7 @@ private subroutine <a href='../proc/spawn_block.html'>spawn_block</a>(self, F, N
           
     
     <h3>
-private subroutine <a href='../proc/vertflip.html'>vertflip</a>(self)
+private subroutine <a href='../proc/dissolver.html'>dissolver</a>(self)
     
     
    
@@ -2155,7 +1516,7 @@ private subroutine <a href='../proc/vertflip.html'>vertflip</a>(self)
     
      
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-horizflip"></span><h3>procedure, public :: <strong>horizflip</strong>  
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-move_down"></span><h3>procedure, public :: <strong>move_down</strong>  
     
   </h3></div>
   
@@ -2167,7 +1528,86 @@ private subroutine <a href='../proc/vertflip.html'>vertflip</a>(self)
           
     
     <h3>
-private subroutine <a href='../proc/horizflip.html'>horizflip</a>(self)
+private recursive subroutine <a href='../proc/move_down.html'>move_down</a>(self, slam)
+    
+    
+   
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>slam</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+        
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-rotate"></span><h3>procedure, public :: <strong>rotate</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+        
+          
+    
+    <h3>
+private subroutine <a href='../proc/rotate.html'>rotate</a>(self)
     
     
    
@@ -2219,7 +1659,7 @@ private subroutine <a href='../proc/horizflip.html'>horizflip</a>(self)
     
      
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-randomx"></span><h3>procedure, private :: <strong>randomx</strong>  
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-move_left"></span><h3>procedure, public :: <strong>move_left</strong>  
     
   </h3></div>
   
@@ -2231,7 +1671,7 @@ private subroutine <a href='../proc/horizflip.html'>horizflip</a>(self)
           
     
     <h3>
-private function <a href='../proc/randomx.html'>randomx</a>(self)
+private subroutine <a href='../proc/move_left.html'>move_left</a>(self, slam)
     
     
    
@@ -2258,7 +1698,165 @@ private function <a href='../proc/randomx.html'>randomx</a>(self)
 <tr>
   
   <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
-  <td>intent(in)</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>slam</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+        
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-move_right"></span><h3>procedure, public :: <strong>move_right</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+        
+          
+    
+    <h3>
+private subroutine <a href='../proc/move_right.html'>move_right</a>(self, slam)
+    
+    
+   
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>logical,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>slam</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+        
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-check_collision"></span><h3>procedure, public :: <strong>check_collision</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+        
+          
+    
+    <h3>
+private function <a href='../proc/check_collision.html'>check_collision</a>(self) result(collided)
+    
+    
+   
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
@@ -2277,7 +1875,7 @@ private function <a href='../proc/randomx.html'>randomx</a>(self)
   
   
   
-     <h4>Return Value <small>integer
+     <h4>Return Value <small>logical
   </small></h4>
   
     
@@ -2292,7 +1890,7 @@ private function <a href='../proc/randomx.html'>randomx</a>(self)
     
      
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-tell_why"></span><h3>procedure, private :: <strong>tell_why</strong>  
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-init"></span><h3>procedure, public :: <strong>init</strong>  => <a href='../proc/init_block.html'>init_block</a> 
     
   </h3></div>
   
@@ -2304,7 +1902,7 @@ private function <a href='../proc/randomx.html'>randomx</a>(self)
           
     
     <h3>
-private subroutine <a href='../proc/tell_why.html'>tell_why</a>(self, msg)
+private subroutine <a href='../proc/init_block.html'>init_block</a>(self, F, btype, x, y)
     
     
    
@@ -2331,7 +1929,7 @@ private subroutine <a href='../proc/tell_why.html'>tell_why</a>(self, msg)
 <tr>
   
   <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
-  <td>intent(in)</td>
+  <td>intent(inout)</td>
   <td></td>
   
   <td></td><td>::</td>
@@ -2345,12 +1943,57 @@ private subroutine <a href='../proc/tell_why.html'>tell_why</a>(self, msg)
   
 <tr>
   
-  <td><span class="anchor" ></span>character(len=*),</td>
+  <td><span class="anchor" ></span>class(<a href='../type/field.html'>Field</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>F</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character,</td>
   <td>intent(in),</td>
   <td>optional</td>
   
   <td></td><td>::</td>
-  <td><strong>msg</strong></td><td></td>
+  <td><strong>btype</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>x</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>integer,</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>y</strong></td><td></td>
   
 </tr>
 
@@ -2371,7 +2014,7 @@ private subroutine <a href='../proc/tell_why.html'>tell_why</a>(self, msg)
     
      
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-hit_horiz"></span><h3>procedure, private :: <strong>hit_horiz</strong>  
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-hit_block"></span><h3>procedure, private :: <strong>hit_block</strong>  
     
   </h3></div>
   
@@ -2383,7 +2026,7 @@ private subroutine <a href='../proc/tell_why.html'>tell_why</a>(self, msg)
           
     
     <h3>
-private function <a href='../proc/hit_horiz.html'>hit_horiz</a>(self)
+private function <a href='../proc/hit_block.html'>hit_block</a>(self)
     
     
    
@@ -2517,7 +2160,7 @@ private function <a href='../proc/hit_floor.html'>hit_floor</a>(self)
     
      
 <div class="panel panel-default">
-  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-hit_block"></span><h3>procedure, private :: <strong>hit_block</strong>  
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-hit_horiz"></span><h3>procedure, private :: <strong>hit_horiz</strong>  
     
   </h3></div>
   
@@ -2529,7 +2172,7 @@ private function <a href='../proc/hit_floor.html'>hit_floor</a>(self)
           
     
     <h3>
-private function <a href='../proc/hit_block.html'>hit_block</a>(self)
+private function <a href='../proc/hit_horiz.html'>hit_horiz</a>(self)
     
     
    
@@ -2588,6 +2231,158 @@ private function <a href='../proc/hit_block.html'>hit_block</a>(self)
 </div>
 
     
+     
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-tell_why"></span><h3>procedure, private :: <strong>tell_why</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+        
+          
+    
+    <h3>
+private subroutine <a href='../proc/tell_why.html'>tell_why</a>(self, msg)
+    
+    
+   
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>character(len=*),</td>
+  <td>intent(in),</td>
+  <td>optional</td>
+  
+  <td></td><td>::</td>
+  <td><strong>msg</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+        
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
+     
+<div class="panel panel-default">
+  <div class="panel-heading codesum"><span class="anchor" id="boundprocedure-randomx"></span><h3>procedure, private :: <strong>randomx</strong>  
+    
+  </h3></div>
+  
+  <ul class="list-group">
+    
+      <li class="list-group-item">
+      
+        
+          
+    
+    <h3>
+private function <a href='../proc/randomx.html'>randomx</a>(self)
+    
+    
+   
+</h3>
+    
+    
+    <h4>Arguments</h4>
+    
+      
+      
+<table class="table table-striped varlist">
+<thead><tr><th>Type</th>
+<th>Intent</th><th>Optional</th>
+<th>Attributes</th><th></th><th>Name</th><th></th></thead>
+
+
+
+<tbody>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" ></span>class(<a href='../type/piece.html'>Piece</a>),</td>
+  <td>intent(in)</td>
+  <td></td>
+  
+  <td></td><td>::</td>
+  <td><strong>self</strong></td><td></td>
+  
+</tr>
+
+</tbody>
+</table>
+
+      
+    
+    
+
+  
+  
+  
+  
+     <h4>Return Value <small>integer
+  </small></h4>
+  
+    
+
+        
+      
+      </li>
+    
+  </ul>
+</div>
+
+    
     </section>
     
     
@@ -2602,7 +2397,7 @@ private function <a href='../proc/hit_block.html'>hit_block</a>(self)
     <footer>
       <div class="container">
       <div class="row">
-        <div class="col-xs-6 col-md-4"><p>&copy; 2018 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+        <div class="col-xs-6 col-md-4"><p>&copy; 2021 <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
                                           </p></div>
         <div class="col-xs-6 col-md-4 col-md-push-4">
           <p class="text-right">
@@ -2611,7 +2406,7 @@ private function <a href='../proc/hit_block.html'>hit_block</a>(self)
             
           </p>
         </div>
-        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> Tetran was developed by Michael Hirsch Ph.D.</p></div>
+        <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> BlockTran was developed by Michael Hirsch Ph.D.</p></div>
       </div>
       <br>
       </div> <!-- /container -->    

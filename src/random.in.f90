@@ -1,23 +1,24 @@
 module random
 
-use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
-
-implicit none
+implicit none (type, external)
 
 interface std
-  procedure std_int, std_real
-end interface 
-
-interface mean
-  procedure mean_int, mean_real
+procedure std_int, std_real
 end interface
 
-!interface
-!  module subroutine random_init()
-!  end subroutine
-!end interface
+interface mean
+procedure mean_int, mean_real
+end interface
 
 contains
+
+subroutine rand_init(repeatable, image_distinct)
+!! if intrinsic random_init available, use it.
+logical, intent(in) :: repeatable, image_distinct
+
+@_random_init@
+
+end subroutine rand_init
 
 impure elemental integer function randint(lo, hi)
 integer, intent(in) :: lo, hi
@@ -60,34 +61,6 @@ integer, intent(in) :: A(:)
 mean = sum(A) / real(size(A))  ! real coerces
 
 end function mean_int
-
-subroutine random_init
-! NOTE: this subroutine is replaced by "call random_init()" in Fortran 2018
-integer :: i,n, u,ios
-integer, allocatable :: seed(:)
-
-character(*), parameter :: randfn = '/dev/urandom'
-
-call random_seed(size=n)
-allocate(seed(n))
-
-
-open(newunit=u, file=randfn, access="stream", form="unformatted", action="read", status="old", iostat=ios)
-if (ios==0) then
-  read(u,iostat=ios) seed
-  close(u)
-endif
-  
-if (ios/=0) then
-  write(stderr,*) 'falling back to internal random number generator'
-  do i = 1,n
-    seed(i) = randint(-1073741823, 1073741823) 
-  enddo
-endif
-
-call random_seed(put=seed)
-
-end subroutine random_init
 
 
 end module random
