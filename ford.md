@@ -1,8 +1,8 @@
 src_dir: ./
 output_dir: ./docs
-project: Tetran
-project_github: https://github.com/fortran-gaming/tetran
-project_website: https://fortran-gaming.github.io/tetran
+project: BlockTran
+project_github: https://github.com/fortran-gaming/blocktran
+project_website: https://fortran-gaming.github.io/blocktran
 summary: object-oriented Fortran falling-block game
 author: Michael Hirsch Ph.D.
 author_description: SciVision, Inc.

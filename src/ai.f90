@@ -141,7 +141,7 @@ end subroutine move_random
 
 
 integer function height(F, P)
-! "Height" in tetran is distance from top of screen -- smaller is higher
+! "Height" is distance from top of screen -- smaller is higher
 ! checks how well piece fits
 class(field), intent(in) :: F
 class(piece), intent(in) :: P

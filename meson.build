@@ -1,4 +1,4 @@
-project('tetran', 'c', 'fortran',
+project('blocktran', 'c', 'fortran',
   default_options : ['default_library=static', 'buildtype=release', 'warning_level=3'],
   version: '1.5.1',
   meson_version : '>= 0.51')
@@ -13,13 +13,13 @@ subdir('src')
 
 subdir('src/tests')
 
-tetran = executable('tetran',
+blocktran_exe = executable('blocktran',
   sources: ['src/main.f90', 'src/game.f90'],
   link_with: [cinter, menu, shapes, blocks, keys, AI, errs, sleep],  # need AI for fla$
   install: true)
 
 if os != 'windows'
-  test('ShortGame', tetran, args : ['-d', '100', '-s', '6', '6'],
+  test('ShortGame', blocktran_exe, args : ['-d', '100', '-s', '6', '6'],
     timeout : 30,
     is_parallel: false,
     suite: 'gui')

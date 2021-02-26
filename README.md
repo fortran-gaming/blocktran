@@ -1,21 +1,21 @@
-# Tetran
+# BlockTran
 
-![Actions Status](https://github.com/fortran-gaming/tetran/workflows/ci_meson/badge.svg)
-![Actions Status](https://github.com/fortran-gaming/tetran/workflows/ci_cmake/badge.svg)
+![Actions Status](https://github.com/fortran-gaming/blocktran/workflows/ci_meson/badge.svg)
+![Actions Status](https://github.com/fortran-gaming/blocktran/workflows/ci_cmake/badge.svg)
 
 Text/console falling-block tetromino game written in object-oriented Fortran 2008.
 
-![Tetran gameplay demo](doc/tetran.gif)
+![BlockTran gameplay demo](doc/blocktran.gif)
 
 * user-configurable playfield size
-* Logs pieces played to `tetran.log` so you can recreate memorable games.
+* Logs pieces played to `blocktran.log` so you can recreate memorable games.
 * uniform random game piece generation.
 * clean, object-oriented Fortran 2008 syntax, well structured using Fortran 2008 `submodule`
 * Curses (Ncurses, PDcurses) used for display, called directly from Fortran code.
 
 ## Build and Play
 
-Tetran works on Mac, Linux, native Windows, Cygwin, Windows Subsystem for Linux.
+BlockTran works on Mac, Linux, native Windows, Cygwin, Windows Subsystem for Linux.
 Requires a Fortran compiler and CMake.
 
 ```sh
@@ -25,7 +25,7 @@ cmake --build build
 
 CMake will automatically download and build Curses if you don't have it.
 
-The main exectuable file is build/tetran.
+The main exectuable file is build/blocktran.
 You can copy this file to your Desktop or wherever you like.
 
 ### difficulty level
@@ -33,7 +33,7 @@ You can copy this file to your Desktop or wherever you like.
 adjust cadence of falling blocks with `-d` option, including decimal point:
 
 ```bash
-tetran -d 1.2
+blocktran -d 1.2
 ```
 
 Higher number increase difficulty. Must include decimal point.
@@ -43,7 +43,7 @@ Higher number increase difficulty. Must include decimal point.
 specify width and height of the playfield with `-s` option:
 
 ```bash
-tetran -s 20 15
+blocktran -s 20 15
 ```
 
 ### play against computer
@@ -51,7 +51,7 @@ tetran -s 20 15
 The computer player is rudimentary.
 
 ```bash
-tetran -p 2
+blocktran -p 2
 ```
 
 ### debug mode
@@ -59,7 +59,7 @@ tetran -p 2
 Debug logging is enabled by:
 
 ```bash
-tetran --debug
+blocktran --debug
 ```
 
 ### Controls

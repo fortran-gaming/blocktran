@@ -1,4 +1,4 @@
-program tetran
+program BlockTran
 
 use random, only: rand_init
 use game, only : cmd_parse, main_game

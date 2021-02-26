@@ -144,7 +144,7 @@ subroutine cmd_parse(W, H)
 ! reads flag command line arguments
 integer, intent(out) :: W, H
 integer :: i,argc
-character(*),parameter :: logfn='tetran.log'
+character(*),parameter :: logfn='blocktran.log'
 character(32) :: arg
 character(8)  :: date
 character(10) :: time
