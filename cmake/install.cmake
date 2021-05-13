@@ -23,19 +23,11 @@ install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/cmake/${PROJECT_NAME}ConfigVersion.cmake
   DESTINATION lib/cmake/${PROJECT_NAME})
 
-export(EXPORT ${PROJECT_NAME}Targets
-  FILE "${CMAKE_CURRENT_BINARY_DIR}/cmake/${PROJECT_NAME}Targets.cmake"
-  NAMESPACE ${PROJECT_NAME}::
-)
 
 # --- CPack
 
-set(_fmt TGZ)
-if(WIN32)
-  set(_fmt ZIP)
-endif()
-set(CPACK_GENERATOR ${_fmt})
-set(CPACK_SOURCE_GENERATOR ${_fmt})
+set(CPACK_GENERATOR TZST)
+set(CPACK_SOURCE_GENERATOR TZST)
 set(CPACK_PACKAGE_VENDOR "Michael Hirsch")
 set(CPACK_PACKAGE_CONTACT "Michael Hirsch")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")

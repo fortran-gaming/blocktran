@@ -25,30 +25,32 @@ jobs:
         sudo apt update -yq
         sudo apt install -yq --no-install-recommends gfortran libncurses-dev
 
-    - run: cmake --preset=make
+    - run: cmake --preset make
     - run: cmake --build build
-    - run: ctest -E gui -V
+    - run: ctest --preset default -E gui
       working-directory: build
 
     - name: create package
+      if: github.event.action == 'published'
       run: cpack --config build/CPackConfig.cmake
 
     - name: Upload artifact
+      if: github.event.action == 'published'
       uses: actions/upload-artifact@v1
       with:
-        name: blocktran-linux.tar.gz
+        name: binary-archive
         path: build/package
 
-    - name: Upload release exe
+    - name: Upload release
       if: github.event.action == 'published'
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: build/package/blocktran-linux.tar.gz
-        asset_name: blocktran-linux.tar.gz
-        asset_content_type: application/gzip
+        asset_path: build/package/blocktran-linux.tar.zst
+        asset_name: blocktran-linux.tar.zst
+        asset_content_type: application/zip
 
   mac:
     needs: linux
@@ -56,16 +58,17 @@ jobs:
     timeout-minutes: 15
     env:
       HOMEBREW_NO_INSTALL_CLEANUP: 1
+      CC: gcc-10
+      FC: gfortran-10
 
     steps:
     - uses: actions/checkout@v2
 
     - run: brew install ncurses
 
-    - run: cmake --preset=makegcc10
+    - run: cmake --preset make
     - run: cmake --build build
-    - run: ctest -E gui -V
-      working-directory: build
+    - run: ctest --preset default -E gui
 
     - name: create package
       run: cpack --config build/CPackConfig.cmake
@@ -73,7 +76,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
-        name: blocktran-darwin.tar.gz
+        name: blocktran-darwin.tar.zst
         path: build/package
 
     - name: Upload release exe
@@ -83,9 +86,9 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: build/package/blocktran-darwin.tar.gz
-        asset_name: blocktran-darwin.tar.gz
-        asset_content_type: application/gzip
+        asset_path: build/package/blocktran-darwin.tar.zst
+        asset_name: blocktran-darwin.tar.zst
+        asset_content_type: application/zip
 
   windows:
     needs: linux
@@ -97,22 +100,11 @@ jobs:
         shell: msys2 {0}
 
     steps:
-    - uses: msys2/setup-msys2@v2
-      with:
-        update: true
-        install: >-
-          git
-          mingw-w64-x86_64-cmake
-          mingw-w64-x86_64-ninja
-          mingw-w64-x86_64-gcc-fortran
-          mingw-w64-x86_64-ncurses
-
     - uses: actions/checkout@v2
 
-    - run: cmake --preset=ninja
-    - run: cmake --build build
-    - run: ctest -E gui -V
-      working-directory: build
+    - run: cmake --preset makewin
+    - run: cmake --build build --parallel
+    - run: ctest --preset default -E gui
 
     - name: create package
       run: cpack --config build/CPackConfig.cmake
@@ -120,7 +112,7 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
-        name: blocktran-windows.zip
+        name: blocktran-windows.tar.zst
         path: build/package
 
     - name: Upload release exe
@@ -130,6 +122,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: build/package/blocktran-windows.zip
-        asset_name: blocktran-windows.zip
+        asset_path: build/package/blocktran-windows.tar.zst
+        asset_name: blocktran-windows.tar.zst
         asset_content_type: application/zip
