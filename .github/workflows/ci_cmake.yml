@@ -94,10 +94,6 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 15
 
-    defaults:
-      run:
-        shell: msys2 {0}
-
     steps:
     - uses: actions/checkout@v2
 
