@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 3.14...3.20)
 
+file(STRINGS ${CMAKE_CURRENT_SOURCE_DIR}/VERSION PROJECT_VERSION
+  REGEX "^([0-9]+\.[0-9]+\.[0-9]+)" LIMIT_INPUT 16 LENGTH_MAXIMUM 16 LIMIT_COUNT 1)
+
 project(blocktran
 LANGUAGES C Fortran
-VERSION 1.5.2
+VERSION ${PROJECT_VERSION}
 DESCRIPTION "Falling-block game in Fortran + Curses"
 HOMEPAGE_URL https://www.github.com/fortran-gaming/blocktran)
 
@@ -12,7 +15,16 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
 
 include(cmake/compilers.cmake)
 
-find_package(Curses)
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX ${PROJECT_BUILD_DIR} CACHE PATH "install" FORCE)
+endif()
+
+option(curses_external "build Curses")
+set_directory_properties(PROPERTIES EP_UPDATE_DISCONNECTED true)
+
+if(NOT curses_external)
+  find_package(Curses)
+endif()
 
 if(NOT CURSES_FOUND)
   include(cmake/curses_external.cmake)

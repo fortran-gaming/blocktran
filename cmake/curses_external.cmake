@@ -1,8 +1,27 @@
-include(FetchContent)
+include(ExternalProject)
 
-FetchContent_Declare(pdcurses_proj
+set(curses_external true CACHE BOOL "build curses")
+
+if(NOT CURSES_ROOT)
+  set(CURSES_ROOT ${CMAKE_INSTALL_PREFIX})
+endif()
+
+set(CURSES_INCLUDE_DIRS ${CURSES_ROOT}/include)
+set(CURSES_LIBRARIES ${CURSES_ROOT}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}pdcurses${CMAKE_STATIC_LIBRARY_SUFFIX})
+
+ExternalProject_Add(CURSES
   GIT_REPOSITORY https://github.com/scivision/PDcurses.git
-  GIT_TAG 4eb2e16e2d46a77fa7f27a9b4178175782606ff0
+  GIT_TAG e37b5b4b392dfd122e809086121587bde5ba40d6
+  INACTIVITY_TIMEOUT 15
+  CONFIGURE_HANDLED_BY_BUILD ON
+  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=${CURSES_ROOT} -DBUILD_TESTING:BOOL=off -DCMAKE_BUILD_TYPE=Release
+  BUILD_BYPRODUCTS ${CURSES_LIBRARIES}
 )
 
-FetchContent_MakeAvailable(pdcurses_proj)
+file(MAKE_DIRECTORY ${CURSES_INCLUDE_DIRS})
+
+add_library(CURSES::CURSES IMPORTED INTERFACE)
+target_link_libraries(CURSES::CURSES INTERFACE ${CURSES_LIBRARIES})
+target_include_directories(CURSES::CURSES INTERFACE ${CURSES_INCLUDE_DIRS})
+
+add_dependencies(CURSES::CURSES CURSES)

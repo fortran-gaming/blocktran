@@ -1,6 +1,6 @@
 project('blocktran', 'c', 'fortran',
   default_options : ['default_library=static', 'buildtype=release', 'warning_level=3'],
-  version: '1.5.2',
+  version: files('VERSION'),
   meson_version : '>= 0.51')
 
 cc = meson.get_compiler('c')
