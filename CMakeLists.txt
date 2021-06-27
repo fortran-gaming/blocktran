@@ -15,10 +15,6 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
 
 include(cmake/compilers.cmake)
 
-if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  set(CMAKE_INSTALL_PREFIX ${PROJECT_BUILD_DIR} CACHE PATH "install" FORCE)
-endif()
-
 option(curses_external "build Curses")
 set_directory_properties(PROPERTIES EP_UPDATE_DISCONNECTED true)
 
