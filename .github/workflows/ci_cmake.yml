@@ -23,9 +23,9 @@ jobs:
     - name: Install packages
       run: |
         sudo apt update -yq
-        sudo apt install -yq --no-install-recommends gfortran libncurses-dev
+        sudo apt install -yq --no-install-recommends ninja-build gfortran libncurses-dev
 
-    - run: cmake --preset make
+    - run: cmake --preset default
     - run: cmake --build build
     - run: ctest --preset default -E gui
 
@@ -57,15 +57,14 @@ jobs:
     timeout-minutes: 15
     env:
       HOMEBREW_NO_INSTALL_CLEANUP: 1
-      CC: gcc-10
-      FC: gfortran-10
+      FC: gfortran-11
 
     steps:
     - uses: actions/checkout@v2
 
-    - run: brew install ncurses
+    - run: brew install ncurses ninja
 
-    - run: cmake --preset make
+    - run: cmake --preset default
     - run: cmake --build build
     - run: ctest --preset default -E gui
 
@@ -97,7 +96,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - run: cmake --preset makewin
+    - run: cmake --preset default -G "MinGW Makefiles"
     - run: cmake --build build --parallel
     - run: ctest --preset default -E gui
 
