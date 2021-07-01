@@ -1,13 +1,13 @@
-cmake_minimum_required(VERSION 3.14...3.20)
+cmake_minimum_required(VERSION 3.19...3.21)
 
 file(STRINGS ${CMAKE_CURRENT_SOURCE_DIR}/VERSION PROJECT_VERSION
   REGEX "^([0-9]+\.[0-9]+\.[0-9]+)" LIMIT_INPUT 16 LENGTH_MAXIMUM 16 LIMIT_COUNT 1)
 
 project(blocktran
-LANGUAGES C Fortran
-VERSION ${PROJECT_VERSION}
-DESCRIPTION "Falling-block game in Fortran + Curses"
-HOMEPAGE_URL https://www.github.com/fortran-gaming/blocktran)
+  LANGUAGES C Fortran
+  VERSION ${PROJECT_VERSION}
+  DESCRIPTION "Falling-block game in Fortran + Curses"
+  HOMEPAGE_URL https://www.github.com/fortran-gaming/blocktran)
 
 include(CTest)
 
