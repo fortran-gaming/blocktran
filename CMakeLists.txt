@@ -38,11 +38,12 @@ target_link_libraries(blocktran PRIVATE game AI cinterc cinter menu shapes block
 install(TARGETS blocktran EXPORT ${PROJECT_NAME}Targets)
 
 if(BUILD_TESTING)
-  add_test(NAME gui:game COMMAND $<TARGET_FILE:blocktran> -d 100 -s 6 6)
-  set_tests_properties(gui:game PROPERTIES
+  add_test(NAME game COMMAND $<TARGET_FILE:blocktran> -d 100 -s 6 6)
+  set_tests_properties(game PROPERTIES
+    LABELS gui
     TIMEOUT 30
     RESOURCE_LOCK display
-    DEPENDS "block:shapes;block:motion;block:random")
+    DEPENDS "shapes;motion;random")
 endif()
 
 include(cmake/install.cmake)

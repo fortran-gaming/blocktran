@@ -43,7 +43,7 @@ if(CMAKE_Fortran_COMPILER_ID MATCHES Intel)
   string(APPEND CMAKE_Fortran_FLAGS_DEBUG " -fpe0 -debug extended -check all")
 
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL GNU)
-  string(APPEND CMAKE_Fortran_FLAGS " -mtune=native -Wall -Wextra -Werror=array-bounds -finit-real=nan -Wconversion -fimplicit-none")
+  string(APPEND CMAKE_Fortran_FLAGS " -mtune=native -Wall -Wextra -Werror=array-bounds -Wconversion -fimplicit-none")
 
   string(APPEND CMAKE_Fortran_FLAGS_DEBUG " -fexceptions -ffpe-trap=invalid,zero,overflow -fcheck=all")
 endif()
