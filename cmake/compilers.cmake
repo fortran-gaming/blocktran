@@ -30,7 +30,7 @@ endif()
 
 # always do compiler options after all FindXXX and checks
 
-if(CMAKE_Fortran_COMPILER_ID STREQUAL Intel)
+if(CMAKE_Fortran_COMPILER_ID MATCHES Intel)
 
   if(WIN32)
     add_compile_options(/QxHost)
