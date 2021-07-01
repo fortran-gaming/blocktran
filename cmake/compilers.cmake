@@ -1,4 +1,4 @@
-include(CheckFortranSourceCompiles)
+include(CheckSourceCompiles)
 include(CheckLinkerFlag)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS on)
@@ -17,7 +17,7 @@ if(NOT abi_ok)
 endif()
 
 
-check_fortran_source_compiles("call random_init(.false., .false.); end" f18random SRC_EXT f90)
+check_source_compiles(Fortran "call random_init(.false., .false.); end" f18random)
 
 # --- static flags avoid users needing libgfortran etc. on their Windows system
 # MacOS and Linux needs more caution as true static linking is an advanced topic.
