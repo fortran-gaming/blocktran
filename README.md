@@ -10,13 +10,14 @@ Text/console falling-block tetromino game written in object-oriented Fortran 200
 * user-configurable playfield size
 * Logs pieces played to `blocktran.log` so you can recreate memorable games.
 * uniform random game piece generation.
-* clean, object-oriented Fortran 2008 syntax, well structured using Fortran 2008 `submodule`
+* clean, object-oriented Fortran 2008 syntax
 * Curses (Ncurses, PDcurses) used for display, called directly from Fortran code.
 
 ## Build and Play
 
 BlockTran works on Mac, Linux, native Windows, Cygwin, Windows Subsystem for Linux.
 Requires a Fortran compiler and CMake.
+Known to work with GCC Gfortran and Intel oneAPI (Classic or LLVM).
 
 ```sh
 cmake -B build
