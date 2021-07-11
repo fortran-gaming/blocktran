@@ -1,11 +1,4 @@
-f18flag = fc.first_supported_argument(['-std=f2018', '-stand f18', '/stand:f18'])
-if fc.get_id() == 'gcc'
-  add_project_arguments('-Werror=array-bounds', f18flag, language: 'fortran')
-elif fc.get_id() == 'intel'
-  add_project_arguments(f18flag, language: 'fortran')
-elif fc.get_id() == 'intel-cl'
-  add_project_arguments(f18flag, language: 'fortran')
-endif
+
 #--- Curses
 
 code = '''
@@ -21,7 +14,6 @@ use foo
 call endwin()
 end program'''
 
-# Meson < 0.54
 foreach k : ['curses', 'ncurses', 'ncursesw']
   curses = dependency(k, required: false, disabler: true)
   if curses.found()

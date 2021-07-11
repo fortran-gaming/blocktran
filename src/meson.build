@@ -18,10 +18,11 @@ cinterc = library('cinterc', 'cinter.c',
 
 cinter_src = os == 'windows' ? files('wincinter.f90') : files('unixcinter.f90')
 cinter = library('cinter', 'cinter.f90', cinter_src,
-  link_with: [cinterc],
+  link_with: cinterc,
   dependencies : curses)
 
-sleep = library('sleep', 'sleep_std.F90')
+sleep_src = os == 'windows' ? files('sleep_win.f90') : files('sleep_unix.f90')
+sleep = library('sleep', sleep_src)
 
 errs = library('errs', 'err.f90',
   link_with: cinter, dependencies: curses)

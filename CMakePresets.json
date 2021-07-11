@@ -10,28 +10,10 @@
 },
 {
   "name": "intel", "inherits": "default",
-  "displayName": "Intel Classic compiler: Linux/MacOS",
-  "binaryDir": "${sourceDir}/build-intel",
-  "environment": {
-    "CC": "icc",
-    "CXX": "icpc",
-    "FC": "ifort"
-  }
-},
-{
-  "name": "intelwin", "inherits": "intel",
-  "displayName": "Intel Classic compiler: Windows",
-  "environment": {
-    "CC": "icl",
-    "CXX": "icl"
-  }
-},
-{
-  "name": "intelnext", "inherits": "intel",
   "displayName": "Intel oneAPI LLVM",
+  "binaryDir": "build-intel",
   "environment": {
     "CC": "icx",
-    "CXX": "icx",
     "FC": "ifx"
   }
 }
@@ -44,10 +26,6 @@
   {
     "name": "intel",
     "configurePreset": "intel"
-  },
-  {
-    "name": "intelwin",
-    "configurePreset": "intelwin"
   }
 ],
 "testPresets": [

@@ -8,10 +8,8 @@ integer, intent(in), value :: N
 end function addone
 end interface
 
-
 if (addone(2) /= 3) error stop "unexpected addone result"
 
 print *, "OK: 2+1=3"
-
 
 end program

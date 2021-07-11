@@ -17,7 +17,11 @@ if(NOT abi_ok)
 endif()
 
 
-check_source_compiles(Fortran "call random_init(.false., .false.); end" f18random)
+check_source_compiles(Fortran "
+program test
+call random_init(.false., .false.)
+end program"
+f18random)
 
 # --- static flags avoid users needing libgfortran etc. on their Windows system
 # MacOS and Linux needs more caution as true static linking is an advanced topic.
@@ -34,7 +38,7 @@ endif()
 
 # always do compiler options after all FindXXX and checks
 
-if(CMAKE_Fortran_COMPILER_ID MATCHES Intel)
+if(CMAKE_Fortran_COMPILER_ID MATCHES "^Intel")
 
   if(WIN32)
     add_compile_options(/QxHost)
@@ -47,7 +51,9 @@ if(CMAKE_Fortran_COMPILER_ID MATCHES Intel)
   string(APPEND CMAKE_Fortran_FLAGS_DEBUG " -fpe0 -debug extended -check all")
 
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL GNU)
-  string(APPEND CMAKE_Fortran_FLAGS " -mtune=native -Wall -Wextra -Werror=array-bounds -Wconversion -fimplicit-none")
+  add_compile_options(-mtune=native -Wall -Wextra)
+  string(APPEND CMAKE_Fortran_FLAGS_RELEASE " -fno-backtrace")
+  string(APPEND CMAKE_Fortran_FLAGS " -Werror=array-bounds -Wconversion -fimplicit-none")
 
   string(APPEND CMAKE_Fortran_FLAGS_DEBUG " -fexceptions -ffpe-trap=invalid,zero,overflow -fcheck=all")
 endif()

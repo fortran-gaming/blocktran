@@ -1,15 +1,11 @@
 module rotflip
-
-! This module provides rot90, flipud, fliplr for Fortran like Matlab and NumPy
-!
-use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
+!! provides rot90, flipud, fliplr for Fortran like Matlab and NumPy
 
 implicit none (type, external)
 
 contains
 
-
-integer function rot90(A, k)
+pure integer function rot90(A, k)
 ! https://github.com/numpy/numpy/blob/v1.14.2/numpy/lib/function_base.py#L54-L138
 
 integer, intent(in) :: A(:,:)
@@ -34,7 +30,7 @@ end select
 end function rot90
 
 
-integer function flip(A, d)
+pure integer function flip(A, d)
 
 integer, intent(in) :: A(:,:)
 integer, intent(in) :: d
@@ -52,13 +48,13 @@ case (1)
 case (2)
   flip = A(:, N:1:-1)
 case default
-  write(stderr,*) 'bad flip dimension, 2-D only  (1 or 2), or 0 for both dimensions'
+  error stop 'bad flip dimension, 2-D only  (1 or 2), or 0 for both dimensions'
 end select
 
 end function flip
 
 
-integer function flipud(A)
+pure integer function flipud(A)
 
 integer, intent(in) :: A(:,:)
 dimension :: flipud(size(A,1), size(A,2))
@@ -68,7 +64,7 @@ flipud = flip(A,1)
 end function flipud
 
 
-integer function fliplr(A)
+pure integer function fliplr(A)
 
 integer, intent(in) :: A(:,:)
 dimension :: fliplr(size(A,1), size(A,2))

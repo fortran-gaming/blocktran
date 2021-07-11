@@ -10,13 +10,17 @@ else()
   set(_random_init "call random_seed()")
 endif()
 
-configure_file(random.in.f90 random.f90)
+configure_file(random.in.f90 random.f90 @ONLY)
 add_library(random OBJECT ${CMAKE_CURRENT_BINARY_DIR}/random.f90)
 
 add_library(shapes OBJECT shapes.f90 fields.f90 rot90.f90)
 target_link_libraries(shapes PRIVATE random)
 
-add_library(sleep sleep_std.F90)
+if(WIN32)
+  add_library(sleep sleep_win.f90)
+else()
+  add_library(sleep sleep_unix.f90)
+endif()
 
 add_library(cinterc OBJECT cinter.c)
 target_link_libraries(cinterc PRIVATE CURSES::CURSES)
