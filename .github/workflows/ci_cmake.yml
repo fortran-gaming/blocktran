@@ -1,5 +1,9 @@
 name: ci_cmake
 
+env:
+  CMAKE_BUILD_PARALLEL_LEVEL: 3
+  CTEST_PARALLEL_LEVEL: 3
+
 on:
   push:
     paths:
@@ -23,7 +27,7 @@ jobs:
     - name: Install packages
       run: |
         sudo apt update -yq
-        sudo apt install -yq --no-install-recommends ninja-build gfortran libncurses-dev
+        sudo apt install -yq --no-install-recommends gfortran libncurses-dev
 
     - run: cmake --preset default
     - run: cmake --build build
@@ -62,7 +66,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - run: brew install ncurses ninja
+    - run: brew install ncurses
 
     - run: cmake --preset default
     - run: cmake --build build
