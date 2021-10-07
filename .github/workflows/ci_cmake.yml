@@ -3,6 +3,7 @@ name: ci_cmake
 env:
   CMAKE_BUILD_PARALLEL_LEVEL: 3
   CTEST_PARALLEL_LEVEL: 3
+  CMAKE_BUILD_TYPE: Release
 
 on:
   push:
@@ -27,7 +28,7 @@ jobs:
     - name: Install packages
       run: |
         sudo apt update -yq
-        sudo apt install -yq --no-install-recommends gfortran libncurses-dev
+        sudo apt install -yq --no-install-recommends libncurses-dev
 
     - run: cmake --preset default
     - run: cmake --build build
