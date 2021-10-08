@@ -25,11 +25,9 @@ ExternalProject_Add(CURSES
 file(MAKE_DIRECTORY ${CURSES_INCLUDE_DIRS})
 
 add_library(CURSES::CURSES IMPORTED INTERFACE)
-target_link_libraries(CURSES::CURSES INTERFACE ${CURSES_LIBRARIES})
+target_link_libraries(CURSES::CURSES INTERFACE ${CURSES_LIBRARIES}
+$<$<BOOL:${MSVC}>:Advapi32>
+)
 target_include_directories(CURSES::CURSES INTERFACE ${CURSES_INCLUDE_DIRS})
-
-if(MSVC)
-  target_link_libraries(CURSES::CURSES INTERFACE Advapi32)
-endif(MSVC)
 
 add_dependencies(CURSES::CURSES CURSES)

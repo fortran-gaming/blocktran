@@ -39,21 +39,15 @@ endif()
 # always do compiler options after all FindXXX and checks
 
 if(CMAKE_Fortran_COMPILER_ID MATCHES "^Intel")
-
-  if(WIN32)
-    add_compile_options(/QxHost)
-    string(APPEND CMAKE_Fortran_FLAGS " /traceback /warn /heap-arrays")
-  else()
-    add_compile_options(-xHost)
-    string(APPEND CMAKE_Fortran_FLAGS " -traceback -warn -heap-arrays")
-  endif()
-
-  string(APPEND CMAKE_Fortran_FLAGS_DEBUG " -fpe0 -debug extended -check all")
-
+  add_compile_options(
+  $<IF:$<BOOL:${WIN32}>,/QxHost,-xHost>
+  "$<$<COMPILE_LANGUAGE:Fortran>:-traceback;-warn;-heap-arrays>"
+  "$<$<AND:$<COMPILE_LANGUAGE:Fortran>,$<CONFIG:Debug>>:-fpe0;-debug extended;-check all>"
+  )
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL GNU)
-  add_compile_options(-mtune=native -Wall -Wextra)
-  string(APPEND CMAKE_Fortran_FLAGS_RELEASE " -fno-backtrace")
-  string(APPEND CMAKE_Fortran_FLAGS " -Werror=array-bounds -Wconversion -fimplicit-none")
-
-  string(APPEND CMAKE_Fortran_FLAGS_DEBUG " -fexceptions -ffpe-trap=invalid,zero,overflow -fcheck=all")
+  add_compile_options(-mtune=native -Wall -Wextra
+  "$<$<AND:$<COMPILE_LANGUAGE:Fortran>,$<CONFIG:Release>>:-fno-backtrace>"
+  "$<$<COMPILE_LANGUAGE:Fortran>:-Werror=array-bounds;-Wconversion;-fimplicit-none>"
+  "$<$<AND:$<COMPILE_LANGUAGE:Fortran>,$<CONFIG:Debug>>:-fexceptions;-ffpe-trap=invalid,zero,overflow;-fcheck=all>"
+  )
 endif()
