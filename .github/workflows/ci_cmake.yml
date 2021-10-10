@@ -28,11 +28,15 @@ jobs:
     - name: Install packages
       run: |
         sudo apt update -yq
-        sudo apt install -yq --no-install-recommends libncurses-dev
+        sudo apt install -yq --no-install-recommends libncurses-dev ninja-build
 
-    - run: cmake --preset default
-    - run: cmake --build build
-    - run: ctest --preset default -LE gui
+    - run: cmake --preset multi
+
+    - run: cmake --build --preset debug
+    - run: ctest --preset debug -LE gui
+
+    - run: cmake --build --preset release
+    - run: ctest --preset release -LE gui
 
     - name: create package
       if: github.event.action == 'published'
@@ -67,16 +71,22 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - run: brew install ncurses
+    - run: brew install ncurses ninja
 
-    - run: cmake --preset default
-    - run: cmake --build build
-    - run: ctest --preset default -LE gui
+    - run: cmake --preset multi
+
+    - run: cmake --build --preset debug
+    - run: ctest --preset debug -LE gui
+
+    - run: cmake --build --preset release
+    - run: ctest --preset release -LE gui
 
     - name: create package
+      if: github.event.action == 'published'
       run: cpack --config build/CPackConfig.cmake
 
     - name: Upload artifact
+      if: github.event.action == 'published'
       uses: actions/upload-artifact@v1
       with:
         name: blocktran-darwin.tar.zst
@@ -101,14 +111,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - run: cmake --preset default -G "MinGW Makefiles"
+    - run: cmake -B build -G "MinGW Makefiles"
     - run: cmake --build build --parallel
-    - run: ctest --preset default -LE gui
+    - run: ctest --test-dir build --preset default -LE gui
 
     - name: create package
+      if: github.event.action == 'published'
       run: cpack --config build/CPackConfig.cmake
 
     - name: Upload artifact
+      if: github.event.action == 'published'
       uses: actions/upload-artifact@v1
       with:
         name: blocktran-windows.tar.zst
