@@ -3,8 +3,6 @@ include(CheckLinkerFlag)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS on)
 
-set(CMAKE_CONFIGURATION_TYPES "Release;RelWithDebInfo;Debug" CACHE STRING "Build type selections" FORCE)
-
 # check C-Fortran ABI compatibility
 if(NOT abi_ok)
   message(CHECK_START "checking that C and Fortran compilers can link")
