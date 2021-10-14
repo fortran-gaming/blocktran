@@ -1,5 +1,4 @@
 include(CheckSourceCompiles)
-include(CheckLinkerFlag)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS on)
 
@@ -14,25 +13,11 @@ if(NOT abi_ok)
   endif()
 endif()
 
-
 check_source_compiles(Fortran "
 program test
 call random_init(.false., .false.)
 end program"
 f18random)
-
-# --- static flags avoid users needing libgfortran etc. on their Windows system
-# MacOS and Linux needs more caution as true static linking is an advanced topic.
-# this does not guarantee a portable executable, careful testing is needed and possibly further options
-set(static_link_flags)
-if(MINGW AND CMAKE_Fortran_COMPILER_ID STREQUAL GNU)
-  check_linker_flag(C -Wl,--default-image-base-low have_base_low)
-  if(have_base_low)
-    set(static_link_flags -static -static-libgfortran)
-    # MinGW / MSYS2 special considerations: https://www.msys2.org/news/#2021-01-31-aslr-enabled-by-default
-    list(APPEND static_link_flags -Wl,--default-image-base-low)
-  endif()
-endif()
 
 # always do compiler options after all FindXXX and checks
 

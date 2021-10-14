@@ -13,6 +13,8 @@ include(CTest)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
 
+set(CI $ENV{CI})
+
 include(cmake/compilers.cmake)
 
 option(curses_external "build Curses")
@@ -32,8 +34,11 @@ if(BUILD_TESTING)
   add_subdirectory(src/tests)
 endif()
 
+# static flags help avoid users needing libgfortran etc. on their Windows system
+# True static linking is an advanced topic.
+
 add_executable(blocktran src/main.f90)
-target_link_options(blocktran PRIVATE ${static_link_flags})
+target_link_options(blocktran PRIVATE "$<$<AND:$<BOOL:${MINGW}>,$<Fortran_COMPILER_ID:GNU>>:-static;-static-libgfortran>")
 target_link_libraries(blocktran PRIVATE game AI cinterc cinter menu shapes blocks keys errs sleep random)
 install(TARGETS blocktran EXPORT ${PROJECT_NAME}Targets)
 
@@ -41,6 +46,7 @@ if(BUILD_TESTING)
   add_test(NAME game COMMAND $<TARGET_FILE:blocktran> -d 100 -s 6 6)
   set_tests_properties(game PROPERTIES
     LABELS gui
+    DISABLED $<BOOL:${CI}>
     TIMEOUT 30
     RESOURCE_LOCK display
     DEPENDS "shapes;motion;random")

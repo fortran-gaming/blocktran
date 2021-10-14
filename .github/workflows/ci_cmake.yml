@@ -27,16 +27,16 @@ jobs:
 
     - name: Install packages
       run: |
-        sudo apt update -yq
-        sudo apt install -yq --no-install-recommends libncurses-dev ninja-build
+        sudo apt update
+        sudo apt install --no-install-recommends libncurses-dev ninja-build
 
     - run: cmake --preset multi
 
     - run: cmake --build --preset debug
-    - run: ctest --preset debug -LE gui
+    - run: ctest --preset debug
 
     - run: cmake --build --preset release
-    - run: ctest --preset release -LE gui
+    - run: ctest --preset release
 
     - name: create package
       if: github.event.action == 'published'
@@ -76,10 +76,10 @@ jobs:
     - run: cmake --preset multi
 
     - run: cmake --build --preset debug
-    - run: ctest --preset debug -LE gui
+    - run: ctest --preset debug
 
     - run: cmake --build --preset release
-    - run: ctest --preset release -LE gui
+    - run: ctest --preset release
 
     - name: create package
       if: github.event.action == 'published'
@@ -107,13 +107,15 @@ jobs:
     needs: linux
     runs-on: windows-latest
     timeout-minutes: 15
+    env:
+        CMAKE_GENERATOR: "MinGW Makefiles"
 
     steps:
     - uses: actions/checkout@v2
 
-    - run: cmake -B build -G "MinGW Makefiles"
+    - run: cmake -B build
     - run: cmake --build build --parallel
-    - run: ctest --test-dir build --preset default -LE gui
+    - run: ctest --test-dir build --preset default
 
     - name: create package
       if: github.event.action == 'published'

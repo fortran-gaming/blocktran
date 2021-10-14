@@ -21,7 +21,7 @@ jobs:
     - name: Install packages
       run: |
         sudo apt update -yq
-        sudo apt install -yq --no-install-recommends gfortran ninja-build libncurses-dev
+        sudo apt install -yq --no-install-recommends ninja-build libncurses-dev
 
     - run: meson setup build
     - run: meson compile -C build
