@@ -1,7 +1,7 @@
 project('blocktran', 'c', 'fortran',
-  default_options : ['default_library=static', 'buildtype=release', 'warning_level=3'],
-  version: files('VERSION'),
-  meson_version : '>= 0.57')
+default_options : ['default_library=static', 'buildtype=release', 'warning_level=3'],
+meson_version : '>= 0.57'
+)
 
 cc = meson.get_compiler('c')
 fc = meson.get_compiler('fortran')
@@ -14,13 +14,16 @@ subdir('src')
 subdir('src/tests')
 
 blocktran_exe = executable('blocktran',
-  sources: ['src/main.f90', 'src/game.f90'],
-  link_with: [cinter, menu, shapes, blocks, keys, AI, errs, sleep],  # need AI for fla$
-  install: true)
+sources: ['src/main.f90', 'src/game.f90'],
+link_with: [cinter, menu, shapes, blocks, keys, AI, errs, sleep],
+install: true
+)
 
 if os != 'windows'
-  test('ShortGame', blocktran_exe, args : ['-d', '100', '-s', '6', '6'],
-    timeout : 30,
-    is_parallel: false,
-    suite: 'gui')
+  test('ShortGame', blocktran_exe,
+  args : ['-d', '100', '-s', '6', '6'],
+  timeout : 30,
+  is_parallel: false,
+  suite: 'gui'
+  )
 endif

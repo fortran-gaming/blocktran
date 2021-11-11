@@ -1,0 +1,30 @@
+{
+    "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+    "@type": "SoftwareSourceCode",
+    "license": "https://spdx.org/licenses/Apache-2.0",
+    "codeRepository": "https://github.com/fortran-gaming/blocktran",
+    "contIntegration": "https://github.com/fortran-gaming/blocktran/actions",
+    "dateCreated": "2018-03-01",
+    "datePublished": "2018-05-14",
+    "dateModified": "2021-06-30",
+    "issueTracker": "https://github.com/fortran-gaming/blocktran/issues",
+    "name": "blocktran",
+    "version": "1.5.3",
+    "identifier": "",
+    "description": "Falling-block object-oriented Fortran game with resizable playfield",
+    "applicationCategory": "Games",
+    "keywords": [
+        "object-oriented"
+    ],
+    "programmingLanguage": [
+        "Fortran"
+    ],
+    "author": [
+        {
+            "@type": "Person",
+            "@id": "https://orcid.org/0000-0002-1637-6526",
+            "givenName": "Michael",
+            "familyName": "Hirsch"
+        }
+    ]
+}

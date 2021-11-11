@@ -1,13 +1,14 @@
-cmake_minimum_required(VERSION 3.19...3.21)
+cmake_minimum_required(VERSION 3.19...3.22)
 
-file(STRINGS ${CMAKE_CURRENT_SOURCE_DIR}/VERSION PROJECT_VERSION
-  REGEX "^([0-9]+\.[0-9]+\.[0-9]+)" LIMIT_INPUT 16 LENGTH_MAXIMUM 16 LIMIT_COUNT 1)
+file(READ ${CMAKE_CURRENT_LIST_DIR}/codemeta.json _j)
+string(JSON PROJECT_VERSION GET ${_j} version)
 
 project(blocktran
-  LANGUAGES C Fortran
-  VERSION ${PROJECT_VERSION}
-  DESCRIPTION "Falling-block game in Fortran + Curses"
-  HOMEPAGE_URL https://www.github.com/fortran-gaming/blocktran)
+LANGUAGES C Fortran
+VERSION ${PROJECT_VERSION}
+DESCRIPTION "Falling-block game in Fortran + Curses"
+HOMEPAGE_URL https://www.github.com/fortran-gaming/blocktran
+)
 
 include(CTest)
 
@@ -40,16 +41,17 @@ endif()
 add_executable(blocktran src/main.f90)
 target_link_options(blocktran PRIVATE "$<$<AND:$<BOOL:${MINGW}>,$<Fortran_COMPILER_ID:GNU>>:-static;-static-libgfortran>")
 target_link_libraries(blocktran PRIVATE game AI cinterc cinter menu shapes blocks keys errs sleep random)
-install(TARGETS blocktran EXPORT ${PROJECT_NAME}Targets)
+install(TARGETS blocktran EXPORT ${PROJECT_NAME}-targets)
 
 if(BUILD_TESTING)
   add_test(NAME game COMMAND $<TARGET_FILE:blocktran> -d 100 -s 6 6)
   set_tests_properties(game PROPERTIES
-    LABELS gui
-    DISABLED $<BOOL:${CI}>
-    TIMEOUT 30
-    RESOURCE_LOCK display
-    DEPENDS "shapes;motion;random")
+  LABELS gui
+  DISABLED $<BOOL:${CI}>
+  TIMEOUT 30
+  RESOURCE_LOCK display
+  DEPENDS "shapes;motion;random"
+  )
 endif()
 
 include(cmake/install.cmake)
