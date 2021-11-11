@@ -10,7 +10,7 @@
     "issueTracker": "https://github.com/fortran-gaming/blocktran/issues",
     "name": "blocktran",
     "version": "1.5.4",
-    "identifier": "",
+    "identifier": "DOI: 10.5281/zenodo.5675727",
     "description": "Falling-block object-oriented Fortran game with resizable playfield",
     "applicationCategory": "Games",
     "keywords": [
