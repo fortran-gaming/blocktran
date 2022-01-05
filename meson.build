@@ -1,5 +1,4 @@
 project('blocktran', 'c', 'fortran',
-default_options : ['default_library=static', 'buildtype=release', 'warning_level=3'],
 meson_version : '>= 0.57'
 )
 

@@ -1,7 +1,6 @@
 module cinter
 
 use, intrinsic:: iso_c_binding, only: c_int, c_char, c_ptr, c_bool
-use oscinter, only: kbhit
 
 implicit none (type, external)
 
@@ -10,6 +9,10 @@ type(c_ptr) :: stdscr,curscr
 integer(c_int), parameter :: FAIL = -1
 
 interface
+
+module integer(c_int) function kbhit()
+!< cinter_[unix,win].f90
+end function kbhit
 
 !--- function that use cinter.c
 

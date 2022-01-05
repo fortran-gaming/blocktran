@@ -34,8 +34,9 @@ pure integer function flip(A, d)
 
 integer, intent(in) :: A(:,:)
 integer, intent(in) :: d
-integer :: M, N
 dimension :: flip(size(A,1), size(A,2))
+
+integer :: M, N
 
 M = size(A,1)
 N = size(A,2)

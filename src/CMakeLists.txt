@@ -21,7 +21,7 @@ add_library(sleep $<IF:$<BOOL:${WIN32}>,sleep_win.f90,sleep_unix.f90>)
 add_library(cinterc OBJECT cinter.c)
 target_link_libraries(cinterc PRIVATE CURSES::CURSES)
 
-add_library(cinter OBJECT cinter.f90 $<IF:$<BOOL:${WIN32}>,wincinter.f90,unixcinter.f90>)
+add_library(cinter OBJECT cinter.f90 $<IF:$<BOOL:${WIN32}>,cinter_win.f90,cinter_unix.f90>)
 target_link_libraries(cinter PRIVATE cinterc CURSES::CURSES)
 
 add_library(errs OBJECT err.f90)
@@ -38,8 +38,6 @@ add_library(keys OBJECT keys.f90)
 target_link_libraries(keys PRIVATE AI cinter blocks)
 
 foreach(t AI shapes blocks cinter cinterc errs game keys menu random sleep)
-  target_include_directories(${t}
-    PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/include  # necessary in general for IBM XL
-    INTERFACE ${CMAKE_CURRENT_BINARY_DIR}/include)
+  target_include_directories(${t} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/include)
   set_target_properties(${t} PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include)
 endforeach()
