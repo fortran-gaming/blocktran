@@ -1,7 +1,6 @@
 # BlockTran
 
 [![DOI](https://zenodo.org/badge/122394926.svg)](https://zenodo.org/badge/latestdoi/122394926)
-![Actions Status](https://github.com/fortran-gaming/blocktran/workflows/ci_meson/badge.svg)
 ![Actions Status](https://github.com/fortran-gaming/blocktran/workflows/ci_cmake/badge.svg)
 
 Text/console falling-block tetromino game written in object-oriented Fortran 2008.
