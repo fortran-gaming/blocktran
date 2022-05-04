@@ -1,7 +1,5 @@
 include(CheckSourceCompiles)
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS on)
-
 # check C-Fortran ABI compatibility
 if(NOT abi_ok)
   message(CHECK_START "checking that C and Fortran compilers can link")

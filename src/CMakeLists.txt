@@ -19,13 +19,14 @@ target_link_libraries(shapes PRIVATE random)
 add_library(sleep $<IF:$<BOOL:${WIN32}>,sleep_win.f90,sleep_unix.f90>)
 
 add_library(cinterc OBJECT cinter.c)
-target_link_libraries(cinterc PRIVATE CURSES::CURSES)
+target_link_libraries(cinterc PUBLIC CURSES::CURSES)
 
+message(STATUS "${CURSES_INCLUDE_DIRS}")
 add_library(cinter OBJECT cinter.f90 $<IF:$<BOOL:${WIN32}>,cinter_win.f90,cinter_unix.f90>)
-target_link_libraries(cinter PRIVATE cinterc CURSES::CURSES)
+target_link_libraries(cinter PRIVATE cinterc)
 
 add_library(errs OBJECT err.f90)
-target_link_libraries(errs PRIVATE cinter CURSES::CURSES)
+target_link_libraries(errs PRIVATE cinter)
 
 add_library(menu OBJECT menu.f90)
 target_link_libraries(menu PRIVATE cinter shapes blocks sleep)
@@ -41,3 +42,6 @@ foreach(t AI shapes blocks cinter cinterc errs game keys menu random sleep)
   target_include_directories(${t} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/include)
   set_target_properties(${t} PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include)
 endforeach()
+
+target_sources(blocktran PRIVATE main.f90)
+target_link_libraries(blocktran PRIVATE game AI cinterc cinter menu shapes blocks keys errs sleep random)

@@ -13,8 +13,7 @@ target_link_libraries(motiontest PRIVATE shapes random)
 add_test(NAME motion COMMAND motiontest)
 
 set_tests_properties(random shapes motion PROPERTIES
-  TIMEOUT 10
-  LABELS block
+LABELS block
 )
 
 add_executable(testkeys keytest.f90)
@@ -23,19 +22,20 @@ target_link_libraries(testkeys PRIVATE errs cinter cinterc keys shapes blocks AI
 add_executable(curses_test test_curses.f90)
 target_link_libraries(curses_test PRIVATE cinter cinterc sleep)
 add_test(NAME cursesLib COMMAND curses_test)
-set_tests_properties(cursesLib PROPERTIES
-  RESOURCE_LOCK display
-  DEPENDS "shapes;motion;random"
-  LABELS gui
-  DISABLED $<BOOL:${CI}>
-  TIMEOUT 10)
 
 add_executable(menu_test test_menu.f90)
 target_link_libraries(menu_test PRIVATE cinter cinterc menu shapes blocks random)
 add_test(NAME title_screen COMMAND menu_test)
-set_tests_properties(title_screen PROPERTIES
-  TIMEOUT 10
-  LABELS gui
-  DISABLED $<BOOL:${CI}>
-  RESOURCE_LOCK display
-  DEPENDS "shapes;motion;random")
+
+# props
+
+set_tests_properties(cursesLib title_screen PROPERTIES
+LABELS gui
+DISABLED $<BOOL:${CI}>
+RESOURCE_LOCK display
+DEPENDS "shapes;motion;random"
+)
+
+get_property(test_names DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY TESTS)
+
+set_tests_properties(${test_names} PROPERTIES TIMEOUT 15)

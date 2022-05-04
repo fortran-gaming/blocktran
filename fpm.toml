@@ -1,9 +1,0 @@
-name = "tetran"
-version = "1.4.0"
-author = "Michael Hirsch"
-copyright = "2020 Michael Hirsch"
-keywords = ["games"]
-homepage = "https://github.com/fortran-gaming/tetran"
-
-[build]
-link = ["curses"]

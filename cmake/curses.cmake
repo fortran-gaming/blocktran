@@ -1,6 +1,24 @@
 include(ExternalProject)
 
-set(curses_external true CACHE BOOL "build curses")
+find_package(Curses)
+if(CURSES_FOUND)
+  if(NOT EXISTS ${CURSES_INCLUDE_DIRS}/curses.h)
+    find_path(curses_inc
+    NAMES curses.h
+    HINTS ${CURSES_INCLUDE_DIRS}/ncurses ${CURSES_INCLUDE_DIRS}/pdcurses
+    REQUIRED
+    )
+    list(PREPEND CURSES_INCLUDE_DIRS ${curses_inc})
+  endif()
+
+  if(NOT TARGET CURSES::CURSES)
+    add_library(CURSES::CURSES INTERFACE IMPORTED)
+    target_link_libraries(CURSES::CURSES INTERFACE ${CURSES_LIBRARIES})
+    target_include_directories(CURSES::CURSES INTERFACE ${CURSES_INCLUDE_DIRS})
+  endif()
+
+  return()
+endif()
 
 set(CURSES_INCLUDE_DIRS ${CMAKE_INSTALL_PREFIX}/include)
 
@@ -33,10 +51,8 @@ BUILD_BYPRODUCTS ${CURSES_LIBRARIES}
 
 file(MAKE_DIRECTORY ${CURSES_INCLUDE_DIRS})
 
-add_library(CURSES::CURSES IMPORTED INTERFACE)
-target_link_libraries(CURSES::CURSES INTERFACE ${CURSES_LIBRARIES}
-$<$<BOOL:${MSVC}>:Advapi32>
-)
+add_library(CURSES::CURSES INTERFACE IMPORTED)
+target_link_libraries(CURSES::CURSES INTERFACE ${CURSES_LIBRARIES} $<$<BOOL:${MSVC}>:Advapi32>)
 target_include_directories(CURSES::CURSES INTERFACE ${CURSES_INCLUDE_DIRS})
 
 add_dependencies(CURSES::CURSES CURSES)

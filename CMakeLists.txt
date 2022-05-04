@@ -12,30 +12,23 @@ HOMEPAGE_URL https://www.github.com/fortran-gaming/blocktran
 
 include(CTest)
 
-cmake_path(SET CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules)
-
 set(CI $ENV{CI})
 
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR} CACHE PATH "default install path" FORCE)
+endif()
+
 include(cmake/compilers.cmake)
-include(cmake/options.cmake)
 
-if(NOT curses_external)
-  find_package(Curses)
-endif()
+include(cmake/curses.cmake)
 
-if(NOT CURSES_FOUND)
-  include(cmake/curses.cmake)
-endif()
+add_executable(blocktran)
 
 add_subdirectory(src)
 
 if(BUILD_TESTING)
-  add_subdirectory(src/tests)
+  add_subdirectory(tests)
 endif()
-
-
-add_executable(blocktran src/main.f90)
-target_link_libraries(blocktran PRIVATE game AI cinterc cinter menu shapes blocks keys errs sleep random)
 
 if(NOT BUILD_SHARED_LIBS)
   # static flags help avoid users needing libgfortran etc. on their Windows system
