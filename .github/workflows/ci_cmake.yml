@@ -1,9 +1,7 @@
 name: ci_cmake
 
 env:
-  CMAKE_BUILD_PARALLEL_LEVEL: 3
   CTEST_PARALLEL_LEVEL: 3
-  CMAKE_BUILD_TYPE: Release
 
 on:
   push:
@@ -104,16 +102,13 @@ jobs:
         asset_content_type: application/zip
 
   windows:
-    needs: linux
     runs-on: windows-latest
     timeout-minutes: 15
-    env:
-        CMAKE_GENERATOR: "MinGW Makefiles"
 
     steps:
     - uses: actions/checkout@v2
 
-    - run: cmake -B build
+    - run: cmake -B build -G "MinGW Makefiles"
     - run: cmake --build build --parallel
     - run: ctest --test-dir build --preset default
 
