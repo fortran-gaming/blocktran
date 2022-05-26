@@ -1,4 +1,5 @@
 include(CheckSourceCompiles)
+include(CheckIncludeFile)
 
 # check C-Fortran ABI compatibility
 if(NOT abi_ok)
@@ -17,6 +18,8 @@ program test
 call random_init(.false., .false.)
 end program"
 f18random)
+
+check_include_file(unistd.h HAVE_UNISTD_H)
 
 # always do compiler options after all FindXXX and checks
 

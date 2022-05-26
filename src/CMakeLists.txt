@@ -16,7 +16,12 @@ add_library(random OBJECT ${CMAKE_CURRENT_BINARY_DIR}/random.f90)
 add_library(shapes OBJECT shapes.f90 fields.f90 rot90.f90)
 target_link_libraries(shapes PRIVATE random)
 
-add_library(sleep $<IF:$<BOOL:${WIN32}>,sleep_win.f90,sleep_unix.f90>)
+if(HAVE_UNISTD_H)
+  add_library(sleep sleep_unix.f90)
+else()
+  configure_file(sleep_win.f90.in sleep_win.f90 COPYONLY)
+  add_library(sleep OBJECT ${CMAKE_CURRENT_BINARY_DIR}/sleep_win.f90)
+endif()
 
 add_library(cinter OBJECT cinter.f90 cinter.c)
 target_link_libraries(cinter PRIVATE CURSES::CURSES)
