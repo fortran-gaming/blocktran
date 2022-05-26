@@ -76,9 +76,7 @@ Other "secret" cheat keys exist! You can also use arrow keys.
 
 ## Notes
 
-### Block Randomness
-
-unlike some games, block distribution is uniformly random as confirmed by:
+Block distribution is uniformly random as confirmed by:
 
 ```sh
 ./blockrand

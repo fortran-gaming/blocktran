@@ -2,7 +2,7 @@ program rand_test
 ! confirms random distribution of block types
 use, intrinsic:: iso_fortran_env, only: dp=>real64
 use shapes, only: gen_type
-use random, only: rand_init, randint, std, mean
+use random, only: randint, std, mean
 
 implicit none (type, external)
 
@@ -16,7 +16,7 @@ integer, allocatable :: f(:), g(:)
 integer :: i,n, c(Ntypes), u
 character(16) :: buf
 
-call rand_init(.false., .false.)
+call random_init(.false., .false.)
 
 do i=1,10
   print*,randint(1,8)

@@ -4,14 +4,7 @@ target_link_libraries(game PRIVATE AI cinter menu shapes blocks keys errs sleep 
 add_library(AI OBJECT ai.f90)
 target_link_libraries(AI PRIVATE shapes)
 
-if(f18random)
-  set(_random_init "call random_init(repeatable, image_distinct)")
-else()
-  set(_random_init "call random_seed()")
-endif()
-
-configure_file(random.in.f90 random.f90 @ONLY)
-add_library(random OBJECT ${CMAKE_CURRENT_BINARY_DIR}/random.f90)
+add_library(random OBJECT random.f90)
 
 add_library(shapes OBJECT shapes.f90 fields.f90 rot90.f90)
 target_link_libraries(shapes PRIVATE random)
