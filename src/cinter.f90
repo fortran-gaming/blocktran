@@ -10,50 +10,46 @@ integer(c_int), parameter :: FAIL = -1
 
 interface
 
-module integer(c_int) function kbhit()
-!< cinter_[unix,win].f90
-end function kbhit
-
 !--- function that use cinter.c
 
 ! http://www.urbanjost.altervista.org/LIBRARY/libscreen/ncurses/pdsrc/ncurses_from_Fortran.html
 function f_initscr() result (initscr__OUT) bind(C, name='initscr')
 import
 type(c_ptr):: initscr__OUT         ! WINDOW *initscr
-end function f_initscr
+end function
 
 subroutine getmaxyx(win,y,x) bind(C, name='macro_getmaxyx')
 import
 type (c_ptr), value :: win
 integer(c_int) :: y,x
-end subroutine getmaxyx
+end subroutine
 
 !--- functions that interface directly with Curses
 
 subroutine endwin() bind(C)
 ! ncurses restores previous terminal contents (before program was run)
-end subroutine endwin
+end subroutine
 
 integer(c_int) function getch() result (ch) bind(C)
 import
-end function getch
+end function
 
 subroutine flushinp() bind (c)
-end subroutine flushinp
+end subroutine
 
 subroutine timeout(delay) bind (C)
 !! timeout(0) => non-blocking getch() (-1 if no keypress)
 import
 integer(c_int), value :: delay
-end subroutine timeout
+end subroutine
 
 function nodelay(win, bf) result (ierr) bind(C, name='nodelay')
 !! http://www.urbanjost.altervista.org/LIBRARY/libscreen/ncurses/pdsrc/ncurses.f90
 import
 INTEGER(C_INT) :: ierr
-type(C_PTR) ,value:: win                  ! const WINDOW *win
-logical(C_BOOL) ,value:: bf                   ! bool bf
-end function nodelay
+type(C_PTR), value:: win                  ! const WINDOW *win
+logical(C_BOOL), value:: bf                   ! bool bf
+end function
 
 
 function keypad(win, bf) result (ierr) bind(C, name='keypad')
@@ -62,53 +58,53 @@ import
 INTEGER(C_INT) :: ierr          ! int keypad
 type(C_PTR) ,value:: win                  ! const WINDOW *win
 logical(C_BOOL) ,value:: bf                   ! bool bf
-end function keypad
+end function
 !--------------------
 
 
 integer(c_int) function f_addch(ch) result (addch__OUT) bind(c, name='addch')
 import
 character(kind=c_char) , value, intent(in):: ch
-end function f_addch
+end function
 
 
 subroutine mvaddch(y, x, ch) bind (C, name='mvaddch')
 import
 integer(c_int), intent(in), value :: y, x
 character(kind=c_char), intent(in), value :: ch
-end subroutine mvaddch
+end subroutine
 
 
 subroutine refresh() bind(C)
-end subroutine refresh
+end subroutine
 
 
 subroutine clear() bind(C)
 !! clear entire screen
-end subroutine clear
+end subroutine
 
 subroutine border() bind(C)
 !! draw border
-end subroutine border
+end subroutine
 
 subroutine noecho() bind (C)
 ! don't echo keypresses to screen
-end subroutine noecho
+end subroutine
 
 subroutine cbreak() bind (C)
 ! disable line buffer
-end subroutine cbreak
+end subroutine
 
 subroutine mvprintw(y, x, str) bind (C)
 import
 integer(c_int), intent(in), value :: y, x
 character(kind=c_char),intent(in) :: str
-end subroutine mvprintw
+end subroutine
 
 integer(c_int) function printw(str) bind (C)
 import
 character(kind=c_char),intent(in) :: str
-end function printw
+end function
 
 end interface
 
@@ -124,7 +120,7 @@ stdscr__OUT=stdscr
 call getmaxyx(stdscr, LINES, COLS)
 if(LINES < 0) error stop 'Curses: could not get LINES'
 if(COLS < 0) error stop 'Curses: could not get COLS'
-end function initscr
+end function
 
 
 subroutine addch(ch)
@@ -134,6 +130,6 @@ integer(c_int) :: ierr
 ierr = f_addch(ch)
 
 if (ierr == FAIL) error stop 'addch'
-end subroutine addch
+end subroutine
 
 end module cinter

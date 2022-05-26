@@ -3,7 +3,7 @@ module menu
 use, intrinsic :: iso_c_binding, only: c_int, c_ptr
 use, intrinsic :: iso_fortran_env, only: stderr=>error_unit
 use random, only: randint
-use cinter, only: refresh, clear, getch, noecho, cbreak, timeout, printw, kbhit
+use cinter, only: refresh, clear, getch, noecho, cbreak, timeout, printw
 use sleep_std, only : sleep
 use shapes, only: Piece
 use fields, only: field
@@ -45,9 +45,7 @@ call refresh()
 call sleep(250)
 
 do i = 1,Nstates
-  if (kbhit() /= 0) then
-    if (getch() /= -1) exit
-  endif
+  if (getch() /= -1) exit
 
   call clear()
   if (F%debug) then

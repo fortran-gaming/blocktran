@@ -2,7 +2,7 @@ program keytest
 
 use, intrinsic :: iso_c_binding, only: c_int,c_ptr, c_char, c_bool
 
-use cinter, only : initscr,getch, cbreak, timeout, printw, refresh, noecho, kbhit, flushinp, keypad, clear
+use cinter, only : initscr,getch, cbreak, timeout, printw, refresh, noecho, flushinp, keypad, clear
 use sleep_std, only : sleep
 use errs, only : endwin
 
@@ -27,22 +27,17 @@ ierr = printw('press Esc to exit. Prints keys pressed and their code'//new_line(
 call refresh()
 
 do
-  ic = kbhit()
-  if (ic /= 0) then
-    ic = getch()  ! 4-byte integer
-    select case (ic)
-      case (-1)
-        !ierr = printw('waiting for getch ')
-        call sleep(200)
-        cycle
-      case (27)
-        exit
-    end select
-  else
-    !ierr = printw('waiting for kbhit ')
+  ic = getch()  ! 4-byte integer
+  select case (ic)
+  case (-1)
+    !ierr = printw('waiting for getch ')
     call sleep(200)
-    !call clear()
-  endif
+    cycle
+  case (27)
+    exit
+  case default
+    call sleep(200)
+  end select
 
 ! read(stdin,*) ic ! Don't do this
 

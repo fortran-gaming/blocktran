@@ -2,7 +2,7 @@ module keys
 
 use, intrinsic:: iso_c_binding, only: c_int
 use ai, only: AI_input
-use cinter, only: getch, flushinp, kbhit, printw, endwin
+use cinter, only: getch, flushinp, printw, endwin
 use blocks, only: game_over
 use shapes, only: piece
 use fields, only: field
@@ -30,12 +30,7 @@ if (F%AI) then
   return
 endif
 
-if (kbhit() /= 0) then
-  ! ierr = printw('waiting on getch')
-  i = getch()
-else
-  i = -1
-endif
+i = getch()
 
 ! keypad mode for arrow keys
 select case(i)

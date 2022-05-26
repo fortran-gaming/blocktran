@@ -21,8 +21,7 @@ add_library(sleep $<IF:$<BOOL:${WIN32}>,sleep_win.f90,sleep_unix.f90>)
 add_library(cinterc OBJECT cinter.c)
 target_link_libraries(cinterc PUBLIC CURSES::CURSES)
 
-message(STATUS "${CURSES_INCLUDE_DIRS}")
-add_library(cinter OBJECT cinter.f90 $<IF:$<BOOL:${WIN32}>,cinter_win.f90,cinter_unix.f90>)
+add_library(cinter OBJECT cinter.f90)
 target_link_libraries(cinter PRIVATE cinterc)
 
 add_library(errs OBJECT err.f90)
