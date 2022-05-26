@@ -2,6 +2,7 @@ name: ci_cmake
 
 env:
   CTEST_PARALLEL_LEVEL: 3
+  HOMEBREW_NO_INSTALL_CLEANUP: 1
 
 on:
   push:
@@ -16,61 +17,32 @@ on:
 
 jobs:
 
-  linux:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+  linux_macos:
+    runs-on: ${{ matrix.cfg.os }}
+    timeout-minutes: 15
+
+    strategy:
+      matrix:
+        cfg: [{os: ubuntu-latest, fc: gfortran},
+              {os: macos-latest, fc: gfortran-11}]
+
+    env:
+      FC: ${{ matrix.cfg.fc }}
 
     steps:
-    - uses: actions/checkout@v2
 
-    - name: Install packages
+    - name: Install packages Linux
+      if: runner.os == 'Linux'
       run: |
         sudo apt update
         sudo apt install --no-install-recommends libncurses-dev ninja-build
 
-    - run: cmake --preset multi
+    - name: Install packages MacOS
+      if: runner.os == 'macOS'
+      run: brew install ncurses ninja
 
-    - run: cmake --build --preset debug
-    - run: ctest --preset debug
-
-    - run: cmake --build --preset release
-    - run: ctest --preset release
-
-    - name: create package
-      if: github.event.action == 'published'
-      run: cpack --config build/CPackConfig.cmake
-
-    - name: Upload artifact
-      if: github.event.action == 'published'
-      uses: actions/upload-artifact@v1
-      with:
-        name: binary-archive
-        path: build/package
-
-    - name: Upload release
-      if: github.event.action == 'published'
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: build/package/blocktran-linux.tar.zst
-        asset_name: blocktran-linux.tar.zst
-        asset_content_type: application/zip
-
-  mac:
-    needs: linux
-    runs-on: macos-latest
-    timeout-minutes: 15
-    env:
-      HOMEBREW_NO_INSTALL_CLEANUP: 1
-      FC: gfortran-11
-
-    steps:
     - uses: actions/checkout@v2
 
-    - run: brew install ncurses ninja
-
     - run: cmake --preset multi
 
     - run: cmake --build --preset debug
@@ -79,38 +51,32 @@ jobs:
     - run: cmake --build --preset release
     - run: ctest --preset release
 
-    - name: create package
-      if: github.event.action == 'published'
-      run: cpack --config build/CPackConfig.cmake
 
-    - name: Upload artifact
-      if: github.event.action == 'published'
-      uses: actions/upload-artifact@v1
-      with:
-        name: blocktran-darwin.tar.zst
-        path: build/package
-
-    - name: Upload release exe
-      if: github.event.action == 'published'
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: build/package/blocktran-darwin.tar.zst
-        asset_name: blocktran-darwin.tar.zst
-        asset_content_type: application/zip
 
   windows:
     runs-on: windows-latest
     timeout-minutes: 15
 
     steps:
+    - uses: msys2/setup-msys2@v2
+      with:
+        update: true
+        install: >-
+          mingw-w64-x86_64-ninja
+          mingw-w64-x86_64-gcc-fortran
+
+    - name: Put MSYS2_MinGW64 on PATH
+      run: echo "D:/a/_temp/msys64/mingw64/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
     - uses: actions/checkout@v2
 
-    - run: cmake -B build -G "MinGW Makefiles"
-    - run: cmake --build build --parallel
-    - run: ctest --test-dir build --preset default
+    - run: cmake --preset multi
+
+    - run: cmake --build --preset debug
+    - run: ctest --preset debug
+
+    - run: cmake --build --preset release
+    - run: ctest --preset release
 
     - name: create package
       if: github.event.action == 'published'
