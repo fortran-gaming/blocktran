@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20...3.23)
+cmake_minimum_required(VERSION 3.20)
 
 file(READ ${CMAKE_CURRENT_LIST_DIR}/codemeta.json _j)
 string(JSON PROJECT_VERSION GET ${_j} version)
@@ -22,12 +22,13 @@ include(cmake/compilers.cmake)
 
 include(cmake/curses.cmake)
 
-add_executable(blocktran)
+add_executable(blocktran app/main.f90)
+target_link_libraries(blocktran PRIVATE game AI cinterc cinter menu shapes blocks keys errs sleep random)
 
 add_subdirectory(src)
 
 if(BUILD_TESTING)
-  add_subdirectory(tests)
+  add_subdirectory(test)
 endif()
 
 if(NOT BUILD_SHARED_LIBS)

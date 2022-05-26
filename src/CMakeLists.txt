@@ -42,6 +42,3 @@ foreach(t AI shapes blocks cinter cinterc errs game keys menu random sleep)
   target_include_directories(${t} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/include)
   set_target_properties(${t} PROPERTIES Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include)
 endforeach()
-
-target_sources(blocktran PRIVATE main.f90)
-target_link_libraries(blocktran PRIVATE game AI cinterc cinter menu shapes blocks keys errs sleep random)
