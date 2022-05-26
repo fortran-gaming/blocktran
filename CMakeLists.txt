@@ -23,7 +23,7 @@ include(cmake/compilers.cmake)
 include(cmake/curses.cmake)
 
 add_executable(blocktran app/main.f90)
-target_link_libraries(blocktran PRIVATE game AI cinterc cinter menu shapes blocks keys errs sleep random)
+target_link_libraries(blocktran PRIVATE game AI cinter menu shapes blocks keys errs sleep random)
 
 add_subdirectory(src)
 

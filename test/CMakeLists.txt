@@ -17,14 +17,14 @@ LABELS block
 )
 
 add_executable(testkeys keytest.f90)
-target_link_libraries(testkeys PRIVATE errs cinter cinterc keys shapes blocks AI sleep random)
+target_link_libraries(testkeys PRIVATE errs cinter keys shapes blocks AI sleep random)
 
 add_executable(curses_test test_curses.f90)
-target_link_libraries(curses_test PRIVATE cinter cinterc sleep)
+target_link_libraries(curses_test PRIVATE cinter sleep)
 add_test(NAME cursesLib COMMAND curses_test)
 
 add_executable(menu_test test_menu.f90)
-target_link_libraries(menu_test PRIVATE cinter cinterc menu shapes blocks random)
+target_link_libraries(menu_test PRIVATE cinter menu shapes blocks random)
 add_test(NAME title_screen COMMAND menu_test)
 
 # props
