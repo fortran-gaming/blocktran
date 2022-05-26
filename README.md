@@ -24,9 +24,14 @@ cmake -B build
 cmake --build build
 ```
 
-CMake will automatically download and build Curses if you don't have it.
+or using Fortran FPM:
 
-The main exectuable file is build/blocktran.
+```sh
+fpm build
+fpm run
+```
+
+The main executable file is build/blocktran.
 You can copy this file to your Desktop or wherever you like.
 
 ### difficulty level

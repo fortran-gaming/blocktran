@@ -1,0 +1,6 @@
+name = "blocktran"
+description = "falling block game"
+version = "1.6.0"
+
+[build]
+link = ["ncurses"]
