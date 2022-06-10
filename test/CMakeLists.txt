@@ -24,7 +24,7 @@ target_link_libraries(curses_test PRIVATE cinter sleep)
 add_test(NAME cursesLib COMMAND curses_test)
 
 add_executable(menu_test test_menu.f90)
-target_link_libraries(menu_test PRIVATE cinter menu shapes blocks random)
+target_link_libraries(menu_test PRIVATE cinter menu shapes blocks random sleep)
 add_test(NAME title_screen COMMAND menu_test)
 
 # props

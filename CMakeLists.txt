@@ -4,7 +4,7 @@ file(READ ${CMAKE_CURRENT_LIST_DIR}/codemeta.json _j)
 string(JSON PROJECT_VERSION GET ${_j} version)
 
 project(blocktran
-LANGUAGES C Fortran
+LANGUAGES C CXX Fortran
 VERSION ${PROJECT_VERSION}
 DESCRIPTION "Falling-block game in Fortran + Curses"
 HOMEPAGE_URL https://www.github.com/fortran-gaming/blocktran
