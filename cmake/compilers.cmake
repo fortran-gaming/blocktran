@@ -1,5 +1,3 @@
-include(CheckIncludeFile)
-
 # check C-Fortran ABI compatibility
 if(NOT abi_ok)
   message(CHECK_START "checking that C ${CMAKE_C_COMPILER_ID} ${CMAKE_C_COMPILER_VERSION} and
@@ -12,16 +10,14 @@ if(NOT abi_ok)
   endif()
 endif()
 
-check_include_file(unistd.h HAVE_UNISTD_H)
-
 # always do compiler options after all FindXXX and checks
 
 if(CMAKE_Fortran_COMPILER_ID MATCHES "^Intel")
   add_compile_options(
-  "$<$<COMPILE_LANGUAGE:Fortran>:-traceback;-warn;-heap-arrays>"
+  "$<$<COMPILE_LANGUAGE:Fortran>:-traceback;-warn>"
   "$<$<AND:$<COMPILE_LANGUAGE:Fortran>,$<CONFIG:Debug>>:-fpe0;-debug;-check>"
   )
-elseif(CMAKE_Fortran_COMPILER_ID STREQUAL GNU)
+elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
   add_compile_options(-Wall -Wextra
   "$<$<AND:$<COMPILE_LANGUAGE:Fortran>,$<CONFIG:Release>>:-fno-backtrace>"
   "$<$<COMPILE_LANGUAGE:Fortran>:-Werror=array-bounds;-Wconversion;-fimplicit-none>"
