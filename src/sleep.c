@@ -4,6 +4,7 @@ extern void c_sleep(int*);
 
 #ifdef _MSC_VER
 
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
 // https://docs.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-sleep
