@@ -1,5 +1,0 @@
-/subprojects/*
-!/subprojects/*.wrap
-
-build*/
-*.log

@@ -10,14 +10,9 @@ DESCRIPTION "Falling-block game in Fortran + Curses"
 HOMEPAGE_URL https://www.github.com/fortran-gaming/blocktran
 )
 
-include(CTest)
+enable_testing()
 
-set(CI $ENV{CI})
-
-if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR} CACHE PATH "default install path" FORCE)
-endif()
-
+include(cmake/options.cmake)
 include(cmake/compilers.cmake)
 
 include(cmake/curses.cmake)
@@ -27,7 +22,7 @@ target_link_libraries(blocktran PRIVATE game AI cinter menu shapes blocks keys e
 
 add_subdirectory(src)
 
-if(BUILD_TESTING)
+if(${PROJECT_NAME}_BUILD_TESTING)
   add_subdirectory(test)
 endif()
 
@@ -39,7 +34,7 @@ endif()
 
 install(TARGETS blocktran EXPORT ${PROJECT_NAME}-targets)
 
-if(BUILD_TESTING)
+if(${PROJECT_NAME}_BUILD_TESTING)
   add_test(NAME game COMMAND blocktran -d 100 -s 6 6)
   set_tests_properties(game PROPERTIES
   LABELS gui
