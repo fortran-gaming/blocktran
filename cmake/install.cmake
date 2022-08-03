@@ -40,9 +40,7 @@ set(CPACK_PACKAGE_FILE_NAME "${_project_lower}-${_sys}")
 set(CPACK_SOURCE_PACKAGE_FILE_NAME "${_project_lower}-${PROJECT_VERSION}")
 
 # not .gitignore as its regex syntax is more advanced than CMake
-file(READ ${CMAKE_CURRENT_LIST_DIR}/.cpack_ignore _cpack_ignore)
-string(REGEX REPLACE "\n" ";" _cpack_ignore ${_cpack_ignore})
-set(CPACK_SOURCE_IGNORE_FILES "${_cpack_ignore}")
+set(CPACK_SOURCE_IGNORE_FILES ".git/;.git*/;.vscode/;.mypy_cache/;_CPack_Packages/;${CMAKE_BINARY_DIR}/")
 
 install(FILES ${CPACK_RESOURCE_FILE_README} ${CPACK_RESOURCE_FILE_LICENSE}
 DESTINATION share/docs/${PROJECT_NAME}
