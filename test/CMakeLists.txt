@@ -12,9 +12,7 @@ add_executable(motiontest test_motion.f90)
 target_link_libraries(motiontest PRIVATE shapes random)
 add_test(NAME motion COMMAND motiontest)
 
-set_tests_properties(random shapes motion PROPERTIES
-LABELS block
-)
+set_property(TEST random shapes motion PROPERTY LABELS block)
 
 add_executable(testkeys keytest.f90)
 target_link_libraries(testkeys PRIVATE errs cinter keys shapes blocks AI sleep random)
@@ -38,4 +36,4 @@ DEPENDS "shapes;motion;random"
 
 get_property(test_names DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY TESTS)
 
-set_tests_properties(${test_names} PROPERTIES TIMEOUT 15)
+set_property(TEST ${test_names} PROPERTY TIMEOUT 15)

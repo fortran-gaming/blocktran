@@ -1,7 +1,6 @@
 name: ci_cmake
 
 env:
-  CTEST_PARALLEL_LEVEL: 3
   HOMEBREW_NO_INSTALL_CLEANUP: 1
 
 on:
@@ -11,23 +10,18 @@ on:
       - "**/*.cmake"
       - "**/*.txt"
       - ".github/workflows/ci_cmake.yml"
-  pull_request:
-  release:
-    types: published
+
 
 jobs:
 
   linux_macos:
-    runs-on: ${{ matrix.cfg.os }}
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 15
 
     strategy:
       matrix:
-        cfg: [{os: ubuntu-latest, fc: gfortran},
-              {os: macos-latest, fc: gfortran-11}]
+        os: [ubuntu-latest, macos-latest]
 
-    env:
-      FC: ${{ matrix.cfg.fc }}
 
     steps:
 
@@ -41,7 +35,7 @@ jobs:
       if: runner.os == 'macOS'
       run: brew install ncurses ninja
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - run: cmake --preset multi
 
@@ -68,7 +62,7 @@ jobs:
     - name: Put MSYS2_MinGW64 on PATH
       run: echo "D:/a/_temp/msys64/mingw64/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - run: cmake --preset multi
 
@@ -77,25 +71,3 @@ jobs:
 
     - run: cmake --build --preset release
     - run: ctest --preset release
-
-    - name: create package
-      if: github.event.action == 'published'
-      run: cpack --config build/CPackConfig.cmake
-
-    - name: Upload artifact
-      if: github.event.action == 'published'
-      uses: actions/upload-artifact@v1
-      with:
-        name: blocktran-windows.tar.zst
-        path: build/package
-
-    - name: Upload release exe
-      if: github.event.action == 'published'
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: build/package/blocktran-windows.tar.zst
-        asset_name: blocktran-windows.tar.zst
-        asset_content_type: application/zip
