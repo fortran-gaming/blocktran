@@ -1,11 +1,10 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.14...3.25)
 
-file(READ ${CMAKE_CURRENT_LIST_DIR}/codemeta.json _j)
-string(JSON PROJECT_VERSION GET ${_j} version)
+set(CMAKE_PROJECT_INCLUDE_BEFORE cmake/find_compilers.cmake)
 
 project(blocktran
 LANGUAGES C CXX Fortran
-VERSION ${PROJECT_VERSION}
+VERSION 1.6.0
 DESCRIPTION "Falling-block game in Fortran + Curses"
 HOMEPAGE_URL https://www.github.com/fortran-gaming/blocktran
 )

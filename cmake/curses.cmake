@@ -8,7 +8,7 @@ if(CURSES_FOUND)
     HINTS ${CURSES_INCLUDE_DIRS}/ncurses ${CURSES_INCLUDE_DIRS}/pdcurses
     REQUIRED
     )
-    list(PREPEND CURSES_INCLUDE_DIRS ${curses_inc})
+    list(APPEND CURSES_INCLUDE_DIRS ${curses_inc})
   endif()
 
   if(NOT TARGET CURSES::CURSES)
