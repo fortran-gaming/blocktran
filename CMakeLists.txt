@@ -1,11 +1,8 @@
-cmake_minimum_required(VERSION 3.20)
-
-file(READ ${CMAKE_CURRENT_LIST_DIR}/codemeta.json _j)
-string(JSON PROJECT_VERSION GET ${_j} version)
+cmake_minimum_required(VERSION 3.14...3.25)
 
 project(blocktran
 LANGUAGES C CXX Fortran
-VERSION ${PROJECT_VERSION}
+VERSION 1.7.0
 DESCRIPTION "Falling-block game in Fortran + Curses"
 HOMEPAGE_URL https://www.github.com/fortran-gaming/blocktran
 )
@@ -32,7 +29,12 @@ if(NOT BUILD_SHARED_LIBS)
   target_link_options(blocktran PRIVATE "$<$<AND:$<BOOL:${MINGW}>,$<Fortran_COMPILER_ID:GNU>>:-static;-static-libgfortran>")
 endif()
 
-install(TARGETS blocktran EXPORT ${PROJECT_NAME}-targets)
+install(TARGETS blocktran EXPORT ${PROJECT_NAME}-targets
+LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
 
 if(${PROJECT_NAME}_BUILD_TESTING)
   add_test(NAME game COMMAND blocktran -d 100 -s 6 6)
