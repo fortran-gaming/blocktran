@@ -4,7 +4,7 @@ set(CMAKE_PROJECT_INCLUDE_BEFORE cmake/find_compilers.cmake)
 
 project(blocktran
 LANGUAGES C CXX Fortran
-VERSION 1.6.0
+VERSION 1.7.0
 DESCRIPTION "Falling-block game in Fortran + Curses"
 HOMEPAGE_URL https://www.github.com/fortran-gaming/blocktran
 )
