@@ -1,6 +1,3 @@
-add_library(game OBJECT game.f90)
-target_link_libraries(game PRIVATE AI cinter menu shapes blocks keys errs sleep random)
-
 add_library(AI OBJECT ai.f90)
 target_link_libraries(AI PRIVATE shapes)
 
@@ -28,7 +25,6 @@ target_link_libraries(blocks PRIVATE cinter shapes)
 add_library(keys OBJECT keys.f90)
 target_link_libraries(keys PRIVATE AI cinter blocks)
 
-foreach(t AI shapes blocks cinter errs game keys menu random sleep)
-  target_include_directories(${t} PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/include)
-  set_property(TARGET ${t} PROPERTY Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include)
-endforeach()
+set(tgt AI shapes blocks cinter errs keys menu random sleep)
+set_property(TARGET ${tgt} PROPERTY Fortran_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include)
+set_property(TARGET ${tgt} PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_BINARY_DIR}/include)
