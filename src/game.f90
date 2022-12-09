@@ -6,7 +6,7 @@ use menu, only: title
 use cinter, only:  initscr,noecho, mvprintw, mvaddch, &
   clear,timeout, cbreak, keypad, endwin, refresh, &
   maxH=>LINES, maxW=>COLS
-use sleep_std, only : sleep
+use sleep_std, only : sleep_ms
 use errs, only: err
 use blocks, only: freeze, draw_piece
 use shapes, only: piece
@@ -85,7 +85,7 @@ main: do
     update=.false.
   end if
 
-  call sleep(F(1)%sleep_incr)
+  call sleep_ms(F(1)%sleep_incr)
 
 
 end do main

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12...3.25)
+cmake_minimum_required(VERSION 3.14...3.25)
 
 project(blocktran
 LANGUAGES C CXX Fortran
@@ -21,12 +21,7 @@ if(${PROJECT_NAME}_BUILD_TESTING)
   add_subdirectory(test)
 endif()
 
-install(TARGETS blocktran EXPORT ${PROJECT_NAME}-targets
-LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-)
+install(TARGETS blocktran EXPORT ${PROJECT_NAME}-targets)
 
 if(${PROJECT_NAME}_BUILD_TESTING)
   add_test(NAME game COMMAND blocktran -d 100 -s 6 6)

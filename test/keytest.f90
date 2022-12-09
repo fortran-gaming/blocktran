@@ -3,7 +3,7 @@ program keytest
 use, intrinsic :: iso_c_binding, only: c_int,c_ptr, c_char, c_bool
 
 use cinter, only : initscr,getch, cbreak, timeout, printw, refresh, noecho, flushinp, keypad, clear
-use sleep_std, only : sleep
+use sleep_std, only : sleep_ms
 use errs, only : endwin
 
 implicit none (type, external)
@@ -31,12 +31,12 @@ do
   select case (ic)
   case (-1)
     !ierr = printw('waiting for getch ')
-    call sleep(200)
+    call sleep_ms(200)
     cycle
   case (27)
     exit
   case default
-    call sleep(200)
+    call sleep_ms(200)
   end select
 
 ! read(stdin,*) ic ! Don't do this

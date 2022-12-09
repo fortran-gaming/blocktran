@@ -4,7 +4,7 @@ use, intrinsic :: iso_c_binding, only: c_int, c_ptr
 use, intrinsic :: iso_fortran_env, only: stderr=>error_unit
 use random, only: randint
 use cinter, only: refresh, clear, getch, noecho, cbreak, timeout, printw
-use sleep_std, only : sleep
+use sleep_std, only : sleep_ms
 use shapes, only: Piece
 use fields, only: field
 use blocks, only: draw_piece
@@ -42,7 +42,7 @@ call noecho()
 call cbreak()
 call timeout(0)
 call refresh()
-call sleep(250)
+call sleep_ms(250)
 
 do i = 1,Nstates
   if (getch() /= -1) exit
@@ -61,7 +61,7 @@ do i = 1,Nstates
   call dissolve(N)
 
   call refresh()
-  call sleep(150)
+  call sleep_ms(150)
 enddo
 
 end subroutine title
