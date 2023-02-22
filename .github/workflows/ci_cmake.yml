@@ -1,7 +1,8 @@
 name: ci_cmake
 
 env:
-  HOMEBREW_NO_INSTALL_CLEANUP: 1
+  HOMEBREW_NO_INSTALL_CLEANUP:
+  CTEST_NO_TESTS_ACTION: error
 
 on:
   push:
