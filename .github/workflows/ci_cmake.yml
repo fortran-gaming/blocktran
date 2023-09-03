@@ -31,16 +31,15 @@ jobs:
 
     - name: Install packages Linux
       if: runner.os == 'Linux'
-      run: sudo apt install --no-install-recommends libncurses-dev ninja-build
+      run: sudo apt install --no-install-recommends libncurses-dev
 
     - name: Install packages MacOS
       if: runner.os == 'macOS'
-      run: brew install ncurses ninja
+      run: brew install ncurses
 
     - uses: actions/checkout@v3
 
-    - run: cmake --workflow --preset debug
-    - run: cmake --workflow --preset release
+    - run: cmake --workflow --preset default
 
 
   windows:
@@ -52,7 +51,6 @@ jobs:
       with:
         update: true
         install: >-
-          mingw-w64-x86_64-ninja
           mingw-w64-x86_64-gcc-fortran
 
     - name: Put MSYS2_MinGW64 on PATH
@@ -60,5 +58,6 @@ jobs:
 
     - uses: actions/checkout@v3
 
-    - run: cmake --workflow --preset debug
-    - run: cmake --workflow --preset release
+    - run: cmake --workflow --preset default
+      env:
+        CMAKE_GENERATOR: MinGW Makefiles
