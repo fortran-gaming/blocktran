@@ -62,4 +62,10 @@ add_library(CURSES::CURSES INTERFACE IMPORTED)
 target_link_libraries(CURSES::CURSES INTERFACE ${CURSES_LIBRARIES} $<$<BOOL:${MSVC}>:Advapi32>)
 target_include_directories(CURSES::CURSES INTERFACE ${CURSES_INCLUDE_DIRS})
 
+if(NOT WIN32)
+  include(${CMAKE_CURRENT_LIST_DIR}/x11.cmake)
+  target_link_libraries(CURSES::CURSES INTERFACE ${X11_LIBRARIES} X11::Xpm X11::Xmu X11::Xt)
+  target_include_directories(CURSES::CURSES INTERFACE ${X11_INCLUDE_DIR})
+endif()
+
 add_dependencies(CURSES::CURSES CURSES)

@@ -39,7 +39,7 @@ jobs:
 
     - name: install X11 Linux
       if: ${{ runner.os == 'Linux' && !matrix.ncurses }}
-      run: sudo apt install --no-install-recommends libxt-dev libxaw7-dev libx11-dev
+      run: sudo apt install --no-install-recommends libxmu-dev libxpm-dev libxt-dev libxaw7-dev libx11-dev
 
     # - name: Install packages MacOS
     #   if: ${{ runner.os == 'macOS' &&  matrix.ncurses }}

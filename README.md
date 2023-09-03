@@ -34,13 +34,23 @@ fpm run
 The main executable file is build/blocktran.
 You can copy this file to your Desktop or wherever you like.
 
-### Linux
+### Linux / macOS
 
-X11 development libraries are required for building on Linux. Install X11 and Ncurses like:
+Ncurses is required.
+Alternatively, PDCurses + X11 development libraries are required for building on Linux.
 
+Install X11 on Linux:
 
 ```sh
 dnf install libX11-devel libXt-devel libXaw-devel ncurses-devel
+# or
+apt install libmxu-dev libxpm-dev libxt-dev libxaw7-dev libx11-dev
+```
+
+on macOS:
+
+```sh
+brew install libxt libxaw libx11
 ```
 
 ## Play
