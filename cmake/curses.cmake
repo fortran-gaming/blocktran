@@ -42,7 +42,7 @@ set(curses_args
 
 ExternalProject_Add(CURSES
 GIT_REPOSITORY https://github.com/scivision/PDCurses.git
-GIT_TAG db6566aa96f159faa42857d508dde1174873fc5c
+GIT_TAG af44f4e81e231ccde51f651d554c13d55164248a
 GIT_SHALLOW true
 INACTIVITY_TIMEOUT 60
 TLS_VERIFY true
