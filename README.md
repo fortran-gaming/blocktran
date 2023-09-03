@@ -13,7 +13,7 @@ Text/console falling-block tetromino game written in object-oriented Fortran 200
 * clean, object-oriented Fortran 2008 syntax
 * Curses (Ncurses, PDcurses) used for display, called directly from Fortran code.
 
-## Build and Play
+## Build
 
 BlockTran works on Mac, Linux, native Windows, Cygwin, Windows Subsystem for Linux.
 Requires a Fortran compiler and CMake.
@@ -33,6 +33,17 @@ fpm run
 
 The main executable file is build/blocktran.
 You can copy this file to your Desktop or wherever you like.
+
+### Linux
+
+X11 development libraries are required for building on Linux. Install X11 and Ncurses like:
+
+
+```sh
+dnf install libX11-devel libXt-devel libXaw-devel ncurses-devel
+```
+
+## Play
 
 ### difficulty level
 

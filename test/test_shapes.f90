@@ -4,7 +4,7 @@ use, intrinsic:: iso_fortran_env, only: stderr=>error_unit
 use shapes, only: piece
 use fields, only: field
 
-implicit none (type, external)
+implicit none
 
 type(field) :: F
 type(piece) :: S,line,tee,ell,jay,ess,zee,oh

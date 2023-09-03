@@ -1,7 +1,7 @@
 module rotflip
 !! provides rot90, flipud, fliplr for Fortran like Matlab and NumPy
 
-implicit none (type, external)
+implicit none
 
 contains
 

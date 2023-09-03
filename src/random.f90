@@ -1,6 +1,6 @@
 module random
 
-implicit none (type, external)
+implicit none
 
 interface std
 procedure std_int, std_real

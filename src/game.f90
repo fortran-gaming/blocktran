@@ -14,7 +14,7 @@ use fields, only: field
 use random, only: randint
 use keys, only: key_input
 
-implicit none (type, external)
+implicit none
 
 type(field) :: F(2)
 integer :: trate  !< elapsed time
@@ -22,6 +22,7 @@ integer :: players
 logical :: update = .false.
 logical :: debug = .false.
 real :: difffact
+logical :: show_title = .true.
 
 contains
 
@@ -40,7 +41,7 @@ integer :: i
 logical,parameter :: isAI(2) = [.false., .true.]
 logical(c_bool), parameter :: true = .true.
 
-!> get tick rae
+!> get tick rate
 call system_clock(count_rate=trate)
 
 !> initialize Curses
@@ -57,7 +58,7 @@ call timeout(0)
 ierr = keypad(stdscr, true)
 
 !--- show title screen
-call title()
+if(show_title) call title()
 
 !--- begin game
 
@@ -189,6 +190,8 @@ do i = 1,argc
     write(F(1)%udbg,*) '--------------------------------------------'
     write(F(1)%udbg,*) 'start: ', date,'T', time
     write(F(1)%udbg,*) 'Lines to clear                                 Counter'
+  case ('-no-title')
+    show_title = .false.
   end select
 enddo
 

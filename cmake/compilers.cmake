@@ -1,3 +1,5 @@
+include(CheckSourceCompiles)
+
 # check C and Fortran compiler ABI compatibility
 
 if(NOT abi_ok)
@@ -17,6 +19,14 @@ if(NOT abi_ok)
     )
   endif()
 endif()
+
+
+check_source_compiles(Fortran
+"program int
+intrinsic :: random_init
+end program"
+HAVE_RANDOM_INIT
+)
 
 # always do compiler options after all FindXXX and checks
 

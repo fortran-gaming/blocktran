@@ -5,7 +5,7 @@ use rotflip, only: rot90, fliplr, flipud
 use fields, only: field
 use random, only: randint
 
-implicit none (type, external)
+implicit none
 
 private
 

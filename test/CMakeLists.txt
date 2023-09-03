@@ -26,6 +26,7 @@ target_link_libraries(menu_test PRIVATE cinter menu shapes blocks random sleep)
 add_test(NAME title_screen COMMAND menu_test)
 
 # props
+set_property(TARGET curses_test menu_test testkeys PROPERTY LINKER_LANGUAGE Fortran)
 
 set_tests_properties(cursesLib title_screen PROPERTIES
 LABELS gui
@@ -33,7 +34,3 @@ DISABLED $<BOOL:${CI}>
 RESOURCE_LOCK display
 DEPENDS "shapes;motion;random"
 )
-
-get_property(test_names DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY TESTS)
-
-set_property(TEST ${test_names} PROPERTY TIMEOUT 15)

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14...3.25)
+cmake_minimum_required(VERSION 3.19...3.27)
 
 project(blocktran
 LANGUAGES C CXX Fortran
@@ -7,13 +7,19 @@ VERSION 1.7.0
 
 enable_testing()
 
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_Fortran_MODULE_DIRECTORY ${PROJECT_BINARY_DIR}/include)
+
 include(cmake/options.cmake)
 include(cmake/compilers.cmake)
 
 include(cmake/curses.cmake)
 
+message(STATUS "${PROJECT_NAME} install prefix: ${CMAKE_INSTALL_PREFIX}")
+
 add_executable(blocktran app/main.f90 src/game.f90)
 target_link_libraries(blocktran PRIVATE AI cinter menu shapes blocks keys errs sleep random)
+set_property(TARGET blocktran PROPERTY LINKER_LANGUAGE Fortran)
 
 add_subdirectory(src)
 

@@ -2,7 +2,7 @@ module sleep_std
 
 use, intrinsic :: iso_c_binding, only : C_INT
 
-implicit none (type, external)
+implicit none
 
 private
 public :: sleep_ms

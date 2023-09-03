@@ -6,7 +6,7 @@ use cinter, only : initscr,getch, cbreak, timeout, printw, refresh, noecho, flus
 use sleep_std, only : sleep_ms
 use errs, only : endwin
 
-implicit none (type, external)
+implicit none
 
 type(c_ptr) :: stdscr
 integer(c_int) :: ic, ierr

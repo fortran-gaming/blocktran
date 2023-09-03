@@ -1,7 +1,7 @@
 name: ci_cmake
 
 env:
-  HOMEBREW_NO_INSTALL_CLEANUP:
+  HOMEBREW_NO_INSTALL_CLEANUP: 1
   CTEST_NO_TESTS_ACTION: error
 
 on:
@@ -24,19 +24,18 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
 
+    env:
+      FC: gfortran-12
+
     steps:
 
     - name: Install packages Linux
       if: runner.os == 'Linux'
-      run: |
-        sudo apt update
-        sudo apt install --no-install-recommends libncurses-dev ninja-build
+      run: sudo apt install --no-install-recommends libncurses-dev ninja-build
 
     - name: Install packages MacOS
       if: runner.os == 'macOS'
-      run: |
-        brew install ncurses ninja
-        brew reinstall gcc
+      run: brew install ncurses ninja
 
     - uses: actions/checkout@v3
 

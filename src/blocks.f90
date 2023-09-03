@@ -4,7 +4,7 @@ use cinter, only: mvaddch, endwin
 use shapes, only: Piece
 use fields, only: field
 
-implicit none (type, external)
+implicit none
 private
 public :: game_over, draw_piece, freeze
 

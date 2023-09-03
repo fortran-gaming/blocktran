@@ -7,7 +7,7 @@ use blocks, only: game_over
 use shapes, only: piece
 use fields, only: field
 
-implicit none (type, external)
+implicit none
 
 contains
 

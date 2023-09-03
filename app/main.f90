@@ -16,7 +16,7 @@ program BlockTran
 
 use game, only : cmd_parse, main_game
 
-implicit none (type, external)
+implicit none
 
 integer :: W, H
 

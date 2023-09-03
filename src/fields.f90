@@ -2,7 +2,7 @@ module fields
 
 use, intrinsic:: iso_c_binding, only: c_int
 
-implicit none (type, external)
+implicit none
 private
 
 type, public :: Field
