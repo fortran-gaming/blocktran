@@ -16,7 +16,19 @@ include(cmake/compilers.cmake)
 
 include(cmake/curses.cmake)
 
-message(STATUS "${PROJECT_NAME} install prefix: ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "${PROJECT_NAME} CMake ${CMAKE_VERSION} install prefix: ${CMAKE_INSTALL_PREFIX}")
+
+if(CMAKE_GENERATOR MATCHES "Ninja")
+  if(WIN32)
+    set(_rec "MinGW Makefiles")
+  else()
+    set(_rec "Unix Makefiles")
+  endif()
+  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.27.0 AND CMAKE_VERSION VERSION_LESS 3.27.5)
+    message(WARNING "CMake ${CMAKE_VERSION} has a bug that prevents Ninja from working properly. Please use Makefile generator:
+    cmake -G \"${_rec}\"")
+  endif()
+endif()
 
 add_executable(blocktran app/main.f90 src/game.f90)
 target_link_libraries(blocktran PRIVATE AI cinter menu shapes blocks keys errs sleep random)
