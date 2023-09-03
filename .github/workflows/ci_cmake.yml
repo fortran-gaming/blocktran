@@ -20,27 +20,42 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
 
+    name: ${{ matrix.os }} Ncurses-${{ matrix.ncurses }}
+
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest]
+        ncurses: [true, false]
 
     env:
       FC: gfortran-12
 
     steps:
 
-    - name: Install packages Linux
-      if: runner.os == 'Linux'
-      run: sudo apt install --no-install-recommends libncurses-dev
+# Ncurses already installed on macOS and Linux runners
+    # - name: Install packages Linux
+    #   if: ${{ runner.os == 'Linux' &&  matrix.ncurses }}
+    #   run: sudo apt install --no-install-recommends libncurses-dev
 
-    - name: Install packages MacOS
-      if: runner.os == 'macOS'
-      run: brew install ncurses
+    - name: install X11 Linux
+      if: ${{ runner.os == 'Linux' && !matrix.ncurses }}
+      run: sudo apt install --no-install-recommends libxt-dev libxaw7-dev libx11-dev
+
+    # - name: Install packages MacOS
+    #   if: ${{ runner.os == 'macOS' &&  matrix.ncurses }}
+    #   run: brew install ncurses
+
+    - name: Install X11 macOS
+      if: ${{ runner.os == 'macOS' && !matrix.ncurses }}
+      run: brew install libxt libxaw libx11
 
     - uses: actions/checkout@v3
 
-    - run: cmake --workflow --preset default
+    - run: cmake -Bbuild -Dfind:BOOL=${{ matrix.ncurses }}
 
+    - run: cmake --build build --parallel
+
+    - run: ctest --preset default
 
   windows:
     runs-on: windows-latest

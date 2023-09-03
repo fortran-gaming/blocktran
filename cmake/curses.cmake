@@ -1,6 +1,10 @@
 include(ExternalProject)
+include(GNUInstallDirs)
 
-find_package(Curses)
+if(find)
+  find_package(Curses)
+endif()
+
 if(CURSES_FOUND)
   if(NOT EXISTS ${CURSES_INCLUDE_DIRS}/curses.h)
     find_path(curses_inc

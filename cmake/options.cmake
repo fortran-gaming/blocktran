@@ -1,6 +1,7 @@
 message(STATUS "${PROJECT_NAME} ${PROJECT_VERSION}  CMake ${CMAKE_VERSION}")
 
 option(${PROJECT_NAME}_BUILD_TESTING "enable testing" true)
+option(find "find Ncurses or if not, build PDcurses" true)
 
 set(CI $ENV{CI})
 
