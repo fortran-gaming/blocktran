@@ -9,6 +9,7 @@ enable_testing()
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_Fortran_MODULE_DIRECTORY ${PROJECT_BINARY_DIR}/include)
+include_directories(${CMAKE_Fortran_MODULE_DIRECTORY})
 
 include(cmake/options.cmake)
 include(cmake/compilers.cmake)

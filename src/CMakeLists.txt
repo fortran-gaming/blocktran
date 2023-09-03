@@ -17,15 +17,8 @@ target_link_libraries(errs PRIVATE cinter)
 add_library(menu OBJECT menu.f90)
 target_link_libraries(menu PRIVATE cinter shapes blocks sleep)
 
-
 add_library(blocks OBJECT blocks.f90)
 target_link_libraries(blocks PRIVATE cinter shapes)
 
 add_library(keys OBJECT keys.f90)
 target_link_libraries(keys PRIVATE AI cinter blocks)
-
-set(tgt AI shapes blocks cinter errs keys menu random sleep)
-
-foreach(t IN LISTS tgt)
-  target_include_directories(${t} PRIVATE ${PROJECT_BINARY_DIR}/include)
-endforeach()
