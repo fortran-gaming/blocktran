@@ -8,7 +8,9 @@ target_link_libraries(shapes PRIVATE random)
 
 add_library(sleep OBJECT sleep.cpp sleep.f90)
 
-add_library(cinter OBJECT cinter.f90 cinter.c)
+add_library(cinter OBJECT cinter.f90 cinter.c
+$<$<NOT:$<BOOL:${HAVE_Fortran_GETCH}>>:getch.c>
+)
 target_link_libraries(cinter PRIVATE CURSES::CURSES)
 
 add_library(errs OBJECT err.f90)
