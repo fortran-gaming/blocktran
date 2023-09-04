@@ -31,13 +31,13 @@ HAVE_RANDOM_INIT
 # always do compiler options after all FindXXX and checks
 
 if(CMAKE_Fortran_COMPILER_ID MATCHES "^Intel")
-  add_compile_options(
+  set(compile_opts
   "$<$<COMPILE_LANGUAGE:Fortran>:-traceback;-warn>"
   "$<$<AND:$<COMPILE_LANGUAGE:Fortran>,$<CONFIG:Debug>>:-fpe0;-debug;-check>"
   )
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
-  add_compile_options(-Wall -Wextra
-  $<$<VERSION_LESS:$<Fortran_COMPILER_VERSION>,12.0>:-Wno-maybe-uninitialized>
+  set(compile_opts -Wall -Wextra
+  "$<$<VERSION_LESS:$<Fortran_COMPILER_VERSION>,12.0>:-Wno-maybe-uninitialized>"
   "$<$<AND:$<COMPILE_LANGUAGE:Fortran>,$<CONFIG:Release>>:-fno-backtrace>"
   "$<$<COMPILE_LANGUAGE:Fortran>:-Werror=array-bounds;-Wconversion;-fimplicit-none>"
   "$<$<AND:$<COMPILE_LANGUAGE:Fortran>,$<CONFIG:Debug>>:-fexceptions;-ffpe-trap=invalid,zero,overflow;-fcheck=all>"

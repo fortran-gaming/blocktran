@@ -32,6 +32,7 @@ endif()
 
 add_executable(blocktran app/main.f90 src/game.f90)
 target_link_libraries(blocktran PRIVATE AI cinter menu shapes blocks keys errs sleep random)
+target_compile_options(blocktran PRIVATE ${compile_opts})
 set_property(TARGET blocktran PROPERTY LINKER_LANGUAGE Fortran)
 
 add_subdirectory(src)

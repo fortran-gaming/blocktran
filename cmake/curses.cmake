@@ -32,8 +32,6 @@ else()
   FetchContent_MakeAvailable(CURSES)
 endif()
 
-# Despite FetchContent, check_symbol_exists() won't work because the library isn't built at configure time.
-
 # always true
 # check_include_file("${curses_SOURCE_DIR}/curses.h" HAVE_CURSES_H)
 # always true

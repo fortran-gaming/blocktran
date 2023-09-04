@@ -1,3 +1,5 @@
+add_compile_options("${compile_opts}")
+
 add_library(AI OBJECT ai.f90)
 target_link_libraries(AI PRIVATE shapes)
 

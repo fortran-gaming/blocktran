@@ -1,3 +1,5 @@
+add_compile_options("${compile_opts}")
+
 add_executable(blockrand randtest.f90)
 target_link_libraries(blockrand PRIVATE shapes random)
 add_test(NAME random COMMAND blockrand)
