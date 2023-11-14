@@ -69,4 +69,7 @@ if (i==0) then
   print *,'std, mean /dev/urandom',std(g), mean(g)
 endif
 
+! valgrind cleanup
+deallocate(b, e, f, g)
+
 end program

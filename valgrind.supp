@@ -1,0 +1,6 @@
+{
+   ignore_curses
+   Memcheck:Leak
+   ...
+   obj:*/libncurses*
+}
