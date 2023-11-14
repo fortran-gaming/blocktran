@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19...3.27)
+cmake_minimum_required(VERSION 3.19...3.28)
 
 project(blocktran
 LANGUAGES C CXX Fortran
@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_Fortran_MODULE_DIRECTORY ${PROJECT_BINARY_DIR}/include)
 include_directories(${CMAKE_Fortran_MODULE_DIRECTORY})
 
-include(cmake/options.cmake)
+include(options.cmake)
 include(cmake/compilers.cmake)
 
 include(cmake/curses.cmake)
@@ -24,7 +24,7 @@ if(CMAKE_GENERATOR MATCHES "Ninja")
   else()
     set(_rec "Unix Makefiles")
   endif()
-  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.27.0 AND CMAKE_VERSION VERSION_LESS 3.27.5)
+  if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.27.0 AND CMAKE_VERSION VERSION_LESS 3.27.8)
     message(WARNING "CMake ${CMAKE_VERSION} has a bug that prevents Ninja from working properly. Please use Makefile generator:
     cmake -G \"${_rec}\"")
   endif()
