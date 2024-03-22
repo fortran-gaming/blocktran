@@ -3,6 +3,8 @@ name: ci_cmake
 env:
   HOMEBREW_NO_INSTALL_CLEANUP: 1
   CTEST_NO_TESTS_ACTION: error
+  CMAKE_BUILD_PARALLEL_LEVEL: 4
+  CTEST_PARALLEL_LEVEL: 0
 
 on:
   push:
@@ -28,7 +30,7 @@ jobs:
         ncurses: [true, false]
 
     env:
-      FC: gfortran-12
+      FC: gfortran-13
 
     steps:
 
@@ -53,7 +55,7 @@ jobs:
 
     - run: cmake -Bbuild -Dfind:BOOL=${{ matrix.ncurses }}
 
-    - run: cmake --build build --parallel
+    - run: cmake --build --preset default
 
     - run: ctest --preset default
 
