@@ -1,8 +1,7 @@
-option(${PROJECT_NAME}_BUILD_TESTING "enable testing" true)
+option(${PROJECT_NAME}_BUILD_TESTING "enable testing" ${PROJECT_IS_TOP_LEVEL})
+
 option(find "find Ncurses or if not, build PDcurses" true)
 
-set(CI $ENV{CI})
+option(CMAKE_TLS_VERIFY "enable TLS verification" true)
 
-if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-  set(CMAKE_INSTALL_PREFIX ${PROJECT_BINARY_DIR} CACHE PATH "default install path" FORCE)
-endif()
+set(CI $ENV{CI})

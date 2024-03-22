@@ -23,10 +23,8 @@ else()
 
   FetchContent_Declare(CURSES
   GIT_REPOSITORY https://github.com/scivision/PDCurses.git
-  GIT_TAG e5ff212e40ee5276a0910dccb27ffd6c51b08000
+  GIT_TAG 743ba4cf0f14c3f416934b11e3c22702068d260b
   GIT_SHALLOW true
-  INACTIVITY_TIMEOUT 60
-  TLS_VERIFY true
   )
 
   FetchContent_MakeAvailable(CURSES)
