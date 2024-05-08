@@ -35,6 +35,10 @@ if(CMAKE_Fortran_COMPILER_ID MATCHES "^Intel")
   "$<$<COMPILE_LANGUAGE:Fortran>:-traceback;-warn>"
   "$<$<AND:$<COMPILE_LANGUAGE:Fortran>,$<CONFIG:Debug>>:-fpe0;-debug;-check>"
   )
+  if(NOT WIN32)
+    list(APPEND compile_opts "$<$<COMPILE_LANGUAGE:Fortran>:-fpscomp;logicals>")
+  endif()
+
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
   set(compile_opts -Wall -Wextra
   "$<$<VERSION_LESS:$<Fortran_COMPILER_VERSION>,12.0>:-Wno-maybe-uninitialized>"
@@ -42,4 +46,6 @@ elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
   "$<$<COMPILE_LANGUAGE:Fortran>:-Werror=array-bounds;-Wconversion;-fimplicit-none>"
   "$<$<AND:$<COMPILE_LANGUAGE:Fortran>,$<CONFIG:Debug>>:-fexceptions;-ffpe-trap=invalid,zero,overflow;-fcheck=all>"
   )
+elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "NVHPC")
+  set(compile_opts "$<$<COMPILE_LANGUAGE:Fortran>:-Munixlogical>")
 endif()

@@ -1,2 +1,2 @@
-extern int addone(int);
-extern int addtwo(int);
+int addone(int);
+int addtwo(int);

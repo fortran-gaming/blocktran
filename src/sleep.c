@@ -1,22 +1,23 @@
 #include <stdio.h>
 
-extern void c_sleep(int*);
-
 #ifdef _MSC_VER
-
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
+#else
+#include <stdlib.h>
+#include <time.h>
+#include <errno.h>
+#endif
 
+void c_sleep(int*);
+
+
+#ifdef _MSC_VER
 // https://docs.microsoft.com/en-us/windows/win32/api/synchapi/nf-synchapi-sleep
 void c_sleep(int* milliseconds){
   Sleep(*milliseconds);
 }
-
 #else
-
-#include <stdlib.h>
-#include <time.h>
-#include <errno.h>
 // https://linux.die.net/man/3/usleep
 void c_sleep(int* milliseconds)
 {
@@ -55,5 +56,4 @@ void c_sleep(int* milliseconds)
     }
   }
 }
-
 #endif

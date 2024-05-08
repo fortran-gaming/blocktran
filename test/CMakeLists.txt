@@ -32,7 +32,7 @@ set_property(TARGET curses_test menu_test testkeys PROPERTY LINKER_LANGUAGE Fort
 
 set_tests_properties(cursesLib title_screen PROPERTIES
 LABELS gui
-DISABLED $<BOOL:${CI}>
+DISABLED $<BOOL:$ENV{CI}>
 RESOURCE_LOCK display
 DEPENDS "shapes;motion;random"
 )
