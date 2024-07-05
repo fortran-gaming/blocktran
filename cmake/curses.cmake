@@ -30,6 +30,9 @@ else()
   FetchContent_MakeAvailable(CURSES)
 endif()
 
+
+function(check_getch)
+
 # always true
 # check_include_file("${curses_SOURCE_DIR}/curses.h" HAVE_CURSES_H)
 # always true
@@ -39,6 +42,9 @@ endif()
 # Rather than hard-code this fact, test dynamically (maybe PDCurses will implement this differently in the future).
 set(CMAKE_REQUIRED_LIBRARIES ${CURSES_LIBRARIES})
 set(CMAKE_REQUIRED_INCLUDES ${CURSES_INCLUDE_DIRS})
+
+set(CMAKE_TRY_COMPILE_TARGET_TYPE "EXECUTABLE")
+
 check_source_compiles(Fortran
 "program test
 use, intrinsic :: iso_c_binding, only : C_INT
@@ -58,3 +64,7 @@ end program
 "
 HAVE_Fortran_GETCH
 )
+
+endfunction(check_getch)
+
+check_getch()

@@ -1,12 +1,15 @@
 include(CheckSourceCompiles)
 
+function(check_abi)
+
+if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.25)
 # check C and Fortran compiler ABI compatibility
 
 if(NOT abi_ok)
   message(CHECK_START "checking that C, C++, and Fortran compilers can link")
   try_compile(abi_ok
-  ${CMAKE_CURRENT_BINARY_DIR}/abi_check ${CMAKE_CURRENT_LIST_DIR}/abi_check
-  abi_check
+    PROJECT abi_check
+    SOURCE_DIR ${CMAKE_CURRENT_LIST_DIR}/abi_check
   )
   if(abi_ok)
     message(CHECK_PASS "OK")
@@ -20,13 +23,20 @@ if(NOT abi_ok)
   endif()
 endif()
 
+endif()
+
+set(CMAKE_TRY_COMPILE_TARGET_TYPE "EXECUTABLE")
 
 check_source_compiles(Fortran
-"program int
+"program test
 intrinsic :: random_init
 end program"
 HAVE_RANDOM_INIT
 )
+
+endfunction(check_abi)
+
+check_abi()
 
 # always do compiler options after all FindXXX and checks
 
