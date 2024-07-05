@@ -29,9 +29,6 @@ jobs:
         os: [ubuntu-latest, macos-latest]
         ncurses: [true, false]
 
-    env:
-      FC: gfortran-13
-
     steps:
 
 # Ncurses already installed on macOS and Linux runners
@@ -50,6 +47,10 @@ jobs:
     - name: Install X11 macOS
       if: ${{ runner.os == 'macOS' && !matrix.ncurses }}
       run: brew install libxt libxaw libx11
+
+    - name: macOS FC
+      if: ${{ runner.os == 'macOS' }}
+      run: echo "FC=gfortran-13" >> $GITHUB_ENV
 
     - uses: actions/checkout@v4
 
