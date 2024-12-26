@@ -17,10 +17,17 @@ Text/console falling-block tetromino game written in object-oriented Fortran 200
 
 BlockTran works on Mac, Linux, native Windows, Cygwin, Windows Subsystem for Linux.
 Requires a Fortran compiler and CMake.
-Known to work with GCC Gfortran and Intel oneAPI (Classic or LLVM).
+Works at least with Gfortran, Flang, Intel oneAPI, NVHPC, ....
 
 ```sh
 cmake -B build
+cmake --build build
+```
+
+If trouble building with MinGW / MSYS2 on Windows with Ncurses, try auto-building PDCurses:
+
+```sh
+cmake -Bbuild -Dfind=no --fresh
 cmake --build build
 ```
 
