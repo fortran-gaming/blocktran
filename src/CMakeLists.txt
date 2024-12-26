@@ -12,7 +12,7 @@ add_library(sleep OBJECT sleep.cpp sleep.f90)
 target_compile_features(sleep PRIVATE cxx_std_11)
 target_include_directories(sleep PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_library(cinter OBJECT cinter.f90 cinter.c
+add_library(cinter OBJECT cinter.f90
 $<$<NOT:$<BOOL:${HAVE_Fortran_GETCH}>>:getch.c>
 )
 target_link_libraries(cinter PRIVATE CURSES::CURSES)

@@ -33,3 +33,5 @@ endif()
 install(TARGETS blocktran EXPORT ${PROJECT_NAME}-targets)
 
 include(cmake/install.cmake)
+
+file(GENERATE OUTPUT .gitignore CONTENT "*")

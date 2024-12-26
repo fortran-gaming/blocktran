@@ -10,8 +10,6 @@ integer(c_int), parameter :: FAIL = -1
 
 interface
 
-!--- function that use cinter.c
-
 ! http://www.urbanjost.altervista.org/LIBRARY/libscreen/ncurses/pdsrc/ncurses_from_Fortran.html
 function f_initscr() result (initscr__OUT) bind(C, name='initscr')
 import
