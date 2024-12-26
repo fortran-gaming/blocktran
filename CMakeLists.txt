@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.19...3.28)
+cmake_minimum_required(VERSION 3.19...3.32)
 
 project(blocktran
 LANGUAGES C CXX Fortran
@@ -26,7 +26,7 @@ set_property(TARGET blocktran PROPERTY LINKER_LANGUAGE Fortran)
 
 add_subdirectory(src)
 
-if(${PROJECT_NAME}_BUILD_TESTING)
+if(blocktran_BUILD_TESTING)
   add_subdirectory(test)
 endif()
 

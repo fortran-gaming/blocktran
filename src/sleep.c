@@ -9,7 +9,7 @@
 #include <errno.h>
 #endif
 
-void c_sleep(int*);
+#include "csleep.h"
 
 
 #ifdef _MSC_VER

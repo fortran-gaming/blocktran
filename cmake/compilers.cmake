@@ -44,11 +44,8 @@ if(CMAKE_Fortran_COMPILER_ID MATCHES "^Intel")
   set(compile_opts
   "$<$<COMPILE_LANGUAGE:Fortran>:-traceback;-warn>"
   "$<$<AND:$<COMPILE_LANGUAGE:Fortran>,$<CONFIG:Debug>>:-fpe0;-debug;-check>"
+  "$<$<COMPILE_LANGUAGE:Fortran>:-fpscomp;logicals>"
   )
-  if(NOT WIN32)
-    list(APPEND compile_opts "$<$<COMPILE_LANGUAGE:Fortran>:-fpscomp;logicals>")
-  endif()
-
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
   set(compile_opts -Wall -Wextra
   "$<$<VERSION_LESS:$<Fortran_COMPILER_VERSION>,12.0>:-Wno-maybe-uninitialized>"
