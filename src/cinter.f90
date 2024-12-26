@@ -18,11 +18,15 @@ import
 type(c_ptr):: initscr__OUT         ! WINDOW *initscr
 end function
 
-subroutine getmaxyx(win,y,x) bind(C, name='macro_getmaxyx')
+integer(C_INT) function getmaxx(win) bind(C)
 import
 type (c_ptr), value :: win
-integer(c_int) :: y,x
-end subroutine
+end
+
+integer(C_INT) function getmaxy(win) bind(C)
+import
+type (c_ptr), value :: win
+end
 
 !--- functions that interface directly with Curses
 
@@ -113,11 +117,15 @@ contains
 function initscr() result (stdscr__OUT) ! call initscr() but set global variables too
 ! http://www.urbanjost.altervista.org/LIBRARY/libscreen/ncurses/pdsrc/ncurses_from_Fortran.html
 type(C_PTR)           :: stdscr__OUT
+
 stdscr = f_initscr()
 !stdscr=returnstd()
 !curscr=returncur()
 stdscr__OUT=stdscr
-call getmaxyx(stdscr, LINES, COLS)
+
+COLS = getmaxx(stdscr)
+LINES = getmaxy(stdscr)
+
 if(LINES < 0) error stop 'Curses: could not get LINES'
 if(COLS < 0) error stop 'Curses: could not get COLS'
 end function
