@@ -15,7 +15,7 @@ target_include_directories(sleep PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 add_library(cinter OBJECT cinter.f90
 $<$<NOT:$<BOOL:${HAVE_Fortran_GETCH}>>:getch.c>
 )
-target_link_libraries(cinter PRIVATE CURSES::CURSES)
+target_link_libraries(cinter PRIVATE Curses::Curses)
 
 add_library(errs OBJECT err.f90)
 target_link_libraries(errs PRIVATE cinter)
