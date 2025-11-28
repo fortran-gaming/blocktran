@@ -1,9 +1,9 @@
 # BlockTran
 
 [![DOI](https://zenodo.org/badge/122394926.svg)](https://zenodo.org/badge/latestdoi/122394926)
-![Actions Status](https://github.com/fortran-gaming/blocktran/workflows/ci_cmake/badge.svg)
+[![ci_cmake](https://github.com/fortran-gaming/blocktran/actions/workflows/ci_cmake.yml/badge.svg)](https://github.com/fortran-gaming/blocktran/actions/workflows/ci_cmake.yml)
 
-Text/console falling-block tetromino game written in object-oriented Fortran 2008.
+Text/console Tetris-inspired falling-block tetromino game written in object-oriented Fortran 2008.
 
 ![BlockTran gameplay demo](doc/blocktran.gif)
 

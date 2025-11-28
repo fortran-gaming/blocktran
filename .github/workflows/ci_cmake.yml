@@ -3,7 +3,6 @@ name: ci_cmake
 env:
   HOMEBREW_NO_INSTALL_CLEANUP: 1
   CTEST_NO_TESTS_ACTION: error
-  CMAKE_BUILD_PARALLEL_LEVEL: 4
   CTEST_PARALLEL_LEVEL: 0
 
 on:
@@ -51,9 +50,10 @@ jobs:
 
     - name: macOS FC
       if: ${{ runner.os == 'macOS' }}
-      run: echo "FC=gfortran-14" >> $GITHUB_ENV
+      run: echo "FC=gfortran-15" >> $GITHUB_ENV
 
-    - uses: actions/checkout@v4
+    - &checkout
+      uses: actions/checkout@v5
 
     - run: cmake -Bbuild -Dfind:BOOL=${{ matrix.ncurses }}
 
@@ -67,16 +67,17 @@ jobs:
 
     steps:
     - uses: msys2/setup-msys2@v2
+      id: msys2
       with:
         update: true
         install: >-
-          mingw-w64-x86_64-gcc-fortran
+          mingw-w64-ucrt-x86_64-gcc-fortran
 
     - name: Put MSYS2_MinGW64 on PATH
-      run: echo "${{ runner.temp }}/msys64/mingw64/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      run: echo "${{ steps.msys2.outputs.msys2-location }}/ucrt64/bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
-    - uses: actions/checkout@v4
+    - *checkout
 
-    - run: cmake --workflow --preset default
+    - run: cmake --workflow default
       env:
         CMAKE_GENERATOR: MinGW Makefiles
