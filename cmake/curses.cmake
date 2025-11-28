@@ -37,7 +37,7 @@ else()
 
   FetchContent_Declare(CURSES
   GIT_REPOSITORY https://github.com/scivision/PDCurses.git
-  GIT_TAG 743ba4cf0f14c3f416934b11e3c22702068d260b
+  GIT_TAG 757699e5c1f3229bea0388c875b27d067837bad3
   GIT_SHALLOW true
   )
 
