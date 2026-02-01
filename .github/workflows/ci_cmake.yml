@@ -53,7 +53,7 @@ jobs:
       run: echo "FC=gfortran-15" >> $GITHUB_ENV
 
     - &checkout
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
 
     - run: cmake -Bbuild -Dfind:BOOL=${{ matrix.ncurses }}
 
@@ -80,4 +80,4 @@ jobs:
 
     - run: cmake --workflow default
       env:
-        CMAKE_GENERATOR: MinGW Makefiles
+        CMAKE_GENERATOR: Ninja
