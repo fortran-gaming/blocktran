@@ -2,8 +2,6 @@ name: ci_cmake
 
 env:
   HOMEBREW_NO_INSTALL_CLEANUP: 1
-  CTEST_NO_TESTS_ACTION: error
-  CTEST_PARALLEL_LEVEL: 0
 
 on:
   push:
@@ -33,33 +31,32 @@ jobs:
 
 # Ncurses already installed on macOS and Linux runners
     # - name: Install packages Linux
-    #   if: ${{ runner.os == 'Linux' &&  matrix.ncurses }}
+    #   if: runner.os == 'Linux'
     #   run: sudo apt install --no-install-recommends libncurses-dev
 
     - name: install X11 Linux
-      if: ${{ runner.os == 'Linux' && !matrix.ncurses }}
+      if: runner.os == 'Linux'
       run: sudo apt install --no-install-recommends libxmu-dev libxpm-dev libxt-dev libxaw7-dev libx11-dev
 
     # - name: Install packages MacOS
-    #   if: ${{ runner.os == 'macOS' &&  matrix.ncurses }}
+    #   if: runner.os == 'macOS'
     #   run: brew install ncurses
 
     - name: Install X11 macOS
-      if: ${{ runner.os == 'macOS' && !matrix.ncurses }}
+      if: runner.os == 'macOS'
       run: brew install libxt libxaw libx11
 
     - name: macOS FC
-      if: ${{ runner.os == 'macOS' }}
+      if: runner.os == 'macOS'
       run: echo "FC=gfortran-15" >> $GITHUB_ENV
 
     - &checkout
       uses: actions/checkout@v6
 
-    - run: cmake -Bbuild -Dfind:BOOL=${{ matrix.ncurses }}
+    - run: cmake -Bbuild -Dfind:BOOL=${{ matrix.ncurses }} --preset default
 
-    - run: cmake --build --preset default
+    - run: cmake --workflow default
 
-    - run: ctest --preset default
 
   windows:
     runs-on: windows-latest
@@ -79,5 +76,3 @@ jobs:
     - *checkout
 
     - run: cmake --workflow default
-      env:
-        CMAKE_GENERATOR: Ninja

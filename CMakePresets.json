@@ -4,15 +4,24 @@
 "configurePresets": [
 {
   "name": "default",
-  "binaryDir": "${sourceDir}/build",
+  "generator": "Ninja",
+  "binaryDir": "build",
   "cacheVariables": {
-    "CMAKE_COMPILE_WARNING_AS_ERROR": true
+    "CMAKE_COMPILE_WARNING_AS_ERROR": true,
+    "CMAKE_LINK_WARNING_AS_ERROR": true
   }
 },
 {
-  "name": "multi", "inherits": "default",
-  "displayName": "Ninja Multi-Config",
-  "generator": "Ninja Multi-Config"
+  "name": "debug", "inherits": "default",
+  "cacheVariables": {
+    "CMAKE_BUILD_TYPE": "Debug"
+  }
+},
+{
+  "name": "release", "inherits": "default",
+  "cacheVariables": {
+    "CMAKE_BUILD_TYPE": "Release"
+  }
 }
 ],
 "buildPresets": [
@@ -22,12 +31,12 @@
   },
   {
     "name": "release",
-    "configurePreset": "multi",
+    "configurePreset": "release",
     "configuration": "Release"
   },
   {
     "name": "debug",
-    "configurePreset": "multi",
+    "configurePreset": "debug",
     "configuration": "Debug"
   }
 ],
@@ -48,12 +57,12 @@
 },
 {
   "name": "release", "inherits": "default",
-  "configurePreset": "multi",
+  "configurePreset": "release",
   "configuration": "Release"
 },
 {
   "name": "debug", "inherits": "default",
-  "configurePreset": "multi",
+  "configurePreset": "debug",
   "configuration": "Debug"
 }
 ],
@@ -80,7 +89,7 @@
     "steps": [
       {
         "type": "configure",
-        "name": "multi"
+        "name": "debug"
       },
       {
         "type": "build",
@@ -97,7 +106,7 @@
     "steps": [
       {
         "type": "configure",
-        "name": "multi"
+        "name": "release"
       },
       {
         "type": "build",
