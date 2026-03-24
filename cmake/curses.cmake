@@ -1,12 +1,11 @@
 include(FetchContent)
 
-if(find)
-  find_package(Curses)
-endif()
+FetchContent_Declare(Curses URL ${curses_url} FIND_PACKAGE_ARGS)
+
+FetchContent_MakeAvailable(Curses)
 
 if(CURSES_FOUND)
 # CMake FindCurses may not find all needed include directories and may need definitions
-find_package(Curses REQUIRED)
 
 if(NOT CURSES_HAVE_CURSES_H)
   foreach(d IN LISTS CURSES_INCLUDE_DIRS)
@@ -33,15 +32,6 @@ if(NOT TARGET Curses::Curses)
   endif()
 endif()
 
-else()
-
-  FetchContent_Declare(CURSES
-  GIT_REPOSITORY https://github.com/scivision/PDCurses.git
-  GIT_TAG 757699e5c1f3229bea0388c875b27d067837bad3
-  GIT_SHALLOW true
-  )
-
-  FetchContent_MakeAvailable(CURSES)
 endif()
 
 

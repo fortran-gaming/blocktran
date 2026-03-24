@@ -2,7 +2,6 @@ include(CheckSourceCompiles)
 
 function(check_abi)
 
-if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.25)
 # check C and Fortran compiler ABI compatibility
 
 if(NOT abi_ok)
@@ -21,8 +20,6 @@ if(NOT abi_ok)
     "
     )
   endif()
-endif()
-
 endif()
 
 set(CMAKE_TRY_COMPILE_TARGET_TYPE "STATIC_LIBRARY")
