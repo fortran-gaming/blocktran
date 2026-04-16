@@ -39,12 +39,13 @@ check_abi()
 
 if(CMAKE_Fortran_COMPILER_ID MATCHES "^Intel")
   set(compile_opts
-  "$<$<COMPILE_LANGUAGE:Fortran>:-traceback;-warn>"
+  "$<$<AND:$<COMPILE_LANGUAGE:Fortran>,$<CONFIG:Debug,RelWithDebInfo>>:-warn>"
+  "$<$<COMPILE_LANGUAGE:Fortran>:-traceback>"
   "$<$<AND:$<COMPILE_LANGUAGE:Fortran>,$<CONFIG:Debug>>:-fpe0;-debug;-check>"
   "$<$<COMPILE_LANGUAGE:Fortran>:-fpscomp;logicals>"
   )
 elseif(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
-  set(compile_opts -Wall -Wextra
+  set(compile_opts "$<$<AND:$<COMPILE_LANGUAGE:Fortran>,$<CONFIG:Debug,RelWithDebInfo>>:-Wall;-Wextra>"
   "$<$<VERSION_LESS:$<Fortran_COMPILER_VERSION>,12.0>:-Wno-maybe-uninitialized>"
   "$<$<AND:$<COMPILE_LANGUAGE:Fortran>,$<CONFIG:Release>>:-fno-backtrace>"
   "$<$<COMPILE_LANGUAGE:Fortran>:-Werror=array-bounds;-Wconversion;-fimplicit-none>"
