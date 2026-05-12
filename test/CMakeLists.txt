@@ -22,10 +22,12 @@ target_link_libraries(testkeys PRIVATE errs cinter keys shapes blocks AI sleep r
 add_executable(curses_test test_curses.f90)
 target_link_libraries(curses_test PRIVATE cinter sleep)
 add_test(NAME cursesLib COMMAND curses_test)
+set_tests_properties(cursesLib PROPERTIES FIXTURES_SETUP gui)
 
 add_executable(menu_test test_menu.f90)
 target_link_libraries(menu_test PRIVATE cinter menu shapes blocks random sleep)
 add_test(NAME title_screen COMMAND menu_test)
+set_tests_properties(title_screen PROPERTIES FIXTURES_REQUIRED gui)
 
 # props
 set_property(TARGET curses_test menu_test testkeys PROPERTY LINKER_LANGUAGE Fortran)
@@ -35,4 +37,5 @@ LABELS gui
 DISABLED $<BOOL:$ENV{CI}>
 RESOURCE_LOCK display
 DEPENDS "shapes;motion;random"
+SKIP_REGULAR_EXPRESSION "Error: Can't open display"
 )

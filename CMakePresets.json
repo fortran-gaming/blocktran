@@ -17,19 +17,19 @@
   "cacheVariables": {
     "CMAKE_BUILD_TYPE": "Debug"
   }
+},
+{
+  "name": "nofind", "inherits": "default",
+  "binaryDir": "build-${presetName}",
+  "cacheVariables": {
+    "FETCHCONTENT_TRY_FIND_PACKAGE_MODE": "NEVER"
+  }
 }
 ],
 "buildPresets": [
-  {
-    "name": "default",
-    "configurePreset": "default",
-    "configuration": "Release"
-  },
-  {
-    "name": "debug",
-    "configurePreset": "debug",
-    "configuration": "Debug"
-  }
+  { "name": "default", "configurePreset": "default", "configuration": "Release" },
+  { "name": "debug", "configurePreset": "debug", "configuration": "Debug" },
+  { "name": "nofind", "configurePreset": "nofind", "inherits": "default" }
 ],
 "testPresets": [
 {
@@ -47,6 +47,7 @@
     "timeout": 60
   }
 },
+{ "name": "nofind", "configurePreset": "nofind", "inherits": "default" },
 {
   "name": "debug", "inherits": "default",
   "configurePreset": "debug",
@@ -69,6 +70,11 @@
       { "type": "build", "name": "debug" },
       { "type": "test", "name": "debug" }
     ]
-  }
+  },
+  { "name": "nofind", "steps": [
+    { "type": "configure", "name": "nofind" },
+    { "type": "build", "name": "nofind" },
+    { "type": "test", "name": "nofind" }
+  ] }
 ]
 }

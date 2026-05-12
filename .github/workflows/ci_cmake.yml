@@ -19,13 +19,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
 
-    name: ${{ matrix.os }} Ncurses-${{ matrix.ncurses }}
-
     strategy:
-      fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest]
-        ncurses: [true, false]
 
     steps:
 
@@ -53,10 +49,9 @@ jobs:
     - &checkout
       uses: actions/checkout@v6
 
-    - run: cmake -Bbuild -Dfind:BOOL=${{ matrix.ncurses }} --preset default
-
     - run: cmake --workflow default
 
+    - run: cmake --workflow nofind
 
   windows:
     runs-on: windows-latest

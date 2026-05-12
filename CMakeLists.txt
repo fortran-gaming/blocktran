@@ -12,12 +12,6 @@ include_directories(${CMAKE_Fortran_MODULE_DIRECTORY})
 
 option(blocktran_BUILD_TESTING "enable testing" ${blocktran_IS_TOP_LEVEL})
 
-option(find "find Ncurses or if not, build PDcurses" true)
-if(find)
-  set(FETCHCONTENT_TRY_FIND_PACKAGE_MODES OPT_IN)
-else()
-  set(FETCHCONTENT_TRY_FIND_PACKAGE_MODES NEVER)
-endif()
 set(curses_url https://github.com/scivision/PDCurses/archive/757699e5c1f3229bea0388c875b27d067837bad3.tar.gz)
 
 include(cmake/compilers.cmake)
